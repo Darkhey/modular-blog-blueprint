@@ -9,6 +9,8 @@ import { siteConfig } from '@/config/site.config';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import CategoryBenefits from '@/components/category/CategoryBenefits';
 import QuickStats from '@/components/shared/QuickStats';
+import CategoryArticleSearch from "@/components/category/CategoryArticleSearch";
+import React, { useState, useMemo } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -23,8 +25,42 @@ const CategoryPage = ({ category }: { category?: string }) => {
   const categoryId = category || topic;
   
   const currentTopic = siteConfig.contentTopics.find(t => t.id === categoryId);
-  const { data: relatedPosts, isLoading: postsLoading } = useBlogPosts(currentTopic?.name);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState("date_desc");
   
+  const { data: relatedPosts, isLoading: postsLoading } = useBlogPosts(currentTopic?.name);
+
+  // Search & sort logic
+  const filteredAndSortedPosts = useMemo(() => {
+    if (!relatedPosts) return [];
+    let filtered = relatedPosts;
+    if (search) {
+      const term = search.toLowerCase();
+      filtered = filtered.filter(
+        (post) =>
+          post.title.toLowerCase().includes(term) ||
+          post.excerpt?.toLowerCase().includes(term)
+      );
+    }
+
+    let sorted = [...filtered];
+    switch (sortBy) {
+      case "date_asc":
+        sorted.sort((a, b) => new Date(a.published_at).getTime() - new Date(b.published_at).getTime());
+        break;
+      case "read_time_asc":
+        sorted.sort((a, b) => (a.read_time || 0) - (b.read_time || 0));
+        break;
+      case "read_time_desc":
+        sorted.sort((a, b) => (b.read_time || 0) - (a.read_time || 0));
+        break;
+      case "date_desc":
+      default:
+        sorted.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+    }
+    return sorted;
+  }, [relatedPosts, search, sortBy]);
+
   if (!currentTopic) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -83,6 +119,14 @@ const CategoryPage = ({ category }: { category?: string }) => {
             {/* Benefits Cards */}
             <CategoryBenefits categoryId={categoryId!} color={currentTopic.color} />
 
+            {/* Suche & Sortierung */}
+            <CategoryArticleSearch
+              search={search}
+              onSearch={setSearch}
+              sortBy={sortBy}
+              onSort={setSortBy}
+            />
+
             {/* CTA Section */}
             <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border mb-8">
               <div className="flex items-center justify-between">
@@ -103,16 +147,15 @@ const CategoryPage = ({ category }: { category?: string }) => {
 
             {/* Related Articles */}
             {postsLoading && <div>Lade Artikel...</div>}
-            {!postsLoading && relatedPosts && relatedPosts.length > 0 && (
+            {!postsLoading && filteredAndSortedPosts && filteredAndSortedPosts.length > 0 && (
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   Aktuelle Artikel zu {currentTopic.name}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {relatedPosts.map((post, index) => (
+                  {filteredAndSortedPosts.map((post, index) => (
                     <div key={post.id}>
                       <BlogCard post={post} />
-                      {/* Ad after every 4th post */}
                       {(index + 1) % 4 === 0 && siteConfig.adsEnabled && (
                         <div className="mt-6 mb-6">
                           <AdSlot position="banner" />
@@ -121,7 +164,13 @@ const CategoryPage = ({ category }: { category?: string }) => {
                     </div>
                   ))}
                 </div>
+                {filteredAndSortedPosts.length === 0 && (
+                  <div className="text-gray-600 text-center mt-6">Kein Artikel gefunden.</div>
+                )}
               </div>
+            )}
+            {!postsLoading && filteredAndSortedPosts.length === 0 && (
+              <div className="text-gray-600 text-center mt-6">Kein Artikel gefunden.</div>
             )}
           </div>
 
