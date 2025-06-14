@@ -21,16 +21,22 @@ const Impressum = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">Angaben gemäß § 5 TMG</h2>
                   <p>
                     Sanieren & Sparen GmbH<br />
-                    Musterstraße 123<br />
-                    12345 Musterstadt<br />
+                    Glogauer Str. 2<br />
+                    10999 Berlin<br />
                     Deutschland
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">Vertreten durch</h2>
+                  <p>
+                    Michael Benz
                   </p>
                 </div>
 
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">Kontakt</h2>
                   <p>
-                    Telefon: +49 (0) 123 456 789<br />
                     E-Mail: kontakt@sanieren-sparen.de
                   </p>
                 </div>
@@ -41,8 +47,8 @@ const Impressum = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">Registereintrag</h2>
                   <p>
                     Eintragung im Handelsregister<br />
-                    Registergericht: Amtsgericht Musterstadt<br />
-                    Registernummer: HRB 12345
+                    Registergericht: Amtsgericht Charlottenburg<br />
+                    Registernummer: HRB 254238 B
                   </p>
                 </div>
 
@@ -50,16 +56,24 @@ const Impressum = () => {
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">Umsatzsteuer-ID</h2>
                   <p>
                     Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
-                    DE123456789
+                    DE364339182
                   </p>
                 </div>
 
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3">Verantwortlich für den Inhalt</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">Redaktionell verantwortlich</h2>
                   <p>
-                    Max Mustermann<br />
-                    Musterstraße 123<br />
-                    12345 Musterstadt
+                    Michael Benz<br />
+                    Glogauer Str. 2<br />
+                    10999 Berlin
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">EU-Streitschlichtung</h2>
+                  <p>
+                    Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://ec.europa.eu/consumers/odr/</a>.<br />
+                    Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
                   </p>
                 </div>
               </div>
