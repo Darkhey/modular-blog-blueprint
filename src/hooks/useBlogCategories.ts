@@ -28,3 +28,32 @@ export const useBlogCategories = () => {
     }
   });
 };
+
+export const useBlogCategoryBySlug = (slug: string | undefined) => {
+  return useQuery({
+    queryKey: ['blog-category', slug],
+    queryFn: async () => {
+      if (!slug) return null;
+
+      const { data, error } = await supabase
+        .from('blog_categories')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (error) {
+        // Return null if no category is found (e.g., 404)
+        if (error.code === 'PGRST116') {
+          console.warn(`No blog category found for slug: ${slug}`);
+          return null;
+        }
+        // For other errors, re-throw
+        console.error(`Error fetching blog category "${slug}":`, error);
+        throw error;
+      }
+
+      return data as BlogCategory;
+    },
+    enabled: !!slug
+  });
+};

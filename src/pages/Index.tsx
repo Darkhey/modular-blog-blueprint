@@ -179,7 +179,7 @@ const Index = () => {
                       <p className="col-span-full text-red-500">Kategorien konnten nicht geladen werden.</p>
                     ) : (
                       categories?.map((category) => (
-                        <Link key={category.id} to={`/${category.slug}`} className="block hover:no-underline group">
+                        <Link key={category.id} to={`/themen/${category.slug}`} className="block hover:no-underline group">
                           <Card className="hover:shadow-lg hover:border-green-500 transition-all duration-300 h-full flex flex-col">
                             <CardHeader>
                               <CardTitle className="flex items-center text-xl group-hover:text-green-600 transition-colors">

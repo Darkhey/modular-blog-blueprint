@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -28,17 +27,21 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           
-          {/* SEO-optimierte Kategorie-Routen */}
+          {/* SEO-optimierte Kategorie-Routen (alt) werden durch eine dynamische Route ersetzt */}
+          {/* 
           <Route path="/heizung-modernisieren" element={<CategoryPage category="heizung" />} />
           <Route path="/daemmung-isolierung" element={<CategoryPage category="daemmung" />} />
           <Route path="/foerdermittel" element={<CategoryPage category="foerderung" />} />
           <Route path="/fenster-tueren" element={<CategoryPage category="fenster" />} />
           <Route path="/solarenergie" element={<CategoryPage category="solar" />} />
           <Route path="/smart-home" element={<CategoryPage category="smart-home" />} />
+           */}
           
+          {/* Dynamische Kategorieseite */}
+          <Route path="/themen/:slug" element={<CategoryPage />} />
+
           {/* Legacy/Alias Routen */}
           <Route path="/themen" element={<Blog />} />
-          <Route path="/themen/:topic" element={<CategoryPage />} />
           <Route path="/ratgeber" element={<Blog />} />
           
           <Route path="/links" element={<Links />} />

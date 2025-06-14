@@ -1,5 +1,6 @@
+
 import { useParams } from 'react-router-dom';
-import { ArrowRight, CheckCircle, TrendingUp, Award } from 'lucide-react';
+import { ArrowRight, TrendingUp } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import BlogCard from '@/components/blog/BlogCard';
@@ -19,16 +20,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useBlogCategoryBySlug } from '@/hooks/useBlogCategories';
+import { Skeleton } from '@/components/ui/skeleton';
 
-const CategoryPage = ({ category }: { category?: string }) => {
-  const { topic } = useParams();
-  const categoryId = category || topic;
+const CategoryPage = () => {
+  const { slug } = useParams<{ slug: string }>();
   
-  const currentTopic = siteConfig.contentTopics.find(t => t.id === categoryId);
+  const { data: currentTopic, isLoading: topicLoading } = useBlogCategoryBySlug(slug);
+  
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("date_desc");
   
-  const { data: relatedPosts, isLoading: postsLoading } = useBlogPosts(currentTopic?.name);
+  const { data: relatedPosts, isLoading: postsLoading } = useBlogPosts(currentTopic?.name, undefined);
 
   // Search & sort logic
   const filteredAndSortedPosts = useMemo(() => {
@@ -60,6 +63,32 @@ const CategoryPage = ({ category }: { category?: string }) => {
     }
     return sorted;
   }, [relatedPosts, search, sortBy]);
+
+  if (topicLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <Skeleton className="h-8 w-1/4 mb-6" />
+          <Skeleton className="h-16 w-1/2 mb-8" />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div className="lg:col-span-3 space-y-8">
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-12 w-full" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Skeleton className="h-96 w-full" />
+                <Skeleton className="h-96 w-full" />
+              </div>
+            </div>
+            <div className="lg:col-span-1 space-y-6">
+              <Skeleton className="h-64 w-full" />
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!currentTopic) {
     return (
@@ -98,7 +127,7 @@ const CategoryPage = ({ category }: { category?: string }) => {
           <div className="flex items-center space-x-3 mb-4">
             <div 
               className="w-12 h-12 rounded-xl flex items-center justify-center"
-              style={{ backgroundColor: currentTopic.color }}
+              style={{ backgroundColor: currentTopic.color || '#cccccc' }}
             >
               <TrendingUp className="text-white w-6 h-6" />
             </div>
@@ -117,7 +146,7 @@ const CategoryPage = ({ category }: { category?: string }) => {
           {/* Main Content */}
           <div className="lg:col-span-3">
             {/* Benefits Cards */}
-            <CategoryBenefits categoryId={categoryId!} color={currentTopic.color} />
+            <CategoryBenefits categoryId={slug!} color={currentTopic.color} />
 
             {/* Suche & Sortierung */}
             <CategoryArticleSearch
@@ -169,8 +198,11 @@ const CategoryPage = ({ category }: { category?: string }) => {
                 )}
               </div>
             )}
-            {!postsLoading && filteredAndSortedPosts.length === 0 && (
-              <div className="text-gray-600 text-center mt-6">Kein Artikel gefunden.</div>
+            {!postsLoading && (!filteredAndSortedPosts || filteredAndSortedPosts.length === 0) && (
+              <div className="text-gray-600 text-center mt-6 p-8 bg-white rounded-lg border">
+                <h3 className="text-lg font-semibold">Keine Artikel gefunden</h3>
+                <p>Zu diesem Thema gibt es aktuell noch keine Artikel oder Ihre Suche ergab keine Treffer.</p>
+              </div>
             )}
           </div>
 
@@ -185,8 +217,9 @@ const CategoryPage = ({ category }: { category?: string }) => {
               {/* Popular Topics */}
               <div className="bg-white p-6 rounded-lg border">
                 <h3 className="font-semibold text-gray-900 mb-4">Weitere Themen</h3>
+                {/* This part still uses siteConfig, might need a separate refactor */}
                 <div className="space-y-2">
-                  {siteConfig.contentTopics.filter(t => t.id !== categoryId).slice(0, 4).map((topic) => (
+                  {siteConfig.contentTopics.filter(t => t.id !== slug).slice(0, 4).map((topic) => (
                     <a
                       key={topic.id}
                       href={topic.seoUrl}
