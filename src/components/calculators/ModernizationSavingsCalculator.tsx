@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Calculator, Zap, Users, Home, Heater, TrendingUp, ChevronsRight, Info, Landmark, TrendingDown } from 'lucide-react';
+import { Calculator, Zap, Users, Home, Heater, TrendingUp, ChevronsRight, Info, Landmark, TrendingDown, Building, CalendarDays, Settings2, ChevronsUpDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,12 +7,14 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const ModernizationSavingsCalculator = () => {
   const [inputs, setInputs] = useState({
     houseSize: '150',
     personCount: '4',
-    currentInsulation: 'mittel',
+    buildingType: 'einfamilienhaus',
+    buildingYear: '1979-1994',
     currentHeating: 'gas',
     futureInsulation: 'gut',
     futureHeating: 'waermepumpe',
@@ -22,6 +23,14 @@ const ModernizationSavingsCalculator = () => {
   const [calculationMode, setCalculationMode] = useState<'details' | 'consumption'>('details');
   const [currentConsumption, setCurrentConsumption] = useState('20000');
   const [investmentCosts, setInvestmentCosts] = useState('15000');
+  const [customPrices, setCustomPrices] = useState({
+    gas: '0.10',
+    oil: '0.11',
+    waermepumpe: '0.30',
+    pellets: '0.08',
+    nachtspeicher: '0.25',
+    fernwaerme: '0.12',
+  });
 
   const [results, setResults] = useState<{
     current: { total: number; heating: number; hotWater: number; };
@@ -39,23 +48,41 @@ const ModernizationSavingsCalculator = () => {
 
     if (!persons || (calculationMode === 'details' && !size) || (calculationMode === 'consumption' && !consumption)) return;
 
-    const ENERGY_PRICES = { gas: 0.10, oil: 0.11, waermepumpe: 0.30, pellets: 0.08, nachtspeicher: 0.25 };
-    const SPECIFIC_CONSUMPTION = { schlecht: 200, mittel: 140, gut: 60 };
+    const ENERGY_PRICES = { 
+        gas: parseFloat(customPrices.gas), 
+        oil: parseFloat(customPrices.oil), 
+        waermepumpe: parseFloat(customPrices.waermepumpe), 
+        pellets: parseFloat(customPrices.pellets), 
+        nachtspeicher: parseFloat(customPrices.nachtspeicher),
+        fernwaerme: parseFloat(customPrices.fernwaerme)
+    };
+    const SPECIFIC_CONSUMPTION_BY_YEAR = {
+        'vor-1979': 220,
+        '1979-1994': 160,
+        '1995-2001': 110,
+        '2002-2015': 80,
+        'nach-2016': 50,
+    };
+    const BUILDING_TYPE_FACTOR = {
+        einfamilienhaus: 1.0,
+        doppelhaushaelfte: 0.85,
+        reihenmittelhaus: 0.7,
+        mehrfamilienhaus: 0.9,
+    };
+    const SPECIFIC_CONSUMPTION_FUTURE = { schlecht: 200, mittel: 140, gut: 60, kfw55: 40 };
     const HOT_WATER_PER_PERSON_KWH = 1000;
     const HEATPUMP_SCOP = 3.5;
 
     const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
 
-    const calculateSingleScenario = (insulation: string, heating: string) => {
-        const heatingKwh = size * SPECIFIC_CONSUMPTION[insulation as keyof typeof SPECIFIC_CONSUMPTION];
-        
-        let pricePerKwh = ENERGY_PRICES[heating as keyof typeof ENERGY_PRICES];
+    const calculateCosts = (heatingKwh: number, hotWaterKwh: number, heatingType: keyof typeof ENERGY_PRICES) => {
+        const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
         let finalHotWaterKwh = hotWaterKwh;
 
-        if (heating === 'waermepumpe') {
-          finalHeatingKwh = heatingKwh / HEATPUMP_SCOP;
-          finalHotWaterKwh = hotWaterKwh / HEATPUMP_SCOP;
+        if (heatingType === 'waermepumpe') {
+          finalHeatingKwh /= HEATPUMP_SCOP;
+          finalHotWaterKwh /= HEATPUMP_SCOP;
         }
         
         const heatingCosts = finalHeatingKwh * pricePerKwh;
@@ -82,10 +109,15 @@ const ModernizationSavingsCalculator = () => {
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
         current = { total: totalCost, heating: heatingCost, hotWater: hotWaterCost };
     } else {
-        current = calculateSingleScenario(inputs.currentInsulation, inputs.currentHeating);
+        const baseConsumption = SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear as keyof typeof SPECIFIC_CONSUMPTION_BY_YEAR];
+        const typeFactor = BUILDING_TYPE_FACTOR[inputs.buildingType as keyof typeof BUILDING_TYPE_FACTOR];
+        const currentHeatingKwh = size * baseConsumption * typeFactor;
+        current = calculateCosts(currentHeatingKwh, hotWaterKwh, inputs.currentHeating as keyof typeof ENERGY_PRICES);
     }
 
-    const future = calculateSingleScenario(inputs.futureInsulation, inputs.futureHeating);
+    const futureHeatingKwh = size * SPECIFIC_CONSUMPTION_FUTURE[inputs.futureInsulation as keyof typeof SPECIFIC_CONSUMPTION_FUTURE];
+    const future = calculateCosts(futureHeatingKwh, hotWaterKwh, inputs.futureHeating as keyof typeof ENERGY_PRICES);
+
     const annualSavings = current.total - future.total;
     const savingsPercentage = annualSavings > 0 && current.total > 0 ? (annualSavings / current.total) * 100 : 0;
 
@@ -99,6 +131,10 @@ const ModernizationSavingsCalculator = () => {
 
   const handleInputChange = (field: string, value: string) => {
     setInputs(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePriceChange = (field: keyof typeof customPrices, value: string) => {
+    setCustomPrices(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -155,13 +191,27 @@ const ModernizationSavingsCalculator = () => {
                     </div>
                   </div>
                    <div>
-                      <Label htmlFor="currentInsulation" className="text-sm font-semibold text-gray-700 flex items-center"><Home className="mr-2 h-4 w-4" /> Dämmungszustand</Label>
-                      <Select value={inputs.currentInsulation} onValueChange={(value) => handleInputChange('currentInsulation', value)}>
+                      <Label htmlFor="buildingType" className="text-sm font-semibold text-gray-700 flex items-center"><Building className="mr-2 h-4 w-4" /> Gebäudetyp</Label>
+                      <Select value={inputs.buildingType} onValueChange={(value) => handleInputChange('buildingType', value)}>
                           <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
                           <SelectContent>
-                              <SelectItem value="schlecht">Schlecht (unsaniert)</SelectItem>
-                              <SelectItem value="mittel">Mittel (teil-saniert)</SelectItem>
-                              <SelectItem value="gut">Gut (saniert/Neubau)</SelectItem>
+                              <SelectItem value="einfamilienhaus">Einfamilienhaus</SelectItem>
+                              <SelectItem value="doppelhaushaelfte">Doppelhaushälfte</SelectItem>
+                              <SelectItem value="reihenmittelhaus">Reihenmittelhaus</SelectItem>
+                              <SelectItem value="mehrfamilienhaus">Mehrfamilienhaus</SelectItem>
+                          </SelectContent>
+                      </Select>
+                  </div>
+                   <div>
+                      <Label htmlFor="buildingYear" className="text-sm font-semibold text-gray-700 flex items-center"><CalendarDays className="mr-2 h-4 w-4" /> Baujahr des Gebäudes</Label>
+                      <Select value={inputs.buildingYear} onValueChange={(value) => handleInputChange('buildingYear', value)}>
+                          <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                          <SelectContent>
+                              <SelectItem value="vor-1979">vor 1979 (unsaniert)</SelectItem>
+                              <SelectItem value="1979-1994">1979 - 1994 (1. WSchV)</SelectItem>
+                              <SelectItem value="1995-2001">1995 - 2001 (2. WSchV)</SelectItem>
+                              <SelectItem value="2002-2015">2002 - 2015 (EnEV)</SelectItem>
+                              <SelectItem value="nach-2016">nach 2016 (EnEV 2016)</SelectItem>
                           </SelectContent>
                       </Select>
                   </div>
@@ -204,7 +254,12 @@ const ModernizationSavingsCalculator = () => {
                   <Select value={inputs.currentHeating} onValueChange={(value) => handleInputChange('currentHeating', value)}>
                       <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
                       <SelectContent>
-                          <SelectItem value="gas">Gasheizung</SelectItem><SelectItem value="oil">Ölheizung</SelectItem><SelectItem value="waermepumpe">Wärmepumpe</SelectItem><SelectItem value="pellets">Pelletheizung</SelectItem><SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                          <SelectItem value="gas">Gasheizung</SelectItem>
+                          <SelectItem value="oil">Ölheizung</SelectItem>
+                          <SelectItem value="waermepumpe">Wärmepumpe</SelectItem>
+                          <SelectItem value="pellets">Pelletheizung</SelectItem>
+                          <SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                          <SelectItem value="fernwaerme">Fernwärme</SelectItem>
                       </SelectContent>
                   </Select>
               </div>
@@ -216,7 +271,10 @@ const ModernizationSavingsCalculator = () => {
                 <Select value={inputs.futureInsulation} onValueChange={(value) => handleInputChange('futureInsulation', value)}>
                     <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="schlecht">Schlecht (unsaniert)</SelectItem><SelectItem value="mittel">Mittel (teil-saniert)</SelectItem><SelectItem value="gut">Gut (saniert/Neubau)</SelectItem>
+                        <SelectItem value="schlecht">Schlecht (wie bisher)</SelectItem>
+                        <SelectItem value="mittel">Mittel (teil-saniert)</SelectItem>
+                        <SelectItem value="gut">Gut (saniert/Neubau)</SelectItem>
+                        <SelectItem value="kfw55">Sehr gut (KfW 55)</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -225,7 +283,12 @@ const ModernizationSavingsCalculator = () => {
                 <Select value={inputs.futureHeating} onValueChange={(value) => handleInputChange('futureHeating', value)}>
                     <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="gas">Gasheizung</SelectItem><SelectItem value="oil">Ölheizung</SelectItem><SelectItem value="waermepumpe">Wärmepumpe</SelectItem><SelectItem value="pellets">Pelletheizung</SelectItem><SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                        <SelectItem value="gas">Gasheizung</SelectItem>
+                        <SelectItem value="oil">Ölheizung</SelectItem>
+                        <SelectItem value="waermepumpe">Wärmepumpe</SelectItem>
+                        <SelectItem value="pellets">Pelletheizung</SelectItem>
+                        <SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                        <SelectItem value="fernwaerme">Fernwärme</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -242,6 +305,40 @@ const ModernizationSavingsCalculator = () => {
             </div>
           </div>
         </div>
+
+        <Collapsible className="mb-6">
+            <CollapsibleTrigger asChild>
+                <Button variant="ghost" className="w-full flex items-center justify-center text-gray-600 hover:text-gray-900">
+                    <Settings2 className="mr-2 h-4 w-4" />
+                    Experteneinstellungen (Energiepreise anpassen)
+                    <ChevronsUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 p-4 border rounded-lg bg-gray-50">
+                    <div>
+                        <Label htmlFor="price-gas" className="text-xs">Gas (€/kWh)</Label>
+                        <Input id="price-gas" type="number" step="0.01" value={customPrices.gas} onChange={e => handlePriceChange('gas', e.target.value)} className="mt-1" />
+                    </div>
+                    <div>
+                        <Label htmlFor="price-oil" className="text-xs">Öl (€/kWh)</Label>
+                        <Input id="price-oil" type="number" step="0.01" value={customPrices.oil} onChange={e => handlePriceChange('oil', e.target.value)} className="mt-1" />
+                    </div>
+                    <div>
+                        <Label htmlFor="price-strom" className="text-xs">Strom (€/kWh)</Label>
+                        <Input id="price-strom" type="number" step="0.01" value={customPrices.waermepumpe} onChange={e => { handlePriceChange('waermepumpe', e.target.value); handlePriceChange('nachtspeicher', e.target.value); }} className="mt-1" />
+                    </div>
+                    <div>
+                        <Label htmlFor="price-pellets" className="text-xs">Pellets (€/kWh)</Label>
+                        <Input id="price-pellets" type="number" step="0.01" value={customPrices.pellets} onChange={e => handlePriceChange('pellets', e.target.value)} className="mt-1" />
+                    </div>
+                    <div>
+                        <Label htmlFor="price-fernwaerme" className="text-xs">Fernwärme (€/kWh)</Label>
+                        <Input id="price-fernwaerme" type="number" step="0.01" value={customPrices.fernwaerme} onChange={e => handlePriceChange('fernwaerme', e.target.value)} className="mt-1" />
+                    </div>
+                </div>
+            </CollapsibleContent>
+        </Collapsible>
 
         <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
           <Zap className="mr-2 w-5 h-5" />
