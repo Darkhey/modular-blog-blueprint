@@ -35,7 +35,7 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation mit Hover-Effekten */}
+          {/* Desktop Navigation mit SEO-URLs */}
           <nav className="hidden md:flex items-center space-x-8">
             {siteConfig.navigation.map((item) => (
               <Link
@@ -67,7 +67,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation mit Animation */}
+        {/* Mobile Navigation mit SEO-URLs */}
         <div className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="border-t bg-white/50 backdrop-blur-sm">
             <nav className="py-4 space-y-1">
