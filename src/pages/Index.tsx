@@ -30,15 +30,16 @@ const Index = () => {
           <div className="absolute inset-0 bg-black/60 z-0"></div>
           
           <div className="relative max-w-4xl mx-auto px-4 z-10">
-            <h1 className="text-5xl font-extrabold mb-6 leading-tight tracking-tight text-shadow-lg">
+            <h1 className="text-5xl font-extrabold mb-6 leading-tight tracking-tight text-shadow-lg animate-fade-in">
               {siteConfig.projectName}
             </h1>
-            <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-200 mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
               {siteConfig.siteMeta.description}
             </p>
             <Link
               to="/blog"
-              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg animate-fade-in"
+              style={{ animationDelay: '400ms' }}
             >
               Zu den Artikeln
             </Link>
@@ -55,12 +56,12 @@ const Index = () => {
         {/* Features Section */}
         <section className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8 animate-fade-in">
               Ihre Vorteile als Hausbesitzer
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 1 */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <div className="bg-white p-6 rounded-lg shadow-sm border transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '200ms' }}>
                 <Rocket className="text-green-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Starten Sie Ihr Projekt
@@ -71,7 +72,7 @@ const Index = () => {
               </div>
 
               {/* Feature 2 */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <div className="bg-white p-6 rounded-lg shadow-sm border transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '400ms' }}>
                 <PiggyBank className="text-blue-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Finanzen im Blick
@@ -82,7 +83,7 @@ const Index = () => {
               </div>
 
               {/* Feature 3 */}
-              <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <div className="bg-white p-6 rounded-lg shadow-sm border transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '600ms' }}>
                 <Lightbulb className="text-orange-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Wissen, das sich auszahlt
@@ -98,10 +99,10 @@ const Index = () => {
         {/* Stats Section */}
         <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8 animate-fade-in">
               Auf uns können Sie bauen
             </h2>
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
               <BlogStats />
             </div>
           </div>
@@ -117,12 +118,12 @@ const Index = () => {
         {/* Calculator Section */}
         <section className="py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8 animate-fade-in">
               Sanierungsrechner
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Calculator 1 */}
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '200ms' }}>
                 <Flame className="text-red-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Heizkostenrechner
@@ -139,7 +140,7 @@ const Index = () => {
               </div>
 
               {/* Calculator 2 */}
-              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border">
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '400ms' }}>
                 <Flame className="text-blue-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Dämmungsrechner
@@ -164,7 +165,7 @@ const Index = () => {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               <div className="lg:col-span-3">
                 {/* Blog Preview */}
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4 animate-fade-in">
                   Neueste Artikel
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -183,7 +184,7 @@ const Index = () => {
 
                 {/* Categories Section */}
                 <div className="mt-16">
-                  <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center">
+                  <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center animate-fade-in">
                     <FolderKanban className="mr-3 h-7 w-7 text-green-600" />
                     Entdecken Sie unsere Themen
                   </h2>
@@ -195,8 +196,8 @@ const Index = () => {
                     ) : isErrorCategories ? (
                       <p className="col-span-full text-red-500">Kategorien konnten nicht geladen werden.</p>
                     ) : (
-                      categories?.map((category) => (
-                        <Link key={category.id} to={`/themen/${category.slug}`} className="block hover:no-underline group">
+                      categories?.map((category, index) => (
+                        <Link key={category.id} to={`/themen/${category.slug}`} className="block hover:no-underline group transition-transform duration-300 transform hover:scale-105 animate-fade-in" style={{ animationDelay: `${index * 100}ms`}}>
                           <Card className="hover:shadow-lg hover:border-green-500 transition-all duration-300 h-full flex flex-col">
                             <CardHeader>
                               <CardTitle className="flex items-center text-xl group-hover:text-green-600 transition-colors">
@@ -228,15 +229,16 @@ const Index = () => {
         {/* Newsletter Section */}
         <section className="py-12 bg-green-50">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-4 animate-fade-in">
               {siteConfig.newsletter.title}
             </h2>
-            <p className="text-gray-700 mb-6">
+            <p className="text-gray-700 mb-6 animate-fade-in" style={{ animationDelay: '200ms' }}>
               {siteConfig.newsletter.description}
             </p>
             <Link
               to={siteConfig.socialLinks.newsletter}
-              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors animate-fade-in"
+              style={{ animationDelay: '400ms' }}
             >
               Zum Newsletter anmelden
             </Link>

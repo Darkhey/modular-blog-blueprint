@@ -38,7 +38,7 @@ const BlogStats = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
       {blogStatsData.map((stat, index) => (
-        <Card key={index} className="text-center hover:shadow-md transition-shadow duration-300">
+        <Card key={index} className="text-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
           <CardHeader className="pb-3">
             <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
             <CardTitle className="text-lg">{stat.title}</CardTitle>
