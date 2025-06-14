@@ -16,7 +16,7 @@ export interface BlogPost {
   keywords?: string[];
 }
 
-// Mock-Daten für Demo-Zwecke
+// Erweiterte Mock-Daten für Demo-Zwecke
 export const mockBlogPosts: BlogPost[] = [
   {
     id: '1',
@@ -137,5 +137,85 @@ Wichtig: Förderantrag VOR Beginn der Maßnahme stellen! Ein Energieberater hilf
     seoTitle: 'Fördermittel 2024: Bis zu 70% Zuschuss für Sanierung',
     seoDescription: 'Alle Förderprogramme 2024 im Überblick. BAFA, KfW und regionale Zuschüsse für Ihre energetische Sanierung optimal kombinieren.',
     keywords: ['Fördermittel 2024', 'BAFA', 'KfW', 'Sanierung Zuschuss']
+  },
+  {
+    id: '4',
+    title: 'Wärmepumpe vs. Gas: Der große Vergleich 2024',
+    excerpt: 'Wärmepumpe oder Gas-Brennwert? Wir vergleichen Kosten, Effizienz und Förderung der beiden Heizsysteme.',
+    content: `# Wärmepumpe vs. Gas: Der große Vergleich 2024
+
+Die Entscheidung zwischen Wärmepumpe und Gas-Brennwerttechnik beschäftigt viele Hausbesitzer. Wir zeigen Ihnen die Vor- und Nachteile beider Systeme.`,
+    topic: 'Heizung modernisieren',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'heizung')?.color || '#dc2626',
+    publishedAt: '2024-01-08',
+    readTime: 7,
+    slug: 'waermepumpe-vs-gas-vergleich',
+    seoTitle: 'Wärmepumpe vs. Gas 2024: Kosten, Effizienz & Förderung',
+    seoDescription: 'Detaillierter Vergleich von Wärmepumpe und Gas-Brennwert. Kosten, Effizienz, Förderung und Umweltaspekte im Überblick.',
+    keywords: ['Wärmepumpe', 'Gas Brennwert', 'Heizung Vergleich', 'Heizkosten']
+  },
+  {
+    id: '5',
+    title: 'Photovoltaik 2024: Lohnt sich eine Solaranlage noch?',
+    excerpt: 'Trotz sinkender Einspeisevergütung kann sich Photovoltaik noch lohnen. Alle Fakten zu Kosten und Rendite.',
+    content: `# Photovoltaik 2024: Lohnt sich eine Solaranlage noch?
+
+Die Einspeisevergütung sinkt, aber Photovoltaik kann sich trotzdem noch lohnen. Der Eigenverbrauch macht den Unterschied.`,
+    topic: 'Solarenergie',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'solar')?.color || '#f59e0b',
+    publishedAt: '2024-01-05',
+    readTime: 5,
+    slug: 'photovoltaik-2024-lohnt-sich-solaranlage',
+    seoTitle: 'Photovoltaik 2024: Rentabilität und Kosten von Solaranlagen',
+    seoDescription: 'Lohnt sich Photovoltaik 2024 noch? Kosten, Rendite und Eigenverbrauch von Solaranlagen im Detail erklärt.',
+    keywords: ['Photovoltaik', 'Solaranlage', 'Eigenverbrauch', 'Einspeisevergütung']
+  },
+  {
+    id: '6',
+    title: 'Fenster erneuern: 3-fach Verglasung lohnt sich',
+    excerpt: 'Moderne Fenster mit 3-fach Verglasung sparen nicht nur Energie, sondern steigern auch den Wohnkomfort erheblich.',
+    content: `# Fenster erneuern: 3-fach Verglasung lohnt sich
+
+Alte Fenster sind oft die größten Energieverschwender im Haus. Moderne 3-fach verglaste Fenster können hier deutliche Verbesserungen bringen.`,
+    topic: 'Fenster & Türen',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'fenster')?.color || '#8b5cf6',
+    publishedAt: '2024-01-03',
+    readTime: 4,
+    slug: 'fenster-erneuern-3fach-verglasung',
+    seoTitle: 'Fenster erneuern 2024: 3-fach Verglasung Kosten & Förderung',
+    seoDescription: 'Fenster mit 3-fach Verglasung: Kosten, Einsparungen und Förderungen. Wann sich der Fenstertausch lohnt.',
+    keywords: ['Fenster erneuern', '3-fach Verglasung', 'U-Wert', 'Wärmeschutz']
+  },
+  {
+    id: '7',
+    title: 'Smart Home Heizung: Intelligente Thermostate im Test',
+    excerpt: 'Smarte Thermostate können bis zu 15% Energie sparen. Welche Modelle überzeugen und wie die Installation funktioniert.',
+    content: `# Smart Home Heizung: Intelligente Thermostate im Test
+
+Intelligente Heizkörperthermostate sind der einfachste Einstieg ins Smart Home. Sie sparen Energie und erhöhen den Komfort.`,
+    topic: 'Smart Home',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'smart-home')?.color || '#06b6d4',
+    publishedAt: '2024-01-01',
+    readTime: 6,
+    slug: 'smart-home-heizung-thermostate-test',
+    seoTitle: 'Smart Home Heizung: Thermostate Test & Kaufberatung 2024',
+    seoDescription: 'Intelligente Thermostate im Test. Welche smarten Heizkörperthermostate sparen am meisten Energie und sind einfach zu installieren.',
+    keywords: ['Smart Home', 'Thermostat', 'Heizungssteuerung', 'Energie sparen']
+  },
+  {
+    id: '8',
+    title: 'Kellerdecke dämmen: Einfach und effektiv',
+    excerpt: 'Die Kellerdeckendämmung ist eine der einfachsten Dämmmaßnahmen. So sparen Sie Heizkosten und vermeiden kalte Füße.',
+    content: `# Kellerdecke dämmen: Einfach und effektiv
+
+Die Dämmung der Kellerdecke ist oft übersehen, aber sehr effektiv. Sie reduziert Wärmeverluste und sorgt für wärmere Böden im Erdgeschoss.`,
+    topic: 'Dämmung & Isolierung',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'daemmung')?.color || '#7c3aed',
+    publishedAt: '2023-12-28',
+    readTime: 3,
+    slug: 'kellerdecke-daemmen-anleitung',
+    seoTitle: 'Kellerdecke dämmen: Anleitung, Kosten & Materialien',
+    seoDescription: 'Kellerdecke richtig dämmen: Schritt-für-Schritt Anleitung, beste Materialien und was die Dämmung kostet.',
+    keywords: ['Kellerdecke dämmen', 'Kellerdeckendämmung', 'kalte Füße', 'Wärmeverlust']
   }
 ];
