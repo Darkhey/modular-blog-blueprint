@@ -1,3 +1,4 @@
+
 import { ExternalLink, Mail, Instagram, Facebook } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -11,38 +12,43 @@ const Links = () => {
         { name: "BAFA - Bundesförderung", url: "https://www.bafa.de", description: "Offizielle Förderung für Heizung & Sanierung" },
         { name: "KfW - Förderbank", url: "https://www.kfw.de", description: "Kredite und Zuschüsse für Gebäudesanierung" },
         { name: "Energieberater finden", url: "https://www.energie-effizienz-experten.de", description: "Qualifizierte Energieberater in Ihrer Nähe" },
-        { name: "Verbraucherzentrale", url: "https://www.verbraucherzentrale.de", description: "Unabhängige Energieberatung" }
+        { name: "Verbraucherzentrale Energieberatung", url: "https://www.verbraucherzentrale-energieberatung.de/", description: "Unabhängige Beratung zu Energiefragen" },
+        { name: "co2online", url: "https://www.co2online.de", description: "Gemeinnützige Beratung für Klimaschutz" }
       ]
     },
     {
       category: "Rechner & Tools",
       links: [
-        { name: "Heizkostenrechner", url: "#", description: "Potentielle Einsparungen berechnen" },
-        { name: "Dämmungsrechner", url: "#", description: "Optimale Dämmstärke ermitteln" },
-        { name: "PV-Rechner", url: "#", description: "Photovoltaik Rentabilität prüfen" },
-        { name: "Förderrechner", url: "#", description: "Verfügbare Zuschüsse ermitteln" }
+        { name: "Heizspiegel", url: "https://www.heizspiegel.de", description: "Vergleichen Sie Ihren Heizenergieverbrauch" },
+        { name: "U-Wert-Rechner", url: "https://www.ubakus.de/u-wert-rechner/", description: "U-Werte für Bauteile online berechnen" },
+        { name: "Solarrechner der HTW Berlin", url: "https://solar.htw-berlin.de/rechner/", description: "Unabhängigkeitsrechner für Photovoltaik" },
+        { name: "Förderdatenbank des Bundes", url: "https://www.foerderdatenbank.de", description: "Umfassende Fördermittel-Suche" }
       ]
     },
     {
-      category: "Fachbetriebe",
+      category: "Fachbetriebe & Verbände",
       links: [
-        { name: "Handwerker-Suche", url: "#", description: "Qualifizierte Fachbetriebe finden" },
-        { name: "Heizungsbauer", url: "#", description: "Spezialisierte Heizungsinstallateure" },
-        { name: "Dämmungsexperten", url: "#", description: "Professionelle Dämmungsarbeiten" },
-        { name: "Solar-Installateure", url: "#", description: "PV und Solarthermie Montage" }
+        { name: "ZVSHK", url: "https://www.zvshk.de/fachbetriebssuche.html", description: "Fachbetriebssuche für Sanitär, Heizung, Klima" },
+        { name: "Fachverband WDVS", url: "https://www.fachverband-wdvs.de/mitglieder/mitglieder-finden/", description: "Experten für Wärmedämm-Verbundsysteme" },
+        { name: "Bundesverband Solarwirtschaft", url: "https://www.solarwirtschaft.de/fuer-verbraucher/installateurssuche/", description: "Installateurs-Suche für Solaranlagen" },
+        { name: "MyHammer", url: "https://www.my-hammer.de", description: "Handwerker und Aufträge finden" }
       ]
     },
     {
-      category: "Systeme",
+      category: "Systeme & Hersteller",
       links: [
         { name: "Thermofloc", url: "https://www.thermofloc.de", description: "Hersteller von Zellulosedämmung" },
         { name: "Steico", url: "https://www.steico.com/de", description: "Anbieter von Holzfaser-Dämmstoffen" },
+        { name: "Viessmann", url: "https://www.viessmann.de", description: "Systemlösungen für Wärme, Kälte und Strom" },
+        { name: "Schüco", url: "https://www.schueco.com/de", description: "Anbieter für Fenster-, Türen- und Fassadensysteme" }
       ]
     },
     {
-      category: "Expertenliste",
+      category: "Experten & Netzwerke",
       links: [
         { name: "Energie-Wände", url: "https://www.energie-wände.de", description: "Experten für Einblasdämmung im Raum Hannover" },
+        { name: "GIH e.V.", url: "https://www.gih.de/", description: "Bundesverband der Gebäude-Energieberater" },
+        { name: "IB-Krieger", url: "https://www.ib-krieger.de/", description: "Ingenieurbüro für Bauphysik & Energieberatung" }
       ]
     }
   ];
