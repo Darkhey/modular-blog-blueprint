@@ -22,8 +22,8 @@ export interface BlogPost {
   effort_level?: string;
   key_benefits?: string[];
   important_notice?: string;
-  table_of_contents?: { id: string; title: string }[];
-  costs?: { item: string; costPerSqm: string; totalCost: string; funding: string }[];
+  table_of_contents?: any;
+  costs?: any;
 }
 
 export const useBlogPosts = (topic?: string) => {
