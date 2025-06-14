@@ -1,8 +1,10 @@
 
+import { useState } from 'react';
 import { ExternalLink, Mail, Instagram, Facebook } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const Links = () => {
   const externalLinks = [
@@ -52,6 +54,14 @@ const Links = () => {
       ]
     }
   ];
+
+  const [selectedCategory, setSelectedCategory] = useState('alle');
+
+  const categories = ['alle', ...Array.from(new Set(externalLinks.map((cat) => cat.category)))];
+  
+  const filteredLinks = selectedCategory === 'alle'
+    ? externalLinks
+    : externalLinks.filter((cat) => cat.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -113,9 +123,28 @@ const Links = () => {
           </div>
         </div>
 
+        {/* Category Filter */}
+        <div className="mb-8">
+            <ToggleGroup
+                type="single"
+                value={selectedCategory}
+                onValueChange={(value) => {
+                    if (value) setSelectedCategory(value);
+                }}
+                className="flex flex-wrap justify-center gap-2"
+                aria-label="Kategorienfilter"
+            >
+                {categories.map((category) => (
+                    <ToggleGroupItem key={category} value={category} aria-label={`Filter für ${category}`}>
+                        {category === 'alle' ? 'Alle Kategorien' : category}
+                    </ToggleGroupItem>
+                ))}
+            </ToggleGroup>
+        </div>
+
         {/* External Links */}
         <div className="space-y-8">
-          {externalLinks.map((category) => (
+          {filteredLinks.map((category) => (
             <div key={category.category} className="bg-white p-6 rounded-lg shadow-sm border">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 {category.category}
