@@ -24,9 +24,11 @@ const SavingsCalculator = () => {
   const calculateSavings = () => {
     const size = parseFloat(inputs.houseSize);
     const costs = parseFloat(inputs.currentCosts);
-    const age = parseFloat(inputs.houseAge);
+    const buildYear = parseInt(inputs.houseAge);
     
-    if (!size || !costs || !age) return;
+    if (!size || !costs || !buildYear || buildYear > new Date().getFullYear()) return;
+
+    const age = new Date().getFullYear() - buildYear;
 
     // Vereinfachte Berechnung basierend auf typischen Werten
     const ageFactor = age > 30 ? 1.5 : age > 20 ? 1.2 : 1.0;
@@ -34,7 +36,7 @@ const SavingsCalculator = () => {
     
     const yearlyBenefit = Math.round(costs * 0.6 * ageFactor);
     const totalInvestment = Math.round(size * 800 * sizeFactor);
-    const paybackTime = Math.round(totalInvestment / yearlyBenefit);
+    const paybackTime = yearlyBenefit > 0 ? Math.round(totalInvestment / yearlyBenefit) : 0;
     const co2Reduction = Math.round(size * 0.08 * ageFactor);
 
     setResults({
@@ -94,7 +96,7 @@ const SavingsCalculator = () => {
               type="number"
               placeholder="z.B. 1985"
               value={inputs.houseAge}
-              onChange={(e) => setInputs({...inputs, houseAge: new Date().getFullYear() - parseInt(e.target.value) || ''})}
+              onChange={(e) => setInputs({...inputs, houseAge: e.target.value})}
               className="mt-1"
             />
           </div>
