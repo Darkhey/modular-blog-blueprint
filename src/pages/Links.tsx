@@ -32,6 +32,12 @@ const Links = () => {
         { name: "Dämmungsexperten", url: "#", description: "Professionelle Dämmungsarbeiten" },
         { name: "Solar-Installateure", url: "#", description: "PV und Solarthermie Montage" }
       ]
+    },
+    {
+      category: "Expertenliste",
+      links: [
+        { name: "Energie-Wände", url: "https://www.energie-wände.de", description: "Experten für Einblasdämmung im Raum Hannover" },
+      ]
     }
   ];
 
