@@ -66,6 +66,38 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_post_ratings: {
+        Row: {
+          created_at: string | null
+          id: string
+          post_id: string
+          rating: number
+          user_fingerprint: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          post_id: string
+          rating: number
+          user_fingerprint?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          post_id?: string
+          rating?: number
+          user_fingerprint?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_post_ratings_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_post_tags: {
         Row: {
           post_id: string

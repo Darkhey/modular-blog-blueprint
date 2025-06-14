@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowUp, CheckCircle, AlertCircle, Info, TrendingUp } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -8,6 +7,7 @@ import NewsletterSignup from '@/components/ui/NewsletterSignup';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBlogPost, useBlogPosts } from '@/hooks/useBlogPosts';
 import { siteConfig } from '@/config/site.config';
+import ArticleRating from '@/components/blog/ArticleRating';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -192,6 +192,9 @@ const BlogPost = () => {
             <div className="prose prose-lg max-w-none">
               <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }} />
             </div>
+
+            {/* Article Rating */}
+            <ArticleRating postId={post.id} />
 
             {/* Cost Breakdown */}
             {post.costs && (
