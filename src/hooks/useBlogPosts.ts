@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -23,12 +22,12 @@ export interface BlogPost {
   key_benefits?: string[];
   important_notice?: string;
   table_of_contents?: any;
-  costs?: any;
+  costs: any;
 }
 
-export const useBlogPosts = (topic?: string) => {
+export const useBlogPosts = (topic?: string, limit?: number) => {
   return useQuery({
-    queryKey: ['blog-posts', topic],
+    queryKey: ['blog-posts', topic, limit],
     queryFn: async () => {
       let query = supabase
         .from('blog_posts')
@@ -37,6 +36,10 @@ export const useBlogPosts = (topic?: string) => {
 
       if (topic) {
         query = query.eq('topic', topic);
+      }
+
+      if (limit) {
+        query = query.limit(limit);
       }
 
       const { data, error } = await query;
