@@ -1,4 +1,3 @@
-
 -- BLOG AUTOREN (optional für Multi-Author-Blog)
 CREATE TABLE IF NOT EXISTS blog_authors (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -162,3 +161,36 @@ SELECT bp.id, t.id FROM blog_posts bp
   JOIN blog_tags t ON t.slug IN ('waermepumpe', 'bafa')
 WHERE bp.slug = 'heizung-modernisieren-energiekosten-sparen';
 
+-- NEUER ARTIKEL: MODERNE HEIZSYSTEME
+INSERT INTO blog_posts (
+  title, slug, excerpt, content, category_id, author_id, status, cover_url, hero_image_url, topic, topic_color, published_at, read_time,
+  seo_title, seo_description, keywords, table_of_contents, difficulty,
+  savings_potential, payback_time, funding_available, effort_level, key_benefits, important_notice, costs, is_featured
+) VALUES (
+  'Moderne Heizsysteme im Vergleich: Was lohnt sich für Sie?',
+  'moderne-heizsysteme-vergleich',
+  'Von Wärmepumpen bis zu Hybridlösungen – wir zeigen Ihnen, welche Heizung für Ihr Zuhause die richtige ist und wie Sie von Förderungen profitieren.',
+  '<h2>Finden Sie die perfekte Heizung für Ihr Zuhause</h2><p>Die Wahl des richtigen Heizsystems ist eine der wichtigsten Entscheidungen bei einer Sanierung oder einem Neubau. Angesichts der Klimaziele und steigender Energiepreise rücken umweltfreundliche und effiziente Technologien in den Fokus. Doch welche Option ist die beste für Ihre individuelle Situation?</p><h3>Wärmepumpen: Die Zukunft des Heizens</h3><p>Wärmepumpen nutzen Umweltenergie aus der Luft, dem Erdreich oder dem Grundwasser und wandeln sie in Heizwärme um. Sie sind besonders umweltfreundlich, wenn sie mit Ökostrom betrieben werden, und werden hoch staatlich gefördert.</p><img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Nahaufnahme einer modernen elektronischen Schaltung" style="width:100%;border-radius:8px;margin:16px 0;"><h3>Hybridheizungen: Das Beste aus zwei Welten</h3><p>Eine Hybridheizung kombiniert eine Wärmepumpe mit einem konventionellen Heizsystem, oft einer Gas-Brennwerttherme. Das System wählt intelligent die jeweils günstigste und effizienteste Energiequelle. Dies bietet hohe Versorgungssicherheit, auch in weniger gut gedämmten Altbauten.</p><h3>Pelletheizungen: Heizen mit Holz</h3><p>Holzpellets sind ein nachwachsender Rohstoff und gelten als CO2-neutral. Pelletheizungen sind eine gute Alternative zu fossilen Brennstoffen, erfordern aber einen Lagerraum für die Pellets.</p>',
+  (SELECT id FROM blog_categories WHERE slug='heizung-modernisieren'),
+  (SELECT id FROM blog_authors WHERE name='Max Mustermann'),
+  'published',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475',
+  'Heizung modernisieren',
+  '#dc2626',
+  '2024-05-20T00:00:00Z',
+  9,
+  'Moderne Heizsysteme 2024: Der große Vergleich für Ihr Haus',
+  'Der ultimative Vergleich moderner Heizsysteme: Wärmepumpe, Hybridheizung, Pellets und mehr. Finden Sie die beste und sparsamste Lösung für Ihr Zuhause.',
+  ARRAY['Heizsysteme Vergleich', 'Wärmepumpe', 'Hybridheizung', 'Pelletheizung', 'Heizung Förderung'],
+  '[{"id": "einleitung", "title": "Warum jetzt wechseln?"}, {"id": "waermepumpe", "title": "Die Wärmepumpe"}, {"id": "hybrid", "title": "Die Hybridheizung"}, {"id": "fazit", "title": "Fazit"}]',
+  3,
+  'Bis zu 50%',
+  '7-15 Jahre',
+  'Ja, hohe Förderungen',
+  'Hoch',
+  ARRAY['Unabhängigkeit von Öl & Gas', 'Senkung der Heizkosten', 'Aktiver Beitrag zum Klimaschutz'],
+  'Die Förderlandschaft ändert sich schnell. Lassen Sie sich vorab von einem Energieberater informieren.',
+  '[{"item": "Wärmepumpe", "costPerSqm": "120€", "totalCost": "18.000€", "funding": "Bis zu 70%"}, {"item": "Hybridheizung", "costPerSqm": "100€", "totalCost": "15.000€", "funding": "Bis zu 60%"}]',
+  FALSE
+);
