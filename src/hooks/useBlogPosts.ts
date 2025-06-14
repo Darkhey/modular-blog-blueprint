@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -30,8 +29,7 @@ export const useBlogPosts = (topic?: string) => {
   return useQuery({
     queryKey: ['blog-posts', topic],
     queryFn: async () => {
-      let query = supabase
-        .from('blog_posts')
+      let query = (supabase.from('blog_posts') as any) // HACK: Bypass incorrect type definitions
         .select('*')
         .order('published_at', { ascending: false });
 
@@ -46,7 +44,7 @@ export const useBlogPosts = (topic?: string) => {
         throw error;
       }
 
-      return data as unknown as BlogPost[];
+      return data as BlogPost[];
     }
   });
 };
@@ -55,8 +53,7 @@ export const useBlogPost = (slug: string) => {
   return useQuery({
     queryKey: ['blog-post', slug],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('blog_posts')
+      const { data, error } = await (supabase.from('blog_posts') as any) // HACK: Bypass incorrect type definitions
         .select('*')
         .eq('slug', slug)
         .single();
@@ -66,7 +63,7 @@ export const useBlogPost = (slug: string) => {
         throw error;
       }
 
-      return data as unknown as BlogPost;
+      return data as BlogPost;
     },
     enabled: !!slug
   });
