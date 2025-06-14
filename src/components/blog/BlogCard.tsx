@@ -7,9 +7,9 @@ interface BlogPost {
   title: string;
   excerpt: string;
   topic: string;
-  topicColor: string;
-  publishedAt: string;
-  readTime: number;
+  topic_color: string;
+  published_at: string;
+  read_time: number;
   slug: string;
 }
 
@@ -24,7 +24,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
       <div className="p-4 pb-0">
         <span 
           className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white"
-          style={{ backgroundColor: post.topicColor }}
+          style={{ backgroundColor: post.topic_color }}
         >
           {post.topic}
         </span>
@@ -45,11 +45,11 @@ const BlogCard = ({ post }: BlogCardProps) => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <Calendar size={14} />
-              <span>{new Date(post.publishedAt).toLocaleDateString('de-DE')}</span>
+              <span>{new Date(post.published_at).toLocaleDateString('de-DE')}</span>
             </div>
             <div className="flex items-center space-x-1">
               <Clock size={14} />
-              <span>{post.readTime} Min. Lesezeit</span>
+              <span>{post.read_time} Min. Lesezeit</span>
             </div>
           </div>
           

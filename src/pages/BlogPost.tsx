@@ -6,14 +6,31 @@ import Footer from '@/components/layout/Footer';
 import AdSlot from '@/components/ui/AdSlot';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { mockBlogPosts } from '@/data/mockBlogPosts';
+import { useBlogPost, useBlogPosts } from '@/hooks/useBlogPosts';
 import { siteConfig } from '@/config/site.config';
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const post = mockBlogPosts.find(p => p.slug === slug);
+  const { data: post, isLoading: postLoading, error: postError } = useBlogPost(slug || '');
+  const { data: allPosts } = useBlogPosts();
 
-  if (!post) {
+  if (postLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+          <div className="animate-pulse">
+            <div className="h-8 bg-gray-300 rounded mb-4"></div>
+            <div className="h-4 bg-gray-300 rounded mb-2"></div>
+            <div className="h-4 bg-gray-300 rounded"></div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (postError || !post) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -28,11 +45,11 @@ const BlogPost = () => {
     );
   }
 
-  const relatedPosts = mockBlogPosts
-    .filter(p => p.id !== post.id && p.topic === post.topic)
-    .slice(0, 2);
+  const relatedPosts = allPosts
+    ?.filter(p => p.id !== post.id && p.topic === post.topic)
+    .slice(0, 2) || [];
 
-  const tableOfContents = post.tableOfContents || [];
+  const tableOfContents = post.table_of_contents || [];
 
   return (
     <div className="min-h-screen bg-white">
@@ -55,7 +72,7 @@ const BlogPost = () => {
           <div className="mb-4">
             <span 
               className="inline-block px-4 py-2 rounded-full text-sm font-medium text-white"
-              style={{ backgroundColor: post.topicColor }}
+              style={{ backgroundColor: post.topic_color }}
             >
               {post.topic}
             </span>
@@ -73,7 +90,7 @@ const BlogPost = () => {
             <div className="flex items-center space-x-6 text-sm text-gray-500">
               <div className="flex items-center space-x-2">
                 <Calendar size={16} />
-                <span>{new Date(post.publishedAt).toLocaleDateString('de-DE', {
+                <span>{new Date(post.published_at).toLocaleDateString('de-DE', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric'
@@ -81,7 +98,7 @@ const BlogPost = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Clock size={16} />
-                <span>{post.readTime} Min. Lesezeit</span>
+                <span>{post.read_time} Min. Lesezeit</span>
               </div>
             </div>
             
@@ -115,29 +132,29 @@ const BlogPost = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Einsparpotential:</h4>
-                    <p className="text-2xl font-bold text-green-600">{post.savingsPotential || 'Bis zu 40%'}</p>
+                    <p className="text-2xl font-bold text-green-600">{post.savings_potential || 'Bis zu 40%'}</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Amortisation:</h4>
-                    <p className="text-2xl font-bold text-blue-600">{post.paybackTime || '8-12 Jahre'}</p>
+                    <p className="text-2xl font-bold text-blue-600">{post.payback_time || '8-12 Jahre'}</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Förderung möglich:</h4>
                     <div className="flex items-center space-x-2">
                       <CheckCircle className="text-green-500" size={20} />
-                      <span className="text-green-600 font-medium">{post.fundingAvailable || 'Ja, bis zu 70%'}</span>
+                      <span className="text-green-600 font-medium">{post.funding_available || 'Ja, bis zu 70%'}</span>
                     </div>
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Aufwand:</h4>
-                    <p className="text-gray-700">{post.effortLevel || 'Mittel'}</p>
+                    <p className="text-gray-700">{post.effort_level || 'Mittel'}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Key Benefits */}
-            {post.keyBenefits && (
+            {post.key_benefits && (
               <Card className="mb-8">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -147,7 +164,7 @@ const BlogPost = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {post.keyBenefits.map((benefit, index) => (
+                    {post.key_benefits.map((benefit, index) => (
                       <div key={index} className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
                         <CheckCircle className="text-green-500 flex-shrink-0" size={20} />
                         <span className="text-gray-700">{benefit}</span>
@@ -159,13 +176,13 @@ const BlogPost = () => {
             )}
 
             {/* Important Notice */}
-            {post.importantNotice && (
+            {post.important_notice && (
               <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div className="flex items-start space-x-3">
                   <AlertCircle className="text-yellow-600 flex-shrink-0 mt-0.5" size={20} />
                   <div>
                     <p className="text-yellow-800 font-medium mb-1">Wichtiger Hinweis:</p>
-                    <p className="text-yellow-700">{post.importantNotice}</p>
+                    <p className="text-yellow-700">{post.important_notice}</p>
                   </div>
                 </div>
               </div>
@@ -285,7 +302,7 @@ const BlogPost = () => {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
                     <span className="text-sm text-gray-600">Lesezeit</span>
-                    <span className="text-sm font-medium">{post.readTime} Min.</span>
+                    <span className="text-sm font-medium">{post.read_time} Min.</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
                     <span className="text-sm text-gray-600">Kategorie</span>
@@ -324,7 +341,7 @@ const BlogPost = () => {
                     <div className="mb-3">
                       <span 
                         className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white"
-                        style={{ backgroundColor: relatedPost.topicColor }}
+                        style={{ backgroundColor: relatedPost.topic_color }}
                       >
                         {relatedPost.topic}
                       </span>
@@ -336,7 +353,7 @@ const BlogPost = () => {
                     </h3>
                     <p className="text-gray-600 mb-4">{relatedPost.excerpt}</p>
                     <div className="flex items-center justify-between text-sm text-gray-500">
-                      <span>{relatedPost.readTime} Min. Lesezeit</span>
+                      <span>{relatedPost.read_time} Min. Lesezeit</span>
                       <Link 
                         to={`/blog/${relatedPost.slug}`}
                         className="text-green-600 hover:text-green-700 font-medium"
