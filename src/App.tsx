@@ -15,6 +15,7 @@ import Datenschutz from "./pages/Datenschutz";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/ui/CookieConsent";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
+import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPost />} />
           
           <Route path="/heizung-modernisieren" element={<HeizkostenrechnerPage />} />
+          <Route path="/daemmung-isolierung" element={<DaemmungsrechnerPage />} />
           
           {/* Dynamische Kategorieseite */}
           <Route path="/themen/:slug" element={<CategoryPage />} />
