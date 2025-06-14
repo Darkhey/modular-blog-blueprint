@@ -1,0 +1,182 @@
+
+import { useState } from 'react';
+import { Calculator, Euro, Zap, Users, Home, Heater, TrendingUp, ChevronsRight, Info } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Separator } from '@/components/ui/separator';
+
+const ModernizationSavingsCalculator = () => {
+  const [inputs, setInputs] = useState({
+    houseSize: '150',
+    personCount: '4',
+    currentInsulation: 'mittel',
+    currentHeating: 'gas',
+    futureInsulation: 'gut',
+    futureHeating: 'waermepumpe',
+  });
+  
+  const [results, setResults] = useState<{
+    currentTotalCosts: number;
+    futureTotalCosts: number;
+    annualSavings: number;
+    savingsPercentage: number;
+  } | null>(null);
+
+  const calculateSavings = () => {
+    const size = parseFloat(inputs.houseSize);
+    const persons = parseInt(inputs.personCount);
+    
+    if (!size || !persons) return;
+
+    const ENERGY_PRICES = { gas: 0.10, oil: 0.11, waermepumpe: 0.30, pellets: 0.08, nachtspeicher: 0.25 };
+    const SPECIFIC_CONSUMPTION = { schlecht: 200, mittel: 140, gut: 60 };
+    const HOT_WATER_PER_PERSON_KWH = 1000;
+    const HEATPUMP_SCOP = 3.5;
+
+    const calculateSingleScenario = (insulation: string, heating: string) => {
+        const heatingKwh = size * SPECIFIC_CONSUMPTION[insulation as keyof typeof SPECIFIC_CONSUMPTION];
+        const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
+        
+        let pricePerKwh = ENERGY_PRICES[heating as keyof typeof ENERGY_PRICES];
+        let finalHeatingKwh = heatingKwh;
+        let finalHotWaterKwh = hotWaterKwh;
+
+        if (heating === 'waermepumpe') {
+          finalHeatingKwh = heatingKwh / HEATPUMP_SCOP;
+          finalHotWaterKwh = hotWaterKwh / HEATPUMP_SCOP;
+        }
+        
+        const heatingCosts = finalHeatingKwh * pricePerKwh;
+        const hotWaterCosts = finalHotWaterKwh * pricePerKwh;
+        return heatingCosts + hotWaterCosts;
+    };
+
+    const currentTotalCosts = calculateSingleScenario(inputs.currentInsulation, inputs.currentHeating);
+    const futureTotalCosts = calculateSingleScenario(inputs.futureInsulation, inputs.futureHeating);
+    const annualSavings = currentTotalCosts - futureTotalCosts;
+    const savingsPercentage = annualSavings > 0 && currentTotalCosts > 0 ? (annualSavings / currentTotalCosts) * 100 : 0;
+
+    setResults({ currentTotalCosts, futureTotalCosts, annualSavings, savingsPercentage });
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setInputs(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <Card className="w-full max-w-5xl mx-auto bg-gradient-to-br from-white to-green-50 border-2 border-green-200 shadow-xl">
+      <CardHeader className="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-t-lg">
+        <CardTitle className="flex items-center text-2xl">
+          <Calculator className="mr-3 w-8 h-8" />
+          Modernisierungs-Einspar-Rechner
+        </CardTitle>
+        <CardDescription className="text-green-100">Berechnen Sie Ihr Sparpotenzial durch Sanierungsmaßnahmen.</CardDescription>
+      </CardHeader>
+      
+      <CardContent className="p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+          <div className="space-y-4 p-4 border rounded-lg bg-white">
+            <h3 className="font-bold text-lg text-gray-800">Grunddaten</h3>
+             <div>
+                <Label htmlFor="houseSize" className="text-sm font-semibold text-gray-700 flex items-center"><Home className="mr-2 h-4 w-4" /> Wohnfläche (m²)</Label>
+                <Input id="houseSize" type="number" placeholder="z.B. 150" value={inputs.houseSize} onChange={(e) => handleInputChange('houseSize', e.target.value)} className="mt-1" />
+              </div>
+              <div>
+                <Label htmlFor="personCount" className="text-sm font-semibold text-gray-700 flex items-center"><Users className="mr-2 h-4 w-4" /> Personen im Haushalt</Label>
+                <Input id="personCount" type="number" placeholder="z.B. 4" value={inputs.personCount} onChange={(e) => handleInputChange('personCount', e.target.value)} className="mt-1" />
+              </div>
+          </div>
+          <div className="space-y-4 p-4 border rounded-lg bg-white">
+            <h3 className="font-bold text-lg text-gray-800">Aktueller Zustand</h3>
+             <div>
+                <Label htmlFor="currentInsulation" className="text-sm font-semibold text-gray-700 flex items-center"><Home className="mr-2 h-4 w-4" /> Dämmungszustand</Label>
+                <Select value={inputs.currentInsulation} onValueChange={(value) => handleInputChange('currentInsulation', value)}>
+                    <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="schlecht">Schlecht (unsaniert)</SelectItem>
+                        <SelectItem value="mittel">Mittel (teil-saniert)</SelectItem>
+                        <SelectItem value="gut">Gut (saniert/Neubau)</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+            <div>
+                <Label htmlFor="currentHeating" className="text-sm font-semibold text-gray-700 flex items-center"><Heater className="mr-2 h-4 w-4" /> Aktuelle Heizung</Label>
+                <Select value={inputs.currentHeating} onValueChange={(value) => handleInputChange('currentHeating', value)}>
+                    <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="gas">Gasheizung</SelectItem><SelectItem value="oil">Ölheizung</SelectItem><SelectItem value="waermepumpe">Wärmepumpe</SelectItem><SelectItem value="pellets">Pelletheizung</SelectItem><SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-6 p-4 border rounded-lg bg-green-50 border-green-200">
+            <h3 className="font-bold text-lg text-gray-800 mb-4">Geplante Modernisierung</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div>
+                    <Label htmlFor="futureInsulation" className="text-sm font-semibold text-gray-700 flex items-center"><Home className="mr-2 h-4 w-4" /> Zukünftiger Dämmungszustand</Label>
+                    <Select value={inputs.futureInsulation} onValueChange={(value) => handleInputChange('futureInsulation', value)}>
+                        <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="schlecht">Schlecht (unsaniert)</SelectItem><SelectItem value="mittel">Mittel (teil-saniert)</SelectItem><SelectItem value="gut">Gut (saniert/Neubau)</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+                <div>
+                    <Label htmlFor="futureHeating" className="text-sm font-semibold text-gray-700 flex items-center"><Heater className="mr-2 h-4 w-4" /> Neue Heizung</Label>
+                    <Select value={inputs.futureHeating} onValueChange={(value) => handleInputChange('futureHeating', value)}>
+                        <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="gas">Gasheizung</SelectItem><SelectItem value="oil">Ölheizung</SelectItem><SelectItem value="waermepumpe">Wärmepumpe</SelectItem><SelectItem value="pellets">Pelletheizung</SelectItem><SelectItem value="nachtspeicher">Nachtspeicher</SelectItem>
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+        </div>
+
+        <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          <Zap className="mr-2 w-5 h-5" />
+          Sparpotenzial berechnen!
+        </Button>
+
+        {results && (
+          <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-xl border-2 border-green-200">
+            <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center"><TrendingUp className="mr-2 text-green-600" />Ihr Einsparpotenzial</h3>
+            <div className="text-center mb-6">
+                <p className="text-lg font-semibold text-gray-800">Jährliche Ersparnis</p>
+                <p className="text-5xl font-bold text-green-600 my-1">{results.annualSavings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                <p className="text-lg font-semibold text-green-700">({results.savingsPercentage.toFixed(0)}% weniger Kosten)</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
+              <div className="bg-white p-4 rounded-lg shadow-md">
+                <p className="text-sm text-gray-600">Kosten vorher</p>
+                <div className="text-2xl font-bold text-red-600">{results.currentTotalCosts.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
+                <p className="text-sm text-gray-500">pro Jahr</p>
+              </div>
+              <ChevronsRight className="w-8 h-8 text-gray-400 mx-auto hidden md:block" />
+              <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-500">
+                <p className="text-sm text-gray-600">Kosten nachher</p>
+                <div className="text-2xl font-bold text-green-600">{results.futureTotalCosts.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
+                <p className="text-sm text-gray-500">pro Jahr</p>
+              </div>
+            </div>
+            
+            <div className="mt-6 text-center bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md">
+              <p className="text-sm flex items-center justify-center">
+                <Info className="w-5 h-5 mr-2" />
+                Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten (Stand 2024/25).
+              </p>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default ModernizationSavingsCalculator;

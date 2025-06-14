@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +14,7 @@ import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/ui/CookieConsent";
+import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 
 const queryClient = new QueryClient();
 
@@ -27,15 +29,7 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           
-          {/* SEO-optimierte Kategorie-Routen (alt) werden durch eine dynamische Route ersetzt */}
-          {/* 
-          <Route path="/heizung-modernisieren" element={<CategoryPage category="heizung" />} />
-          <Route path="/daemmung-isolierung" element={<CategoryPage category="daemmung" />} />
-          <Route path="/foerdermittel" element={<CategoryPage category="foerderung" />} />
-          <Route path="/fenster-tueren" element={<CategoryPage category="fenster" />} />
-          <Route path="/solarenergie" element={<CategoryPage category="solar" />} />
-          <Route path="/smart-home" element={<CategoryPage category="smart-home" />} />
-           */}
+          <Route path="/heizung-modernisieren" element={<HeizkostenrechnerPage />} />
           
           {/* Dynamische Kategorieseite */}
           <Route path="/themen/:slug" element={<CategoryPage />} />
