@@ -1,198 +1,218 @@
-
-import { ArrowRight, Calculator, Users, Award } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import SavingsCalculator from '@/components/calculators/SavingsCalculator';
-import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
-import NewsletterSignup from '@/components/ui/NewsletterSignup';
-import AdSlot from '@/components/ui/AdSlot';
+import { Rocket, PiggyBank, Lightbulb, Flame } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { siteConfig } from '@/config/site.config';
+import AdSlot from '@/components/ui/AdSlot';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-white">
       <Header />
       
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <main>
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Sanieren & Sparen
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Ihr vertrauensvoller Ratgeber für energieeffiziente Sanierung, Modernisierung 
-            und nachhaltige Kosteneinsparung im Eigenheim.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-green-600 hover:bg-green-700">
-              <Link to="/blog">
-                Ratgeber entdecken
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link to="/foerdermittel">
-                Fördermittel finden
-              </Link>
-            </Button>
+        <section className="py-24 text-center">
+          <div className="max-w-4xl mx-auto px-4">
+            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+              {siteConfig.projectName}
+            </h1>
+            <p className="text-xl text-gray-700 mb-8">
+              {siteConfig.siteMeta.description}
+            </p>
+            <Link
+              to="/blog"
+              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Zu den Artikeln
+            </Link>
           </div>
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="text-center">
-                <CardHeader className="pb-3">
-                  <Calculator className="w-8 h-8 text-green-600 mx-auto mb-2" />
-                  <CardTitle className="text-lg">Kosteneinsparung</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-green-600 mb-1">bis 40%</div>
-                  <CardDescription>weniger Heizkosten durch Modernisierung</CardDescription>
-                </CardContent>
-              </Card>
+        {/* Header Banner Ad */}
+        <section className="py-4 bg-white/80">
+          <div className="max-w-7xl mx-auto px-4">
+            <AdSlot position="banner" className="w-full" />
+          </div>
+        </section>
 
-              <Card className="text-center">
-                <CardHeader className="pb-3">
-                  <Award className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                  <CardTitle className="text-lg">Förderung</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-blue-600 mb-1">bis 70%</div>
-                  <CardDescription>staatliche Zuschüsse für Ihre Sanierung</CardDescription>
-                </CardContent>
-              </Card>
+        {/* Features Section */}
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+              Ihre Vorteile
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Feature 1 */}
+              <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <Rocket className="text-green-600 mb-4 w-8 h-8" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Schnelle Umsetzung
+                </h3>
+                <p className="text-gray-600">
+                  Dank unserer einfachen Anleitungen setzen Sie Ihr Projekt im
+                  Handumdrehen um.
+                </p>
+              </div>
 
-              <Card className="text-center">
-                <CardHeader className="pb-3">
-                  <Users className="w-8 h-8 text-orange-600 mx-auto mb-2" />
-                  <CardTitle className="text-lg">Amortisation</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-orange-600 mb-1">8-15 Jahre</div>
-                  <CardDescription>bis sich Ihre Investition amortisiert</CardDescription>
-                </CardContent>
-              </Card>
-            </div>
+              {/* Feature 2 */}
+              <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <PiggyBank className="text-blue-600 mb-4 w-8 h-8" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Kosten sparen
+                </h3>
+                <p className="text-gray-600">
+                  Finden Sie die besten Angebote und Fördermöglichkeiten für
+                  Ihr Vorhaben.
+                </p>
+              </div>
 
-            {/* Categories Grid */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Unsere Schwerpunkte</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {siteConfig.contentTopics.map((topic) => (
-                  <Card key={topic.id} className="group hover:shadow-md transition-shadow duration-300">
-                    <CardHeader className="pb-3">
-                      <div 
-                        className="w-12 h-12 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300"
-                        style={{ backgroundColor: topic.color }}
-                      >
-                        <span className="text-white font-bold text-lg">
-                          {topic.name.charAt(0)}
-                        </span>
-                      </div>
-                      <CardTitle className="text-lg group-hover:text-green-600 transition-colors">
-                        <Link to={topic.seoUrl}>{topic.name}</Link>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="mb-4">
-                        {topic.description}
-                      </CardDescription>
-                      <Link 
-                        to={topic.seoUrl}
-                        className="text-green-600 hover:text-green-700 font-medium text-sm"
-                      >
-                        Mehr erfahren →
-                      </Link>
-                    </CardContent>
-                  </Card>
-                ))}
+              {/* Feature 3 */}
+              <div className="bg-white p-6 rounded-lg shadow-sm border">
+                <Lightbulb className="text-orange-600 mb-4 w-8 h-8" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Expertenwissen
+                </h3>
+                <p className="text-gray-600">
+                  Profitieren Sie von unserem Know-how und vermeiden Sie teure
+                  Fehler.
+                </p>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Savings Calculator */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Kostenrechner</h2>
-              <SavingsCalculator /> 
-            </div>
+        {/* Article Ad between sections */}
+        <section className="py-6">
+          <div className="max-w-4xl mx-auto px-4">
+            <AdSlot position="article" className="w-full" />
+          </div>
+        </section>
 
-            {/* Insulation Manufacturers */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Führende Dämmstoffhersteller</h2>
-              <InsulationManufacturers />
-            </div>
-
-            {/* CTA Section */}
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border mb-8">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Bereit für Ihre Sanierung?
+        {/* Calculator Section */}
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+              Sanierungsrechner
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Calculator 1 */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border">
+                <Flame className="text-red-600 mb-4 w-8 h-8" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Heizkostenrechner
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  Entdecken Sie alle Möglichkeiten zur Kosteneinsparung und Förderung.
+                  Berechnen Sie Ihr Einsparpotenzial bei einer Heizungsmodernisierung.
                 </p>
-                <Button asChild className="bg-green-600 hover:bg-green-700">
-                  <Link to="/blog">
-                    Zum Ratgeber
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
+                <Link
+                  to="/heizung-modernisieren"
+                  className="inline-block px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  Zum Rechner
+                </Link>
+              </div>
+
+              {/* Calculator 2 */}
+              <div className="bg-gray-50 p-6 rounded-lg shadow-sm border">
+                <Flame className="text-blue-600 mb-4 w-8 h-8" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  Dämmungsrechner
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Finden Sie die optimale Dämmstärke für Ihr Haus.
+                </p>
+                <Link
+                  to="/daemmung-isolierung"
+                  className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  Zum Rechner
+                </Link>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Sidebar - genau wie im Blog */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
-              {/* Sidebar Ad */}
-              {siteConfig.adsEnabled && siteConfig.adsSettings.positions.sidebarTop && (
-                <AdSlot position="sidebar" />
-              )}
-
-              {/* Newsletter Signup */}
-              {siteConfig.newsletter.enabled && (
-                <NewsletterSignup />
-              )}
-
-              {/* Quick Links */}
-              <div className="bg-white p-6 rounded-lg border">
-                <h3 className="font-semibold text-gray-900 mb-4">Schnellzugriff</h3>
-                <div className="space-y-2">
-                  <Link
-                    to="/foerdermittel"
-                    className="block w-full text-left px-3 py-2 rounded text-sm text-gray-600 hover:bg-gray-50 hover:text-green-600 transition-colors"
-                  >
-                    Fördermittel finden
-                  </Link>
-                  <Link
-                    to="/heizung-modernisieren"
-                    className="block w-full text-left px-3 py-2 rounded text-sm text-gray-600 hover:bg-gray-50 hover:text-green-600 transition-colors"
-                  >
-                    Heizung modernisieren
-                  </Link>
-                  <Link
-                    to="/daemmung-isolierung"
-                    className="block w-full text-left px-3 py-2 rounded text-sm text-gray-600 hover:bg-gray-50 hover:text-green-600 transition-colors"
-                  >
-                    Dämmung planen
-                  </Link>
-                  <Link
-                    to="/blog"
-                    className="block w-full text-left px-3 py-2 rounded text-sm text-gray-600 hover:bg-gray-50 hover:text-green-600 transition-colors"
-                  >
-                    Alle Artikel
-                  </Link>
+        {/* Sidebar Ad Section */}
+        <section className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              <div className="lg:col-span-3">
+                {/* Blog Preview */}
+                <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+                  Neueste Artikel
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Artikel 1
+                    </h3>
+                    <p className="text-gray-600">
+                      Kurze Zusammenfassung des Artikels.
+                    </p>
+                    <Link
+                      to="/blog/artikel-1"
+                      className="text-green-600 hover:text-green-700 transition-colors mt-2 block"
+                    >
+                      Mehr lesen
+                    </Link>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Artikel 2
+                    </h3>
+                    <p className="text-gray-600">
+                      Kurze Zusammenfassung des Artikels.
+                    </p>
+                    <Link
+                      to="/blog/artikel-2"
+                      className="text-green-600 hover:text-green-700 transition-colors mt-2 block"
+                    >
+                      Mehr lesen
+                    </Link>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      Artikel 3
+                    </h3>
+                    <p className="text-gray-600">
+                      Kurze Zusammenfassung des Artikels.
+                    </p>
+                    <Link
+                      to="/blog/artikel-3"
+                      className="text-green-600 hover:text-green-700 transition-colors mt-2 block"
+                    >
+                      Mehr lesen
+                    </Link>
+                  </div>
                 </div>
               </div>
+              <div className="space-y-6">
+                <AdSlot position="sidebar" className="w-full" />
+                <AdSlot position="sidebar" className="w-full" />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Newsletter Section */}
+        <section className="py-12 bg-green-50">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-semibold text-gray-900 mb-4">
+              {siteConfig.newsletter.title}
+            </h2>
+            <p className="text-gray-700 mb-6">
+              {siteConfig.newsletter.description}
+            </p>
+            <Link
+              to={siteConfig.socialLinks.newsletter}
+              className="inline-block px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Zum Newsletter anmelden
+            </Link>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>

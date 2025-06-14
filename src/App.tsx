@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +9,9 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
 import Links from "./pages/Links";
+import Kontakt from "./pages/Kontakt";
+import Impressum from "./pages/Impressum";
+import Datenschutz from "./pages/Datenschutz";
 import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/ui/CookieConsent";
 
@@ -39,9 +43,9 @@ const App = () => (
           
           <Route path="/links" element={<Links />} />
           <Route path="/newsletter" element={<Index />} />
-          <Route path="/kontakt" element={<Links />} />
-          <Route path="/impressum" element={<Links />} />
-          <Route path="/datenschutz" element={<Links />} />
+          <Route path="/kontakt" element={<Kontakt />} />
+          <Route path="/impressum" element={<Impressum />} />
+          <Route path="/datenschutz" element={<Datenschutz />} />
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
