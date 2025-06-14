@@ -1,12 +1,12 @@
 
 import { useState } from 'react';
-import { Calculator, Euro, Zap, Users, Home, Heater, TrendingUp, ChevronsRight, Info } from 'lucide-react';
+import { Calculator, Zap, Users, Home, Heater, TrendingUp, ChevronsRight, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from '@/components/ui/separator';
+import { Slider } from '@/components/ui/slider';
 
 const ModernizationSavingsCalculator = () => {
   const [inputs, setInputs] = useState({
@@ -19,8 +19,8 @@ const ModernizationSavingsCalculator = () => {
   });
   
   const [results, setResults] = useState<{
-    currentTotalCosts: number;
-    futureTotalCosts: number;
+    current: { total: number; heating: number; hotWater: number; };
+    future: { total: number; heating: number; hotWater: number; };
     annualSavings: number;
     savingsPercentage: number;
   } | null>(null);
@@ -51,15 +51,19 @@ const ModernizationSavingsCalculator = () => {
         
         const heatingCosts = finalHeatingKwh * pricePerKwh;
         const hotWaterCosts = finalHotWaterKwh * pricePerKwh;
-        return heatingCosts + hotWaterCosts;
+        return {
+            total: heatingCosts + hotWaterCosts,
+            heating: heatingCosts,
+            hotWater: hotWaterCosts
+        };
     };
 
-    const currentTotalCosts = calculateSingleScenario(inputs.currentInsulation, inputs.currentHeating);
-    const futureTotalCosts = calculateSingleScenario(inputs.futureInsulation, inputs.futureHeating);
-    const annualSavings = currentTotalCosts - futureTotalCosts;
-    const savingsPercentage = annualSavings > 0 && currentTotalCosts > 0 ? (annualSavings / currentTotalCosts) * 100 : 0;
+    const current = calculateSingleScenario(inputs.currentInsulation, inputs.currentHeating);
+    const future = calculateSingleScenario(inputs.futureInsulation, inputs.futureHeating);
+    const annualSavings = current.total - future.total;
+    const savingsPercentage = annualSavings > 0 && current.total > 0 ? (annualSavings / current.total) * 100 : 0;
 
-    setResults({ currentTotalCosts, futureTotalCosts, annualSavings, savingsPercentage });
+    setResults({ current, future, annualSavings, savingsPercentage });
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -82,11 +86,46 @@ const ModernizationSavingsCalculator = () => {
             <h3 className="font-bold text-lg text-gray-800">Grunddaten</h3>
              <div>
                 <Label htmlFor="houseSize" className="text-sm font-semibold text-gray-700 flex items-center"><Home className="mr-2 h-4 w-4" /> Wohnfläche (m²)</Label>
-                <Input id="houseSize" type="number" placeholder="z.B. 150" value={inputs.houseSize} onChange={(e) => handleInputChange('houseSize', e.target.value)} className="mt-1" />
+                <div className="flex items-center space-x-4 mt-2">
+                  <Slider
+                    id="houseSize"
+                    min={50}
+                    max={500}
+                    step={5}
+                    value={[parseFloat(inputs.houseSize) || 50]}
+                    onValueChange={(value) => handleInputChange('houseSize', value[0].toString())}
+                    className="flex-1"
+                  />
+                  <div className="relative w-28">
+                    <Input
+                      type="number"
+                      value={inputs.houseSize}
+                      onChange={(e) => handleInputChange('houseSize', e.target.value)}
+                      className="w-full text-center pr-8"
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">m²</span>
+                  </div>
+                </div>
               </div>
               <div>
                 <Label htmlFor="personCount" className="text-sm font-semibold text-gray-700 flex items-center"><Users className="mr-2 h-4 w-4" /> Personen im Haushalt</Label>
-                <Input id="personCount" type="number" placeholder="z.B. 4" value={inputs.personCount} onChange={(e) => handleInputChange('personCount', e.target.value)} className="mt-1" />
+                <div className="flex items-center space-x-4 mt-2">
+                  <Slider
+                    id="personCount"
+                    min={1}
+                    max={10}
+                    step={1}
+                    value={[parseInt(inputs.personCount) || 1]}
+                    onValueChange={(value) => handleInputChange('personCount', value[0].toString())}
+                    className="flex-1"
+                  />
+                  <Input
+                    type="number"
+                    value={inputs.personCount}
+                    onChange={(e) => handleInputChange('personCount', e.target.value)}
+                    className="w-28 text-center"
+                  />
+                </div>
               </div>
           </div>
           <div className="space-y-4 p-4 border rounded-lg bg-white">
@@ -152,17 +191,27 @@ const ModernizationSavingsCalculator = () => {
                 <p className="text-lg font-semibold text-green-700">({results.savingsPercentage.toFixed(0)}% weniger Kosten)</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center">
-              <div className="bg-white p-4 rounded-lg shadow-md">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start text-center">
+              <div className="bg-white p-4 rounded-lg shadow-md h-full flex flex-col">
                 <p className="text-sm text-gray-600">Kosten vorher</p>
-                <div className="text-2xl font-bold text-red-600">{results.currentTotalCosts.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
-                <p className="text-sm text-gray-500">pro Jahr</p>
+                <div className="text-2xl font-bold text-red-600 mt-1 mb-2">{results.current.total.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
+                <div className="text-xs text-gray-500 space-y-1 mt-auto">
+                    <p>Heizung: {results.current.heating.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                    <p>Warmwasser: {results.current.hotWater.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                </div>
               </div>
-              <ChevronsRight className="w-8 h-8 text-gray-400 mx-auto hidden md:block" />
-              <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-500">
+
+              <div className="h-full flex items-center justify-center">
+                <ChevronsRight className="w-8 h-8 text-gray-400 mx-auto hidden md:block" />
+              </div>
+
+              <div className="bg-white p-4 rounded-lg shadow-md border-2 border-green-500 h-full flex flex-col">
                 <p className="text-sm text-gray-600">Kosten nachher</p>
-                <div className="text-2xl font-bold text-green-600">{results.futureTotalCosts.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
-                <p className="text-sm text-gray-500">pro Jahr</p>
+                <div className="text-2xl font-bold text-green-600 mt-1 mb-2">{results.future.total.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</div>
+                <div className="text-xs text-gray-500 space-y-1 mt-auto">
+                    <p>Heizung: {results.future.heating.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                    <p>Warmwasser: {results.future.hotWater.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                </div>
               </div>
             </div>
             
