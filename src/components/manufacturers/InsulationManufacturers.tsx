@@ -90,27 +90,27 @@ const InsulationManufacturers = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/10">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-6 py-3 bg-blue-500 text-white rounded-full text-lg font-bold mb-6">
             <Building2 className="mr-2 w-5 h-5" />
             🏭 DÄMMSTOFF-HERSTELLER
           </div>
-          <h2 className="text-5xl font-black text-gray-900 mb-6">
+          <h2 className="text-5xl font-black text-gray-900 dark:text-gray-100 mb-6">
             Die größten Dämmstoff-Hersteller im Vergleich
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto">
             Von ökologischen Holzfaser-Dämmstoffen bis zur klassischen Mineralwolle - 
-            <span className="text-blue-600 font-bold"> diese Hersteller bestimmen den Markt!</span>
+            <span className="text-blue-600 font-bold dark:text-blue-400"> diese Hersteller bestimmen den Markt!</span>
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {manufacturers.map((manufacturer, index) => (
+          {manufacturers.map((manufacturer) => (
             <div
               key={manufacturer.name}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-200 group"
+              className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl dark:shadow-none dark:border dark:border-gray-700/50 transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-200 dark:hover:border-blue-500 group"
             >
               <div className="text-center mb-6">
                 <div 
@@ -120,18 +120,18 @@ const InsulationManufacturers = () => {
                     {manufacturer.logoPlaceholder}
                   </span>
                 </div>
-                <h3 className="text-2xl font-black text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-2xl font-black text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {manufacturer.name}
                 </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                   {manufacturer.description}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-sm font-bold text-gray-800 mb-3">🎯 Spezialitäten:</h4>
+                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-3">🎯 Spezialitäten:</h4>
                 {manufacturer.specialties.map((specialty, idx) => (
-                  <div key={idx} className="flex items-center text-sm text-gray-700">
+                  <div key={idx} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
                     <div className="w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
                     {specialty}
                   </div>
@@ -139,7 +139,7 @@ const InsulationManufacturers = () => {
               </div>
 
               <div className="mt-6 text-center">
-                <div className="text-blue-600 font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div className="text-blue-600 dark:text-blue-400 font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Building2 className="mr-2 w-4 h-4" />
                   Mehr erfahren
                 </div>
@@ -149,11 +149,11 @@ const InsulationManufacturers = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-8 border-2 border-blue-200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-2xl p-8 border-2 border-blue-200 dark:border-blue-800">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               💡 Welcher Dämmstoff passt zu Ihrem Projekt?
             </h3>
-            <p className="text-gray-700 text-lg max-w-3xl mx-auto mb-6">
+            <p className="text-gray-700 dark:text-gray-300 text-lg max-w-3xl mx-auto mb-6">
               Die Wahl des richtigen Dämmstoffs hängt von vielen Faktoren ab: Einsatzbereich, 
               Budget, ökologische Anforderungen und bauphysikalische Eigenschaften.
             </p>
@@ -161,17 +161,17 @@ const InsulationManufacturers = () => {
               <div className="text-center">
                 <div className="text-4xl mb-2">🌱</div>
                 <h4 className="font-bold text-green-600">Ökologisch</h4>
-                <p className="text-sm text-gray-600">Holzfaser, Zellulose, Naturdämmstoffe</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Holzfaser, Zellulose, Naturdämmstoffe</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-2">🔥</div>
                 <h4 className="font-bold text-red-600">Brandschutz</h4>
-                <p className="text-sm text-gray-600">Steinwolle, Mineralwolle</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Steinwolle, Mineralwolle</p>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-2">💰</div>
                 <h4 className="font-bold text-blue-600">Preis-Leistung</h4>
-                <p className="text-sm text-gray-600">Glaswolle, EPS, Einblasdämmung</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Glaswolle, EPS, Einblasdämmung</p>
               </div>
             </div>
           </div>

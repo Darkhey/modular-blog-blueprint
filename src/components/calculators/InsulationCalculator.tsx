@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +8,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calculator } from 'lucide-react';
+import { Calculator, Info } from 'lucide-react';
 
 const formSchema = z.object({
   area: z.number().min(10, "Fläche muss mindestens 10 m² sein.").max(500, "Fläche darf maximal 500 m² sein."),
@@ -45,6 +44,9 @@ const InsulationCalculator = () => {
       heatingCost: 0.15,
     },
   });
+
+  const selectedSystemKey = form.watch('insulationSystem');
+  const selectedSystem = insulationSystems[selectedSystemKey];
 
   const onSubmit = (values: FormValues) => {
     const system = insulationSystems[values.insulationSystem];
@@ -145,6 +147,20 @@ const InsulationCalculator = () => {
                 </FormItem>
               )}
             />
+
+            {selectedSystem && (
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 flex items-start gap-4 animate-fade-in">
+                <Info className="w-5 h-5 text-blue-500 mt-1 shrink-0" />
+                <div>
+                  <h4 className="font-bold text-blue-800 dark:text-blue-300">{selectedSystem.name}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Geschätzte Kosten: <span className="font-semibold text-foreground">{selectedSystem.cost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })} / m²</span>.
+                    <br />
+                    Neuer U-Wert nach Dämmung: <span className="font-semibold text-foreground">{selectedSystem.uValue.toFixed(2)} W/(m²K)</span>.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <FormField
               control={form.control}
