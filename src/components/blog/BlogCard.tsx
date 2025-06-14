@@ -1,17 +1,6 @@
-
 import { Link } from 'react-router-dom';
 import { Calendar, Clock } from 'lucide-react';
-
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  topic: string;
-  topic_color: string;
-  published_at: string;
-  read_time: number;
-  slug: string;
-}
+import { BlogPost } from '@/hooks/useBlogPosts';
 
 interface BlogCardProps {
   post: BlogPost;

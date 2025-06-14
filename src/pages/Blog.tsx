@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Search, BookOpen, TrendingUp, Award, Users } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -7,60 +6,26 @@ import BlogCard from '@/components/blog/BlogCard';
 import TopicFilter from '@/components/blog/TopicFilter';
 import AdSlot from '@/components/ui/AdSlot';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { mockBlogPosts } from '@/data/mockBlogPosts';
 import { siteConfig } from '@/config/site.config';
+import { useBlogPosts } from '@/hooks/useBlogPosts';
+import BlogStats from '@/components/blog/BlogStats';
+import QuickStats from '@/components/shared/QuickStats';
+import PopularTopics from '@/components/blog/sidebar/PopularTopics';
 
 const Blog = () => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPosts = mockBlogPosts.filter(post => {
-    const matchesTopic = !selectedTopic || post.topic === siteConfig.contentTopics.find(t => t.id === selectedTopic)?.name;
+  const topicName = selectedTopic ? siteConfig.contentTopics.find(t => t.id === selectedTopic)?.name : undefined;
+  const { data: posts, isLoading } = useBlogPosts(topicName);
+
+  const filteredPosts = posts?.filter(post => {
     const matchesSearch = !searchQuery || 
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     
-    return matchesTopic && matchesSearch;
-  });
-
-  const blogStats = [
-    {
-      icon: BookOpen,
-      title: "Ratgeber-Artikel",
-      value: "120+",
-      description: "Fundierte Artikel zu allen Themen der Sanierung",
-      color: "text-blue-600"
-    },
-    {
-      icon: TrendingUp,
-      title: "Durchschnittliche Ersparnis",
-      value: "25%",
-      description: "Energiekosten-Reduktion unserer Leser",
-      color: "text-green-600"
-    },
-    {
-      icon: Award,
-      title: "Erfolgreiche Projekte",
-      value: "2.500+",
-      description: "Sanierungen mit unseren Tipps realisiert",
-      color: "text-orange-600"
-    },
-    {
-      icon: Users,
-      title: "Community",
-      value: "15.000+",
-      description: "Hausbesitzer vertrauen unserem Ratgeber",
-      color: "text-purple-600"
-    }
-  ];
-
-  const popularTopics = [
-    { name: "Heizung tauschen", posts: 25, savings: "bis 40%" },
-    { name: "Dämmung planen", posts: 18, savings: "bis 50%" },
-    { name: "Förderung beantragen", posts: 22, savings: "bis 70%" },
-    { name: "Fenster erneuern", posts: 12, savings: "bis 20%" }
-  ];
+    return matchesSearch;
+  }) || [];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -79,20 +44,7 @@ const Blog = () => {
         </div>
 
         {/* Blog Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          {blogStats.map((stat, index) => (
-            <Card key={index} className="text-center hover:shadow-md transition-shadow duration-300">
-              <CardHeader className="pb-3">
-                <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-2`} />
-                <CardTitle className="text-lg">{stat.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className={`text-2xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
-                <CardDescription>{stat.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <BlogStats />
 
         {/* Search */}
         <div className="relative mb-8">
@@ -145,7 +97,9 @@ const Blog = () => {
               </div>
             )}
 
-            {filteredPosts.length > 0 ? (
+            {isLoading && <div className="text-center py-12">Lade Artikel...</div>}
+
+            {!isLoading && filteredPosts.length > 0 ? (
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   {selectedTopic ? `Artikel zu "${siteConfig.contentTopics.find(t => t.id === selectedTopic)?.name}"` : 
@@ -167,26 +121,28 @@ const Blog = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Search className="text-gray-400 w-8 h-8" />
+              !isLoading && (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Search className="text-gray-400 w-8 h-8" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    Keine Artikel gefunden
+                  </h3>
+                  <p className="text-gray-500 mb-6">
+                    Versuchen Sie andere Suchbegriffe oder wählen Sie eine andere Kategorie.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedTopic(null);
+                    }}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                  >
+                    Alle Artikel anzeigen
+                  </button>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  Keine Artikel gefunden
-                </h3>
-                <p className="text-gray-500 mb-6">
-                  Versuchen Sie andere Suchbegriffe oder wählen Sie eine andere Kategorie.
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedTopic(null);
-                  }}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-                >
-                  Alle Artikel anzeigen
-                </button>
-              </div>
+              )
             )}
 
             {/* Content Quality Promise */}
@@ -244,53 +200,10 @@ const Blog = () => {
               )}
 
               {/* Popular Topics with Enhanced Info */}
-              <div className="bg-white p-6 rounded-lg border">
-                <h3 className="font-semibold text-gray-900 mb-4">Beliebte Themen</h3>
-                <div className="space-y-3">
-                  {popularTopics.map((topic, index) => (
-                    <div key={index} className="border-b border-gray-100 last:border-b-0 pb-3 last:pb-0">
-                      <button
-                        onClick={() => setSelectedTopic(siteConfig.contentTopics.find(t => t.name.includes(topic.name.split(' ')[0]))?.id || null)}
-                        className="block w-full text-left group"
-                      >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700 group-hover:text-green-600 transition-colors">
-                            {topic.name}
-                          </span>
-                          <span className="text-xs text-green-600 font-medium">{topic.savings}</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-gray-500">{topic.posts} Artikel</span>
-                          <span className="text-xs text-gray-400">→</span>
-                        </div>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <PopularTopics onTopicSelect={setSelectedTopic} />
 
               {/* Quick Stats - same as other pages */}
-              <div className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg border">
-                <h3 className="font-semibold text-gray-900 mb-4">Wussten Sie schon?</h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Heizkosten-Ersparnis:</span>
-                    <span className="font-semibold text-green-600">bis 40%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">BAFA-Förderung:</span>
-                    <span className="font-semibold text-blue-600">bis 70%</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Amortisation:</span>
-                    <span className="font-semibold text-orange-600">8-15 Jahre</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">CO2-Einsparung:</span>
-                    <span className="font-semibold text-purple-600">bis 80%</span>
-                  </div>
-                </div>
-              </div>
+              <QuickStats />
 
               {/* Quick Navigation */}
               <div className="bg-white p-6 rounded-lg border">

@@ -46,7 +46,7 @@ export const useBlogPosts = (topic?: string) => {
         throw error;
       }
 
-      return data as BlogPost[];
+      return data as unknown as BlogPost[];
     }
   });
 };
@@ -66,7 +66,7 @@ export const useBlogPost = (slug: string) => {
         throw error;
       }
 
-      return data as BlogPost;
+      return data as unknown as BlogPost;
     },
     enabled: !!slug
   });
