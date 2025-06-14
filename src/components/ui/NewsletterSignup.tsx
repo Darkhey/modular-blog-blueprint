@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Mail } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const NewsletterSignup = () => {
   const [email, setEmail] = useState('');
@@ -12,14 +13,30 @@ const NewsletterSignup = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!email) {
+        toast.error("Bitte geben Sie eine E-Mail-Adresse ein.");
+        return;
+    }
     setIsLoading(true);
 
-    // Simulate newsletter signup
-    setTimeout(() => {
-      setIsLoading(false);
+    const { error } = await supabase
+      .from('newsletter_subscriptions')
+      .insert({ email });
+
+    setIsLoading(false);
+
+    if (error) {
+      // Postgres error code for unique violation
+      if (error.code === '23505') {
+        toast.error('Diese E-Mail-Adresse ist bereits angemeldet.');
+      } else {
+        toast.error('Anmeldung fehlgeschlagen. Bitte versuchen Sie es später erneut.');
+        console.error('Newsletter signup error:', error);
+      }
+    } else {
       setEmail('');
-      toast.success('Erfolgreich angemeldet! Bestätigen Sie Ihre E-Mail-Adresse.');
-    }, 1000);
+      toast.success('Erfolgreich für den Newsletter angemeldet!');
+    }
   };
 
   return (
