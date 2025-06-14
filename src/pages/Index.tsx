@@ -10,6 +10,7 @@ import BlogCard from '@/components/blog/BlogCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import BlogStats from '@/components/blog/BlogStats';
 
 const Index = () => {
   const { data: posts, isLoading: isLoadingPosts, isError: isErrorPosts } = useBlogPosts(undefined, 3);
@@ -24,7 +25,7 @@ const Index = () => {
         <section className="relative bg-gray-800 text-white py-32 text-center overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center z-0"
-            style={{ backgroundImage: "url('/placeholder.svg?id=photo-1498050108023-c5249f4df085')" }}
+            style={{ backgroundImage: "url('/placeholder.svg?id=photo-1487958449943-2429e8be8625')" }}
           ></div>
           <div className="absolute inset-0 bg-black/60 z-0"></div>
           
@@ -55,18 +56,17 @@ const Index = () => {
         <section className="py-12 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
-              Ihre Vorteile
+              Ihre Vorteile als Hausbesitzer
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature 1 */}
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <Rocket className="text-green-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Schnelle Umsetzung
+                  Starten Sie Ihr Projekt
                 </h3>
                 <p className="text-gray-600">
-                  Dank unserer einfachen Anleitungen setzen Sie Ihr Projekt im
-                  Handumdrehen um.
+                  Egal ob Neubau oder Sanierung – wir begleiten Sie von der ersten Idee bis zur finalen Umsetzung.
                 </p>
               </div>
 
@@ -74,11 +74,10 @@ const Index = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <PiggyBank className="text-blue-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Kosten sparen
+                  Finanzen im Blick
                 </h3>
                 <p className="text-gray-600">
-                  Finden Sie die besten Angebote und Fördermöglichkeiten für
-                  Ihr Vorhaben.
+                  Maximieren Sie Ihr Budget durch clevere Planung und die richtigen Fördermittel.
                 </p>
               </div>
 
@@ -86,13 +85,24 @@ const Index = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm border">
                 <Lightbulb className="text-orange-600 mb-4 w-8 h-8" />
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  Expertenwissen
+                  Wissen, das sich auszahlt
                 </h3>
                 <p className="text-gray-600">
-                  Profitieren Sie von unserem Know-how und vermeiden Sie teure
-                  Fehler.
+                  Profitieren Sie von verständlichen Anleitungen und Experten-Tipps, um teure Fehler zu vermeiden.
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8">
+              Auf uns können Sie bauen
+            </h2>
+            <div className="max-w-5xl mx-auto">
+              <BlogStats />
             </div>
           </div>
         </section>
