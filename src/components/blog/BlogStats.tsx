@@ -7,28 +7,28 @@ const blogStatsData = [
     {
       icon: BookOpen,
       title: "Ratgeber-Artikel",
-      value: "120+",
-      description: "Fundierte Artikel zu allen Themen der Sanierung",
+      value: "40+",
+      description: "Fundierte Artikel zu allen Sanierungsthemen",
       color: "text-blue-600"
     },
     {
       icon: TrendingUp,
-      title: "Durchschnittliche Ersparnis",
-      value: "25%",
-      description: "Energiekosten-Reduktion unserer Leser",
+      title: "Mögliche Ersparnis",
+      value: "bis zu 30%",
+      description: "Reduktion der Energiekosten nach Sanierung",
       color: "text-green-600"
     },
     {
       icon: Award,
-      title: "Erfolgreiche Projekte",
-      value: "2.500+",
-      description: "Sanierungen mit unseren Tipps realisiert",
+      title: "Begleitete Projekte",
+      value: "500+",
+      description: "Sanierungen mit unseren Tipps umgesetzt",
       color: "text-orange-600"
     },
     {
       icon: Users,
-      title: "Community",
-      value: "15.000+",
+      title: "Zufriedene Leser",
+      value: "3.000+",
       description: "Hausbesitzer vertrauen unserem Ratgeber",
       color: "text-purple-600"
     }
