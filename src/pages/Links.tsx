@@ -1,4 +1,3 @@
-
 import { ExternalLink, Mail, Instagram, Facebook } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -31,6 +30,13 @@ const Links = () => {
         { name: "Heizungsbauer", url: "#", description: "Spezialisierte Heizungsinstallateure" },
         { name: "Dämmungsexperten", url: "#", description: "Professionelle Dämmungsarbeiten" },
         { name: "Solar-Installateure", url: "#", description: "PV und Solarthermie Montage" }
+      ]
+    },
+    {
+      category: "Systeme",
+      links: [
+        { name: "Thermofloc", url: "https://www.thermofloc.de", description: "Hersteller von Zellulosedämmung" },
+        { name: "Steico", url: "https://www.steico.com/de", description: "Anbieter von Holzfaser-Dämmstoffen" },
       ]
     },
     {
