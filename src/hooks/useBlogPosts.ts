@@ -30,8 +30,8 @@ export const useBlogPosts = (topic?: string) => {
   return useQuery({
     queryKey: ['blog-posts', topic],
     queryFn: async () => {
-      // Cast supabase to any to bypass TS type check
-      let query = ((supabase as any).from('blog_posts'))
+      let query = supabase
+        .from('blog_posts')
         .select('*')
         .order('published_at', { ascending: false });
 
@@ -55,8 +55,8 @@ export const useBlogPost = (slug: string) => {
   return useQuery({
     queryKey: ['blog-post', slug],
     queryFn: async () => {
-      // Cast supabase to any to bypass TS type check
-      const { data, error } = await ((supabase as any).from('blog_posts'))
+      const { data, error } = await supabase
+        .from('blog_posts')
         .select('*')
         .eq('slug', slug)
         .single();

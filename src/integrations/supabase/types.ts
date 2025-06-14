@@ -9,7 +9,240 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      blog_authors: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          id: string
+          name: string
+          short_bio: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          id?: string
+          name: string
+          short_bio?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          id?: string
+          name?: string
+          short_bio?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      blog_categories: {
+        Row: {
+          color: string | null
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      blog_post_tags: {
+        Row: {
+          post_id: string
+          tag_id: string
+        }
+        Insert: {
+          post_id: string
+          tag_id: string
+        }
+        Update: {
+          post_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_post_tags_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_post_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "blog_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_posts: {
+        Row: {
+          author_id: string | null
+          category_id: string | null
+          comment_count: number | null
+          content: string
+          costs: Json | null
+          cover_url: string | null
+          created_at: string | null
+          difficulty: number | null
+          effort_level: string | null
+          excerpt: string
+          funding_available: string | null
+          gallery_urls: string[] | null
+          hero_image_url: string | null
+          id: string
+          important_notice: string | null
+          is_featured: boolean | null
+          key_benefits: string[] | null
+          keywords: string[] | null
+          like_count: number | null
+          payback_time: string | null
+          published_at: string | null
+          read_time: number
+          savings_potential: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          status: string
+          table_of_contents: Json | null
+          title: string
+          topic: string
+          topic_color: string
+          updated_at: string | null
+          video_url: string | null
+          view_count: number | null
+        }
+        Insert: {
+          author_id?: string | null
+          category_id?: string | null
+          comment_count?: number | null
+          content: string
+          costs?: Json | null
+          cover_url?: string | null
+          created_at?: string | null
+          difficulty?: number | null
+          effort_level?: string | null
+          excerpt: string
+          funding_available?: string | null
+          gallery_urls?: string[] | null
+          hero_image_url?: string | null
+          id?: string
+          important_notice?: string | null
+          is_featured?: boolean | null
+          key_benefits?: string[] | null
+          keywords?: string[] | null
+          like_count?: number | null
+          payback_time?: string | null
+          published_at?: string | null
+          read_time: number
+          savings_potential?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          status?: string
+          table_of_contents?: Json | null
+          title: string
+          topic: string
+          topic_color: string
+          updated_at?: string | null
+          video_url?: string | null
+          view_count?: number | null
+        }
+        Update: {
+          author_id?: string | null
+          category_id?: string | null
+          comment_count?: number | null
+          content?: string
+          costs?: Json | null
+          cover_url?: string | null
+          created_at?: string | null
+          difficulty?: number | null
+          effort_level?: string | null
+          excerpt?: string
+          funding_available?: string | null
+          gallery_urls?: string[] | null
+          hero_image_url?: string | null
+          id?: string
+          important_notice?: string | null
+          is_featured?: boolean | null
+          key_benefits?: string[] | null
+          keywords?: string[] | null
+          like_count?: number | null
+          payback_time?: string | null
+          published_at?: string | null
+          read_time?: number
+          savings_potential?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          status?: string
+          table_of_contents?: Json | null
+          title?: string
+          topic?: string
+          topic_color?: string
+          updated_at?: string | null
+          video_url?: string | null
+          view_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "blog_authors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "blog_posts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "blog_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      blog_tags: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
