@@ -7,6 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { BlogPost } from '@/hooks/useBlogPosts';
 import { BlogCategory } from '@/hooks/useBlogCategories';
+import QuickStats from '@/components/shared/QuickStats';
 
 interface BlogAndCategoriesSectionProps {
     posts?: BlogPost[];
@@ -83,10 +84,15 @@ const BlogAndCategoriesSection = ({
                     </div>
 
                     {/* Sidebar */}
-                    <div className="space-y-6 lg:col-span-1">
-                        <h3 className="text-lg font-semibold text-gray-800 border-b pb-2">Werbung</h3>
-                        <AdSlot position="sidebar" className="w-full" />
-                        <AdSlot position="sidebar" className="w-full" />
+                    <div className="space-y-8 lg:col-span-1">
+                        <QuickStats />
+                        <div>
+                            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">Werbung</h3>
+                            <div className="space-y-4">
+                                <AdSlot position="sidebar" className="w-full" />
+                                <AdSlot position="sidebar" className="w-full" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
