@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { ArrowDown, Calendar, Clock, Zap, TrendingDown, Battery, Thermometer, Euro, CheckCircle, Lightbulb, Target, Flame, Calculator } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -7,6 +6,7 @@ import BlogCard from '@/components/blog/BlogCard';
 import NewsletterSignup from '@/components/ui/NewsletterSignup';
 import AdSlot from '@/components/ui/AdSlot';
 import SavingsCalculator from '@/components/calculators/SavingsCalculator';
+import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
 import { siteConfig } from '@/config/site.config';
 import { mockBlogPosts } from '@/data/mockBlogPosts';
 
@@ -111,6 +111,9 @@ const Index = () => {
           <SavingsCalculator />
         </div>
       </section>
+
+      {/* Dämmstoff-Hersteller Vergleich */}
+      <InsulationManufacturers />
 
       {/* Heiße Blog-Artikel Teaser */}
       <section className="py-20 bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50">

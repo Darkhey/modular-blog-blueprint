@@ -112,7 +112,7 @@ const SavingsCalculator = () => {
               <option value="gas">Gasheizung</option>
               <option value="oil">Ölheizung</option>
               <option value="electric">Elektroheizung</option>
-              <option value="old">Alte Heizung (>20 Jahre)</option>
+              <option value="old">Alte Heizung (&gt;20 Jahre)</option>
             </select>
           </div>
         </div>
