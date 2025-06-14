@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +9,7 @@ import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
 import Links from "./pages/Links";
 import NotFound from "./pages/NotFound";
+import CookieConsent from "./components/ui/CookieConsent";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +46,7 @@ const App = () => (
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <CookieConsent />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

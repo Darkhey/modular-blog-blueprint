@@ -1,4 +1,3 @@
-
 export const siteConfig = {
   // Projekt-Identität
   projectName: "Sanieren & Sparen",
@@ -52,6 +51,39 @@ export const siteConfig = {
       banner: '<div class="bg-gray-100 p-4 rounded text-center text-sm text-gray-600">Werbung</div>',
       sidebar: '<div class="bg-gray-100 p-4 rounded text-center text-sm text-gray-600">Sidebar Ad</div>',
       footer: '<div class="bg-gray-100 p-8 rounded text-center text-sm text-gray-600">Footer Banner</div>'
+    }
+  },
+  
+  // Google Services
+  googleServices: {
+    // Analytics
+    analytics: {
+      enabled: true,
+      trackingId: "G-XXXXXXXXXX", // Wird später durch echte ID ersetzt
+      config: {
+        anonymize_ip: true,
+        cookie_expires: 63072000, // 2 Jahre
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false
+      }
+    },
+    
+    // AdSense
+    adsense: {
+      enabled: true,
+      publisherId: "ca-pub-XXXXXXXXXXXXXXXX", // Wird später durch echte Publisher ID ersetzt
+      config: {
+        adtest: "on", // Für Entwicklung, später entfernen
+        data_ad_client: "ca-pub-XXXXXXXXXXXXXXXX",
+        enable_page_level_ads: true,
+        overlays: {bottom: true}
+      }
+    },
+
+    // Tag Manager (optional)
+    tagManager: {
+      enabled: false,
+      containerId: "GTM-XXXXXXX"
     }
   },
   
