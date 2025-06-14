@@ -1,4 +1,5 @@
 
+import { ArrowRight, BadgePercent } from 'lucide-react';
 import { CalculationResult } from './insulationCalculatorData';
 
 interface InsulationCalculatorResultProps {
@@ -33,6 +34,26 @@ const InsulationCalculatorResult = ({ result }: InsulationCalculatorResultProps)
           <p className="text-2xl font-bold text-teal-600 dark:text-teal-500">
             {result.co2Savings.toFixed(0)} kg
           </p>
+        </div>
+      </div>
+      <div className="mt-8 p-6 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg border-2 border-dashed border-emerald-200 dark:border-emerald-800">
+        <div className="flex items-start gap-4">
+          <div className="bg-emerald-500 text-white p-3 rounded-full flex-shrink-0">
+             <BadgePercent className="w-6 h-6" />
+          </div>
+          <div>
+            <h4 className="text-lg font-bold text-emerald-800 dark:text-emerald-300">Staatliche Förderung nutzen!</h4>
+            <p className="text-muted-foreground mt-1 mb-4">
+              Für energetische Sanierungen wie diese können Sie hohe staatliche Zuschüsse (BEG-Förderung) von bis zu 70% erhalten. Das verkürzt die Amortisationszeit erheblich!
+            </p>
+            <a 
+              href="/blog/beg-foerderung-2024"
+              className="inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 group"
+            >
+              Mehr zur BEG-Förderung 2024
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
