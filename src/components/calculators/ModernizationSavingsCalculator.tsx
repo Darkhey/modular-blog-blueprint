@@ -134,7 +134,7 @@ const ModernizationSavingsCalculator = () => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
-  const handlePriceChange = (keyof typeof customPrices, value: string) => {
+  const handlePriceChange = (field: keyof typeof customPrices, value: string) => {
     setCustomPrices(prev => ({ ...prev, [field]: value }));
   };
 
