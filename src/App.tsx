@@ -13,6 +13,7 @@ import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
 import FoerdermittelPage from "./pages/FoerdermittelPage";
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
+import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
 import SolarenergiePage from "./pages/SolarenergiePage";
@@ -47,6 +48,7 @@ function App() {
                   <Route path="/themen/:categorySlug" element={<CategoryPage />} />
                   <Route path="/foerdermittel" element={<FoerdermittelPage />} />
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
+                  <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
                   <Route path="/heizung-modernisieren" element={<HeizungModernisierenPage />} />
                   <Route path="/solarenergie" element={<SolarenergiePage />} />
