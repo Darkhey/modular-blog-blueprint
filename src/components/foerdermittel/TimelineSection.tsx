@@ -1,5 +1,5 @@
 
-import { Calendar, CalendarArrowDown, CalendarArrowUp, Clock, Timeline, Euro } from "lucide-react";
+import { Calendar, CalendarArrowDown, CalendarArrowUp, Clock, Euro, Map } from "lucide-react";
 
 const steps = [
   {
@@ -13,7 +13,7 @@ const steps = [
     desc: "Alle Fördermittelanträge (BAFA/KfW) MÜSSEN vor Vertragsabschluss oder Baubeginn eingereicht werden."
   },
   {
-    icon: Timeline,
+    icon: Map,
     title: "3. Durchführung der Maßnahme",
     desc: "Nach Bewilligung der Förderung sanieren Sie Ihr Gebäude wie geplant."
   },
@@ -47,3 +47,4 @@ const TimelineSection = () => (
 );
 
 export default TimelineSection;
+
