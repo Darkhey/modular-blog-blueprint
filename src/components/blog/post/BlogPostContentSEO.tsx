@@ -47,7 +47,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
               <li>✅ Einfachste und rentabelste Maßnahme</li>
               <li>✅ Schnelle Umsetzung möglich</li>
               <li>✅ Geringste Kosten pro m²</li>
-              <li class="text-green-600 font-medium">💰 Kosten: 25-40 €/m²</li>
+              <li className="text-green-600 font-medium">💰 Kosten: 25-40 €/m²</li>
             </ul>
           </div>
           
@@ -57,7 +57,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
               <li>✅ Für ausgebaute Dachböden</li>
               <li>✅ Gute Dämmwirkung</li>
               <li>⚠️ Aufwendigere Montage</li>
-              <li class="text-green-600 font-medium">💰 Kosten: 40-80 €/m²</li>
+              <li className="text-green-600 font-medium">💰 Kosten: 40-80 €/m²</li>
             </ul>
           </div>
         </div>
@@ -101,7 +101,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
               <li>✅ Keine Wärmebrücken</li>
               <li>✅ Schutz der Bausubstanz</li>
               <li>❌ Hohe Investition</li>
-              <li class="text-green-600 font-medium">💰 100-250 €/m²</li>
+              <li className="text-green-600 font-medium">💰 100-250 €/m²</li>
             </ul>
           </div>
           
@@ -112,7 +112,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
               <li>✅ Kostengünstig</li>
               <li>✅ Schnelle Umsetzung</li>
               <li>⚠️ Nicht überall möglich</li>
-              <li class="text-green-600 font-medium">💰 25-50 €/m²</li>
+              <li className="text-green-600 font-medium">💰 25-50 €/m²</li>
             </ul>
           </div>
           
@@ -123,7 +123,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
               <li>✅ Geringere Kosten</li>
               <li>❌ Wohnraumverlust</li>
               <li>❌ Wärmebrücken möglich</li>
-              <li class="text-green-600 font-medium">💰 60-120 €/m²</li>
+              <li className="text-green-600 font-medium">💰 60-120 €/m²</li>
             </ul>
           </div>
         </div>
@@ -146,7 +146,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
                 <li>✅ Einfache Montage von unten</li>
                 <li>✅ Schnelle Wirkung spürbar</li>
                 <li>✅ Gutes Preis-Leistungs-Verhältnis</li>
-                <li class="text-green-600 font-medium">💰 Kosten: 20-40 €/m²</li>
+                <li className="text-green-600 font-medium">💰 Kosten: 20-40 €/m²</li>
               </ul>
             </div>
           </div>
@@ -162,7 +162,7 @@ const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
                 <li>✅ Schutz vor Feuchtigkeit</li>
                 <li>✅ Nutzbare Kellerräume</li>
                 <li>❌ Aufwendiger bei Sanierung</li>
-                <li class="text-green-600 font-medium">💰 Kosten: 80-150 €/m²</li>
+                <li className="text-green-600 font-medium">💰 Kosten: 80-150 €/m²</li>
               </ul>
             </div>
           </div>
