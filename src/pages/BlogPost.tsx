@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBlogPost, useBlogPosts } from '@/hooks/useBlogPosts';
 import { siteConfig } from '@/config/site.config';
 import ArticleRating from '@/components/blog/ArticleRating';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -195,6 +196,9 @@ const BlogPost = () => {
 
             {/* Article Rating */}
             <ArticleRating postId={post.id} />
+
+            {/* Share Buttons */}
+            <ShareButtons title={post.title} url={window.location.href} />
 
             {/* Cost Breakdown */}
             {post.costs && (
