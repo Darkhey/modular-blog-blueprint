@@ -128,19 +128,20 @@ const SmartHomePage = () => {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="py-12">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4">
           <h1 className="text-4xl font-bold mb-4">Smart Home: Bereiche & Möglichkeiten</h1>
           <p className="text-lg text-gray-600 mb-8">
             Entdecke, wie smarte Technik im Zuhause Alltag erleichtert, Energie spart und für mehr Sicherheit sorgt. Hier findest du alle Smart Home Bereiche im Überblick – inkl. Empfehlungen!
           </p>
-
-          <nav className="mb-12">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {/* Responsive Linktree */}
+          <nav className="mb-10">
+            <ul className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               {seoTopics.map(seo => (
                 <li key={seo.id}>
                   <a
                     href={`#${seo.id}`}
-                    className="block bg-white border p-4 rounded-lg shadow-xs text-center hover:bg-green-50 transition-all font-medium text-green-700"
+                    className="block bg-white border border-green-200 rounded-xl shadow-xs py-3 px-2 text-center
+                      transition-all font-medium text-green-700 hover:bg-green-100 hover:border-green-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                   >
                     {seo.title}
                   </a>
@@ -148,8 +149,8 @@ const SmartHomePage = () => {
               ))}
             </ul>
           </nav>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Responsive Card Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {smartHomeCategories.map(category => (
               <SmartHomeCategoryCard
                 key={category.id}
@@ -163,7 +164,7 @@ const SmartHomePage = () => {
               />
             ))}
           </div>
-          <p className="text-xs text-gray-500 mt-10 text-center">
+          <p className="text-xs text-gray-500 mt-10 text-center px-2">
             *Wenn du über unsere Links einkaufst, erhalten wir eine kleine Provision. Für dich bleibt der Preis gleich. Danke für deine Unterstützung!
           </p>
         </div>
