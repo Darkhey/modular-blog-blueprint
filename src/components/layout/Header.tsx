@@ -1,7 +1,7 @@
 
 import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
 import { supabase } from '@/integrations/supabase/client';
 import { Session } from '@supabase/supabase-js';
@@ -14,7 +14,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
 const ListItem = forwardRef<
@@ -45,7 +44,6 @@ const ListItem = forwardRef<
 ListItem.displayName = "ListItem";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<{ role: string } | null>(null);
 
@@ -94,7 +92,7 @@ const Header = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo/Brand mit coolem Design */}
+          {/* Logo/Brand */}
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 via-blue-500 to-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -110,8 +108,8 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation mit SEO-URLs */}
-          <nav className="hidden md:flex items-center">
+          {/* Navigation */}
+          <nav className="flex items-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {siteConfig.navigation.map((item) => (
@@ -164,83 +162,6 @@ const Header = () => {
               )}
             </div>
           </nav>
-
-          {/* Mobile menu button mit Animation */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div className="relative w-6 h-6">
-              <Menu 
-                className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-0 rotate-180' : 'opacity-100 rotate-0'}`} 
-                size={24} 
-              />
-              <X 
-                className={`absolute inset-0 transition-all duration-300 ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 -rotate-180'}`} 
-                size={24} 
-              />
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile Navigation mit SEO-URLs */}
-        <div className={`md:hidden overflow-auto transition-all duration-300 ${isMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
-          <div className="border-t bg-white/50 backdrop-blur-sm">
-            <nav className="py-4 space-y-1">
-              {siteConfig.navigation.map((item) =>
-                'isDropdown' in item && item.isDropdown ? (
-                  <Accordion type="single" collapsible className="w-full px-2" key={item.name}>
-                    <AccordionItem value="themen" className="border-b-0">
-                      <AccordionTrigger className="px-2 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg font-normal hover:no-underline">
-                        {item.name}
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="pl-6 space-y-1">
-                          {siteConfig.contentTopics.map((topic) => (
-                            <Link
-                              key={topic.id}
-                              to={topic.seoUrl}
-                              className="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors rounded-lg"
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              {topic.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                ) : (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg mx-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              )}
-              {profile?.role === 'admin' && (
-                <Link
-                  to="/admin"
-                  className="block px-4 py-3 text-blue-700 hover:bg-blue-50 transition-colors rounded-lg mx-2 font-semibold"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Admin
-                </Link>
-              )}
-              {!session && (
-                <Link
-                  to="/auth"
-                  className="block px-4 py-3 text-green-700 hover:bg-green-50 transition-colors rounded-lg mx-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Login
-                </Link>
-              )}
-            </nav>
-          </div>
         </div>
       </div>
     </header>
