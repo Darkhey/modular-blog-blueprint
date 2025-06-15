@@ -4,7 +4,7 @@ import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { Link as LinkIcon, PlugZap, Thermometer, Lightbulb, Shield, VacuumCleaner, MonitorSmartphone } from 'lucide-react';
+import { Link as LinkIcon, PlugZap, Thermometer, Lightbulb, Shield, MonitorSmartphone } from 'lucide-react';
 import SmartHomeCategoryCard from "@/components/smart-home/SmartHomeCategoryCard";
 import SmartHomeCategoryGuide from "@/components/smart-home/SmartHomeCategoryGuide";
 
@@ -115,6 +115,11 @@ const smartHomeCategories = [
     }
   }
 ];
+
+const seoTopics = smartHomeCategories.map(rubrik => ({
+  id: rubrik.id,
+  title: rubrik.title,
+}));
 
 const smartHomeGuides = [
   {
@@ -236,7 +241,7 @@ const smartHomeGuides = [
     sections: [
       {
         heading: "Wie helfen smarte Geräte im Haushalt?",
-        icon: <VacuumCleaner className="text-gray-700" />,
+        icon: <PlugZap className="text-gray-700" />,
         text: "Saugroboter reinigen automatisch und können per App gesteuert werden, smarte Waschmaschinen oder Kühlschränke helfen beim Energiesparen und Wartung.",
         advantages: [
           "Zeitersparnis durch Automatisierung",
@@ -285,11 +290,6 @@ const smartHomeGuides = [
     ]
   }
 ];
-
-const seoTopics = smartHomeCategories.map(rubrik => ({
-  id: rubrik.id,
-  title: rubrik.title,
-}));
 
 const SmartHomePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'smart-home');
