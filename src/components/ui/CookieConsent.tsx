@@ -2,49 +2,67 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { X, Cookie, Shield, BarChart3 } from 'lucide-react';
+import { X, Cookie } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState(true);
+  const [advertisingConsent, setAdvertisingConsent] = useState(true);
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookie-consent');
-    if (!consent) {
-      setShowConsent(true);
+    try {
+      const consent = localStorage.getItem('cookie-consent');
+      if (!consent) {
+        setShowConsent(true);
+      }
+    } catch (error) {
+      console.error("Konnte auf localStorage nicht zugreifen:", error);
     }
   }, []);
 
-  const acceptAll = () => {
-    localStorage.setItem('cookie-consent', JSON.stringify({
-      necessary: true,
-      analytics: true,
-      advertising: true,
-      timestamp: Date.now()
-    }));
-    setShowConsent(false);
-    // Analytics und AdSense aktivieren
-    enableGoogleServices();
-  };
-
-  const acceptNecessary = () => {
-    localStorage.setItem('cookie-consent', JSON.stringify({
-      necessary: true,
-      analytics: false,
-      advertising: false,
-      timestamp: Date.now()
-    }));
-    setShowConsent(false);
-  };
-
-  const enableGoogleServices = () => {
-    // Analytics aktivieren
-    if (window.gtag) {
+  const updateGoogleConsent = (analytics: boolean, advertising: boolean) => {
+    if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', {
-        analytics_storage: 'granted',
-        ad_storage: 'granted'
+        analytics_storage: analytics ? 'granted' : 'denied',
+        ad_storage: advertising ? 'granted' : 'denied',
       });
     }
+  };
+
+  const handleSaveConsent = (analytics: boolean, advertising: boolean) => {
+    try {
+      localStorage.setItem(
+        'cookie-consent',
+        JSON.stringify({
+          necessary: true,
+          analytics,
+          advertising,
+          timestamp: Date.now(),
+        })
+      );
+      updateGoogleConsent(analytics, advertising);
+      setShowConsent(false);
+    } catch (error) {
+      console.error("Konnte auf localStorage nicht zugreifen:", error);
+    }
+  };
+
+  const acceptAll = () => {
+    setAnalyticsConsent(true);
+    setAdvertisingConsent(true);
+    handleSaveConsent(true, true);
+  };
+
+  const saveSelection = () => {
+    handleSaveConsent(analyticsConsent, advertisingConsent);
+  };
+  
+  const acceptNecessary = () => {
+    setAnalyticsConsent(false);
+    setAdvertisingConsent(false);
+    handleSaveConsent(false, false);
   };
 
   if (!showConsent) return null;
@@ -53,7 +71,10 @@ const CookieConsent = () => {
     <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:max-w-md">
       <Card className="p-6 shadow-lg border-2">
         <div className="flex justify-between items-start mb-4">
-          <Cookie className="text-amber-600 mt-1" size={24} />
+          <div className="flex items-center space-x-2">
+            <Cookie className="text-amber-600" size={24} />
+            <h3 className="font-semibold">Cookie-Einstellungen</h3>
+          </div>
           <Button
             variant="ghost"
             size="sm"
@@ -64,60 +85,61 @@ const CookieConsent = () => {
           </Button>
         </div>
 
-        <h3 className="font-semibold mb-2">Cookie-Einstellungen</h3>
         <p className="text-sm text-gray-600 mb-4">
-          Wir verwenden Cookies für Analytics und Werbung, um Ihnen die beste Erfahrung zu bieten.
+          Wir verwenden Cookies, um unsere Website zu verbessern. Sie können Ihre Einstellungen jederzeit anpassen.
         </p>
 
-        {showDetails && (
-          <div className="mb-4 space-y-3">
-            <div className="flex items-start space-x-3">
-              <Shield className="text-green-600 mt-1" size={16} />
-              <div>
-                <p className="text-sm font-medium">Notwendige Cookies</p>
-                <p className="text-xs text-gray-500">Für die Grundfunktionen der Website</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <BarChart3 className="text-blue-600 mt-1" size={16} />
-              <div>
-                <p className="text-sm font-medium">Analytics Cookies</p>
-                <p className="text-xs text-gray-500">Google Analytics für Websiteoptimierung</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <Cookie className="text-orange-600 mt-1" size={16} />
-              <div>
-                <p className="text-sm font-medium">Werbe-Cookies</p>
-                <p className="text-xs text-gray-500">Google AdSense für relevante Werbung</p>
-              </div>
-            </div>
+        <div className="mb-4 space-y-3">
+          <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+            <Label htmlFor="analytics-switch" className="flex flex-col space-y-1 cursor-pointer pr-4">
+              <span className="font-medium text-sm">Analytics</span>
+              <span className="text-xs text-gray-500">Für Websiteoptimierung</span>
+            </Label>
+            <Switch
+              id="analytics-switch"
+              checked={analyticsConsent}
+              onCheckedChange={setAnalyticsConsent}
+              aria-label="Analytics-Cookies an- oder ausschalten"
+            />
           </div>
-        )}
+          <div className="flex items-center justify-between rounded-lg border p-3 shadow-sm">
+            <Label htmlFor="advertising-switch" className="flex flex-col space-y-1 cursor-pointer pr-4">
+              <span className="font-medium text-sm">Werbung</span>
+              <span className="text-xs text-gray-500">Für relevante Werbung</span>
+            </Label>
+            <Switch
+              id="advertising-switch"
+              checked={advertisingConsent}
+              onCheckedChange={setAdvertisingConsent}
+              aria-label="Werbe-Cookies an- oder ausschalten"
+            />
+          </div>
+        </div>
 
         <div className="space-y-2">
-          <Button onClick={acceptAll} className="w-full" size="sm">
+          <Button onClick={acceptAll} className="w-full">
             Alle akzeptieren
           </Button>
           <div className="flex space-x-2">
             <Button 
+              variant="secondary"
+              onClick={saveSelection}
+              className="flex-1" 
+            >
+              Auswahl speichern
+            </Button>
+            <Button 
               variant="outline" 
               onClick={acceptNecessary}
               className="flex-1" 
-              size="sm"
             >
               Nur notwendige
             </Button>
-            <Button 
-              variant="ghost" 
-              onClick={() => setShowDetails(!showDetails)}
-              className="flex-1" 
-              size="sm"
-            >
-              {showDetails ? 'Weniger' : 'Details'}
-            </Button>
           </div>
         </div>
+        <p className="text-xs text-gray-400 mt-4 text-center">
+            Mehr Infos in unserer <Link to="/datenschutz" className="underline hover:text-primary">Datenschutzerklärung</Link>.
+        </p>
       </Card>
     </div>
   );
