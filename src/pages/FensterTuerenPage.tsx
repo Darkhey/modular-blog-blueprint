@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 const FensterTuerenPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'fenster');
