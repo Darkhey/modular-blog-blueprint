@@ -23,7 +23,7 @@ import CallToAction from '@/components/blog/post/CallToAction';
 import BlogPostSidebar from '@/components/blog/post/BlogPostSidebar';
 import RelatedArticles from '@/components/blog/post/RelatedArticles';
 import BlogPostSEO from '@/components/seo/BlogPostSEO';
-import BlogPostContentSEO from '@/components/blog/post/BlogPostContentSEO';
+import ArticleBody from '@/components/blog/post/ArticleBody';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -61,14 +61,7 @@ const BlogPost = () => {
               <KeyBenefits post={post} />
               <ImportantNotice post={post} />
               
-              {/* SEO-optimized content for door comparison */}
-              {post.slug === 'moderne-tueren-vergleich' ? (
-                <BlogPostContentSEO post={post} />
-              ) : (
-                <div className="prose prose-lg max-w-none mb-12">
-                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
-                </div>
-              )}
+              <ArticleBody post={post} />
               
               <ArticleRating postId={post.id} />
               <ShareButtons title={post.title} url={canonicalUrl} />
