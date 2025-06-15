@@ -25,17 +25,23 @@ export interface BlogPost {
   costs: any;
 }
 
-export const useBlogPosts = (topic?: string, limit?: number) => {
+export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
   return useQuery({
-    queryKey: ['blog-posts', topic, limit],
+    queryKey: ['blog-posts', topic, limit, tag],
     queryFn: async () => {
       let query = supabase
         .from('blog_posts')
-        .select('*')
+        .select('*, blog_post_tags!inner(tag_id), blog_tags!blog_post_tags(tag_id,slug,name)')
         .order('published_at', { ascending: false });
 
       if (topic) {
         query = query.eq('topic', topic);
+      }
+
+      if (tag) {
+        // Nur blog_posts mit passendem Tag auswählen
+        query = query
+          .contains('keywords', [tag]);
       }
 
       if (limit) {

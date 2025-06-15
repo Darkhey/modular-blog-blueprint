@@ -1,9 +1,9 @@
-
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
 
 const FensterTuerenPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'fenster');
@@ -25,6 +25,7 @@ const FensterTuerenPage = () => {
               Moderne Türen: Sicherheit, Energieeffizienz & Design →
             </Link>
           </div>
+          {/* Vorhandene Card */}
           <Card>
             <CardHeader>
               <CardTitle>Worauf Sie achten sollten</CardTitle>
@@ -44,6 +45,8 @@ const FensterTuerenPage = () => {
               </div>
             </CardContent>
           </Card>
+          {/* NEU: Empfohlene Artikel-Boxen für Tag "Fenster" */}
+          <TaggedBlogPostsGrid tag="Fenster" title="Weitere spannende Artikel zu Fenster & Türen:" />
         </div>
       </main>
       <Footer />
