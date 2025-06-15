@@ -1,4 +1,3 @@
-
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
@@ -59,20 +58,20 @@ const Index = () => {
                   <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Vergleichs-Ratgeber</span>
                 </div>
               </Link>
-              {/* Türen-Artikel */}
-              <Link to="/blog/moderne-tueren-vergleich" className="block hover:no-underline group">
+              {/* Fenster-Artikel */}
+              <Link to="/blog/moderne-fenster-ratgeber-2025" className="block hover:no-underline group">
                 <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col overflow-hidden">
                   <div className="w-full h-32 mb-3 rounded-lg overflow-hidden">
                     <img 
                       src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop" 
-                      alt="Moderne Haustür" 
+                      alt="Moderne Fenster" 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <span className="text-xs font-semibold text-blue-700 uppercase mb-2">TÜREN</span>
-                  <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Moderne Türen: Sicherheit & Effizienz</h3>
-                  <p className="text-gray-600 text-sm mb-2">Alles über Haustüren, Zimmertüren, Sicherheit, Förderung und Wärmeschutz.</p>
-                  <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Türen-Ratgeber</span>
+                  <span className="text-xs font-semibold text-blue-700 uppercase mb-2">FENSTER</span>
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Moderne Fenster 2025</h3>
+                  <p className="text-gray-600 text-sm mb-2">Der komplette Ratgeber für Austausch, Sanierung, Kosten und Förderung.</p>
+                  <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Fenster-Ratgeber</span>
                 </div>
               </Link>
             </div>

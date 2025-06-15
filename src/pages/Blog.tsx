@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Search, BookOpen, TrendingUp, Award, Users } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -79,16 +78,15 @@ const Blog = () => {
                       <Award className="text-white w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Tipp: Türen für mehr Sicherheit und Effizienz</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Tipp: Moderne Fenster für mehr Effizienz & Wohnkomfort</h3>
                       <p className="text-gray-600 mb-4">
-                        Haustüren, Zimmertüren, Einbruchschutz und Wärmedämmung – 
-                        erfahren Sie alles zu modernen Türen, Design, Sicherheit und Förderung im großen Überblick!
+                        Von Materialien und Verglasung über Kosten und Förderung bis hin zum richtigen Einbau – erfahren Sie alles im großen Ratgeber 2025.
                       </p>
                       <Link 
-                        to="/blog/moderne-tueren-vergleich"
+                        to="/blog/moderne-fenster-ratgeber-2025"
                         className="inline-flex items-center text-green-600 hover:text-green-700 font-medium"
                       >
-                        Türen-Artikel lesen →
+                        Fenster-Ratgeber lesen →
                       </Link>
                     </div>
                   </div>
@@ -220,10 +218,10 @@ const Blog = () => {
                     </a>
                   ))}
                   <Link
-                    to="/blog/moderne-tueren-vergleich"
+                    to="/blog/moderne-fenster-ratgeber-2025"
                     className="block w-full text-left px-3 py-2 rounded text-sm text-green-700 bg-blue-50 hover:bg-blue-100 hover:underline transition-colors font-medium"
                   >
-                    Türen-Überblick
+                    Fenster-Ratgeber
                   </Link>
                 </div>
               </div>
