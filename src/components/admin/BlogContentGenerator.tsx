@@ -1,13 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Sparkles, FileText, Image } from "lucide-react";
+import { Loader2, Sparkles, FileText, Image, X } from "lucide-react";
 import { useBlogCategories } from "@/hooks/useBlogCategories";
+import { UnsplashImagePicker } from "./UnsplashImagePicker";
 
 interface BlogContentGeneratorProps {
   onArticleCreated: () => void;
@@ -19,8 +20,15 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
   const [categorySlug, setCategorySlug] = useState("");
   const [articleLength, setArticleLength] = useState("medium");
   const [autoPublish, setAutoPublish] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
 
   const { data: categories } = useBlogCategories();
+
+  useEffect(() => {
+    if (!topic) {
+      setSelectedImageUrl(null);
+    }
+  }, [topic]);
 
   const generateArticle = async () => {
     setLoading(true);
@@ -30,7 +38,8 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
           topic: topic.trim() || null,
           categorySlug: categorySlug || null,
           articleLength,
-          autoPublish
+          autoPublish,
+          imageUrl: selectedImageUrl,
         }
       });
 
@@ -40,10 +49,11 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
         toast.success(
           `Artikel "${data.title}" erfolgreich ${data.status === 'published' ? 'veröffentlicht' : 'als Entwurf gespeichert'}!`,
           {
-            description: data.image_url ? "Mit automatisch generiertem Titelbild" : "Fallback-Bild verwendet"
+            description: data.image_url ? "Mit Titelbild" : "Fallback-Bild verwendet"
           }
         );
         setTopic("");
+        setSelectedImageUrl(null);
         onArticleCreated();
       } else {
         throw new Error(data.error || "Unbekannter Fehler");
@@ -116,24 +126,46 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
           <div className="flex items-start gap-3">
             <Image className="h-5 w-5 text-blue-600 mt-0.5" />
             <div>
-              <h4 className="font-medium text-blue-900">Automatische Bildintegration</h4>
+              <h4 className="font-medium text-blue-900">Automatische & manuelle Bildauswahl</h4>
               <p className="text-sm text-blue-700 mt-1">
-                Jeder generierte Artikel erhält automatisch ein passendes Titelbild über die Unsplash API. 
-                Fallback-Bilder werden verwendet, falls keine passenden Bilder gefunden werden.
+                Jeder Artikel erhält automatisch ein Titelbild. Du kannst auch manuell ein Bild über die Unsplash-Suche auswählen.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           <div>
             <label className="block text-sm font-medium mb-2">Thema (optional)</label>
-            <Input
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              placeholder="z.B. Wärmepumpe 2025, Smart Home Trends..."
-              disabled={loading}
-            />
+            <div className="flex gap-2">
+              <Input
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                placeholder="z.B. Wärmepumpe 2025, Smart Home Trends..."
+                disabled={loading}
+              />
+              <UnsplashImagePicker
+                initialQuery={topic}
+                onImageSelect={setSelectedImageUrl}
+              >
+                <Button variant="outline" disabled={!topic.trim() || loading} title="Titelbild manuell auswählen">
+                  <Image />
+                </Button>
+              </UnsplashImagePicker>
+            </div>
+            {selectedImageUrl && (
+              <div className="mt-2 relative w-32 h-20 bg-gray-100 rounded-md">
+                <img src={selectedImageUrl} alt="Vorausgewähltes Bild" className="rounded-md object-cover w-full h-full" />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-black/50 hover:bg-black/70"
+                  onClick={() => setSelectedImageUrl(null)}
+                >
+                  <X className="h-4 w-4 text-white" />
+                </Button>
+              </div>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">Kategorie</label>

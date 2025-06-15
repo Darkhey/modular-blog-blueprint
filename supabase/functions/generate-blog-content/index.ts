@@ -1,4 +1,3 @@
-
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
@@ -76,7 +75,7 @@ serve(async (req) => {
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
   try {
-    const { topic, categorySlug, articleLength, autoPublish } = await req.json();
+    const { topic, categorySlug, articleLength, autoPublish, imageUrl } = await req.json();
 
     // Fetch categories and author
     const { data: categories, error: catErr } = await supabase
@@ -221,20 +220,22 @@ Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
     }
 
     // Get image for the article
-    let hero_image_url = null;
-    let cover_url = null;
+    let hero_image_url = imageUrl || null;
+    let cover_url = imageUrl || null;
 
-    if (articleData.image_keywords && articleData.image_keywords.length > 0) {
-      // Try to get image from Unsplash using AI-generated keywords
-      const imageQuery = articleData.image_keywords.join(" ");
-      hero_image_url = await getUnsplashImage(imageQuery);
-      cover_url = hero_image_url; // Use same image for both
-    }
-
-    // Fallback to category-specific image if Unsplash fails
     if (!hero_image_url) {
-      hero_image_url = getFallbackImage(topic_name);
-      cover_url = hero_image_url;
+        if (articleData.image_keywords && articleData.image_keywords.length > 0) {
+          // Try to get image from Unsplash using AI-generated keywords
+          const imageQuery = articleData.image_keywords.join(" ");
+          hero_image_url = await getUnsplashImage(imageQuery);
+          cover_url = hero_image_url; // Use same image for both
+        }
+    
+        // Fallback to category-specific image if Unsplash fails
+        if (!hero_image_url) {
+          hero_image_url = getFallbackImage(topic_name);
+          cover_url = hero_image_url;
+        }
     }
 
     console.log(`Selected image for article: ${hero_image_url}`);
