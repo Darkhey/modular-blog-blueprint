@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Sparkles, FileText } from "lucide-react";
+import { Loader2, Sparkles, FileText, Image } from "lucide-react";
 import { useBlogCategories } from "@/hooks/useBlogCategories";
 
 interface BlogContentGeneratorProps {
@@ -38,7 +38,10 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
 
       if (data.success) {
         toast.success(
-          `Artikel "${data.title}" erfolgreich ${data.status === 'published' ? 'veröffentlicht' : 'als Entwurf gespeichert'}!`
+          `Artikel "${data.title}" erfolgreich ${data.status === 'published' ? 'veröffentlicht' : 'als Entwurf gespeichert'}!`,
+          {
+            description: data.image_url ? "Mit automatisch generiertem Titelbild" : "Fallback-Bild verwendet"
+          }
         );
         setTopic("");
         onArticleCreated();
@@ -84,7 +87,9 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
       const successful = results.filter(r => r.success).length;
       const failed = results.filter(r => !r.success).length;
 
-      toast.success(`${successful} Artikel erstellt, ${failed} fehlgeschlagen`);
+      toast.success(`${successful} Artikel erstellt, ${failed} fehlgeschlagen`, {
+        description: "Alle Artikel mit automatischen Titelbildern"
+      });
       onArticleCreated();
 
     } catch (err) {
@@ -100,9 +105,26 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
         <CardTitle className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-purple-600" />
           KI-Content Generator
+          <span className="ml-2 text-sm bg-green-100 text-green-700 px-2 py-1 rounded-full flex items-center gap-1">
+            <Image className="h-3 w-3" />
+            Auto-Bilder
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <div className="flex items-start gap-3">
+            <Image className="h-5 w-5 text-blue-600 mt-0.5" />
+            <div>
+              <h4 className="font-medium text-blue-900">Automatische Bildintegration</h4>
+              <p className="text-sm text-blue-700 mt-1">
+                Jeder generierte Artikel erhält automatisch ein passendes Titelbild über die Unsplash API. 
+                Fallback-Bilder werden verwendet, falls keine passenden Bilder gefunden werden.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Thema (optional)</label>

@@ -3,11 +3,58 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+const UNSPLASH_ACCESS_KEY = Deno.env.get("UNSPLASH_ACCESS_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
+
+// Function to get image from Unsplash
+async function getUnsplashImage(query: string): Promise<string | null> {
+  if (!UNSPLASH_ACCESS_KEY) {
+    console.log("No Unsplash API key found, skipping image fetch");
+    return null;
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&orientation=landscape&w=1200&h=600`,
+      {
+        headers: {
+          "Authorization": `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error("Unsplash API error:", response.status);
+      return null;
+    }
+
+    const data = await response.json();
+    return data.urls.regular;
+  } catch (error) {
+    console.error("Error fetching Unsplash image:", error);
+    return null;
+  }
+}
+
+// Function to get fallback image based on category
+function getFallbackImage(categoryName: string): string {
+  const categoryImages: Record<string, string> = {
+    'Heizung modernisieren': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&h=600&fit=crop',
+    'Dämmung & Isolierung': 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&h=600&fit=crop',
+    'Fassade': 'https://images.unsplash.com/photo-1493397212122-2b85dda8106b?w=1200&h=600&fit=crop',
+    'Fenster': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=600&fit=crop',
+    'Dach': 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=1200&h=600&fit=crop',
+    'Smart Home': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&h=600&fit=crop',
+    'Solarenergie': 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&h=600&fit=crop',
+    'Fördermittel': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=600&fit=crop'
+  };
+  
+  return categoryImages[categoryName] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop';
+}
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -98,13 +145,15 @@ Gib zurück als JSON:
 "funding_available": String,
 "effort_level": String,
 "key_benefits": [String],
-"important_notice": String
+"important_notice": String,
+"image_keywords": [String] // 3-5 Keywords für Bildsuche
 }
 
 Thema: "${topic || topic_name}". 
 Kategorie: "${topic_name}".
 Baue praktische Tipps, Kostenbeispiele und Hinweise auf Förderungen ein.
-Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.`;
+Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.
+Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.`;
 
     const userPrompt = topic 
       ? `Schreibe einen Artikel zum Thema: "${topic}" in der Kategorie "${topic_name}". Fokussiere auf praktische Tipps für 2025.`
@@ -171,6 +220,25 @@ Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.`;
       articleData.slug += `-${Date.now()}`;
     }
 
+    // Get image for the article
+    let hero_image_url = null;
+    let cover_url = null;
+
+    if (articleData.image_keywords && articleData.image_keywords.length > 0) {
+      // Try to get image from Unsplash using AI-generated keywords
+      const imageQuery = articleData.image_keywords.join(" ");
+      hero_image_url = await getUnsplashImage(imageQuery);
+      cover_url = hero_image_url; // Use same image for both
+    }
+
+    // Fallback to category-specific image if Unsplash fails
+    if (!hero_image_url) {
+      hero_image_url = getFallbackImage(topic_name);
+      cover_url = hero_image_url;
+    }
+
+    console.log(`Selected image for article: ${hero_image_url}`);
+
     // Insert into database
     const { error: insertErr } = await supabase
       .from("blog_posts")
@@ -198,7 +266,9 @@ Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.`;
         key_benefits: articleData.key_benefits,
         important_notice: articleData.important_notice,
         costs: null,
-        is_featured: false
+        is_featured: false,
+        hero_image_url: hero_image_url,
+        cover_url: cover_url
       }]);
 
     if (insertErr) throw new Error("Database insert error: " + insertErr.message);
@@ -209,7 +279,8 @@ Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.`;
       success: true, 
       slug: articleData.slug,
       title: articleData.title,
-      status: autoPublish ? "published" : "draft"
+      status: autoPublish ? "published" : "draft",
+      image_url: hero_image_url
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
