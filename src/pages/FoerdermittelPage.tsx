@@ -1,8 +1,12 @@
+
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import TimelineSection from '@/components/foerdermittel/TimelineSection';
+import HighlightedTip from '@/components/foerdermittel/HighlightedTip';
+import NetBenefitExample from '@/components/foerdermittel/NetBenefitExample';
 
 const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
@@ -14,9 +18,18 @@ const FoerdermittelPage = () => {
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">{topic?.name || 'Fördermittel'}</h1>
           <p className="text-lg text-gray-600 mb-8">{topic?.description || 'Staatliche Zuschüsse und Finanzierungshilfen optimal nutzen'}</p>
-          
+
+          {/* Abschnitt: Zeitleiste */}
+          <TimelineSection />
+
+          {/* Abschnitt: Gelber Hinweis */}
+          <HighlightedTip />
+
+          {/* Abschnitt: Förder-Nutzen-Beispiel */}
+          <NetBenefitExample />
+
           {/* Neue Links zu den Ratgeber-Artikeln */}
-          <Card className="mb-8">
+          <Card className="mb-8 mt-12">
             <CardHeader>
               <CardTitle>Unsere Ratgeber für Fördermittel</CardTitle>
             </CardHeader>
