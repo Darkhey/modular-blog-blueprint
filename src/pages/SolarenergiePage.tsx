@@ -1,4 +1,3 @@
-
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
@@ -7,6 +6,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { CheckCircle, ExternalLink, Sun, Zap, ShieldAlert, Euro } from 'lucide-react';
 import SolarCalculator from '@/components/calculators/SolarCalculator';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
