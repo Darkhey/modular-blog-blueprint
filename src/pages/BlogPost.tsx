@@ -24,15 +24,23 @@ const BlogPost = () => {
   return (
     <>
       <BlogPostContentSEO post={post} />
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3 space-y-8">
-              <BlogPostHeader post={post} />
-              <ArticleBody post={post} />
+            <div className="lg:col-span-3 max-w-none">
+              <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div className="p-8 lg:p-12">
+                  <BlogPostHeader post={post} />
+                  <div className="prose prose-lg max-w-none">
+                    <ArticleBody post={post} />
+                  </div>
+                </div>
+              </article>
               
               {/* Comment System */}
-              <CommentSystem postId={post.id} postSlug={post.slug} />
+              <div className="mt-8">
+                <CommentSystem postId={post.id} postSlug={post.slug} />
+              </div>
             </div>
             
             <div className="lg:col-span-1">
