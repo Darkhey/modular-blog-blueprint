@@ -7,9 +7,56 @@ import { Link } from 'react-router-dom';
 import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
 import { Info, DoorClosed, DoorOpen, Wind } from "lucide-react";
 
-const ThemenBox = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
+// Image gallery for doors and windows
+const fensterImages = [
+  {
+    src: "/photo-1487958449943-2429e8be8625.jpg",
+    alt: "Modernes Fenster in heller Fassade"
+  },
+  {
+    src: "/photo-1496307653780-42ee777d4833.jpg",
+    alt: "Großflächige Glasfassade von unten"
+  },
+  {
+    src: "/photo-1459767129954-1b1c1f9b9ace.jpg",
+    alt: "Stilvolle Fensterfront moderner Architektur"
+  }
+];
+
+const tuerenImages = [
+  {
+    src: "/photo-1518005020951-eccb494ad742.jpg",
+    alt: "Moderne Haustür in heller Betonwand"
+  },
+  {
+    src: "/photo-1449157291145-7efd050a4d0e.jpg",
+    alt: "Design-Haustür in Neubau"
+  }
+];
+
+const ThemenBox = ({
+  icon,
+  title,
+  children,
+  image
+}: {
+  icon: React.ReactNode,
+  title: string,
+  children: React.ReactNode,
+  image?: { src: string, alt: string }
+}) => (
   <section className="bg-white rounded-lg border p-5 mb-7 flex flex-col md:flex-row gap-4 shadow-sm animate-fade-in">
-    <div className="flex-shrink-0 flex items-start mt-1">{icon}</div>
+    {image && (
+      <div className="w-full md:w-56 flex-shrink-0">
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="object-cover rounded-lg w-full h-36 md:h-40 mb-4 md:mb-0"
+          loading="lazy"
+        />
+      </div>
+    )}
+    <div className={`flex-shrink-0 flex items-start mt-1 ${image ? 'hidden md:flex' : ''}`}>{icon}</div>
     <div>
       <h3 className="text-xl font-bold mb-2 text-emerald-800">{title}</h3>
       <div className="text-[1.04rem] text-gray-800 leading-relaxed">{children}</div>
@@ -25,26 +72,44 @@ const FensterTuerenPage = () => {
       <Header />
       <main className="py-12">
         <div className="max-w-4xl mx-auto px-4">
+          {/* Hero Image */}
+          <div className="w-full rounded-xl overflow-hidden mb-8">
+            <img
+              src="/photo-1487958449943-2429e8be8625.jpg"
+              alt="Große Fenster sorgen für Helligkeit und Design"
+              className="w-full h-56 md:h-64 object-cover transition-transform duration-300 hover:scale-105"
+              loading="eager"
+            />
+          </div>
           <h1 className="text-4xl font-bold mb-4">{topic?.name || 'Fenster & Türen'}</h1>
           <p className="text-lg text-gray-600 mb-8">
             {topic?.description || 'Energieeffizient bauen oder sanieren: Fenster und Türen entscheiden maßgeblich über Wärmeverlust, Sicherheit, Komfort und Design des Hauses. In dieser Übersicht erhalten Sie wichtige Infos, praktische Tipps und aktuelle Empfehlungen rund um moderne Fenster- und Türlösungen.'}
           </p>
           
-          {/* NEU: Lesetipp zum Türen-Artikel */}
-          <div className="mb-8 bg-blue-50 p-4 rounded-lg border animate-fade-in">
-            <p className="mb-1 font-semibold text-blue-800">Lesetipp: Neue Übersicht</p>
-            <Link 
-              to="/blog/moderne-tueren-vergleich" 
-              className="inline-flex items-center text-blue-700 hover:underline" 
-            >
-              Moderne Türen: Sicherheit, Energieeffizienz & Design →
-            </Link>
+          {/* Lesetipp zum Türen-Artikel */}
+          <div className="mb-8 bg-blue-50 p-4 rounded-lg border animate-fade-in flex items-center gap-4">
+            <img
+              src="/photo-1518005020951-eccb494ad742.jpg"
+              alt="Stilvolle moderne Tür"
+              className="w-16 h-14 object-cover rounded-md hidden sm:block"
+              loading="lazy"
+            />
+            <div>
+              <p className="mb-1 font-semibold text-blue-800">Lesetipp: Neue Übersicht</p>
+              <Link 
+                to="/blog/moderne-tueren-vergleich" 
+                className="inline-flex items-center text-blue-700 hover:underline story-link" 
+              >
+                Moderne Türen: Sicherheit, Energieeffizienz & Design →
+              </Link>
+            </div>
           </div>
 
-          {/* NEU: Themenübersicht */}
+          {/* Themenübersicht mit Bildern */}
           <ThemenBox
             icon={<Info className="text-blue-500 w-8 h-8" />}
             title="Warum sind Fenster und Türen so wichtig?"
+            image={fensterImages[2]}
           >
             Fenster &amp; Türen sind die Grenze zwischen drinnen und draußen: Sie beeinflussen, wie viel Wärme entweicht, wie sicher Sie sich fühlen, wie hell es im Haus ist – und wie viel Sie fürs Heizen zahlen! Bis zu 25% der gesamten Wärmeverluste entfallen in alten Häusern allein auf undichte Fenster und Außentüren. Moderne Lösungen kombinieren ausgezeichnete Dämmung, Einbruchschutz, Komfort und Gestaltungsspielraum – und sind zentral für jede energetische Sanierung.
           </ThemenBox>
@@ -52,6 +117,7 @@ const FensterTuerenPage = () => {
           <ThemenBox
             icon={<Wind className="text-emerald-600 w-8 h-8" />}
             title="Fenster-Arten & Eigenschaften"
+            image={fensterImages[1]}
           >
             <ul className="list-disc pl-5 mb-1 space-y-1">
               <li><strong>Dreh-Kipp-Fenster:</strong> Am weitesten verbreitet, lassen sich zum Lüften kippen und öffnen.</li>
@@ -68,6 +134,7 @@ const FensterTuerenPage = () => {
           <ThemenBox
             icon={<DoorClosed className="text-yellow-700 w-8 h-8" />}
             title="Türen-Arten & Funktionen"
+            image={tuerenImages[0]}
           >
             <ul className="list-disc pl-5 mb-1 space-y-1">
               <li><strong>Haustüren:</strong> Schutz vor Einbrechern &amp; Visitenkarte des Hauses. Viel Wert auf Sicherheit, Dämmwerte (Ud-Wert) und Winddichtigkeit legen!</li>
@@ -83,6 +150,7 @@ const FensterTuerenPage = () => {
           <ThemenBox
             icon={<Info className="text-green-600 w-7 h-7" />}
             title="Energieeinsparung & Wärmeschutz"
+            image={fensterImages[0]}
           >
             <ul className="list-disc pl-5 mb-1 space-y-1">
               <li>Bis zu 25% der Heizenergie geht über Fenster/Türen verloren – besonders bei Altbauten mit Einfachverglasung.</li>
@@ -96,6 +164,7 @@ const FensterTuerenPage = () => {
           <ThemenBox
             icon={<DoorOpen className="text-red-700 w-8 h-8" />}
             title="Sicherheit & Einbruchschutz"
+            image={tuerenImages[1]}
           >
             <ul className="list-disc pl-5 mb-1 space-y-1">
               <li><b>Haustüren</b> stets mit Mehrfachverriegelung, massiven Schließblechen und geprüften Sicherheitszylindern ausstatten.</li>
@@ -172,4 +241,3 @@ const FensterTuerenPage = () => {
   );
 };
 export default FensterTuerenPage;
-
