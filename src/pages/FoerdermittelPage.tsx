@@ -1,4 +1,3 @@
-
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
@@ -16,7 +15,6 @@ const FoerdermittelPage = () => {
       <Header />
       <main className="pb-12">
         <div className="max-w-4xl mx-auto px-4">
-
           {/* Einleitung */}
           <section className="mt-10 mb-8">
             <span className="inline-block bg-green-200 text-green-900 text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-wide">Fördermittel 2025</span>
@@ -37,6 +35,30 @@ const FoerdermittelPage = () => {
 
           {/* Beispiel zur Förderung */}
           <NetBenefitExample />
+
+          {/* Neuer: Hinweis, warum Förderung manchmal nicht sinnvoll ist */}
+          <div className="bg-orange-100 dark:bg-orange-900/40 border-l-4 border-orange-500 rounded-md px-5 py-4 my-8 shadow-sm">
+            <div className="flex gap-3 items-start">
+              <span className="mt-1">
+                <svg width="28" height="28" className="text-orange-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1.5"/></svg>
+              </span>
+              <div>
+                <strong className="block text-orange-800 dark:text-orange-200 mb-1">Nicht immer lohnt sich eine Förderung!</strong>
+                <p className="text-orange-900 dark:text-orange-100 text-base">
+                  In manchen Fällen ist der Aufwand für die Beantragung der Förderung größer als der tatsächliche Vorteil:
+                </p>
+                <ul className="list-disc ml-6 text-orange-900 dark:text-orange-100 mt-2 space-y-1">
+                  <li>
+                    <span className="font-medium">Energieberater:</span> Die verpflichtende Einbindung eines zertifizierten Energieberaters kann mehrere Tausend Euro kosten und lohnt sich bei kleineren Maßnahmen oft nicht.
+                  </li>
+                  <li>
+                    <span className="font-medium">Bürokratie für Handwerker:</span> Viele Handwerksbetriebe müssen aufwändige Nachweise und Formulare für die Förderung ausfüllen, was zusätzlichen Aufwand und Wartezeit bedeutet.
+                  </li>
+                </ul>
+                <span className="block mt-2 text-sm text-orange-700 dark:text-orange-200">Lassen Sie sich vorab beraten, ob sich die Antragstellung in Ihrem individuellen Fall lohnt.</span>
+              </div>
+            </div>
+          </div>
 
           {/* Ratgeber-Karten */}
           <Card className="mb-8 mt-12 animate-fade-in">
