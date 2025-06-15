@@ -13,6 +13,7 @@ import CalculatorsSection from '@/components/home/CalculatorsSection';
 import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import { Link } from 'react-router-dom';
+import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
 
 const Index = () => {
   const { data: posts, isLoading: isLoadingPosts, isError: isErrorPosts } = useBlogPosts(undefined, 3);
@@ -112,6 +113,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+        
+        <FeaturedExpertSection />
+
         <NewsletterSection />
       </main>
       <Footer />
