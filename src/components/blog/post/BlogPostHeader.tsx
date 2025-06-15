@@ -7,7 +7,7 @@ interface BlogPostHeaderProps {
 }
 
 const BlogPostHeader = ({ post }: BlogPostHeaderProps) => (
-  <header className="mb-12">
+  <header className="mb-8">
     <div className="mb-4">
       <span
         className="inline-block px-4 py-2 rounded-full text-sm font-medium text-white"
@@ -17,16 +17,16 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => (
       </span>
     </div>
 
-    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+    <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight max-w-4xl">
       {post.title}
     </h1>
 
-    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+    <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl">
       {post.excerpt}
     </p>
 
-    <div className="flex items-center justify-between pb-8 border-b border-gray-200">
-      <div className="flex items-center space-x-6 text-sm text-gray-500">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-8 border-b border-gray-200 gap-4">
+      <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
         <div className="flex items-center space-x-2">
           <Calendar size={16} />
           <span>{new Date(post.published_at).toLocaleDateString('de-DE', {
