@@ -4,6 +4,7 @@ import Footer from '@/components/layout/Footer';
 import InsulationCalculator from '@/components/calculators/InsulationCalculator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
 
 const DaemmungsrechnerPage = () => {
   return (
@@ -34,6 +35,9 @@ const DaemmungsrechnerPage = () => {
             </Card>
           </div>
           <InsulationCalculator />
+        </div>
+        <div className="mt-12">
+          <InsulationManufacturers />
         </div>
       </main>
       <Footer />

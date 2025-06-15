@@ -11,7 +11,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 interface InsulationCalculatorFormProps {
   form: UseFormReturn<FormValues>;
   onSubmit: (values: FormValues) => void;
-  selectedSystem: { name: string; cost: number; uValue: number; } | undefined;
+  selectedSystem: {
+    name: string;
+    cost: number;
+    uValue: number;
+    manufacturer?: string;
+    manufacturerUrl?: string;
+    productExample?: string;
+  } | undefined;
   selectedBuildingPart: string;
 }
 
@@ -161,6 +168,19 @@ const InsulationCalculatorForm = ({ form, onSubmit, selectedSystem, selectedBuil
                   <br />
                   Neuer U-Wert nach Dämmung: <span className="font-semibold text-foreground">{selectedSystem.uValue.toFixed(2)} W/(m²K)</span>.
                 </p>
+                {selectedSystem.manufacturer && (
+                  <div className="text-sm text-muted-foreground mt-2">
+                    Möglicher Hersteller:{' '}
+                    {selectedSystem.manufacturerUrl ? (
+                      <a href={selectedSystem.manufacturerUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:underline">
+                        {selectedSystem.manufacturer}
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-foreground">{selectedSystem.manufacturer}</span>
+                    )}
+                    {selectedSystem.productExample && ` (z.B. ${selectedSystem.productExample})`}
+                  </div>
+                )}
               </div>
             </div>
           )}
