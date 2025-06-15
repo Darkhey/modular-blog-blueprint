@@ -1,6 +1,4 @@
 
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import InsulationCalculator from '@/components/calculators/InsulationCalculator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
@@ -9,7 +7,6 @@ import InsulationManufacturers from '@/components/manufacturers/InsulationManufa
 const DaemmungsrechnerPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <main>
         <div className="max-w-3xl mx-auto px-4 py-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4 animate-fade-in">
@@ -40,7 +37,6 @@ const DaemmungsrechnerPage = () => {
           <InsulationManufacturers />
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

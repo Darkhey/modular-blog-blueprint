@@ -1,6 +1,4 @@
 import { useParams } from 'react-router-dom';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import CategoryBenefits from '@/components/category/CategoryBenefits';
 import CategoryArticleSearch from "@/components/category/CategoryArticleSearch";
 import React, { useState, useMemo } from "react";
@@ -64,7 +62,6 @@ const CategoryPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="max-w-7xl mx-auto px-4 py-8">
         <CategoryHero category={currentTopic} />
@@ -96,7 +93,6 @@ const CategoryPage = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };

@@ -1,5 +1,3 @@
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -14,7 +12,6 @@ const SolarenergiePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header />
       <main className="py-12 md:py-16">
         <div className="container max-w-5xl mx-auto px-4 space-y-12">
           
@@ -248,7 +245,6 @@ const SolarenergiePage = () => {
 
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

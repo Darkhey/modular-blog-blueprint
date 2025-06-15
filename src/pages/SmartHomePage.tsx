@@ -1,5 +1,3 @@
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -297,7 +295,6 @@ const SmartHomePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <main className="py-12">
         <div className="max-w-6xl mx-auto px-2 sm:px-4">
           <h1 className="text-4xl font-bold mb-4">Smart Home: Bereiche & Möglichkeiten</h1>
@@ -354,7 +351,6 @@ const SmartHomePage = () => {
           </p>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

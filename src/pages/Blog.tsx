@@ -1,7 +1,5 @@
 
 import { useState } from 'react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import TopicFilter from '@/components/blog/TopicFilter';
 import { siteConfig } from '@/config/site.config';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
@@ -37,7 +35,6 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="max-w-7xl mx-auto px-4 py-8">
         <BlogHero />
@@ -67,7 +64,6 @@ const Blog = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };

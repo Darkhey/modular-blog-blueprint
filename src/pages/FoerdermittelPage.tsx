@@ -1,5 +1,3 @@
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
@@ -12,7 +10,6 @@ const FoerdermittelPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 dark:from-gray-900 dark:to-gray-800">
-      <Header />
       <main className="pb-12">
         <div className="max-w-4xl mx-auto px-4">
           {/* Einleitung */}
@@ -125,7 +122,6 @@ const FoerdermittelPage = () => {
           </Card>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

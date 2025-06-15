@@ -1,14 +1,11 @@
 
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import AdSlot from '@/components/ui/AdSlot';
 import { siteConfig } from '@/config/site.config';
 
 const Kontakt = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header Banner Ad */}
@@ -137,7 +134,6 @@ const Kontakt = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };

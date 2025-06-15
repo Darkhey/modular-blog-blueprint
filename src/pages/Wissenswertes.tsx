@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ExternalLink, Mail, Instagram, Facebook } from 'lucide-react';
-import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
@@ -198,7 +197,6 @@ const Wissenswertes = () => {
         <InsulationManufacturers />
       </main>
 
-      <Footer />
     </div>
   );
 };
