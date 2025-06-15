@@ -14,7 +14,7 @@ interface ScheduledPost {
   slug: string;
   status: string;
   published_at: string | null;
-  scheduled_for?: string;
+  scheduled_for?: string | null;
 }
 
 const ContentCalendar = () => {
@@ -121,7 +121,7 @@ const ContentCalendar = () => {
                       className="text-xs p-1 rounded bg-gradient-to-r from-green-100 to-blue-100"
                     >
                       <div className="font-medium truncate">{post.title}</div>
-                      <Badge size="sm" className={getStatusColor(post.status)}>
+                      <Badge className={`text-xs ${getStatusColor(post.status)}`}>
                         {post.status}
                       </Badge>
                     </div>

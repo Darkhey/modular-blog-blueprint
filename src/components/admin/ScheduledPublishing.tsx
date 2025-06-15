@@ -16,7 +16,7 @@ interface ScheduledPost {
   slug: string;
   status: string;
   published_at: string | null;
-  scheduled_for?: string;
+  scheduled_for?: string | null;
 }
 
 const ScheduledPublishing = () => {

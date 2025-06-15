@@ -153,6 +153,7 @@ export type Database = {
           published_at: string | null
           read_time: number
           savings_potential: string | null
+          scheduled_for: string | null
           seo_description: string | null
           seo_title: string | null
           slug: string
@@ -189,6 +190,7 @@ export type Database = {
           published_at?: string | null
           read_time: number
           savings_potential?: string | null
+          scheduled_for?: string | null
           seo_description?: string | null
           seo_title?: string | null
           slug: string
@@ -225,6 +227,7 @@ export type Database = {
           published_at?: string | null
           read_time?: number
           savings_potential?: string | null
+          scheduled_for?: string | null
           seo_description?: string | null
           seo_title?: string | null
           slug?: string
