@@ -70,9 +70,9 @@ serve(async (req) => {
   }
 
   const { createClient } = await import("npm:@supabase/supabase-js");
-  const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZW1kdGJmbHJtZHlteHFwcWhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MjUzNTIsImV4cCI6MjA2NTUwMTM1Mn0.fs1wAnmkGCGD7tbMpqot7sqFqYpLYuDzwCiYT32USTY";
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+  const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
+  const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
 
   try {
     const { topic, categorySlug, articleLength, autoPublish, imageUrl } = await req.json();

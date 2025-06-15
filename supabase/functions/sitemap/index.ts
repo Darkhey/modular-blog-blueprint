@@ -8,10 +8,8 @@ const corsHeaders = {
   "Content-Type": "application/xml; charset=utf-8",
 };
 
-// IMPORTANT: These are placeholders and should be replaced by environment variables
-// in a real-world scenario for better security and configuration management.
-const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZW1kdGJmbHJtZHlteHFwcWhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MjUzNTIsImV4cCI6MjA2NTUwMTM1Mn0.fs1wAnmkGCGD7tbMpqot7sqFqYpLYuDzwCiYT32USTY";
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
 
 serve(async (_req) => {
   if (_req.method === "OPTIONS") {
@@ -19,7 +17,7 @@ serve(async (_req) => {
   }
 
   try {
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
     const domain = "https://sanieren-sparen.de";
 
     // Static pages from App.tsx
