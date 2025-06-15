@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { FolderKanban } from 'lucide-react';
+import { FolderKanban, TrendingUp, Bookmark, Clock } from 'lucide-react';
 import AdSlot from '@/components/ui/AdSlot';
 import BlogCard from '@/components/blog/BlogCard';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -106,13 +106,108 @@ const BlogAndCategoriesSection = ({
                         </div>
                     </div>
 
-                    {/* Sidebar */}
-                    <div className="space-y-8 lg:col-span-1">
-                        <QuickStats />
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">Werbung</h3>
-                            <div className="space-y-4">
+                    {/* Enhanced Sidebar */}
+                    <div className="lg:col-span-1">
+                        <div className="sticky top-24 space-y-6">
+                            {/* AdSense - Top Banner */}
+                            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-1 shadow-sm">
                                 <AdSlot position="sidebar" className="w-full" />
+                            </div>
+
+                            {/* Quick Stats mit verbessertem Design */}
+                            <div className="transform hover:scale-105 transition-transform duration-200">
+                                <QuickStats />
+                            </div>
+
+                            {/* Trending Topics */}
+                            <Card className="bg-gradient-to-br from-green-50 to-blue-50 border-green-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <CardHeader className="pb-4">
+                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
+                                        <TrendingUp className="mr-2 h-5 w-5 text-green-600" />
+                                        Trending Ratgeber
+                                    </CardTitle>
+                                </CardHeader>
+                                <div className="px-6 pb-6 space-y-3">
+                                    <Link to="/blog/heizung-modernisieren-ratgeber-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Heizung modernisieren</span>
+                                        </div>
+                                        <span className="text-xs text-green-600 font-semibold">bis 40%</span>
+                                    </Link>
+                                    <Link to="/blog/daemmstoffe-vergleich-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Dämmung optimieren</span>
+                                        </div>
+                                        <span className="text-xs text-green-600 font-semibold">bis 50%</span>
+                                    </Link>
+                                    <Link to="/blog/solaranlage-planen-kaufen-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Solaranlage planen</span>
+                                        </div>
+                                        <span className="text-xs text-green-600 font-semibold">bis 80%</span>
+                                    </Link>
+                                </div>
+                            </Card>
+
+                            {/* AdSense - Middle Banner */}
+                            <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-1 shadow-sm">
+                                <AdSlot position="sidebar" className="w-full" />
+                            </div>
+
+                            {/* Quick Links */}
+                            <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+                                <CardHeader className="pb-4">
+                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
+                                        <Bookmark className="mr-2 h-5 w-5 text-blue-600" />
+                                        Schnellzugriff
+                                    </CardTitle>
+                                </CardHeader>
+                                <div className="px-6 pb-6 space-y-2">
+                                    <Link to="/heizkostenrechner" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-blue-600 text-sm font-bold">💡</span>
+                                        </div>
+                                        <span className="text-sm text-gray-700 group-hover:text-blue-600 font-medium">Heizkostenrechner</span>
+                                    </Link>
+                                    <Link to="/daemmungsrechner" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-green-600 text-sm font-bold">🏠</span>
+                                        </div>
+                                        <span className="text-sm text-gray-700 group-hover:text-green-600 font-medium">Dämmungsrechner</span>
+                                    </Link>
+                                    <Link to="/foerdermittel" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
+                                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-purple-600 text-sm font-bold">💰</span>
+                                        </div>
+                                        <span className="text-sm text-gray-700 group-hover:text-purple-600 font-medium">Fördermittel</span>
+                                    </Link>
+                                </div>
+                            </Card>
+
+                            {/* Newsletter Teaser */}
+                            <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200 shadow-md hover:shadow-lg transition-all duration-300">
+                                <CardHeader className="pb-4">
+                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
+                                        <Clock className="mr-2 h-5 w-5 text-indigo-600" />
+                                        Newsletter
+                                    </CardTitle>
+                                    <CardDescription className="text-gray-600">
+                                        Bleiben Sie über neue Ratgeber und Fördermöglichkeiten informiert
+                                    </CardDescription>
+                                </CardHeader>
+                                <div className="px-6 pb-6">
+                                    <Link to="/blog" className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                                        Jetzt anmelden
+                                        <span className="ml-2">→</span>
+                                    </Link>
+                                </div>
+                            </Card>
+
+                            {/* AdSense - Bottom Banner */}
+                            <div className="bg-gradient-to-br from-green-50 to-yellow-50 rounded-xl p-1 shadow-sm">
                                 <AdSlot position="sidebar" className="w-full" />
                             </div>
                         </div>
