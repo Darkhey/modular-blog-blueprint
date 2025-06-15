@@ -1,1 +1,5 @@
+
 project_id = "bmemdtbflrmdymxqpqhs"
+
+[functions.generate-ai-blogpost]
+verify_jwt = false
