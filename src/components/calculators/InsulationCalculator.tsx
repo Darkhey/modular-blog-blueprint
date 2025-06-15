@@ -11,6 +11,7 @@ import {
 } from './insulation/insulationCalculatorData';
 import InsulationCalculatorForm from './insulation/InsulationCalculatorForm';
 import InsulationCalculatorResult from './insulation/InsulationCalculatorResult';
+import InsulationInfoSection from "./insulation/InsulationInfoSection";
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -90,6 +91,7 @@ const InsulationCalculator = () => {
           selectedBuildingPart={selectedBuildingPart}
         />
         {result && <InsulationCalculatorResult result={result} />}
+        <InsulationInfoSection />
       </CardContent>
     </Card>
   );
