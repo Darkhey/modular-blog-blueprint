@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -31,7 +32,17 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
     queryFn: async () => {
       let query = supabase
         .from('blog_posts')
-        .select('*, blog_post_tags!inner(tag_id), blog_tags!blog_post_tags(tag_id,slug,name)')
+        .select(`
+          *,
+          blog_post_tags (
+            tag_id
+          ),
+          blog_tags!blog_post_tags.tag_id (
+            id,
+            slug,
+            name
+          )
+        `)
         .order('published_at', { ascending: false });
 
       if (topic) {
