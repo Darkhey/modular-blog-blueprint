@@ -1,6 +1,6 @@
 
 import { CalculationResults } from '@/hooks/useModernizationCalculator';
-import { TrendingUp, TrendingDown, Info, ChevronsRight } from 'lucide-react';
+import { TrendingUp, TrendingDown, Info, ChevronsRight, Leaf } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 interface CalculatorResultsProps {
@@ -51,6 +51,18 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
               ) : null}
             </div>
         </div>
+
+        {/* CO2-Einsparung */}
+        <div className="mt-8">
+          <div className="flex items-center justify-center space-x-3">
+            <Leaf className="w-7 h-7 text-green-700" />
+            <div className="text-center">
+              <span className="text-xl font-bold text-green-900">{results.co2Savings.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} kg</span>
+              <span className="ml-2 text-base text-gray-700 font-semibold">weniger CO₂ pro Jahr</span>
+            </div>
+          </div>
+          <div className="text-xs text-gray-500 text-center mt-1">Durch Ihre Maßnahmen sinkt Ihr jährlicher Treibhausgas-Ausstoß deutlich.</div>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start text-center mt-6 pt-6 border-t">
           <div className="bg-white p-4 rounded-lg shadow-md h-full flex flex-col">
@@ -59,6 +71,7 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
             <div className="text-xs text-gray-500 space-y-1 mt-auto">
                 <p>Heizung: {results.current.heating.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
                 <p>Warmwasser: {results.current.hotWater.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                <p>CO₂: {results.current.co2.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} kg</p>
             </div>
           </div>
 
@@ -72,6 +85,7 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
             <div className="text-xs text-gray-500 space-y-1 mt-auto">
                 <p>Heizung: {results.future.heating.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
                 <p>Warmwasser: {results.future.hotWater.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
+                <p>CO₂: {results.future.co2.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} kg</p>
             </div>
           </div>
         </div>
@@ -88,3 +102,4 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
 };
 
 export default CalculatorResults;
+

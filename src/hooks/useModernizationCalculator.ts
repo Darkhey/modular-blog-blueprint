@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 
 export type HeatingType = 'gas' | 'oil' | 'waermepumpe' | 'pellets' | 'nachtspeicher' | 'fernwaerme';
@@ -26,10 +25,11 @@ export interface CustomPrices {
 }
 
 export interface CalculationResults {
-  current: { total: number; heating: number; hotWater: number; };
-  future: { total: number; heating: number; hotWater: number; };
+  current: { total: number; heating: number; hotWater: number; co2: number; };
+  future: { total: number; heating: number; hotWater: number; co2: number; };
   annualSavings: number;
   savingsPercentage: number;
+  co2Savings: number;
   amortizationPeriod?: number;
 }
 
@@ -74,6 +74,15 @@ export const useModernizationCalculator = () => {
         nachtspeicher: parseFloat(customPrices.nachtspeicher),
         fernwaerme: parseFloat(customPrices.fernwaerme)
     };
+    // Emissionsfaktoren in kg/kWh
+    const CO2_FACTORS = {
+      gas: 0.21,
+      oil: 0.27,
+      waermepumpe: 0.38,
+      pellets: 0.02,
+      nachtspeicher: 0.38,
+      fernwaerme: 0.17
+    };
     const SPECIFIC_CONSUMPTION_BY_YEAR = {
         'vor-1979': 220,
         '1979-1994': 160,
@@ -97,6 +106,7 @@ export const useModernizationCalculator = () => {
         const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
         let finalHotWaterKwh = hotWaterKwh;
+        let emissionFactor = CO2_FACTORS[heatingType];
 
         if (heatingType === 'waermepumpe') {
           finalHeatingKwh /= HEATPUMP_SCOP;
@@ -105,27 +115,34 @@ export const useModernizationCalculator = () => {
         
         const heatingCosts = finalHeatingKwh * pricePerKwh;
         const hotWaterCosts = finalHotWaterKwh * pricePerKwh;
+        // CO2 nur für effektiven Verbrauch
+        const co2 = (finalHeatingKwh + finalHotWaterKwh) * emissionFactor;
+
         return {
             total: heatingCosts + hotWaterCosts,
             heating: heatingCosts,
-            hotWater: hotWaterCosts
+            hotWater: hotWaterCosts,
+            co2: co2
         };
     };
 
     let current;
     if (calculationMode === 'consumption') {
         const pricePerKwh = ENERGY_PRICES[inputs.currentHeating];
-        const totalCost = consumption * pricePerKwh;
+        const emissionFactor = CO2_FACTORS[inputs.currentHeating];
 
-        let hotWaterCost;
+        let finalHotWaterKwh = hotWaterKwh;
+        let consumptionKwh = consumption;
         if (inputs.currentHeating === 'waermepumpe') {
-            hotWaterCost = (hotWaterKwh / HEATPUMP_SCOP) * pricePerKwh;
-        } else {
-            hotWaterCost = hotWaterKwh * pricePerKwh;
+            finalHotWaterKwh /= HEATPUMP_SCOP;
+            consumptionKwh /= HEATPUMP_SCOP;
         }
-        
+        let hotWaterCost = finalHotWaterKwh * pricePerKwh;
+        const totalCost = consumption * pricePerKwh; // Original Kosten
+
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
-        current = { total: totalCost, heating: heatingCost, hotWater: hotWaterCost };
+        const co2 = (consumption + (finalHotWaterKwh - hotWaterKwh)) * emissionFactor;
+        current = { total: totalCost, heating: heatingCost, hotWater: hotWaterCost, co2 };
     } else {
         const baseConsumption = SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear];
         const typeFactor = BUILDING_TYPE_FACTOR[inputs.buildingType];
@@ -138,13 +155,14 @@ export const useModernizationCalculator = () => {
 
     const annualSavings = current.total - future.total;
     const savingsPercentage = annualSavings > 0 && current.total > 0 ? (annualSavings / current.total) * 100 : 0;
+    const co2Savings = current.co2 - future.co2;
 
     let amortizationPeriod;
     if (investment > 0 && annualSavings > 0) {
         amortizationPeriod = investment / annualSavings;
     }
 
-    setResults({ current, future, annualSavings, savingsPercentage, amortizationPeriod });
+    setResults({ current, future, annualSavings, savingsPercentage, co2Savings, amortizationPeriod });
   };
 
   const handleInputChange = (field: keyof CalculatorInputs, value: string) => {
