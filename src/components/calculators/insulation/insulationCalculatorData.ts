@@ -1,10 +1,20 @@
 
 import * as z from 'zod';
 
+export type BuildingPart = 'facade' | 'roof' | 'top-floor' | 'cellar-ceiling';
+
+export const buildingParts: Record<BuildingPart, { name: string }> = {
+  facade: { name: 'Fassade / Außenwand' },
+  roof: { name: 'Dach' },
+  'top-floor': { name: 'Oberste Geschossdecke' },
+  'cellar-ceiling': { name: 'Kellerdecke' },
+};
+
 export const formSchema = z.object({
+  buildingPart: z.string({ required_error: "Bitte wählen Sie ein Bauteil aus." }),
   area: z.number().min(10, "Fläche muss mindestens 10 m² sein.").max(500, "Fläche darf maximal 500 m² sein."),
   uValueBefore: z.number().min(0.5, "U-Wert muss mind. 0,5 W/(m²K) sein.").max(3.0, "U-Wert ist unrealistisch hoch."),
-  insulationSystem: z.string({ required_error: "Bitte wählen Sie ein Dämmsystem." }),
+  insulationSystem: z.string({ required_error: "Bitte wählen Sie ein Dämmsystem." }).min(1, "Bitte wählen Sie ein Dämmsystem."),
   heatingCost: z.number().min(0.05, "Heizkosten müssen mind. 0,05 €/kWh sein.").max(0.5, "Heizkosten dürfen max. 0,50 €/kWh sein."),
 });
 
@@ -17,17 +27,19 @@ export interface CalculationResult {
   co2Savings: number;
 }
 
-export const insulationSystems: Record<string, { name: string; cost: number; uValue: number }> = {
+export const insulationSystems: Record<string, { name: string; cost: number; uValue: number; part: BuildingPart }> = {
   // Fassade
-  'wdvs_eps_160': { name: 'WDVS mit EPS (16cm, Fassade)', cost: 150, uValue: 0.19 },
-  'wdvs_mineralwolle_160': { name: 'WDVS Mineralwolle (16cm, Fassade)', cost: 165, uValue: 0.21 },
-  'holzfaser_180': { name: 'Holzfaser-Dämmplatte (18cm, Fassade)', cost: 180, uValue: 0.22 },
+  'wdvs_eps_160': { name: 'WDVS mit EPS (16cm)', cost: 150, uValue: 0.19, part: 'facade' },
+  'wdvs_mineralwolle_160': { name: 'WDVS Mineralwolle (16cm)', cost: 165, uValue: 0.21, part: 'facade' },
+  'kerndaemmung_eps_100': { name: 'Kerndämmung EPS (10cm, für zweischaliges Mauerwerk)', cost: 50, uValue: 0.35, part: 'facade' },
   
-  // Hohlräume
-  'einblas_zellulose_200': { name: 'Einblasdämmung Zellulose (20cm, Dach)', cost: 60, uValue: 0.20 },
-  'kerndaemmung_eps_100': { name: 'Kerndämmung EPS (10cm, Mauerwerk)', cost: 50, uValue: 0.35 },
+  // Dach
+  'dach_aufsparren_pur_140': { name: 'Aufsparrendämmung PUR (14cm)', cost: 210, uValue: 0.16, part: 'roof' },
+  'holzfaser_180': { name: 'Holzfaser-Dämmplatte (18cm, z.B. für Dach)', cost: 180, uValue: 0.22, part: 'roof' },
+
+  // Oberste Geschossdecke
+  'einblas_zellulose_200': { name: 'Einblasdämmung Zellulose (20cm)', cost: 60, uValue: 0.20, part: 'top-floor' },
   
-  // Dach / Decke
-  'dach_aufsparren_pur_140': { name: 'Aufsparrendämmung PUR (14cm, Dach)', cost: 210, uValue: 0.16 },
-  'kellerdecke_eps_100': { name: 'Kellerdeckendämmung EPS (10cm)', cost: 45, uValue: 0.30 },
+  // Kellerdecke
+  'kellerdecke_eps_100': { name: 'Kellerdeckendämmung EPS (10cm)', cost: 45, uValue: 0.30, part: 'cellar-ceiling' },
 };

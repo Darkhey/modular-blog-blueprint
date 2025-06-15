@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -19,6 +18,7 @@ const InsulationCalculator = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      buildingPart: 'facade',
       area: 100,
       uValueBefore: 1.4,
       insulationSystem: 'wdvs_eps_160',
@@ -26,8 +26,26 @@ const InsulationCalculator = () => {
     },
   });
 
+  const selectedBuildingPart = form.watch('buildingPart');
   const selectedSystemKey = form.watch('insulationSystem');
   const selectedSystem = insulationSystems[selectedSystemKey];
+
+  // Effekt, um das Dämmsystem zurückzusetzen, wenn sich das Bauteil ändert
+  useEffect(() => {
+    const availableSystems = Object.entries(insulationSystems).filter(
+      ([, system]) => system.part === selectedBuildingPart
+    );
+    
+    if (availableSystems.length > 0) {
+      const currentSystemStillValid = availableSystems.some(([key]) => key === selectedSystemKey);
+      if (!currentSystemStillValid) {
+        form.setValue('insulationSystem', availableSystems[0][0]);
+      }
+    } else {
+      form.setValue('insulationSystem', '');
+    }
+    setResult(null); // Ergebnis zurücksetzen, wenn Auswahl geändert wird
+  }, [selectedBuildingPart, form, selectedSystemKey]);
 
   const onSubmit = (values: FormValues) => {
     const system = insulationSystems[values.insulationSystem];
@@ -69,6 +87,7 @@ const InsulationCalculator = () => {
           form={form}
           onSubmit={onSubmit}
           selectedSystem={selectedSystem}
+          selectedBuildingPart={selectedBuildingPart}
         />
         {result && <InsulationCalculatorResult result={result} />}
       </CardContent>

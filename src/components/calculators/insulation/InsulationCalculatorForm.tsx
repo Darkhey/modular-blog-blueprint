@@ -1,6 +1,5 @@
-
 import { UseFormReturn } from 'react-hook-form';
-import { FormValues, insulationSystems } from './insulationCalculatorData';
+import { FormValues, insulationSystems, buildingParts } from './insulationCalculatorData';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,13 +12,39 @@ interface InsulationCalculatorFormProps {
   form: UseFormReturn<FormValues>;
   onSubmit: (values: FormValues) => void;
   selectedSystem: { name: string; cost: number; uValue: number; } | undefined;
+  selectedBuildingPart: string;
 }
 
-const InsulationCalculatorForm = ({ form, onSubmit, selectedSystem }: InsulationCalculatorFormProps) => {
+const InsulationCalculatorForm = ({ form, onSubmit, selectedSystem, selectedBuildingPart }: InsulationCalculatorFormProps) => {
+  const availableSystems = Object.entries(insulationSystems).filter(
+    ([, system]) => system.part === selectedBuildingPart
+  );
+
   return (
     <TooltipProvider>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <FormField
+            control={form.control}
+            name="buildingPart"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Zu dämmendes Bauteil</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger><SelectValue placeholder="Bauteil wählen..." /></SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.entries(buildingParts).map(([key, value]) => (
+                      <SelectItem key={key} value={key}>{value.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="area"
@@ -104,16 +129,23 @@ const InsulationCalculatorForm = ({ form, onSubmit, selectedSystem }: Insulation
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                 <Select onValueChange={field.onChange} defaultValue={field.value}>
+                 <Select onValueChange={field.onChange} value={field.value} disabled={availableSystems.length === 0}>
                   <FormControl>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectTrigger>
+                      <SelectValue placeholder={availableSystems.length > 0 ? "System wählen..." : "Keine Systeme verfügbar"} />
+                    </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {Object.entries(insulationSystems).map(([key, value]) => (
+                    {availableSystems.map(([key, value]) => (
                       <SelectItem key={key} value={key}>{value.name}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
+                 {availableSystems.length === 0 && (
+                  <FormDescription className="text-destructive">
+                    Für dieses Bauteil sind keine Dämmsysteme hinterlegt.
+                  </FormDescription>
+                )}
                 <FormMessage />
               </FormItem>
             )}
