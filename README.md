@@ -50,6 +50,15 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## Environment variables
+
+Create a `.env` file in the project root (or use your hosting provider's settings) with the following variables:
+
+- `VITE_SUPABASE_URL` – URL of your Supabase instance used by the frontend
+- `VITE_SUPABASE_ANON_KEY` – public anon key for the frontend client
+- `SUPABASE_URL` – same Supabase URL for edge functions
+- `SUPABASE_ANON_KEY` – key used by edge functions
+
 ## What technologies are used for this project?
 
 This project is built with:
