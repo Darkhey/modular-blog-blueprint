@@ -6,7 +6,7 @@ const HeroSection = () => (
   <section className="relative bg-gray-800 text-white py-32 text-center overflow-hidden">
     <div 
       className="absolute inset-0 bg-cover bg-center z-0"
-      style={{ backgroundImage: "url('/placeholder.svg?id=photo-1487958449943-2429e8be8625')" }}
+      style={{ backgroundImage: "url('/placeholder.svg?id=photo-1721322800607-8c38375eef04')" }}
     ></div>
     <div className="absolute inset-0 bg-black/60 z-0"></div>
     

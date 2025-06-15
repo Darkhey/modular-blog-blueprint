@@ -1,3 +1,4 @@
+
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
@@ -5,6 +6,7 @@ import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
 import AdBannerSection from '@/components/home/AdBannerSection';
 import FeaturesSection from '@/components/home/FeaturesSection';
+import ImageCarouselSection from '@/components/home/ImageCarouselSection';
 import StatsSection from '@/components/home/StatsSection';
 import ArticleAdSection from '@/components/home/ArticleAdSection';
 import CalculatorsSection from '@/components/home/CalculatorsSection';
@@ -24,6 +26,7 @@ const Index = () => {
         <HeroSection />
         <AdBannerSection />
         <FeaturesSection />
+        <ImageCarouselSection />
         <StatsSection />
         <ArticleAdSection />
         <CalculatorsSection />
