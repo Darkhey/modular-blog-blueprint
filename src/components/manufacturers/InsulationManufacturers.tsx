@@ -8,84 +8,96 @@ const InsulationManufacturers = () => {
       description: "Ökologische Dämmstoffe aus nachwachsenden Rohstoffen",
       specialties: ["Holzfaser-Dämmung", "Naturbaustoffe", "Nachhaltige Lösungen"],
       logoPlaceholder: "S",
-      color: "bg-green-600"
+      color: "bg-green-600",
+      website: "https://www.steico.com/de/"
     },
     {
       name: "Thermofloc",
       description: "Einblasdämmung aus recyceltem Zeitungspapier",
       specialties: ["Zellulose-Dämmung", "Einblasdämmung", "Recycling-Material"],
       logoPlaceholder: "T",
-      color: "bg-blue-600"
+      color: "bg-blue-600",
+      website: "https://www.thermofloc.com/de/"
     },
     {
       name: "Isofloc",
       description: "Spezialist für Zellulose-Dämmung und Einblasverfahren",
       specialties: ["Zellulose-Dämmung", "Brandschutz", "Schallschutz"],
       logoPlaceholder: "I",
-      color: "bg-purple-600"
+      color: "bg-purple-600",
+      website: "https://www.isofloc.de/"
     },
     {
       name: "Isover",
       description: "Glaswolle und Steinwolle für höchste Effizienz",
       specialties: ["Glaswolle", "Steinwolle", "Brandschutz"],
       logoPlaceholder: "IS",
-      color: "bg-orange-600"
+      color: "bg-orange-600",
+      website: "https://www.isover.de/"
     },
     {
       name: "Rockwool",
       description: "Steinwolle-Dämmung für optimalen Brandschutz",
       specialties: ["Steinwolle", "Brandschutz", "Schallschutz"],
       logoPlaceholder: "R",
-      color: "bg-red-600"
+      color: "bg-red-600",
+      website: "https://www.rockwool.com/de/"
     },
     {
       name: "Knauf Insulation",
       description: "Mineralwolle und nachhaltige Dämmlösungen",
       specialties: ["Mineralwolle", "Glaswolle", "ECOSE Technology"],
       logoPlaceholder: "K",
-      color: "bg-indigo-600"
+      color: "bg-indigo-600",
+      website: "https://www.knaufinsulation.de/"
     },
     {
       name: "Ursa",
       description: "Mineralwolle-Dämmstoffe für Neubau und Sanierung",
       specialties: ["Mineralwolle", "Glaswolle", "Steinwolle"],
       logoPlaceholder: "U",
-      color: "bg-teal-600"
+      color: "bg-teal-600",
+      website: "https://www.ursa.de/"
     },
     {
       name: "Pavatex",
       description: "Holzfaser-Dämmstoffe für ökologisches Bauen",
       specialties: ["Holzfaser", "Ökologisch", "Diffusionsoffen"],
       logoPlaceholder: "P",
-      color: "bg-emerald-600"
+      color: "bg-emerald-600",
+      website: "https://www.pavatex.de/"
     },
     {
       name: "Gutex",
       description: "Holzfaser-Dämmstoffe made in Germany",
       specialties: ["Holzfaser", "Made in Germany", "Klimaschutz"],
       logoPlaceholder: "G",
-      color: "bg-lime-600"
+      color: "bg-lime-600",
+      website: "https://www.gutex.de/"
     },
     {
       name: "Homatherm",
       description: "Natürliche Holzfaser-Dämmstoffe",
       specialties: ["Holzfaser", "Naturdämmung", "Wohngesundheit"],
       logoPlaceholder: "H",
-      color: "bg-yellow-600"
+      color: "bg-yellow-600",
+      website: "https://www.homanit.com/de/homatherm/"
     },
     {
       name: "Sto",
       description: "WDVS und Fassadendämmung vom Marktführer",
       specialties: ["WDVS", "Fassadendämmung", "Vollsortiment"],
       logoPlaceholder: "ST",
-      color: "bg-pink-600"
+      color: "bg-pink-600",
+      website: "https://www.sto.de/"
     },
     {
       name: "Caparol",
       description: "Wärmedämm-Verbundsysteme und Fassadenlösungen",
       specialties: ["WDVS", "Fassade", "Farbe & Dämmung"],
       logoPlaceholder: "C",
-      color: "bg-rose-600"
+      color: "bg-rose-600",
+      website: "https://www.caparol.de/"
     }
   ];
 
@@ -108,9 +120,12 @@ const InsulationManufacturers = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {manufacturers.map((manufacturer) => (
-            <div
+            <a
               key={manufacturer.name}
-              className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl dark:shadow-none dark:border dark:border-gray-700/50 transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-200 dark:hover:border-blue-500 group"
+              href={manufacturer.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-lg hover:shadow-2xl dark:shadow-none dark:border dark:border-gray-700/50 transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-blue-200 dark:hover:border-blue-500 group"
             >
               <div className="text-center mb-6">
                 <div 
@@ -128,7 +143,7 @@ const InsulationManufacturers = () => {
                 </p>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 flex-grow">
                 <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-3">🎯 Spezialitäten:</h4>
                 {manufacturer.specialties.map((specialty, idx) => (
                   <div key={idx} className="flex items-center text-sm text-gray-700 dark:text-gray-300">
@@ -141,10 +156,10 @@ const InsulationManufacturers = () => {
               <div className="mt-6 text-center">
                 <div className="text-blue-600 dark:text-blue-400 font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <Building2 className="mr-2 w-4 h-4" />
-                  Mehr erfahren
+                  Zur Hersteller-Website
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
