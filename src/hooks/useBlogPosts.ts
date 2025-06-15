@@ -12,6 +12,8 @@ export interface BlogPost {
   published_at: string;
   read_time: number;
   slug: string;
+  hero_image_url?: string;
+  cover_url?: string;
   seo_title?: string;
   seo_description?: string;
   keywords?: string[];
@@ -24,6 +26,9 @@ export interface BlogPost {
   important_notice?: string;
   table_of_contents?: any;
   costs: any;
+  blog_authors?: {
+    name: string;
+  } | null;
   // Optional: Tags als Teil der BlogPosts (Array)
   blog_post_tags?: {
     tag_id: string;
@@ -43,6 +48,7 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
         .from('blog_posts')
         .select(`
           *,
+          blog_authors(name),
           blog_post_tags (
             tag_id,
             blog_tags (
@@ -85,7 +91,7 @@ export const useBlogPost = (slug: string) => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('*')
+        .select('*, blog_authors(name)')
         .eq('slug', slug)
         .single();
 

@@ -11,16 +11,17 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
   const seoTitle = post.seo_title || `${post.title} | Sanieren & Sparen`;
   const seoDescription = post.seo_description || post.excerpt;
   const keywords = post.keywords?.join(', ') || `${post.topic}, Sanierung, Energieeffizienz`;
+  const image = post.hero_image_url || post.cover_url || "https://sanieren-sparen.de/logo.png";
   
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": post.title,
     "description": post.excerpt,
-    "image": "/photo-1518005020951-eccb494ad742.jpg", // Default image for doors/windows
+    "image": image,
     "author": {
-      "@type": "Organization",
-      "name": "Sanieren & Sparen"
+      "@type": "Person",
+      "name": post.blog_authors?.name || "Sanieren & Sparen Redaktion"
     },
     "publisher": {
       "@type": "Organization",
@@ -77,7 +78,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <title>{seoTitle}</title>
       <meta name="description" content={seoDescription} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content="Sanieren & Sparen Redaktion" />
+      <meta name="author" content={post.blog_authors?.name || "Sanieren & Sparen Redaktion"} />
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph Tags */}
@@ -85,7 +86,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <meta property="og:description" content={seoDescription} />
       <meta property="og:type" content="article" />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content="/photo-1518005020951-eccb494ad742.jpg" />
+      <meta property="og:image" content={image} />
       <meta property="og:locale" content="de_DE" />
       <meta property="og:site_name" content="Sanieren & Sparen" />
       <meta property="article:published_time" content={post.published_at} />
@@ -97,7 +98,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={seoTitle} />
       <meta name="twitter:description" content={seoDescription} />
-      <meta name="twitter:image" content="/photo-1518005020951-eccb494ad742.jpg" />
+      <meta name="twitter:image" content={image} />
 
       {/* Additional SEO Tags */}
       <meta name="robots" content="index, follow" />
