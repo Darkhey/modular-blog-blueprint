@@ -42,10 +42,16 @@ const Index = () => {
         <section className="py-8">
           <div className="max-w-5xl mx-auto px-4">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* ... eventuell andere bestehende Kachel-Sektionen ... */}
               {/* NEU: Dämmstoffe Artikel-Highlight */}
               <Link to="/blog/daemmstoffe-vergleich-2025" className="block hover:no-underline group">
-                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col overflow-hidden">
+                  <div className="w-full h-32 mb-3 rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop" 
+                      alt="Dämmstoffe und Isolierung" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">DÄMMSTOFF-TIPP</span>
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Dämmstoffe im Vergleich: Übersicht 2025</h3>
                   <p className="text-gray-600 text-sm mb-2">Alle wichtigen Materialien, Tipps, Trends & Förderinfos. Ideal vor Planung und Antrag!</p>
@@ -61,6 +67,3 @@ const Index = () => {
       <Footer />
     </div>
   );
-};
-
-export default Index;
