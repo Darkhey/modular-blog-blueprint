@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ExternalLink, Mail, Instagram, Facebook } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -6,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import { siteConfig } from '@/config/site.config';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const Wissenswertes = () => {
   const externalLinks = [
@@ -197,6 +197,7 @@ const Wissenswertes = () => {
           </div>
         </div>
 
+        <EnergyAdvisorSearch />
         <InsulationManufacturers />
       </main>
 

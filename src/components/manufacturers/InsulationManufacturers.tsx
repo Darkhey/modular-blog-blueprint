@@ -1,8 +1,9 @@
 
-import { Building2 } from 'lucide-react';
+import { Building2, Search } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Input } from '@/components/ui/input';
 
-const InsulationManufacturers = () => {
-  const manufacturers = [
+const manufacturersData = [
     {
       name: "Steico",
       description: "Ökologische Dämmstoffe aus nachwachsenden Rohstoffen",
@@ -101,6 +102,24 @@ const InsulationManufacturers = () => {
     }
   ];
 
+const InsulationManufacturers = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredManufacturers = useMemo(() => {
+    const lowercasedTerm = searchTerm.toLowerCase().trim();
+    if (!lowercasedTerm) {
+      return manufacturersData;
+    }
+    return manufacturersData.filter(
+      (manufacturer) =>
+        manufacturer.name.toLowerCase().includes(lowercasedTerm) ||
+        manufacturer.description.toLowerCase().includes(lowercasedTerm) ||
+        manufacturer.specialties.some((specialty) =>
+          specialty.toLowerCase().includes(lowercasedTerm)
+        )
+    );
+  }, [searchTerm]);
+
   return (
     <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/10">
       <div className="max-w-7xl mx-auto px-4">
@@ -118,8 +137,22 @@ const InsulationManufacturers = () => {
           </p>
         </div>
 
+        <div className="max-w-2xl mx-auto mb-12 px-4">
+            <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                    type="text"
+                    placeholder="Hersteller suchen (z.B. Steico, Glaswolle...)"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 text-base rounded-full border-2 border-gray-200 dark:border-gray-700 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-800"
+                    aria-label="Hersteller suchen"
+                />
+            </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {manufacturers.map((manufacturer) => (
+          {filteredManufacturers.length > 0 && filteredManufacturers.map((manufacturer) => (
             <a
               key={manufacturer.name}
               href={manufacturer.website}
@@ -162,6 +195,15 @@ const InsulationManufacturers = () => {
             </a>
           ))}
         </div>
+
+        {filteredManufacturers.length === 0 && (
+          <div className="text-center w-full col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 py-20">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Keine Ergebnisse</h3>
+            <p className="text-gray-600 dark:text-gray-400 mt-2">
+              Für Ihre Suche nach "{searchTerm}" konnten keine Hersteller gefunden werden.
+            </p>
+          </div>
+        )}
 
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-900/20 dark:to-green-900/20 rounded-2xl p-8 border-2 border-blue-200 dark:border-blue-800">
