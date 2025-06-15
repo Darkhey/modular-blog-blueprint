@@ -1,3 +1,4 @@
+
 # Welcome to your Lovable project
 
 ## Project info
@@ -52,12 +53,24 @@ npm run dev
 
 ## Environment variables
 
-Create a `.env` file in the project root (or use your hosting provider's settings) with the following variables:
+Create a `.env` file in the project root (or use your hosting provider's settings) based on the provided `.env.example` file.
 
+Copy `.env.example` to `.env` and fill in your actual values:
+
+```sh
+cp .env.example .env
+```
+
+Required variables:
 - `VITE_SUPABASE_URL` – URL of your Supabase instance used by the frontend
 - `VITE_SUPABASE_ANON_KEY` – public anon key for the frontend client
 - `SUPABASE_URL` – same Supabase URL for edge functions
 - `SUPABASE_ANON_KEY` – key used by edge functions
+- `OPENAI_API_KEY` – your OpenAI API key for content generation
+- `OPENAI_MODEL` – OpenAI model to use (defaults to gpt-4o-mini if not set)
+
+Optional variables:
+- `UNSPLASH_ACCESS_KEY` – for fetching images from Unsplash
 
 ## What technologies are used for this project?
 

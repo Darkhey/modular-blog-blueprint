@@ -2,7 +2,10 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL") || "gpt-4o-mini";
 const UNSPLASH_ACCESS_KEY = Deno.env.get("UNSPLASH_ACCESS_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -62,6 +65,7 @@ serve(async (req) => {
 
   console.log(`[Edge] Blog Content Generator started`);
 
+  // Check for required environment variables
   if (!OPENAI_API_KEY) {
     return new Response(JSON.stringify({ error: "OPENAI_API_KEY missing in project secrets." }), {
       status: 500,
@@ -69,9 +73,21 @@ serve(async (req) => {
     });
   }
 
+  if (!SUPABASE_URL) {
+    return new Response(JSON.stringify({ error: "SUPABASE_URL missing in project secrets." }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  if (!SUPABASE_KEY) {
+    return new Response(JSON.stringify({ error: "SUPABASE_ANON_KEY missing in project secrets." }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   const { createClient } = await import("npm:@supabase/supabase-js");
-  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-  const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
   const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
 
   try {
@@ -127,7 +143,7 @@ serve(async (req) => {
     const systemPrompt = `Du bist ein deutschsprachiger Energie/Modernisierungs-Redakteur für Hausbesitzer.
 Erstelle einen SEO-optimierten Fachartikel. ${lengthInstruction}
 
-Gib zurück als JSON:
+Antworte ausschließlich mit diesem JSON-Format:
 {
 "title": String,          // SEO-optimierte Überschrift
 "slug": String,           // URL-Slug (nur Kleinbuchstaben, Bindestriche)
@@ -152,7 +168,8 @@ Thema: "${topic || topic_name}".
 Kategorie: "${topic_name}".
 Baue praktische Tipps, Kostenbeispiele und Hinweise auf Förderungen ein.
 Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.
-Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.`;
+Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
+Antworte ausschließlich mit diesem JSON.`;
 
     const userPrompt = topic 
       ? `Schreibe einen Artikel zum Thema: "${topic}" in der Kategorie "${topic_name}". Fokussiere auf praktische Tipps für 2025.`
@@ -166,7 +183,7 @@ Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: OPENAI_MODEL,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
@@ -186,13 +203,22 @@ Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
 
     if (!output) throw new Error("No response from OpenAI.");
 
-    // Parse JSON
+    // Parse JSON - try direct parsing first, then fallback to regex
     let articleData: any = {};
     try {
-      const match = output.match(/\{[\s\S]*\}/);
-      articleData = match ? JSON.parse(match[0]) : JSON.parse(output);
+      articleData = JSON.parse(output);
     } catch (e) {
-      throw new Error("Could not parse AI response as JSON: " + e);
+      console.log("Direct JSON parsing failed, trying regex fallback");
+      const match = output.match(/\{[\s\S]*\}/);
+      if (match) {
+        try {
+          articleData = JSON.parse(match[0]);
+        } catch (regexError) {
+          throw new Error("Could not parse AI response as JSON: " + e);
+        }
+      } else {
+        throw new Error("Could not find JSON in AI response: " + e);
+      }
     }
 
     // Fallbacks and validation

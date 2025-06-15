@@ -1,8 +1,10 @@
-
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL") || "gpt-4o-mini";
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -17,7 +19,7 @@ serve(async (req) => {
   // Basic request logging
   console.log(`[Edge] AI Blogpost Cronjob gestartet`);
 
-  // Ensure OpenAI API Key exists
+  // Check for required environment variables
   if (!OPENAI_API_KEY) {
     return new Response(JSON.stringify({ error: "OPENAI_API_KEY missing in project secrets." }), {
       status: 500,
@@ -25,10 +27,22 @@ serve(async (req) => {
     });
   }
 
+  if (!SUPABASE_URL) {
+    return new Response(JSON.stringify({ error: "SUPABASE_URL missing in project secrets." }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  if (!SUPABASE_KEY) {
+    return new Response(JSON.stringify({ error: "SUPABASE_ANON_KEY missing in project secrets." }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   // --- Supabase client initialisieren
   const { createClient } = await import("npm:@supabase/supabase-js");
-  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-  const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
   const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
 
   try {
@@ -48,9 +62,8 @@ serve(async (req) => {
     // 2. Prompt für OpenAI bauen
     const sysPrompt = `Du bist ein deutschsprachiger Energie/Modernisierungs-Redakteur.
 Erstelle einen SEO-optimierten Fachartikel für Hausbesitzer. 
-Fülle alle Daten als JSON-Objekt wie unten beschrieben!
+Antworte ausschließlich mit diesem JSON-Format:
 
-Gib zurück:
 {
 "title": String,          // knackige Überschrift
 "slug": String,           // URL-Slug (nur Kleinbuchstaben, Bindestriche)
@@ -71,8 +84,7 @@ Gib zurück:
 }
 
 Das Thema ist "${topic}". Betone Crosslinks, Trends, Tipps & Worauf achten.
-
-`;
+Antworte ausschließlich mit diesem JSON.`;
 
     // 3. Anfrage an OpenAI
     const userPrompt = `Bitte schreibe einen neuen, eigenständigen Blogartikel in deinem Stil zum Thema "${topic}" für 2025. Wähle ein Unterthema, das Hausbesitzer interessiert. Baue Links zu verwandten Blogs, binde konkrete Tipps oder Fördermittel mit ein.`;
@@ -84,7 +96,7 @@ Das Thema ist "${topic}". Betone Crosslinks, Trends, Tipps & Worauf achten.
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4o-mini",
+        model: OPENAI_MODEL,
         messages: [
           { role: "system", content: sysPrompt },
           { role: "user", content: userPrompt },
@@ -104,14 +116,22 @@ Das Thema ist "${topic}". Betone Crosslinks, Trends, Tipps & Worauf achten.
 
     if (!out) throw new Error("Keine Antwort von OpenAI.");
 
-    // 4. JSON parsen
+    // 4. JSON parsen - try direct parsing first, then fallback to regex
     let meta: any = {};
     try {
-      // Extrahiere JSON ggf. aus Fließtext
-      const match = out.match(/\{[\s\S]*\}/);
-      meta = match ? JSON.parse(match[0]) : JSON.parse(out);
+      meta = JSON.parse(out);
     } catch (e) {
-      throw new Error("Antwort konnte nicht in JSON umgewandelt werden: " + e);
+      console.log("Direct JSON parsing failed, trying regex fallback");
+      const match = out.match(/\{[\s\S]*\}/);
+      if (match) {
+        try {
+          meta = JSON.parse(match[0]);
+        } catch (regexError) {
+          throw new Error("Antwort konnte nicht in JSON umgewandelt werden: " + e);
+        }
+      } else {
+        throw new Error("Kein JSON in der AI-Antwort gefunden: " + e);
+      }
     }
 
     // 5. Fallbacks & Validierung
