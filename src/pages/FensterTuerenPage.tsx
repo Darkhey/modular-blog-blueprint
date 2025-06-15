@@ -14,7 +14,16 @@ const FensterTuerenPage = () => {
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold mb-4">{topic?.name || 'Fenster & Türen'}</h1>
           <p className="text-lg text-gray-600 mb-8">{topic?.description || 'Energieeffiziente Fenster und Türen für optimale Dämmung'}</p>
-
+          {/* NEU: Lesetipp zum Türen-Artikel */}
+          <div className="mb-8 bg-blue-50 p-4 rounded-lg border">
+            <p className="mb-1 font-semibold text-blue-800">Lesetipp: Neue Übersicht</p>
+            <Link 
+              to="/blog/moderne-tueren-vergleich" 
+              className="inline-flex items-center text-blue-700 hover:underline" 
+            >
+              Moderne Türen: Sicherheit, Energieeffizienz & Design →
+            </Link>
+          </div>
           <Card>
             <CardHeader>
               <CardTitle>Worauf Sie achten sollten</CardTitle>
@@ -40,5 +49,4 @@ const FensterTuerenPage = () => {
     </div>
   );
 };
-
 export default FensterTuerenPage;

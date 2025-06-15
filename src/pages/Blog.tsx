@@ -11,6 +11,7 @@ import { useBlogPosts } from '@/hooks/useBlogPosts';
 import BlogStats from '@/components/blog/BlogStats';
 import QuickStats from '@/components/shared/QuickStats';
 import PopularTopics from '@/components/blog/sidebar/PopularTopics';
+import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -77,20 +78,17 @@ const Blog = () => {
                       <Award className="text-white w-6 h-6" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        Neue BEG-Förderung 2024: Bis zu 70% Zuschuss sichern
-                      </h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Tipp: Türen für mehr Sicherheit und Effizienz</h3>
                       <p className="text-gray-600 mb-4">
-                        Die aktuellen Änderungen der Bundesförderung für effiziente Gebäude (BEG) 
-                        bieten noch bessere Konditionen für Ihre Sanierung. Erfahren Sie, wie Sie 
-                        maximal profitieren können.
+                        Haustüren, Zimmertüren, Einbruchschutz und Wärmedämmung – 
+                        erfahren Sie alles zu modernen Türen, Design, Sicherheit und Förderung im großen Überblick!
                       </p>
-                      <a 
-                        href="/blog/beg-foerderung-2024"
+                      <Link 
+                        to="/blog/moderne-tueren-vergleich"
                         className="inline-flex items-center text-green-600 hover:text-green-700 font-medium"
                       >
-                        Artikel lesen →
-                      </a>
+                        Türen-Artikel lesen →
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -218,6 +216,12 @@ const Blog = () => {
                       {topic.name}
                     </a>
                   ))}
+                  <Link
+                    to="/blog/moderne-tueren-vergleich"
+                    className="block w-full text-left px-3 py-2 rounded text-sm text-green-700 bg-blue-50 hover:bg-blue-100 hover:underline transition-colors font-medium"
+                  >
+                    Türen-Überblick
+                  </Link>
                 </div>
               </div>
             </div>
