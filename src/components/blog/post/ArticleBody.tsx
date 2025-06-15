@@ -1,3 +1,4 @@
+
 import { BlogPost } from '@/hooks/useBlogPosts';
 import { ArticleSectionBox } from "./ArticleSectionBox";
 import InsulationComparisonTable from "./InsulationComparisonTable";
@@ -152,7 +153,7 @@ const ArticleBody = ({ post }: ArticleBodyProps) => {
     if (!isDaemmstoffe) {
       return (
         <div className="prose prose-lg max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }} />
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       );
     }
@@ -304,3 +305,4 @@ const ArticleBody = ({ post }: ArticleBodyProps) => {
 };
 
 export default ArticleBody;
+
