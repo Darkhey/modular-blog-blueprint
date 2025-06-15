@@ -1,6 +1,7 @@
+
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import Daemmungsrechner from '@/components/sections/Daemmungsrechner';
+import InsulationCalculator from '@/components/calculators/InsulationCalculator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 
@@ -32,7 +33,7 @@ const DaemmungsrechnerPage = () => {
               </CardContent>
             </Card>
           </div>
-          <Daemmungsrechner />
+          <InsulationCalculator />
         </div>
       </main>
       <Footer />
