@@ -26,7 +26,6 @@ const fetchOpenGraphImage = async (url: string): Promise<string | null> => {
     if (!res.ok) return null;
     const data = await res.json();
     if (data.images && data.images.length > 0) {
-      // Use first og:image
       return data.images[0];
     }
     if (data.thumbnail) {
@@ -38,10 +37,26 @@ const fetchOpenGraphImage = async (url: string): Promise<string | null> => {
   }
 };
 
+// Fallback stock photos for each category
+const getStockPhoto = (id: string): string => {
+  const stockPhotos: Record<string, string> = {
+    'heizung': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop',
+    'beleuchtung': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
+    'energiemanagement': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
+    'sicherheit': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
+    'haushalt': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
+    'entertainment': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop'
+  };
+  
+  return stockPhotos[id] || 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop';
+};
+
 const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
   id, title, description, image, alt, product, onAffiliateClick,
 }) => {
   const [affiliateImage, setAffiliateImage] = useState<string | null>(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -55,11 +70,28 @@ const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
     };
     getOgImage();
     return () => { ignore = true; };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product?.link]);
 
-  // Prefer OG image, fallback to placeholder/image prop
-  const cardImage = affiliateImage || image;
+  // Priority: OG image > original image > stock photo
+  const getImageSrc = (): string => {
+    if (affiliateImage && imageLoaded && !imageError) {
+      return affiliateImage;
+    }
+    if (image && !image.includes('placeholder.svg')) {
+      return image;
+    }
+    return getStockPhoto(id);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(false);
+  };
 
   return (
     <Card
@@ -70,11 +102,13 @@ const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
         <div className="w-full aspect-video rounded-lg overflow-hidden mb-0 bg-gray-100 flex items-center justify-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={cardImage}
+            src={getImageSrc()}
             alt={alt}
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
             draggable={false}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
             style={{ backgroundColor: "#e5e7eb" }}
           />
         </div>
@@ -112,4 +146,3 @@ const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
 };
 
 export default SmartHomeCategoryCard;
-
