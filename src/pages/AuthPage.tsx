@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +11,8 @@ const AuthPage = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [session, setSession] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,26 +43,54 @@ const AuthPage = () => {
     setLoading(true);
     setError(null);
 
-    if (!email || !password) {
-      setError("Bitte fülle alle Felder aus.");
-      setLoading(false);
-      return;
-    }
-
     if (isLogin) {
+      if (!email || !password) {
+        setError("Bitte fülle alle Felder aus.");
+        setLoading(false);
+        return;
+      }
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
     } else {
+      if (!email || !password || !username || !confirmPassword) {
+        setError("Bitte fülle alle Felder aus.");
+        setLoading(false);
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError("Die Passwörter stimmen nicht überein.");
+        setLoading(false);
+        return;
+      }
+
       const redirectUrl = `${window.location.origin}/admin`;
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: redirectUrl },
+        options: {
+          emailRedirectTo: redirectUrl,
+          data: {
+            username,
+          },
+        },
       });
-      if (error) setError(error.message);
+      if (error) {
+        setError(error.message);
+      } else {
+        setError("Bitte überprüfe deine E-Mails, um die Registrierung abzuschließen.");
+      }
     }
     setLoading(false);
   };
+
+  const toggleForm = () => {
+    setIsLogin(!isLogin);
+    setError(null);
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setUsername('');
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 via-blue-50 to-white">
@@ -71,6 +100,17 @@ const AuthPage = () => {
         </CardHeader>
         <CardContent>
           <form className="space-y-4" onSubmit={handleAuth}>
+            {!isLogin && (
+              <Input
+                placeholder="Benutzername"
+                type="text"
+                autoComplete="username"
+                value={username}
+                required
+                onChange={e => setUsername(e.target.value)}
+                disabled={loading}
+              />
+            )}
             <Input
               placeholder="E-Mail"
               type="email"
@@ -89,12 +129,23 @@ const AuthPage = () => {
               onChange={e => setPassword(e.target.value)}
               disabled={loading}
             />
+            {!isLogin && (
+              <Input
+                placeholder="Passwort bestätigen"
+                type="password"
+                autoComplete="new-password"
+                value={confirmPassword}
+                required
+                onChange={e => setConfirmPassword(e.target.value)}
+                disabled={loading}
+              />
+            )}
             {error && (
               <div className="text-red-600 text-sm">{error}</div>
             )}
             <Button className="w-full" type="submit" disabled={loading}>
               {loading ? <Loader2 className="animate-spin mr-2" /> : null}
-              {isLogin ? "Login" : "Registrieren"}
+              {isLogin ? "Login" : "Konto erstellen"}
             </Button>
           </form>
           <div className="text-center text-sm mt-4">
@@ -103,7 +154,7 @@ const AuthPage = () => {
                 Noch kein Account?{" "}
                 <button
                   className="underline text-green-600 hover:text-green-800"
-                  onClick={() => setIsLogin(false)}
+                  onClick={toggleForm}
                   disabled={loading}
                   type="button"
                 >
@@ -115,7 +166,7 @@ const AuthPage = () => {
                 Bereits registriert?{" "}
                 <button
                   className="underline text-green-600 hover:text-green-800"
-                  onClick={() => setIsLogin(true)}
+                  onClick={toggleForm}
                   disabled={loading}
                   type="button"
                 >
