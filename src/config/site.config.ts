@@ -158,7 +158,7 @@ export const siteConfig = {
     { name: "Heizung", href: "/heizung-modernisieren" },
     { name: "Dämmung", href: "/daemmung-isolierung" },
     { name: "Förderung", href: "/foerdermittel" },
-    { name: "Links", href: "/links" }
+    { name: "Wissenswertes", href: "/wissenswertes" }
   ],
   
   // Newsletter
