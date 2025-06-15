@@ -24,6 +24,15 @@ export interface BlogPost {
   important_notice?: string;
   table_of_contents?: any;
   costs: any;
+  // Optional: Tags als Teil der BlogPosts (Array)
+  blog_post_tags?: {
+    tag_id: string;
+    blog_tags?: {
+      id: string;
+      slug: string;
+      name: string;
+    };
+  }[];
 }
 
 export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
@@ -35,12 +44,12 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
         .select(`
           *,
           blog_post_tags (
-            tag_id
-          ),
-          blog_tags!blog_post_tags.tag_id (
-            id,
-            slug,
-            name
+            tag_id,
+            blog_tags (
+              id,
+              slug,
+              name
+            )
           )
         `)
         .order('published_at', { ascending: false });
@@ -51,8 +60,7 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
 
       if (tag) {
         // Nur blog_posts mit passendem Tag auswählen
-        query = query
-          .contains('keywords', [tag]);
+        query = query.contains('keywords', [tag]);
       }
 
       if (limit) {
