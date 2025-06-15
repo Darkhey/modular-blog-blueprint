@@ -4,8 +4,9 @@ import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import { Link as LinkIcon, PlugZap, Thermometer, Lightbulb } from 'lucide-react';
+import { Link as LinkIcon, PlugZap, Thermometer, Lightbulb, Shield, VacuumCleaner, MonitorSmartphone } from 'lucide-react';
 import SmartHomeCategoryCard from "@/components/smart-home/SmartHomeCategoryCard";
+import SmartHomeCategoryGuide from "@/components/smart-home/SmartHomeCategoryGuide";
 
 const affiliateProducts = [
   {
@@ -115,6 +116,176 @@ const smartHomeCategories = [
   }
 ];
 
+const smartHomeGuides = [
+  {
+    id: "heizung",
+    title: "Smarte Heizungssteuerung",
+    sections: [
+      {
+        heading: "Warum lohnt sich smarte Heizungssteuerung?",
+        icon: <Thermometer className="text-green-600" />,
+        text:
+          "Mit smarten Thermostaten steuern Sie Ihre Heizung ganz nach Bedarf und vermeiden unnötigen Energieverbrauch. Das spart Geld und erhöht den Komfort: Nie wieder frieren oder bei Wärme unnötig heizen.",
+        advantages: [
+          "Bis zu 20 % weniger Heizkosten",
+          "Automatische Anpassung an Gewohnheiten und Wetter",
+          "Einfache Bedienung per App oder Sprache"
+        ],
+        tips: [
+          "Programme speichern: Lege Zeitpläne für Werktage und Wochenenden an.",
+          "Fenster-Offen-Erkennung aktivieren.",
+          "Urlaubsmodus nutzen, um Abwesenheiten effizient abzudecken."
+        ],
+        faq: [
+          {
+            question: "Brauche ich spezielle Heizkörper?",
+            answer: "Nein, die meisten smarten Thermostate lassen sich ohne Werkzeug auf gängige Heizkörperventile schrauben."
+          },
+          {
+            question: "Wie schnell macht sich die Investition bezahlt?",
+            answer: "Durch die eingesparten Heizkosten kann sich ein Thermostat meist schon nach 1-2 Jahren amortisieren."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "beleuchtung",
+    title: "Intelligente Beleuchtung",
+    sections: [
+      {
+        heading: "Was bringt smarte Beleuchtung?",
+        icon: <Lightbulb className="text-yellow-500" />,
+        text: "Mit smarten LEDs und Lichtsystemen schalten Sie das Licht automatisch an oder aus, dimmen nach Stimmung oder Uhrzeit und sparen Strom durch Zeitpläne oder Bewegungssensoren.",
+        advantages: [
+          "Bis zu 80 % Energieersparnis gegenüber Halogen",
+          "Komfortabel per App, Sprache oder automatisch steuerbar",
+          "Lichtfarben und Helligkeit je nach Situation"
+        ],
+        tips: [
+          "Szenen einrichten (z.B. Kinoabend, Arbeiten, Entspannen).",
+          "Bewegungsmelder im Flur für automatisches Ausschalten.",
+          "Mit Sonnenuntergang koppeln für automatische Beleuchtung am Abend."
+        ],
+        faq: [
+          {
+            question: "Brauche ich neue Lampen oder reichen smarte Glühbirnen?",
+            answer: "Meistens reichen smarte Birnen, es gibt sie mit Standard-Sockeln für viele Leuchten."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "energiemanagement",
+    title: "Energiemanagement & Steckdosen",
+    sections: [
+      {
+        heading: "Wie hilft Energiemanagement beim Sparen?",
+        icon: <PlugZap className="text-blue-500" />,
+        text: "Mit smarten Steckdosen und Verbrauchsmessern finden Sie Stromfresser im Haus. Geräte können automatisch abgeschaltet werden, etwa nachts oder wenn keiner da ist.",
+        advantages: [
+          "Sichtbarkeit des Stromverbrauchs einzelner Geräte",
+          "Automatische Abschaltung spart Strom im Standby",
+          "Zeitpläne vermeiden Energieverschwendung"
+        ],
+        tips: [
+          "Verbraucher gezielt messen und große Stromfresser ersetzen.",
+          "Geräte nachts komplett ausschalten lassen.",
+          "Mit Smartphone immer im Blick, auch von unterwegs."
+        ],
+        faq: [
+          {
+            question: "Brauche ich für jede Steckdose ein Modul?",
+            answer: "Nein, fangen Sie bei den größten Verbrauchern wie TV, PC oder Küchengeräten an."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "sicherheit",
+    title: "Smarte Sicherheit & Überwachung",
+    sections: [
+      {
+        heading: "Wie schützt Smart-Home vor Einbrechern?",
+        icon: <Shield className="text-red-500" />,
+        text: "Smarte Kameras, Bewegungsmelder & Tür-/Fenstersensoren warnen bei Verdacht sofort auf Ihr Handy. Mit Licht- und Ton-Steuerung signalisieren Sie Anwesenheit.",
+        advantages: [
+          "Sofortige Benachrichtigung bei Verdacht",
+          "Bilder und Videos jederzeit einsehbar",
+          "Integration von Licht, Alarm und Außenkameras"
+        ],
+        tips: [
+          "Sensoren an Fenstern und Türen anbringen.",
+          "Benachrichtigungsfunktion aktivieren.",
+          "Automatische Lichtsteuerung bei Bewegungsmeldung einrichten."
+        ],
+        faq: [
+          {
+            question: "Funktionieren Sicherheitsfunktionen auch ohne Internet?",
+            answer: "Die meisten Alarmfunktionen laufen lokal, Push-Benachrichtigungen erfordern aber Internetzugang."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "haushalt",
+    title: "Smarte Haushaltsgeräte",
+    sections: [
+      {
+        heading: "Wie helfen smarte Geräte im Haushalt?",
+        icon: <VacuumCleaner className="text-gray-700" />,
+        text: "Saugroboter reinigen automatisch und können per App gesteuert werden, smarte Waschmaschinen oder Kühlschränke helfen beim Energiesparen und Wartung.",
+        advantages: [
+          "Zeitersparnis durch Automatisierung",
+          "Optimierte Energie- und Wassernutzung",
+          "App-Benachrichtigungen für Wartung, z.B. Filter tauschen"
+        ],
+        tips: [
+          "Reinigungszeiten auf Abwesenheiten legen.",
+          "Saugroboter mit Raumerkennung spart noch effizienter.",
+          "Geräte-Status regelmäßig im App-Dashboard prüfen."
+        ],
+        faq: [
+          {
+            question: "Sind smarte Geräte komplex in der Bedienung?",
+            answer: "Die meisten lassen sich wie gewohnt nutzen, zusätzliche Funktionen gibt‘s bequem per App."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "entertainment",
+    title: "Smart Entertainment & Multiroom",
+    sections: [
+      {
+        heading: "Wie bereichert smartes Entertainment den Alltag?",
+        icon: <MonitorSmartphone className="text-indigo-600" />,
+        text: "Mit Multiroom-Lautsprechern, Streaming und Sprachsteuerung wird Musik- und TV-Nutzung komfortabler und flexibler. Alles lässt sich per App synchronisieren.",
+        advantages: [
+          "Musik und TV zentral steuerbar",
+          "Kombinierbar mit Licht und Szene-Settings",
+          "Sprach- oder App-Bedienung für maximalen Komfort"
+        ],
+        tips: [
+          "Multiroom-System für fließenden Musikgenuss im ganzen Haus.",
+          "Routinen für Morgen und Abend einrichten (Musik, Licht etc.).",
+          "Entertainment mit smarten Steckdosen automatisieren."
+        ],
+        faq: [
+          {
+            question: "Brauche ich teure Spezialgeräte?",
+            answer: "Viele Systeme arbeiten mit bestehenden Lautsprechern oder Fernsehern. Adapter können ältere Geräte smart nachrüsten."
+          }
+        ]
+      }
+    ]
+  }
+];
+
 const seoTopics = smartHomeCategories.map(rubrik => ({
   id: rubrik.id,
   title: rubrik.title,
@@ -164,6 +335,20 @@ const SmartHomePage = () => {
               />
             ))}
           </div>
+
+          {/* GUIDES: Ratgeber-Bereiche */}
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">Produktarten im Detail: Guides & FAQ</h2>
+            {smartHomeGuides.map(guide => (
+              <SmartHomeCategoryGuide
+                key={guide.id}
+                id={guide.id}
+                title={guide.title}
+                sections={guide.sections}
+              />
+            ))}
+          </div>
+
           <p className="text-xs text-gray-500 mt-10 text-center px-2">
             *Wenn du über unsere Links einkaufst, erhalten wir eine kleine Provision. Für dich bleibt der Preis gleich. Danke für deine Unterstützung!
           </p>
