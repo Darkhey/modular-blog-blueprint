@@ -1,6 +1,4 @@
 
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
@@ -21,7 +19,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-white">
-      <Header />
       
       <main>
         <HeroSection />
@@ -117,7 +114,6 @@ const Index = () => {
         
         <NewsletterSection />
       </main>
-      <Footer />
     </div>
   );
 }

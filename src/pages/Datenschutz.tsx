@@ -1,12 +1,9 @@
 
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import AdSlot from '@/components/ui/AdSlot';
 
 const Datenschutz = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <div className="max-w-4xl mx-auto px-4 py-12">
         <AdSlot position="banner" className="w-full mb-8" />
@@ -79,7 +76,6 @@ const Datenschutz = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
