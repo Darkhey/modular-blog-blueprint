@@ -1,3 +1,4 @@
+
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
@@ -39,8 +40,10 @@ const Index = () => {
         />
 
         {/* Kacheln für wichtige Ratgeber */}
-        <section className="py-8">
+        <section className="py-12 bg-white">
           <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">Top-Ratgeber für Ihr Sanierungsprojekt</h2>
+            <p className="text-center text-gray-600 mb-8">Unsere wichtigsten Anleitungen für Ihre Planung.</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Dämmstoffe-Artikel */}
               <Link to="/blog/daemmstoffe-vergleich-2025" className="block hover:no-underline group">
@@ -72,6 +75,38 @@ const Index = () => {
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Moderne Fenster 2025</h3>
                   <p className="text-gray-600 text-sm mb-2">Der komplette Ratgeber für Austausch, Sanierung, Kosten und Förderung.</p>
                   <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Fenster-Ratgeber</span>
+                </div>
+              </Link>
+              {/* Heizung-Artikel */}
+              <Link to="/blog/heizung-modernisieren-ratgeber-2025" className="block hover:no-underline group">
+                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col overflow-hidden">
+                  <div className="w-full h-32 mb-3 rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop" 
+                      alt="Moderne Heizung" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <span className="text-xs font-semibold text-blue-700 uppercase mb-2">HEIZUNG</span>
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Heizung modernisieren 2025</h3>
+                  <p className="text-gray-600 text-sm mb-2">Alles zu Wärmepumpen, Gas-Hybriden und Co. Inklusive Kosten und Förderungen.</p>
+                  <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Heizungs-Ratgeber</span>
+                </div>
+              </Link>
+              {/* Solar-Artikel */}
+              <Link to="/blog/solaranlage-planen-kaufen-2025" className="block hover:no-underline group">
+                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col overflow-hidden">
+                  <div className="w-full h-32 mb-3 rounded-lg overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=300&fit=crop" 
+                      alt="Solaranlage auf einem Dach" 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <span className="text-xs font-semibold text-blue-700 uppercase mb-2">SOLARANLAGE</span>
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Solaranlage planen & kaufen</h3>
+                  <p className="text-gray-600 text-sm mb-2">Der Weg zur eigenen PV-Anlage. Von der Größe bis zur Wirtschaftlichkeit.</p>
+                  <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum Solar-Ratgeber</span>
                 </div>
               </Link>
             </div>
