@@ -11,19 +11,19 @@ const affiliateProducts = [
   {
     name: 'AVM FRITZ!DECT 200',
     description: 'Intelligente Steckdose zur Messung des Energieverbrauchs und automatischen Schaltung von Geräten. Ideal, um Stromfresser zu identifizieren und den Verbrauch zu senken.',
-    link: 'https://amzn.to/4l6nyQK',
+    link: 'https://www.amazon.de/s?k=avm+fritz+dect+200+steckdose&crid=17F5H1R20SQ07&sprefix=AVM+FRITZ%21DECT+200%2Caps%2C168&linkCode=ll2&tag=klexgetier0d-21&linkId=f0079ba805ce86d6023dbe3d6d82f142&language=de_DE&ref_=as_li_ss_tl',
     icon: PlugZap,
   },
   {
     name: 'tado° Smartes Heizkörper-Thermostat',
     description: 'Passt die Heizung an Ihren Tagesablauf und die Wettervorhersage an. Spart bis zu 20% Heizkosten durch intelligente, standortbasierte Steuerung.',
-    link: 'https://www.amazon.de/dp/B0B9X124H6',
+    link: 'https://www.amazon.de/s?k=tado%C2%B0+Smartes+Heizk%C3%B6rper-Thermostat&__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1ETRR2MXTNK3G&sprefix=tado+smartes+heizk%C3%B6rper-thermostat%2Caps%2C117&linkCode=ll2&tag=klexgetier0d-21&linkId=cfb57e789fdd9c49c4a0db963ca80d7a&language=de_DE&ref_=as_li_ss_tl',
     icon: Thermometer,
   },
   {
     name: 'Philips Hue White Ambiance Starter-Set',
     description: 'Energieeffiziente LED-Lampen mit Dimmfunktion und Zeitplänen. Schalten Sie das Licht automatisch aus, wenn niemand im Raum ist, und sparen Sie Strom.',
-    link: 'https://www.amazon.de/dp/B0B9X124H6',
+    link: 'https://www.amazon.de/s?k=Philips+Hue+White+Ambiance+Starter-Set&__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=1F0SOB674F7O5&sprefix=philips+hue+white+ambiance+starter-set%2Caps%2C123&linkCode=ll2&tag=klexgetier0d-21&linkId=a3bde6ceabe622a3c7a849c3d88a4691&language=de_DE&ref_=as_li_ss_tl',
     icon: Lightbulb,
   },
 ];
