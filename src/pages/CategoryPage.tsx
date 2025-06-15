@@ -1,4 +1,3 @@
-
 import { useParams } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -13,6 +12,7 @@ import CategoryNotFound from '@/components/category/CategoryNotFound';
 import CategoryHero from '@/components/category/CategoryHero';
 import CategoryArticleList from '@/components/category/CategoryArticleList';
 import CategorySidebar from '@/components/category/CategorySidebar';
+import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
 
 const CategoryPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -72,18 +72,21 @@ const CategoryPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
             <CategoryBenefits categoryId={slug!} color={currentTopic.color || '#cccccc'} />
-
             <CategoryArticleSearch
               search={search}
               onSearch={setSearch}
               sortBy={sortBy}
               onSort={setSortBy}
             />
-
             <CategoryArticleList 
               posts={filteredAndSortedPosts} 
               isLoading={postsLoading}
               categoryName={currentTopic.name}
+            />
+            {/* Empfohlene Artikel (passende Tags zum Thema) */}
+            <TaggedBlogPostsGrid
+              tag={currentTopic.name}
+              title={`Weitere spannende Artikel zu ${currentTopic.name}:`}
             />
           </div>
 
