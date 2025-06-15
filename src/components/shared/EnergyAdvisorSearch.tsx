@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -108,7 +107,7 @@ const EnergyAdvisorSearch = () => {
                         <Label htmlFor="kfw" className="font-normal cursor-pointer">KfW-gelistet</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                        <Checkbox id="vorOrt" checked={preselelections.vorOrt} onCheckedChange={() => handlePreselectionChange('vorOrt')} />
+                        <Checkbox id="vorOrt" checked={preselections.vorOrt} onCheckedChange={() => handlePreselectionChange('vorOrt')} />
                         <Label htmlFor="vorOrt" className="font-normal cursor-pointer">Vor-Ort-Beratung</Label>
                     </div>
                 </div>
