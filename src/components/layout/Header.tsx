@@ -1,11 +1,26 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Zap } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import { supabase } from '@/lib/supabase';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session);
+    });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
@@ -47,6 +62,20 @@ const Header = () => {
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></div>
               </Link>
             ))}
+            <Link
+              to="/admin"
+              className="relative text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 group ml-4"
+            >
+              Admin
+            </Link>
+            {!isAuthenticated && (
+              <Link
+                to="/auth"
+                className="px-3 py-1 bg-green-100 text-green-700 rounded-md font-medium ml-2 hover:bg-green-200 transition"
+              >
+                Login
+              </Link>
+            )}
           </nav>
 
           {/* Mobile menu button mit Animation */}
@@ -81,6 +110,22 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
+              <Link
+                to="/admin"
+                className="block px-4 py-3 text-blue-700 hover:bg-blue-50 transition-colors rounded-lg mx-2 font-semibold"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin
+              </Link>
+              {!isAuthenticated && (
+                <Link
+                  to="/auth"
+                  className="block px-4 py-3 text-green-700 hover:bg-green-50 transition-colors rounded-lg mx-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
             </nav>
           </div>
         </div>

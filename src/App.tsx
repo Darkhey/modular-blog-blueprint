@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import CookieConsent from "./components/ui/CookieConsent";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
+import AuthPage from "./pages/AuthPage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,8 @@ const App = () => (
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
         <CookieConsent />
       </BrowserRouter>
