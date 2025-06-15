@@ -1,14 +1,13 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Sparkles, FileText, Image, X } from "lucide-react";
+import { Sparkles, Image } from "lucide-react";
 import { useBlogCategories } from "@/hooks/useBlogCategories";
-import { UnsplashImagePicker } from "./UnsplashImagePicker";
+import BlogContentGeneratorForm from "./BlogContentGeneratorForm";
+import BlogContentGeneratorActions from "./BlogContentGeneratorActions";
+import BlogContentGeneratorInfo from "./BlogContentGeneratorInfo";
 
 interface BlogContentGeneratorProps {
   onArticleCreated: () => void;
@@ -122,124 +121,27 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <div className="flex items-start gap-3">
-            <Image className="h-5 w-5 text-blue-600 mt-0.5" />
-            <div>
-              <h4 className="font-medium text-blue-900">Automatische & manuelle Bildauswahl</h4>
-              <p className="text-sm text-blue-700 mt-1">
-                Jeder Artikel erhält automatisch ein Titelbild. Du kannst auch manuell ein Bild über die Unsplash-Suche auswählen.
-              </p>
-            </div>
-          </div>
-        </div>
+        <BlogContentGeneratorInfo />
+        
+        <BlogContentGeneratorForm
+          topic={topic}
+          setTopic={setTopic}
+          categorySlug={categorySlug}
+          setCategorySlug={setCategorySlug}
+          articleLength={articleLength}
+          setArticleLength={setArticleLength}
+          autoPublish={autoPublish}
+          setAutoPublish={setAutoPublish}
+          selectedImageUrl={selectedImageUrl}
+          setSelectedImageUrl={setSelectedImageUrl}
+          loading={loading}
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-          <div>
-            <label className="block text-sm font-medium mb-2">Thema (optional)</label>
-            <div className="flex gap-2">
-              <Input
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-                placeholder="z.B. Wärmepumpe 2025, Smart Home Trends..."
-                disabled={loading}
-              />
-              <UnsplashImagePicker
-                initialQuery={topic}
-                onImageSelect={setSelectedImageUrl}
-              >
-                <Button variant="outline" disabled={!topic.trim() || loading} title="Titelbild manuell auswählen">
-                  <Image />
-                </Button>
-              </UnsplashImagePicker>
-            </div>
-            {selectedImageUrl && (
-              <div className="mt-2 relative w-32 h-20 bg-gray-100 rounded-md">
-                <img src={selectedImageUrl} alt="Vorausgewähltes Bild" className="rounded-md object-cover w-full h-full" />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-black/50 hover:bg-black/70"
-                  onClick={() => setSelectedImageUrl(null)}
-                >
-                  <X className="h-4 w-4 text-white" />
-                </Button>
-              </div>
-            )}
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Kategorie</label>
-            <Select value={categorySlug} onValueChange={setCategorySlug} disabled={loading}>
-              <SelectTrigger>
-                <SelectValue placeholder="Zufällige Kategorie" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">Zufällige Kategorie</SelectItem>
-                {categories?.map((category) => (
-                  <SelectItem key={category.id} value={category.slug}>
-                    {category.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">Artikellänge</label>
-            <Select value={articleLength} onValueChange={setArticleLength} disabled={loading}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="short">Kurz (4-6 Min)</SelectItem>
-                <SelectItem value="medium">Mittel (8-12 Min)</SelectItem>
-                <SelectItem value="long">Lang (15-20 Min)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex items-end">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                checked={autoPublish}
-                onChange={(e) => setAutoPublish(e.target.checked)}
-                disabled={loading}
-                className="rounded"
-              />
-              <span className="text-sm">Sofort veröffentlichen</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="flex gap-3 pt-4">
-          <Button 
-            onClick={generateArticle} 
-            disabled={loading}
-            className="flex-1"
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <FileText className="h-4 w-4 mr-2" />
-            )}
-            Artikel generieren
-          </Button>
-          
-          <Button 
-            onClick={generateBulkArticles} 
-            disabled={loading}
-            variant="outline"
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin mr-2" />
-            ) : (
-              <Sparkles className="h-4 w-4 mr-2" />
-            )}
-            Bulk-Erstellung
-          </Button>
-        </div>
+        <BlogContentGeneratorActions
+          onGenerateArticle={generateArticle}
+          onGenerateBulkArticles={generateBulkArticles}
+          loading={loading}
+        />
       </CardContent>
     </Card>
   );
