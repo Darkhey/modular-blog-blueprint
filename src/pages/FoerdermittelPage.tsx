@@ -21,7 +21,7 @@ const FoerdermittelPage = () => {
             <CardHeader>
               <CardTitle>Unsere Ratgeber für Fördermittel</CardTitle>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 gap-6">
+            <CardContent className="grid md:grid-cols-3 gap-6">
               <Link to="/blog/bafa-foerderung-2025-leitfaden" className="block hover:no-underline group">
                 <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">BAFA 2025</span>
@@ -36,6 +36,14 @@ const FoerdermittelPage = () => {
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">KfW-Förderung 2025: Kredite & Zuschüsse</h3>
                   <p className="text-gray-600 text-sm mb-2">Günstige Kredite und Tilgungszuschüsse für Komplettsanierungen, Heizungstausch und mehr – so nutzen Sie die KfW optimal.</p>
                   <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum KfW-Leitfaden</span>
+                </div>
+              </Link>
+              <Link to="/blog/regionale-foerderprogramme-2025-zuschuesse" className="block hover:no-underline group">
+                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+                  <span className="text-xs font-semibold text-blue-700 uppercase mb-2">REGIONAL 2025</span>
+                  <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Regionale Förderprogramme 2025: Zuschüsse & Boni</h3>
+                  <p className="text-gray-600 text-sm mb-2">Wie Sie Landes- und Kommunalförderungen mit BAFA und KfW kombinieren, um das Beste für Ihre Sanierung herauszuholen.</p>
+                  <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zu den Regional-Förderungen</span>
                 </div>
               </Link>
             </CardContent>
