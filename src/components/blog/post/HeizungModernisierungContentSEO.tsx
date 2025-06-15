@@ -156,7 +156,7 @@ const HeizungModernisierungContentSEO = ({ post }: HeizungModernisierungContentS
                 </div>
                 <div className="flex justify-between p-2 bg-gray-50 rounded">
                   <span className="text-sm">Passivhaus:</span>
-                  <span className="text-sm font-medium">≤ 10 W/m²</span>
+                  <span className="text-sm font-medium">{'≤'} 10 W/m²</span>
                 </div>
               </div>
             </div>
@@ -340,7 +340,7 @@ const HeizungModernisierungContentSEO = ({ post }: HeizungModernisierungContentS
           <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
             <h4 className="font-semibold mb-3 text-lg text-gray-900">📊 Monitoring und Wartung</h4>
             <ul className="space-y-2 text-gray-700 text-sm">
-              <li>• <strong>Jahresarbeitszahl</strong> überwachen (Ziel: >3,5)</li>
+              <li>• <strong>Jahresarbeitszahl</strong> überwachen (Ziel: {'>'} 3,5)</li>
               <li>• <strong>Stromverbrauch</strong> monatlich kontrollieren</li>
               <li>• <strong>Filter</strong> regelmäßig reinigen</li>
               <li>• <strong>Abtauung</strong> beobachten</li>
