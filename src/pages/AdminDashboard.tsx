@@ -107,6 +107,14 @@ const AdminDashboard = () => {
                 <div className="text-gray-500">Blogartikel</div>
               </div>
             </div>
+            {/* Navigation for blog admin */}
+            <Button
+              className="w-full mb-4"
+              variant="default"
+              onClick={() => navigate("/admin/blog")}
+            >
+              Blogartikel verwalten
+            </Button>
             <Button variant="secondary" className="w-full" onClick={onLogout}>
               Logout
             </Button>
