@@ -1,5 +1,8 @@
-
 import { BlogPost } from '@/hooks/useBlogPosts';
+import { ArticleSectionBox } from "./ArticleSectionBox";
+import InsulationComparisonTable from "./InsulationComparisonTable";
+import ChecklistBox from "./ChecklistBox";
+import MistakesWarningBox from "./MistakesWarningBox";
 
 interface ArticleBodyProps {
     post: Pick<BlogPost, 'content' | 'slug'>;
@@ -144,15 +147,160 @@ const daemmstoffeVergleichHTML = `
 `;
 
 const ArticleBody = ({ post }: ArticleBodyProps) => {
-    // Nur für den "Dämmstoffe im Vergleich"-Artikel überschreiben wir den Content für die Demo
     const isDaemmstoffe = post.slug === "daemmstoffe-vergleich-2025";
-    const content = isDaemmstoffe ? daemmstoffeVergleichHTML : post.content.replace(/\n/g, '<br />');
-    return (
+
+    if (!isDaemmstoffe) {
+      return (
         <div className="prose prose-lg max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div dangerouslySetInnerHTML={{ __html: post.content.replace(/\n/g, '<br />') }} />
         </div>
+      );
+    }
+
+    return (
+      <div className="prose max-w-none prose-lg">
+        <h2 className="text-3xl font-bold text-emerald-800 mb-4">Dämmstoffe im Vergleich: Mineralwolle, EPS, Holzfaser &amp; mehr</h2>
+        <p className="text-lg mb-6 text-gray-700">
+          Für eine energieeffiziente Sanierung ist die Wahl des richtigen Dämmstoffs entscheidend. Hier finden Sie einen ausführlichen Überblick zu Eigenschaften, Einsatzbereichen, Vorteilen, Nachteilen und Fördermöglichkeiten der wichtigsten Materialien.
+        </p>
+
+        <ArticleSectionBox variant="info" title="Warum ist Dämmung so wichtig?">
+          <p>
+            Ein gut gedämmtes Haus spart nicht nur Energie und Kosten, sondern steigert auch den Wohnkomfort und schützt das Klima. Jedes Gebäude ist anders – daher lohnt sich ein Blick auf die verschiedenen Dämmstoffe und deren Eigenschaften.
+          </p>
+        </ArticleSectionBox>
+
+        <h3 className="mt-5">Wichtige Dämmstoffe &amp; Materialien im Überblick</h3>
+        <div className="space-y-3">
+          <ArticleSectionBox variant="success" title="Mineralwolle (Glaswolle, Steinwolle)">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Sehr häufiger Allrounder für Fassaden, Dach und Keller</li>
+              <li>Hervorragende Dämmwirkung (λ ab 0,032 W/(mK)), nicht brennbar nach DIN 4102 (A1)</li>
+              <li>Kostengünstig, aber energieintensive Produktion, mäßige Ökobilanz</li>
+              <li>Vorsicht bei Verarbeitung: Fasern können Haut reizen</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="info" title="EPS (Styropor)">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Sehr beliebt für Fassaden (WDVS) und Perimeterdämmung</li>
+              <li>Günstig, feuchteunempfindlich, flexibel einsetzbar</li>
+              <li>Basiert auf Erdöl, brennbar (B1), problematische Entsorgung</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="success" title="Holzfaser">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Besonders nachhaltig, sehr gute Ökobilanz</li>
+              <li>Guter sommerlicher Hitzeschutz und Feuchteregulierung</li>
+              <li>Vielseitig (Dach, Fassade, Innen), relativ teuer</li>
+              <li>Empfindlich gegen dauerhafte Durchfeuchtung</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="success" title="Hanf &amp; Schafwolle">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>100% natürlich, für Allergiker geeignet</li>
+              <li>Feuchteregulierend, schimmelresistent, schallabsorbierend</li>
+              <li>Teurer, aber sehr nachhaltig</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="success" title="Zellulose">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Recyclingmaterial (Altpapier), ökologisch top</li>
+              <li>Einblasdämmung ideal für Dach und Gefache</li>
+              <li>Schwer entflammbar, sehr guter Hitzeschutz</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="info" title="PUR/PIR">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Synthetischer Dämmstoff mit sehr niedriger Wärmeleitfähigkeit (ab 0,022)</li>
+              <li>Erlaubt schlanke Aufbauten, ideal bei Platznot</li>
+              <li>Relativ teuer, nicht ökologisch</li>
+            </ul>
+          </ArticleSectionBox>
+          <ArticleSectionBox variant="info" title="Perlite">
+            <ul className="list-disc pl-4 text-gray-700">
+              <li>Mineralischer Schüttdämmstoff, ideal für schwer zugängliche Hohlwände</li>
+              <li>Unverrottbar, nicht brennbar, mittlere Dämmwirkung</li>
+              <li>Gut recycelbar</li>
+            </ul>
+          </ArticleSectionBox>
+        </div>
+
+        <h3 className="mt-8 mb-2 font-bold text-xl text-emerald-800">Vergleichstabelle: Eigenschaften wichtiger Dämmstoffe</h3>
+        <InsulationComparisonTable />
+
+        <ArticleSectionBox variant="success" title="Vorteile &amp; Nachteile auf einen Blick">
+          <ul className="list-none space-y-1 pl-0">
+            <li>
+              <span className="text-emerald-700 font-semibold">Mineralwolle: </span>
+              Robust, brandsicher, günstig, aber energieintensive Herstellung. Kann bei Verarbeitung Haut reizen.
+            </li>
+            <li>
+              <span className="text-blue-700 font-semibold">EPS: </span>
+              Kostengünstig, schwer entflammbar, aber Erdöl-basiert, problematische Entsorgung.
+            </li>
+            <li>
+              <span className="text-emerald-700 font-semibold">Holzfaser: </span>
+              Nachhaltig, sehr guter Hitzeschutz, relativ teuer, empfindlich gegen Feuchte.
+            </li>
+            <li>
+              <span className="text-emerald-700 font-semibold">Zellulose: </span>
+              Recyclingmaterial, Einblas-Technik, sehr guter Hitzeschutz, ökologisch top.
+            </li>
+            <li>
+              <span className="text-emerald-700 font-semibold">Hanf/Schafwolle: </span>
+              Für Allergiker, natürlich, solide Dämmung, vergleichsweise teuer.
+            </li>
+            <li>
+              <span className="text-blue-700 font-semibold">PUR/PIR: </span>
+              Beste Dämmwerte bei geringster Dicke, wenig nachhaltig.
+            </li>
+            <li>
+              <span className="text-emerald-700 font-semibold">Perlite: </span>
+              Nicht brennbar, ideal für Hohlräume, gut recycelbar.
+            </li>
+          </ul>
+        </ArticleSectionBox>
+
+        <ChecklistBox>
+          <li>Nach Einsatzbereich entscheiden (Dach, Fassade, Keller, Innen)?</li>
+          <li>Brandschutzanforderungen prüfen – Dach: besser nicht brennbar!</li>
+          <li>Sommerlicher Hitzeschutz: Holzfaser und Zellulose sind top!</li>
+          <li>Förderung möglich? (GEG/BEG). Antrag immer <b>vorher</b> stellen!</li>
+          <li>Feuchteschutz beachten (Sperrschichten, Belüftung!)</li>
+          <li>Nachhaltigkeit + Recyclingfähigkeit gewinnen immer mehr Bedeutung!</li>
+        </ChecklistBox>
+
+        <MistakesWarningBox>
+          <li>Dämmstoff darf keine Lücken oder Feuchtebrücken haben.</li>
+          <li>Produkthinweise beachten – nicht jedes Material passt überall.</li>
+          <li>Brandschutz-Vorschriften einhalten, vor allem im Dach!</li>
+          <li>Förderantrag <b>vor</b> dem Beginn einreichen!</li>
+        </MistakesWarningBox>
+
+        <ArticleSectionBox variant="info" title="Förderung &amp; Beratung">
+          <p>
+            Staatliche Förderungen (BEG, KfW, BAFA) decken bis zu 70% der Kosten ab.
+            <br />
+            Voraussetzung: Maßnahmen <b>vor</b> Beginn beantragen!
+            <br />
+            Für viele Programme ist ein zertifizierter Energieberater Pflicht.
+            <br />
+            <a href="/blog/foerdermittel" className="text-emerald-700 underline hover:text-emerald-900">
+              Mehr dazu in unserem Fördermittel-Ratgeber &rarr;
+            </a>
+          </p>
+        </ArticleSectionBox>
+
+        <hr className="my-8" />
+
+        <p className="font-semibold text-lg">
+          <strong>Fazit:</strong>  
+          Jeder Dämmstoff hat Vor- und Nachteile. Für die optimale Dämmung und Fördermöglichkeiten empfiehlt sich immer eine individuelle Beratung!
+          <br />
+          Nachhaltige, wohngesunde Dämmstoffe sind heute praxistauglich und gewinnen für klimabewusste Sanierer zunehmend an Bedeutung.
+        </p>
+      </div>
     );
 };
 
 export default ArticleBody;
-
