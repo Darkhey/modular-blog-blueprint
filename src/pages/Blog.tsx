@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Search, BookOpen, TrendingUp, Award, Users } from 'lucide-react';
 import Header from '@/components/layout/Header';
@@ -186,15 +187,17 @@ const Blog = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
+            <div className="sticky top-24 space-y-6 max-w-full">
               {/* Sidebar Ad */}
               {siteConfig.adsEnabled && siteConfig.adsSettings.positions.sidebarTop && (
                 <AdSlot position="sidebar" />
               )}
 
-              {/* Newsletter Signup */}
+              {/* Newsletter Signup - with proper container constraints */}
               {siteConfig.newsletter.enabled && (
-                <NewsletterSignup />
+                <div className="w-full max-w-full overflow-hidden">
+                  <NewsletterSignup />
+                </div>
               )}
 
               {/* Popular Topics with Enhanced Info */}

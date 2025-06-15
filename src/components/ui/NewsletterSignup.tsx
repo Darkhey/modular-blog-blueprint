@@ -40,10 +40,10 @@ const NewsletterSignup = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg border">
+    <div className="bg-gradient-to-r from-green-50 to-blue-50 p-4 rounded-lg border w-full max-w-full overflow-hidden">
       <div className="flex items-start space-x-3">
-        <Mail className="text-green-600 mt-1" size={24} />
-        <div className="flex-1">
+        <Mail className="text-green-600 mt-1 flex-shrink-0" size={24} />
+        <div className="flex-1 min-w-0">
           <h3 className="text-lg font-semibold text-gray-900 mb-2">
             {siteConfig.newsletter.title}
           </h3>
@@ -51,19 +51,19 @@ const NewsletterSignup = () => {
             {siteConfig.newsletter.description}
           </p>
           
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Ihre E-Mail-Adresse"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-transparent text-sm"
               required
             />
             <button
               type="submit"
               disabled={isLoading}
-              className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors"
+              className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors text-sm font-medium"
             >
               {isLoading ? 'Wird angemeldet...' : 'Anmelden'}
             </button>
