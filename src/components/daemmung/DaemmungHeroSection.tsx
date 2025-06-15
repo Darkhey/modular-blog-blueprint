@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Calculator, TrendingDown, Home, Award, ArrowRight } from 'lucide-react';
+import { Calculator, TrendingDown, Home, Award, ArrowRight, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const DaemmungHeroSection = () => {
@@ -57,10 +57,18 @@ const DaemmungHeroSection = () => {
 
           <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold mb-6">Sofort-Check: Ihr Sparpotenzial</h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-2xl font-bold">Beispiel-Rechnung</h3>
+                <div className="bg-yellow-400/20 text-yellow-200 px-3 py-1 rounded-full text-sm font-semibold border border-yellow-400/30">
+                  💡 Beispiel
+                </div>
+              </div>
+              <p className="text-white/80 mb-6 text-sm">
+                Typisches Einfamilienhaus (140m², Baujahr 1980)
+              </p>
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-4 bg-white/10 rounded-lg">
-                  <span>Ungedämmtes Haus (140m²)</span>
+                  <span>Ungedämmtes Haus</span>
                   <span className="font-bold text-red-300">3.200€/Jahr</span>
                 </div>
                 <div className="flex justify-between items-center p-4 bg-white/10 rounded-lg">
@@ -68,10 +76,22 @@ const DaemmungHeroSection = () => {
                   <span className="font-bold text-green-300">1.600€/Jahr</span>
                 </div>
                 <div className="border-t border-white/20 pt-4">
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center mb-4">
                     <span className="text-xl font-bold">Jährliche Ersparnis:</span>
                     <span className="text-2xl font-bold text-green-300">1.600€</span>
                   </div>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="w-full border-white/30 text-white hover:bg-white/10"
+                    asChild
+                  >
+                    <Link to="/heizkostenrechner" className="flex items-center justify-center">
+                      <Calculator className="mr-2 h-4 w-4" />
+                      Ihre persönlichen Kosten berechnen
+                      <ExternalLink className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
