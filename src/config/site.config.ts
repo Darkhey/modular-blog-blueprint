@@ -155,9 +155,7 @@ export const siteConfig = {
   navigation: [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
-    { name: "Heizung", href: "/heizung-modernisieren" },
-    { name: "Dämmung", href: "/daemmung-isolierung" },
-    { name: "Förderung", href: "/foerdermittel" },
+    { name: "Themen" },
     { name: "Wissenswertes", href: "/wissenswertes" }
   ],
   

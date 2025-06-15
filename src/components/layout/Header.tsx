@@ -1,10 +1,48 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Zap } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
 import { supabase } from '@/integrations/supabase/client';
 import { Session } from '@supabase/supabase-js';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
+
+const ListItem = forwardRef<
+  ElementRef<typeof Link>,
+  ComponentPropsWithoutRef<typeof Link> & { title: string }
+>(({ className, title, children, to, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          ref={ref}
+          to={to}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -73,33 +111,58 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation mit SEO-URLs */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {siteConfig.navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="relative text-gray-700 hover:text-green-600 font-medium transition-all duration-300 group"
-              >
-                {item.name}
-                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-600 group-hover:w-full transition-all duration-300"></div>
-              </Link>
-            ))}
-            {profile?.role === 'admin' && (
-              <Link
-                to="/admin"
-                className="relative text-gray-700 hover:text-blue-600 font-semibold transition-all duration-300 group ml-4"
-              >
-                Admin
-              </Link>
-            )}
-            {!session && (
-              <Link
-                to="/auth"
-                className="px-3 py-1 bg-green-100 text-green-700 rounded-md font-medium ml-2 hover:bg-green-200 transition"
-              >
-                Login
-              </Link>
-            )}
+          <nav className="hidden md:flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList>
+                {siteConfig.navigation.map((item) => (
+                  <NavigationMenuItem key={item.name}>
+                    {item.href ? (
+                      <NavigationMenuLink asChild>
+                        <Link to={item.href} className={navigationMenuTriggerStyle()}>
+                          {item.name}
+                        </Link>
+                      </NavigationMenuLink>
+                    ) : (
+                      <>
+                        <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            {siteConfig.contentTopics.map((topic) => (
+                              <ListItem
+                                key={topic.id}
+                                to={topic.seoUrl}
+                                title={topic.name}
+                              >
+                                {topic.description}
+                              </ListItem>
+                            ))}
+                          </ul>
+                        </NavigationMenuContent>
+                      </>
+                    )}
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+            
+            <div className="flex items-center space-x-2 ml-4">
+              {profile?.role === 'admin' && (
+                <Link
+                  to="/admin"
+                  className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:text-blue-600 font-semibold")}
+                >
+                  Admin
+                </Link>
+              )}
+              {!session && (
+                <Link
+                  to="/auth"
+                  className="px-3 py-1 bg-green-100 text-green-700 rounded-md font-medium ml-2 hover:bg-green-200 transition text-sm"
+                >
+                  Login
+                </Link>
+              )}
+            </div>
           </nav>
 
           {/* Mobile menu button mit Animation */}
@@ -121,19 +184,43 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation mit SEO-URLs */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ${isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className={`md:hidden overflow-auto transition-all duration-300 ${isMenuOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'}`}>
           <div className="border-t bg-white/50 backdrop-blur-sm">
             <nav className="py-4 space-y-1">
-              {siteConfig.navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg mx-2"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {siteConfig.navigation.map((item) =>
+                item.href ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg mx-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <Accordion type="single" collapsible className="w-full px-2" key={item.name}>
+                    <AccordionItem value="themen" className="border-b-0">
+                      <AccordionTrigger className="px-2 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg font-normal hover:no-underline">
+                        {item.name}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="pl-6 space-y-1">
+                          {siteConfig.contentTopics.map((topic) => (
+                            <Link
+                              key={topic.id}
+                              to={topic.seoUrl}
+                              className="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors rounded-lg"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              {topic.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                )
+              )}
               {profile?.role === 'admin' && (
                 <Link
                   to="/admin"
