@@ -11,28 +11,28 @@ import Autoplay from "embla-carousel-autoplay"
 
 const images = [
   {
-    src: "/placeholder.svg?id=photo-1493397212122-2b85dda8106b",
-    alt: "Moderne Gebäudefassade mit geschwungenen Linien vor blauem Himmel",
-    title: "Architektur & Fassadengestaltung",
-    description: "Verleihen Sie Ihrem Zuhause Charakter mit innovativen Fassaden."
+    src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&h=600&fit=crop",
+    alt: "Moderne smarte Heizungssteuerung mit Thermostat",
+    title: "Smarte Heizungssteuerung",
+    description: "Intelligente Thermostate für optimalen Komfort und Energieeffizienz."
   },
   {
-    src: "/placeholder.svg?id=photo-1721322800607-8c38375eef04",
-    alt: "Helles, modernes Wohnzimmer mit Designermöbeln und großen Fenstern",
-    title: "Innenausbau & Wohnkomfort",
-    description: "Schaffen Sie Räume zum Leben und Wohlfühlen."
+    src: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=600&fit=crop",
+    alt: "Moderne LED-Beleuchtung in einem stilvollen Wohnraum",
+    title: "Intelligente Beleuchtung",
+    description: "Smarte LEDs und Lichtsysteme für perfekte Atmosphäre."
   },
   {
-    src: "/placeholder.svg?id=photo-1581090464777-f3220bbe1b8b",
+    src: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=800&h=600&fit=crop",
     alt: "Hand hält eine leuchtend blaue Glühbirne, Symbol für Energieeffizienz",
-    title: "Energieeffizienz & Nachhaltigkeit",
-    description: "Kosten senken und die Umwelt schonen durch smarte Sanierung."
+    title: "Energiemanagement & Smart Home",
+    description: "Kosten senken und die Umwelt schonen durch smarte Technologie."
   },
   {
-    src: "/placeholder.svg?id=photo-1506744038136-46273834b3fb",
+    src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop",
     alt: "Idyllische Seenlandschaft umgeben von dichten Wäldern",
-    title: "Ökologisch Bauen & Wohnen",
-    description: "Bauen mit der Natur im Einklang für ein gesundes Zuhause."
+    title: "Nachhaltiges Wohnen",
+    description: "Leben im Einklang mit der Natur durch smarte Lösungen."
   }
 ];
 
