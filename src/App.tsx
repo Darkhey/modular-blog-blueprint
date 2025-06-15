@@ -25,6 +25,9 @@ import AuthPage from "./pages/AuthPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBlogPosts from "./pages/AdminBlogPosts";
 import SearchPage from "./pages/SearchPage";
+import ProjektplanerPage from "./pages/ProjektplanerPage";
+import BudgetplanPage from "./pages/BudgetplanPage";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +60,8 @@ function App() {
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/admin/blog-posts" element={<AdminBlogPosts />} />
+                  <Route path="/projektplaner" element={<ProtectedRoute><ProjektplanerPage /></ProtectedRoute>} />
+                  <Route path="/budgetplan" element={<ProtectedRoute><BudgetplanPage /></ProtectedRoute>} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
