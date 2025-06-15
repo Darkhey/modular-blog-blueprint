@@ -19,7 +19,9 @@ const initialState = {
   topic: "",
   topic_color: "#00B386",
   published_at: "",
-  status: "draft"
+  status: "draft",
+  // Add read_time with a default value
+  read_time: 8,
 };
 
 export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostEditFormProps) {
@@ -37,7 +39,8 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
           setData({
             ...initialState,
             ...data,
-            published_at: data.published_at ? data.published_at.slice(0, 16) : ""
+            published_at: data.published_at ? data.published_at.slice(0, 16) : "",
+            read_time: data.read_time ?? 8,
           });
         }
         setLoading(false);
@@ -52,7 +55,8 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
     setLoading(true);
     const payload = {
       ...data,
-      published_at: data.published_at ? new Date(data.published_at).toISOString() : null
+      published_at: data.published_at ? new Date(data.published_at).toISOString() : null,
+      read_time: Number(data.read_time) || 8,
     };
     let dbres;
     if (postId) {
@@ -115,6 +119,18 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
                 type="datetime-local"
                 value={data.published_at}
                 onChange={e => setData(v => ({ ...v, published_at: e.target.value }))}
+                disabled={loading}
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block font-medium">∅ Lesezeit (Minuten)</label>
+              <Input
+                type="number"
+                min={1}
+                max={60}
+                value={data.read_time}
+                onChange={e => setData(v => ({ ...v, read_time: Number(e.target.value) }))}
+                required
                 disabled={loading}
               />
             </div>
