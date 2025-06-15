@@ -5,7 +5,7 @@ import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
-import { Info, DoorClosed, DoorOpen, Window } from "lucide-react";
+import { Info, DoorClosed, DoorOpen, Wind } from "lucide-react";
 
 const ThemenBox = ({ icon, title, children }: { icon: React.ReactNode, title: string, children: React.ReactNode }) => (
   <section className="bg-white rounded-lg border p-5 mb-7 flex flex-col md:flex-row gap-4 shadow-sm animate-fade-in">
@@ -50,7 +50,7 @@ const FensterTuerenPage = () => {
           </ThemenBox>
 
           <ThemenBox
-            icon={<Window className="text-emerald-600 w-8 h-8" />}
+            icon={<Wind className="text-emerald-600 w-8 h-8" />}
             title="Fenster-Arten & Eigenschaften"
           >
             <ul className="list-disc pl-5 mb-1 space-y-1">
@@ -172,3 +172,4 @@ const FensterTuerenPage = () => {
   );
 };
 export default FensterTuerenPage;
+
