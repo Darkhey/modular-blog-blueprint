@@ -7,6 +7,7 @@ import { CheckCircle, ExternalLink, Sun, Zap, ShieldAlert, Euro } from 'lucide-r
 import SolarCalculator from '@/components/calculators/SolarCalculator';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
@@ -116,6 +117,101 @@ const SolarenergiePage = () => {
                     <p className="text-muted-foreground">Ein Haus mit Solaranlage ist attraktiver auf dem Immobilienmarkt und erzielt höhere Verkaufspreise.</p>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Step-by-step Guide Section */}
+          <section>
+            <Card>
+              <CardHeader>
+                <CardTitle>Der Weg zu Ihrer Solaranlage: Schritt für Schritt</CardTitle>
+                <CardDescription>Von der Idee bis zum eigenen Solarstrom – so einfach geht's.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">1</div>
+                    <div className="w-px h-16 bg-gray-200 dark:bg-gray-700"></div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Beratung & Planung</h3>
+                    <p className="text-muted-foreground">Ein Fachberater analysiert Ihr Dach, Ihren Stromverbrauch und Ihre Wünsche. Sie erhalten eine individuelle Einschätzung zur optimalen Anlagengröße und den potenziellen Erträgen.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">2</div>
+                      <div className="w-px h-16 bg-gray-200 dark:bg-gray-700"></div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Angebotsvergleich</h3>
+                    <p className="text-muted-foreground">Holen Sie sich mindestens 2-3 Angebote von verschiedenen qualifizierten Installateuren ein. Achten Sie nicht nur auf den Preis, sondern auch auf die verwendeten Komponenten (Module, Wechselrichter) und die Garantieleistungen.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 flex flex-col items-center">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">3</div>
+                      <div className="w-px h-16 bg-gray-200 dark:bg-gray-700"></div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Installation</h3>
+                    <p className="text-muted-foreground">Ein professionelles Team montiert die Solarmodule auf Ihrem Dach und installiert den Wechselrichter sowie ggf. den Stromspeicher. Dies dauert in der Regel nur 1-3 Tage.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">4</div>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg">Inbetriebnahme & Anmeldung</h3>
+                    <p className="text-muted-foreground">Nach der Installation erfolgt die technische Abnahme. Der Installateur kümmert sich um die Anmeldung Ihrer Anlage beim Netzbetreiber und im Marktstammdatenregister. Danach können Sie Ihren eigenen Sonnenstrom produzieren!</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* FAQ Section */}
+          <section>
+            <Card>
+              <CardHeader>
+                <CardTitle>Häufig gestellte Fragen (FAQ)</CardTitle>
+                <CardDescription>Antworten auf die wichtigsten Fragen rund um Photovoltaik.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Accordion type="single" collapsible className="w-full">
+                  <AccordionItem value="item-1">
+                    <AccordionTrigger>Wie viel kostet eine Solaranlage?</AccordionTrigger>
+                    <AccordionContent>
+                      Die Kosten hängen stark von der Größe ab. Eine typische Anlage für ein Einfamilienhaus (ca. 8-10 kWp) kostet inklusive Montage und Wechselrichter zwischen 12.000 € und 20.000 €. Mit einem Stromspeicher kommen weitere 5.000 € bis 10.000 € hinzu. Die gute Nachricht: Die Preise sind in den letzten Jahren stark gefallen.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-2">
+                    <AccordionTrigger>Lohnt sich ein Stromspeicher?</AccordionTrigger>
+                    <AccordionContent>
+                      Ein Stromspeicher erhöht Ihren Eigenverbrauchsanteil von ca. 30% auf bis zu 70%. Das macht Sie noch unabhängiger vom Stromnetz. Ob er sich rein finanziell lohnt, hängt von Ihrem Verbrauchsverhalten und dem Strompreis ab. Bei den aktuell hohen Strompreisen wird ein Speicher für die meisten Haushalte immer rentabler.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-3">
+                    <AccordionTrigger>Was passiert bei einem Stromausfall?</AccordionTrigger>
+                    <AccordionContent>
+                      Standard-PV-Anlagen schalten sich bei einem Stromausfall aus Sicherheitsgründen ab. Um bei einem Blackout weiterhin Strom zu haben, benötigen Sie eine Anlage mit "Notstrom-" oder "Ersatzstromfähigkeit". Dies erfordert einen speziellen, teureren Wechselrichter und oft einen Stromspeicher.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-4">
+                    <AccordionTrigger>Wie lange hält eine Solaranlage?</AccordionTrigger>
+                    <AccordionContent>
+                      Solarmodule sind sehr langlebig. Hersteller geben meist eine Leistungsgarantie von 25-30 Jahren (oft auf 80-87% der ursprünglichen Leistung). Die tatsächliche Lebensdauer ist oft noch länger. Wechselrichter müssen eventuell nach 10-15 Jahren ausgetauscht werden.
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="item-5">
+                    <AccordionTrigger>Brauche ich eine Baugenehmigung?</AccordionTrigger>
+                    <AccordionContent>
+                      In den meisten Bundesländern sind Solaranlagen auf Schrägdächern genehmigungsfrei. Bei Flachdächern oder denkmalgeschützten Gebäuden können besondere Vorschriften gelten. Es ist immer ratsam, sich vorab beim lokalen Bauamt zu erkundigen.
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               </CardContent>
             </Card>
           </section>
