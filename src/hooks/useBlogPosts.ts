@@ -38,6 +38,13 @@ export interface BlogPost {
       name: string;
     };
   }[];
+  // New fields for enhanced content management
+  status?: string;
+  scheduled_for?: string;
+  view_count?: number;
+  like_count?: number;
+  comment_count?: number;
+  is_featured?: boolean;
 }
 
 export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
@@ -103,5 +110,42 @@ export const useBlogPost = (slug: string) => {
       return data as BlogPost;
     },
     enabled: !!slug
+  });
+};
+
+// New hook for analytics and admin features
+export const useBlogPostAnalytics = (timeRange: '7d' | '30d' | '90d' = '30d') => {
+  return useQuery({
+    queryKey: ['blog-post-analytics', timeRange],
+    queryFn: async () => {
+      const endDate = new Date();
+      const startDate = new Date();
+      
+      switch (timeRange) {
+        case '7d':
+          startDate.setDate(endDate.getDate() - 7);
+          break;
+        case '30d':
+          startDate.setDate(endDate.getDate() - 30);
+          break;
+        case '90d':
+          startDate.setDate(endDate.getDate() - 90);
+          break;
+      }
+
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .select('id, title, slug, view_count, like_count, comment_count, published_at, read_time, topic, status')
+        .eq('status', 'published')
+        .gte('published_at', startDate.toISOString())
+        .order('view_count', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching blog post analytics:', error);
+        throw error;
+      }
+
+      return data as BlogPost[];
+    }
   });
 };

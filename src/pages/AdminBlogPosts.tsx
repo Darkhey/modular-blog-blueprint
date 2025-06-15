@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import BlogPostEditForm from "@/components/admin/BlogPostEditForm";
 import BlogContentGenerator from "@/components/admin/BlogContentGenerator";
+import ContentManagementTabs from "@/components/admin/ContentManagementTabs";
+import { Eye, GitBranch } from "lucide-react";
 
 type BlogPost = {
   id: string;
@@ -14,6 +15,7 @@ type BlogPost = {
   slug: string;
   status: string;
   published_at: string | null;
+  view_count?: number;
 };
 
 const AdminBlogPosts = () => {
@@ -23,6 +25,8 @@ const AdminBlogPosts = () => {
   const [loading, setLoading] = useState(true);
   const [showEditor, setShowEditor] = useState(false);
   const [editPostId, setEditPostId] = useState<string | null>(null);
+  const [showContentManagement, setShowContentManagement] = useState(false);
+  const [selectedPostForVersions, setSelectedPostForVersions] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -57,7 +61,7 @@ const AdminBlogPosts = () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, status, published_at")
+      .select("id, title, slug, status, published_at, view_count")
       .order('created_at', { ascending: false });
     if (error) {
       toast.error("Fehler beim Laden der Blogartikel");
@@ -76,6 +80,11 @@ const AdminBlogPosts = () => {
     fetchPosts(); // Refresh the list
   };
 
+  const openVersionControl = (postId: string) => {
+    setSelectedPostForVersions(postId);
+    setShowContentManagement(true);
+  };
+
   if (!profile) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -86,59 +95,89 @@ const AdminBlogPosts = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto py-10 px-2">
+      <div className="max-w-6xl mx-auto py-10 px-2">
         <Card>
           <CardHeader>
-            <CardTitle>Blogartikel verwalten</CardTitle>
-            <div className="text-sm text-gray-500">
-              Admin: {profile?.email}
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Blogartikel verwalten</CardTitle>
+                <div className="text-sm text-gray-500">
+                  Admin: {profile?.email}
+                </div>
+              </div>
+              <Button
+                onClick={() => setShowContentManagement(!showContentManagement)}
+                variant={showContentManagement ? "default" : "outline"}
+              >
+                {showContentManagement ? "Artikel-Liste" : "Content-Management"}
+              </Button>
             </div>
           </CardHeader>
           <CardContent>
-            {/* AI Content Generator */}
-            <BlogContentGenerator onArticleCreated={handleArticleCreated} />
-            
-            {/* Manual creation button */}
-            <Button 
-              onClick={() => { setEditPostId(null); setShowEditor(true); }}
-              variant="outline"
-              className="mb-4"
-            >
-              + Manuell erstellen
-            </Button>
-            
-            {loading ? (
-              <div>Lade Blogartikel...</div>
+            {!showContentManagement ? (
+              <>
+                {/* AI Content Generator */}
+                <BlogContentGenerator onArticleCreated={handleArticleCreated} />
+                
+                {/* Manual creation button */}
+                <Button 
+                  onClick={() => { setEditPostId(null); setShowEditor(true); }}
+                  variant="outline"
+                  className="mb-4"
+                >
+                  + Manuell erstellen
+                </Button>
+                
+                {loading ? (
+                  <div>Lade Blogartikel...</div>
+                ) : (
+                  <ul className="divide-y">
+                    {posts.length === 0 && <li className="py-3">Noch keine Blogartikel vorhanden.</li>}
+                    {posts.map(bp => (
+                      <li key={bp.id} className="py-3 flex justify-between items-center gap-3">
+                        <div>
+                          <div className="font-semibold">{bp.title}</div>
+                          <div className="text-xs text-gray-400 flex items-center gap-2">
+                            /{bp.slug} &middot; {bp.status} 
+                            {bp.published_at ? ` &middot; ${new Date(bp.published_at).toLocaleDateString()}` : ""}
+                            {typeof bp.view_count === 'number' && (
+                              <span className="flex items-center gap-1">
+                                &middot; <Eye className="h-3 w-3" /> {bp.view_count}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => openVersionControl(bp.id)}
+                          >
+                            <GitBranch className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            onClick={() => { setEditPostId(bp.id); setShowEditor(true); }}
+                          >
+                            Bearbeiten
+                          </Button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                
+                {showEditor && (
+                  <BlogPostEditForm
+                    postId={editPostId}
+                    onClose={() => { setShowEditor(false); setEditPostId(null); }}
+                    onSaved={() => { setShowEditor(false); setEditPostId(null); toast.success("Gespeichert."); }}
+                  />
+                )}
+              </>
             ) : (
-              <ul className="divide-y">
-                {posts.length === 0 && <li className="py-3">Noch keine Blogartikel vorhanden.</li>}
-                {posts.map(bp => (
-                  <li key={bp.id} className="py-3 flex justify-between items-center gap-3">
-                    <div>
-                      <div className="font-semibold">{bp.title}</div>
-                      <div className="text-xs text-gray-400">
-                        /{bp.slug} &middot; {bp.status} 
-                        {bp.published_at ? ` &middot; ${new Date(bp.published_at).toLocaleDateString()}` : ""}
-                      </div>
-                    </div>
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      onClick={() => { setEditPostId(bp.id); setShowEditor(true); }}
-                    >
-                      Bearbeiten
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            
-            {showEditor && (
-              <BlogPostEditForm
-                postId={editPostId}
-                onClose={() => { setShowEditor(false); setEditPostId(null); }}
-                onSaved={() => { setShowEditor(false); setEditPostId(null); toast.success("Gespeichert."); }}
-              />
+              <ContentManagementTabs selectedPostId={selectedPostForVersions} />
             )}
           </CardContent>
         </Card>
