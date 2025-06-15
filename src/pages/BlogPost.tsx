@@ -1,5 +1,6 @@
 
 import { useParams } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -17,11 +18,12 @@ import BlogPostHeader from '@/components/blog/post/BlogPostHeader';
 import QuickSummary from '@/components/blog/post/QuickSummary';
 import KeyBenefits from '@/components/blog/post/KeyBenefits';
 import ImportantNotice from '@/components/blog/post/ImportantNotice';
-import ArticleBody from '@/components/blog/post/ArticleBody';
 import CostBreakdown from '@/components/blog/post/CostBreakdown';
 import CallToAction from '@/components/blog/post/CallToAction';
 import BlogPostSidebar from '@/components/blog/post/BlogPostSidebar';
 import RelatedArticles from '@/components/blog/post/RelatedArticles';
+import BlogPostSEO from '@/components/seo/BlogPostSEO';
+import BlogPostContentSEO from '@/components/blog/post/BlogPostContentSEO';
 
 const BlogPost = () => {
   const { slug } = useParams();
@@ -40,50 +42,63 @@ const BlogPost = () => {
     ?.filter(p => p.id !== post.id && p.topic === post.topic)
     .slice(0, 2) || [];
 
+  const canonicalUrl = `https://sanieren-sparen.de/blog/${post.slug}`;
+
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-      
-      <article className="max-w-6xl mx-auto px-4 py-8">
-        <BlogBreadcrumb post={post} />
-        <BlogPostHeader post={post} />
+    <HelmetProvider>
+      <div className="min-h-screen bg-white">
+        <BlogPostSEO post={post} canonicalUrl={canonicalUrl} />
+        <Header />
+        
+        <article className="max-w-6xl mx-auto px-4 py-8">
+          <BlogBreadcrumb post={post} />
+          <BlogPostHeader post={post} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-          {/* Article Content */}
-          <div className="lg:col-span-3">
-            <QuickSummary post={post} />
-            <KeyBenefits post={post} />
-            <ImportantNotice post={post} />
-            <ArticleBody post={post} />
-            
-            <ArticleRating postId={post.id} />
-            <ShareButtons title={post.title} url={window.location.href} />
-            
-            <CostBreakdown post={post} />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            {/* Article Content */}
+            <div className="lg:col-span-3">
+              <QuickSummary post={post} />
+              <KeyBenefits post={post} />
+              <ImportantNotice post={post} />
+              
+              {/* SEO-optimized content for door comparison */}
+              {post.slug === 'moderne-tueren-vergleich' ? (
+                <BlogPostContentSEO post={post} />
+              ) : (
+                <div className="prose prose-lg max-w-none mb-12">
+                  <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                </div>
+              )}
+              
+              <ArticleRating postId={post.id} />
+              <ShareButtons title={post.title} url={canonicalUrl} />
+              
+              <CostBreakdown post={post} />
 
-            {siteConfig.adsEnabled && siteConfig.adsSettings.positions.afterParagraph && (
-              <div className="my-8">
-                <AdSlot position="banner" />
-              </div>
-            )}
+              {siteConfig.adsEnabled && siteConfig.adsSettings.positions.afterParagraph && (
+                <div className="my-8">
+                  <AdSlot position="banner" />
+                </div>
+              )}
 
-            <CallToAction />
+              <CallToAction />
+            </div>
+
+            {/* Sidebar */}
+            <BlogPostSidebar post={post} />
           </div>
 
-          {/* Sidebar */}
-          <BlogPostSidebar post={post} />
-        </div>
+          <RelatedArticles relatedPosts={relatedPosts} topic={post.topic} />
 
-        <RelatedArticles relatedPosts={relatedPosts} topic={post.topic} />
+          {/* Newsletter CTA */}
+          <div className="mt-16">
+            <NewsletterSignup />
+          </div>
+        </article>
 
-        {/* Newsletter CTA */}
-        <div className="mt-16">
-          <NewsletterSignup />
-        </div>
-      </article>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </HelmetProvider>
   );
 };
 

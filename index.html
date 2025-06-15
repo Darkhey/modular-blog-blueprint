@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sanieren & Sparen - Ratgeber für energieeffiziente Sanierung</title>
     <meta name="description" content="Entdecken Sie praktische Tipps zur Haussanierung, Energieeinsparung und Fördermitteln. Sparen Sie Kosten bei Heizung, Dämmung und Renovierung." />
-    <meta name="keywords" content="Sanierung, Energieeffizienz, Heizung modernisieren, Dämmung, Fördermittel, Renovierung, Kosteneinsparung" />
+    <meta name="keywords" content="Sanierung, Energieeffizienz, Heizung modernisieren, Dämmung, Fördermittel, Renovierung, Kosteneinsparung, moderne Türen, Fenster" />
     <meta name="author" content="Sanieren & Sparen Redaktion" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="language" content="de" />
+    <meta name="geo.region" content="DE" />
+    <meta name="geo.country" content="Deutschland" />
 
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Sanieren & Sparen - Ratgeber für energieeffiziente Sanierung" />
@@ -15,6 +20,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
     <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Sanieren & Sparen" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -29,10 +35,13 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Google Fonts - Inter -->
+    <!-- Google Fonts - Inter with font-display: swap for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/photo-1518005020951-eccb494ad742.jpg" as="image" type="image/jpeg">
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -58,19 +67,38 @@
       });
     </script>
 
-    <!-- Structured Data -->
+    <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "Sanieren & Sparen",
-      "description": "Ratgeber für energieeffiziente Sanierung",
+      "description": "Ratgeber für energieeffiziente Sanierung, moderne Türen und Fenster",
       "url": "https://sanieren-sparen.de",
+      "inLanguage": "de-DE",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://sanieren-sparen.de/blog?search={search_term_string}",
         "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Sanieren & Sparen",
+        "url": "https://sanieren-sparen.de"
       }
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Sanieren & Sparen",
+      "url": "https://sanieren-sparen.de",
+      "description": "Expertenratgeber für energieeffiziente Sanierung, moderne Türen und Fenster",
+      "areaServed": "DE",
+      "serviceType": "Beratung"
     }
     </script>
   </head>
