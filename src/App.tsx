@@ -18,6 +18,10 @@ import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
 import AuthPage from "./pages/AuthPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import FoerdermittelPage from "./pages/FoerdermittelPage";
+import FensterTuerenPage from "./pages/FensterTuerenPage";
+import SolarenergiePage from "./pages/SolarenergiePage";
+import SmartHomePage from "./pages/SmartHomePage";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +38,10 @@ const App = () => (
           
           <Route path="/heizung-modernisieren" element={<HeizkostenrechnerPage />} />
           <Route path="/daemmung-isolierung" element={<DaemmungsrechnerPage />} />
+          <Route path="/foerdermittel" element={<FoerdermittelPage />} />
+          <Route path="/fenster-tueren" element={<FensterTuerenPage />} />
+          <Route path="/solarenergie" element={<SolarenergiePage />} />
+          <Route path="/smart-home" element={<SmartHomePage />} />
           
           {/* Dynamische Kategorieseite */}
           <Route path="/themen/:slug" element={<CategoryPage />} />

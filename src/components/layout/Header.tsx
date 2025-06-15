@@ -116,13 +116,7 @@ const Header = () => {
               <NavigationMenuList>
                 {siteConfig.navigation.map((item) => (
                   <NavigationMenuItem key={item.name}>
-                    {item.href ? (
-                      <NavigationMenuLink asChild>
-                        <Link to={item.href} className={navigationMenuTriggerStyle()}>
-                          {item.name}
-                        </Link>
-                      </NavigationMenuLink>
-                    ) : (
+                    {'isDropdown' in item && item.isDropdown ? (
                       <>
                         <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
                         <NavigationMenuContent>
@@ -139,6 +133,12 @@ const Header = () => {
                           </ul>
                         </NavigationMenuContent>
                       </>
+                    ) : (
+                      <NavigationMenuLink asChild>
+                        <Link to={item.href} className={navigationMenuTriggerStyle()}>
+                          {item.name}
+                        </Link>
+                      </NavigationMenuLink>
                     )}
                   </NavigationMenuItem>
                 ))}
@@ -188,16 +188,7 @@ const Header = () => {
           <div className="border-t bg-white/50 backdrop-blur-sm">
             <nav className="py-4 space-y-1">
               {siteConfig.navigation.map((item) =>
-                item.href ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg mx-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
+                'isDropdown' in item && item.isDropdown ? (
                   <Accordion type="single" collapsible className="w-full px-2" key={item.name}>
                     <AccordionItem value="themen" className="border-b-0">
                       <AccordionTrigger className="px-2 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg font-normal hover:no-underline">
@@ -219,6 +210,15 @@ const Header = () => {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+                ) : (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-colors rounded-lg mx-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
                 )
               )}
               {profile?.role === 'admin' && (

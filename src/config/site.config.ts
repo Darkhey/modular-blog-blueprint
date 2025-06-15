@@ -155,8 +155,8 @@ export const siteConfig = {
   navigation: [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
-    { name: "Themen" },
-    { name: "Wissenswertes", href: "/wissenswertes" }
+    { name: "Themen", href: "/themen", isDropdown: true },
+    { name: "Wissenswertes", href: "/wissenswertes" },
   ],
   
   // Newsletter
