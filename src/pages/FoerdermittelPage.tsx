@@ -12,47 +12,57 @@ const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 dark:from-gray-900 dark:to-gray-800">
       <Header />
-      <main className="py-12">
+      <main className="pb-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">{topic?.name || 'Fördermittel'}</h1>
-          <p className="text-lg text-gray-600 mb-8">{topic?.description || 'Staatliche Zuschüsse und Finanzierungshilfen optimal nutzen'}</p>
 
-          {/* Abschnitt: Zeitleiste */}
+          {/* Einleitung */}
+          <section className="mt-10 mb-8">
+            <span className="inline-block bg-green-200 text-green-900 text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-wide">Fördermittel 2025</span>
+            <h1 className="text-4xl font-black mb-3 text-green-950 dark:text-green-300">{topic?.name || "Fördermittel"}</h1>
+            <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">{topic?.description || "Staatliche Zuschüsse und Finanzierungshilfen optimal nutzen"}</p>
+            <ul className="list-disc ml-7 text-base text-green-900 dark:text-green-200 mt-2 space-y-1">
+              <li>Bis zu 70% Zuschuss für Sanierung, Heizung oder Dämmung</li>
+              <li>Zuschläge vom Bund (BAFA, KfW) & Regionen kombinieren</li>
+              <li>Doppeltes Sparen durch Senkung von Kosten + Förderung</li>
+            </ul>
+          </section>
+
+          {/* Zeitstrahl */}
           <TimelineSection />
 
-          {/* Abschnitt: Gelber Hinweis */}
+          {/* Wichtiger Hinweis */}
           <HighlightedTip />
 
-          {/* Abschnitt: Förder-Nutzen-Beispiel */}
+          {/* Beispiel zur Förderung */}
           <NetBenefitExample />
 
-          {/* Neue Links zu den Ratgeber-Artikeln */}
-          <Card className="mb-8 mt-12">
+          {/* Ratgeber-Karten */}
+          <Card className="mb-8 mt-12 animate-fade-in">
             <CardHeader>
               <CardTitle>Unsere Ratgeber für Fördermittel</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
               {/* Schon bestehende Karten */}
-              <Link to="/blog/bafa-foerderung-2025-leitfaden" className="block hover:no-underline group">
-                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+              <Link to="/blog/bafa-foerderung-2025-leitfaden" className="block hover:no-underline group hover-scale">
+                <div className="p-4 border rounded-lg bg-white shadow-md h-full flex flex-col">
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">BAFA 2025</span>
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">BAFA-Förderung 2025: Ihr kompletter Leitfaden</h3>
                   <p className="text-gray-600 text-sm mb-2">Alles zu Zuschüssen für Einzelmaßnahmen an Heizung, Dämmung & Co. So beantragen Sie den BAFA-Zuschuss erfolgreich.</p>
                   <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum BAFA-Leitfaden</span>
                 </div>
               </Link>
-              <Link to="/blog/kfw-foerderung-2025-kredite-zuschuesse" className="block hover:no-underline group">
-                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+              <Link to="/blog/kfw-foerderung-2025-kredite-zuschuesse" className="block hover:no-underline group hover-scale">
+                <div className="p-4 border rounded-lg bg-white shadow-md h-full flex flex-col">
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">KfW 2025</span>
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">KfW-Förderung 2025: Kredite & Zuschüsse</h3>
                   <p className="text-gray-600 text-sm mb-2">Günstige Kredite und Tilgungszuschüsse für Komplettsanierungen, Heizungstausch und mehr – so nutzen Sie die KfW optimal.</p>
                   <span className="text-green-700 font-semibold mt-auto group-hover:underline">➡ Zum KfW-Leitfaden</span>
                 </div>
               </Link>
-              <Link to="/blog/regionale-foerderprogramme-2025-zuschuesse" className="block hover:no-underline group">
-                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+              <Link to="/blog/regionale-foerderprogramme-2025-zuschuesse" className="block hover:no-underline group hover-scale">
+                <div className="p-4 border rounded-lg bg-white shadow-md h-full flex flex-col">
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">REGIONAL 2025</span>
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Regionale Förderprogramme 2025: Zuschüsse & Boni</h3>
                   <p className="text-gray-600 text-sm mb-2">Wie Sie Landes- und Kommunalförderungen mit BAFA und KfW kombinieren, um das Beste für Ihre Sanierung herauszuholen.</p>
@@ -60,8 +70,8 @@ const FoerdermittelPage = () => {
                 </div>
               </Link>
               {/* NEU: Dämmstoffe */}
-              <Link to="/blog/daemmstoffe-vergleich-2025" className="block hover:no-underline group">
-                <div className="p-4 border rounded-lg bg-white shadow-sm h-full flex flex-col">
+              <Link to="/blog/daemmstoffe-vergleich-2025" className="block hover:no-underline group hover-scale">
+                <div className="p-4 border rounded-lg bg-white shadow-md h-full flex flex-col">
                   <span className="text-xs font-semibold text-blue-700 uppercase mb-2">DÄMMSTOFFE 2025</span>
                   <h3 className="font-bold text-lg mb-2 group-hover:text-blue-700 transition-colors">Dämmstoffe im Vergleich: Alle Vor- & Nachteile</h3>
                   <p className="text-gray-600 text-sm mb-2">Mineralwolle, EPS, Holzfaser, Zellulose & Co. – dieser große Ratgeber zeigt Unterschiede, Kauftipps & Fördermöglichkeiten.</p>
@@ -71,22 +81,23 @@ const FoerdermittelPage = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          {/* Kurzübersicht wichtige Programme */}
+          <Card className="animate-fade-in">
             <CardHeader>
-              <CardTitle>Wichtige Förderprogramme</CardTitle>
+              <CardTitle>Die wichtigsten Förderprogramme im Überblick</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               <div>
                 <h3 className="font-semibold text-lg">BAFA - Bundesförderung für effiziente Gebäude (BEG)</h3>
-                <p>Zuschüsse für Einzelmaßnahmen wie Heizungstausch oder Dämmung. Bis zu 70% der Kosten können übernommen werden.</p>
+                <p className="text-gray-800 dark:text-gray-200">Zuschüsse für Einzelmaßnahmen wie Heizungstausch oder Dämmung. Bis zu 70% der Kosten können übernommen werden.</p>
               </div>
               <div>
                 <h3 className="font-semibold text-lg">KfW - Kreditanstalt für Wiederaufbau</h3>
-                <p>Günstige Kredite und Tilgungszuschüsse für Komplettsanierungen zum Effizienzhaus oder den Kauf von energieeffizienten Neubauten.</p>
+                <p className="text-gray-800 dark:text-gray-200">Günstige Kredite und Tilgungszuschüsse für Komplettsanierungen zum Effizienzhaus oder den Kauf von energieeffizienten Neubauten.</p>
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Regionale Programme</h3>
-                <p>Zusätzlich gibt es oft Förderungen von Bundesländern und Kommunen. Eine Recherche lohnt sich!</p>
+                <p className="text-gray-800 dark:text-gray-200">Zusätzlich gibt es oft Förderungen von Bundesländern und Kommunen. Eine Recherche lohnt sich!</p>
               </div>
             </CardContent>
           </Card>
