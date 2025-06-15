@@ -11,8 +11,8 @@ const FeaturedExpertSection = () => {
         <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 md:flex animate-fade-in">
           <div className="md:w-1/3">
             <img 
-              src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop" 
-              alt="Energie-Wände.de Team bei der Arbeit" 
+              src="/lovable-uploads/af1b6dc6-40f0-4e96-bd65-6a7ee9fc0070.png" 
+              alt="Dämmungsarbeiten von Energie-Wände.de" 
               className="w-full h-48 md:h-full object-cover"
             />
           </div>

@@ -26,6 +26,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <AdBannerSection />
+        <FeaturedExpertSection />
         <FeaturesSection />
         <ImageCarouselSection />
         <StatsSection />
@@ -114,8 +115,6 @@ const Index = () => {
           </div>
         </section>
         
-        <FeaturedExpertSection />
-
         <NewsletterSection />
       </main>
       <Footer />
