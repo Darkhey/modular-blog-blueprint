@@ -3,15 +3,47 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Search, MapPin } from 'lucide-react';
 
 const EnergyAdvisorSearch = () => {
   const [location, setLocation] = useState('');
+  const [segment, setSegment] = useState('Sanierungsfahrplan');
+  const [preselections, setPreselections] = useState({
+    bafa: true,
+    kfw: true,
+    vorOrt: true,
+  });
+
+  const handlePreselectionChange = (key: keyof typeof preselections) => {
+    setPreselections((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (location.trim()) {
-      const searchUrl = `https://www.energie-effizienz-experten.de/fuer-bauherren/expertensuche/?tx_DENAEXPERTEN_EXPERTSEARCH%5Bsearch%5D%5Blocation%5D=${encodeURIComponent(location.trim())}&tx_DENAEXPERTEN_EXPERTSEARCH%5Baction%5D=list&tx_DENAEXPERTEN_EXPERTSEARCH%5Bcontroller%5D=Expert`;
+      const queryParts = [
+        `Energieberater ${segment} in ${location.trim()}`,
+      ];
+
+      const selectionTexts = [];
+      if (preselections.bafa) selectionTexts.push('BAFA');
+      if (preselections.kfw) selectionTexts.push('KfW');
+      if (preselections.vorOrt) selectionTexts.push('Vor-Ort-Beratung');
+
+      if (selectionTexts.length > 0) {
+        queryParts.push(selectionTexts.join(' '));
+      }
+
+      const searchQuery = queryParts.join(' ');
+      const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
       window.open(searchUrl, '_blank', 'noopener,noreferrer');
     }
   };
@@ -31,7 +63,7 @@ const EnergyAdvisorSearch = () => {
             Geben Sie Ihre Postleitzahl oder Ihren Ort ein, um qualifizierte Energie-Effizienz-Experten für Ihr Sanierungsvorhaben zu finden.
           </p>
         </div>
-        <form onSubmit={handleSearch} className="max-w-lg mx-auto flex flex-col sm:flex-row gap-4 items-end">
+        <form onSubmit={handleSearch} className="max-w-lg mx-auto flex flex-col gap-6">
             <div className="w-full">
                 <Label htmlFor="location-search" className="font-semibold text-gray-700 dark:text-gray-300 mb-2 block">PLZ oder Ort</Label>
                 <div className="relative">
@@ -47,13 +79,48 @@ const EnergyAdvisorSearch = () => {
                     />
                 </div>
             </div>
-          <Button type="submit" className="w-full sm:w-auto text-lg py-6 px-8 bg-green-600 hover:bg-green-700">
+
+            <div className="w-full">
+                <Label htmlFor="segment-select" className="font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Gewünschtes Segment</Label>
+                 <Select value={segment} onValueChange={setSegment}>
+                    <SelectTrigger id="segment-select" className="text-lg py-6">
+                        <SelectValue placeholder="Segment auswählen" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="Heizung">Heizung</SelectItem>
+                        <SelectItem value="Dämmung">Dämmung</SelectItem>
+                        <SelectItem value="Fenster & Türen">Fenster & Türen</SelectItem>
+                        <SelectItem value="Solar">Solar (Photovoltaik & Solarthermie)</SelectItem>
+                        <SelectItem value="Sanierungsfahrplan">Individueller Sanierungsfahrplan (ISFP)</SelectItem>
+                    </SelectContent>
+                </Select>
+            </div>
+
+            <div className="w-full">
+                <Label className="font-semibold text-gray-700 dark:text-gray-300 mb-2 block">Weitere Kriterien</Label>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 gap-4 pt-2">
+                    <div className="flex items-center space-x-2">
+                        <Checkbox id="bafa" checked={preselections.bafa} onCheckedChange={() => handlePreselectionChange('bafa')} />
+                        <Label htmlFor="bafa" className="font-normal cursor-pointer">BAFA-gelistet</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox id="kfw" checked={preselections.kfw} onCheckedChange={() => handlePreselectionChange('kfw')} />
+                        <Label htmlFor="kfw" className="font-normal cursor-pointer">KfW-gelistet</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <Checkbox id="vorOrt" checked={preselelections.vorOrt} onCheckedChange={() => handlePreselectionChange('vorOrt')} />
+                        <Label htmlFor="vorOrt" className="font-normal cursor-pointer">Vor-Ort-Beratung</Label>
+                    </div>
+                </div>
+            </div>
+
+          <Button type="submit" className="w-full text-lg py-6 px-8 bg-green-600 hover:bg-green-700">
             <Search className="mr-2 h-5 w-5" />
-            Suchen
+            Experten finden
           </Button>
         </form>
          <p className="text-center text-xs text-gray-500 mt-4 max-w-lg mx-auto">
-            Sie werden zur offiziellen Experten-Datenbank der Deutschen Energie-Agentur (dena) weitergeleitet.
+            Für die Suche wird eine neue Google-Seite geöffnet.
         </p>
       </div>
     </section>
