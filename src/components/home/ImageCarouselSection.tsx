@@ -11,28 +11,28 @@ import Autoplay from "embla-carousel-autoplay"
 
 const images = [
   {
-    src: "/placeholder.svg?id=photo-1487958449943-2429e8be8625",
-    alt: "Modernes Haus von außen",
-    title: "Fassadensanierung & Neubau",
-    description: "Energieeffizient und stilvoll wohnen."
+    src: "/placeholder.svg?id=photo-1493397212122-2b85dda8106b",
+    alt: "Moderne Gebäudefassade mit geschwungenen Linien vor blauem Himmel",
+    title: "Architektur & Fassadengestaltung",
+    description: "Verleihen Sie Ihrem Zuhause Charakter mit innovativen Fassaden."
   },
   {
     src: "/placeholder.svg?id=photo-1721322800607-8c38375eef04",
-    alt: "Helles, modernes Wohnzimmer",
-    title: "Innenausbau & Design",
-    description: "Schaffen Sie Ihre persönliche Wohlfühloase."
+    alt: "Helles, modernes Wohnzimmer mit Designermöbeln und großen Fenstern",
+    title: "Innenausbau & Wohnkomfort",
+    description: "Schaffen Sie Räume zum Leben und Wohlfühlen."
   },
   {
-    src: "/placeholder.svg?id=photo-1600585152220-4068416e7f45",
-    alt: "Moderne Küche mit Kochinsel",
-    title: "Küchen- & Badmodernisierung",
-    description: "Funktionalität trifft auf Ästhetik."
+    src: "/placeholder.svg?id=photo-1581090464777-f3220bbe1b8b",
+    alt: "Hand hält eine leuchtend blaue Glühbirne, Symbol für Energieeffizienz",
+    title: "Energieeffizienz & Nachhaltigkeit",
+    description: "Kosten senken und die Umwelt schonen durch smarte Sanierung."
   },
   {
-    src: "/placeholder.svg?id=photo-1586023492125-27b2c045efd7",
-    alt: "Gemütlicher Wohnbereich mit Holzboden",
-    title: "Bodenbeläge & Raumgestaltung",
-    description: "Die Basis für ein harmonisches Zuhause."
+    src: "/placeholder.svg?id=photo-1506744038136-46273834b3fb",
+    alt: "Idyllische Seenlandschaft umgeben von dichten Wäldern",
+    title: "Ökologisch Bauen & Wohnen",
+    description: "Bauen mit der Natur im Einklang für ein gesundes Zuhause."
   }
 ];
 
