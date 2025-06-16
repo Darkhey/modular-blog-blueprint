@@ -51,6 +51,24 @@ const Wissenswertes = () => {
         { name: "GIH e.V.", url: "https://www.gih.de/", description: "Bundesverband der Gebäude-Energieberater" },
         { name: "IB-Krieger", url: "https://www.ib-krieger.de/", description: "Ingenieurbüro für Bauphysik & Energieberatung" }
       ]
+    },
+    {
+      category: "Wissensportale & Ratgeber",
+      links: [
+        { name: "BINE Informationsdienst", url: "https://www.bine.info", description: "Fachinfos zu Energieeffizienz und Erneuerbaren" },
+        { name: "BauNetz Wissen", url: "https://www.baunetzwissen.de", description: "Bautechnisches Fachwissen und Praxisbeispiele" },
+        { name: "Effizienzhaus-online", url: "https://www.effizienzhaus-online.de", description: "Ratgeber für energieeffizientes Bauen und Sanieren" },
+        { name: "energieheld", url: "https://www.energieheld.de", description: "Sanierungsratgeber und Kostenschätzung" }
+      ]
+    },
+    {
+      category: "Behördliche Informationen",
+      links: [
+        { name: "Deutsche Energie-Agentur", url: "https://www.dena.de", description: "Energieeffizienz und Klimaschutz auf Bundesebene" },
+        { name: "Umweltbundesamt", url: "https://www.umweltbundesamt.de", description: "Informationen zu Umwelt- und Klimaschutz" },
+        { name: "BMWK", url: "https://www.bmwk.de", description: "Aktuelle Gesetze und Förderprogramme" },
+        { name: "EnEV-online", url: "https://www.enev-online.de", description: "Fachportal zum Gebäudeenergiegesetz" }
+      ]
     }
   ];
 
@@ -73,6 +91,9 @@ const Wissenswertes = () => {
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
               Hilfreiche Ressourcen und Hersteller für Ihre Sanierungsplanung
+            </p>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-2">
+              In dieser Sammlung finden Sie nützliche Ansprechpartner, Tools und Hintergrundwissen rund um effizientes Bauen und Modernisieren.
             </p>
           </div>
 
