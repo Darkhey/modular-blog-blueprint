@@ -27,6 +27,9 @@ import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 import SearchPage from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
+import AuthPage from "./pages/AuthPage";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminBlogPosts from "./pages/AdminBlogPosts";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +63,9 @@ function App() {
                   <Route path="/kontakt" element={<Kontakt />} />
                   <Route path="/impressum" element={<Impressum />} />
                   <Route path="/datenschutz" element={<Datenschutz />} />
+                  <Route path="/auth" element={<AuthPage />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin/blog" element={<AdminBlogPosts />} />
                   <Route path="/suche" element={<SearchPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
