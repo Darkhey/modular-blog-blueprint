@@ -31,6 +31,7 @@ import AuthPage from "./pages/AuthPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBlogPosts from "./pages/AdminBlogPosts";
 import UserDashboard from "./pages/UserDashboard";
+import AdminLayout from "./components/layout/AdminLayout";
 
 const queryClient = new QueryClient();
 
@@ -66,8 +67,11 @@ function App() {
                   <Route path="/datenschutz" element={<Datenschutz />} />
                   <Route path="/auth" element={<AuthPage />} />
                   <Route path="/dashboard" element={<UserDashboard />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/admin/blog" element={<AdminBlogPosts />} />
+                  <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboard />} />
+                    <Route path="dashboard" element={<AdminDashboard />} />
+                    <Route path="blog" element={<AdminBlogPosts />} />
+                  </Route>
                   <Route path="/suche" element={<SearchPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>

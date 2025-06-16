@@ -135,11 +135,18 @@ const Header = () => {
                   )
                 ))}
                 {profile?.role === 'admin' && (
-                  <SheetClose asChild>
-                    <Link to="/admin" className="font-semibold text-lg">
-                      Admin
-                    </Link>
-                  </SheetClose>
+                  <div className="space-y-2">
+                    <SheetClose asChild>
+                      <Link to="/admin" className="font-semibold text-lg">
+                        Admin Dashboard
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/blog" className="font-semibold text-lg">
+                        Blog-Verwaltung
+                      </Link>
+                    </SheetClose>
+                  </div>
                 )}
                 {session && profile?.role !== 'admin' && (
                   <SheetClose asChild>
@@ -196,12 +203,20 @@ const Header = () => {
 
             <div className="flex items-center space-x-2 ml-4">
               {profile?.role === 'admin' && (
-                <Link
-                  to="/admin"
-                  className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
-                >
-                  Admin
-                </Link>
+                <>
+                  <Link
+                    to="/admin"
+                    className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
+                  >
+                    Admin Dashboard
+                  </Link>
+                  <Link
+                    to="/admin/blog"
+                    className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
+                  >
+                    Blog-Verwaltung
+                  </Link>
+                </>
               )}
               {session && profile?.role !== 'admin' && (
                 <Link
