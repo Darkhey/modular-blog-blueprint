@@ -19,19 +19,32 @@ const AuthPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const redirectAfterLogin = async (s: any) => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", s.user.id)
+        .maybeSingle();
+      if (data?.role === "admin") {
+        navigate("/admin", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
+    };
+
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
-        navigate("/admin", { replace: true });
+        redirectAfterLogin(session);
       }
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       if (session) {
-        navigate("/admin", { replace: true });
+        redirectAfterLogin(session);
       }
     });
 
@@ -63,7 +76,7 @@ const AuthPage = () => {
         return;
       }
 
-      const redirectUrl = `${window.location.origin}/admin`;
+      const redirectUrl = `${window.location.origin}/dashboard`;
       const { error } = await supabase.auth.signUp({
         email,
         password,

@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBlogPosts from "./pages/AdminBlogPosts";
+import UserDashboard from "./pages/UserDashboard";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ function App() {
                   <Route path="/impressum" element={<Impressum />} />
                   <Route path="/datenschutz" element={<Datenschutz />} />
                   <Route path="/auth" element={<AuthPage />} />
+                  <Route path="/dashboard" element={<UserDashboard />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/admin/blog" element={<AdminBlogPosts />} />
                   <Route path="/suche" element={<SearchPage />} />

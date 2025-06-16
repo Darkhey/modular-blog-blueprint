@@ -141,6 +141,13 @@ const Header = () => {
                     </Link>
                   </SheetClose>
                 )}
+                {session && profile?.role !== 'admin' && (
+                  <SheetClose asChild>
+                    <Link to="/dashboard" className="font-semibold text-lg">
+                      Dashboard
+                    </Link>
+                  </SheetClose>
+                )}
                 {!session && (
                   <SheetClose asChild>
                     <Link to="/auth" className="font-semibold text-lg">
@@ -194,6 +201,14 @@ const Header = () => {
                   className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
                 >
                   Admin
+                </Link>
+              )}
+              {session && profile?.role !== 'admin' && (
+                <Link
+                  to="/dashboard"
+                  className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
+                >
+                  Dashboard
                 </Link>
               )}
               {!session && (
