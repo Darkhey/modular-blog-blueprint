@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import TimelineSection from '@/components/foerdermittel/TimelineSection';
 import HighlightedTip from '@/components/foerdermittel/HighlightedTip';
 import NetBenefitExample from '@/components/foerdermittel/NetBenefitExample';
+import FoerdermittelChecker from '@/components/foerdermittel/FoerdermittelChecker';
 
 const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
@@ -32,6 +33,9 @@ const FoerdermittelPage = () => {
 
           {/* Beispiel zur Förderung */}
           <NetBenefitExample />
+
+          {/* Fördermittel-Checker */}
+          <FoerdermittelChecker />
 
           {/* Neuer: Hinweis, warum Förderung manchmal nicht sinnvoll ist */}
           <div className="bg-orange-100 dark:bg-orange-900/40 border-l-4 border-orange-500 rounded-md px-5 py-4 my-8 shadow-sm">
