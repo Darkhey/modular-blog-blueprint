@@ -95,7 +95,7 @@ const AdminBlogPosts = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto py-10 px-2">
+      <div className="container max-w-6xl mx-auto py-10 px-2">
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">

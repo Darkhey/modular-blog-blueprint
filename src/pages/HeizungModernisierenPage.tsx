@@ -21,16 +21,18 @@ const HeizungModernisierenPage = () => {
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-        <HeizungHeroSection />
-        <HeizungBenefitsSection />
-        <SmartHomeSystemsSection />
-        <HeatingComparisonSection />
-        <ProductRecommendationsSection />
-        <OptimizationTipsSection />
-        <CalculatorSection />
-        <ProcessTimelineSection />
-        <HeizungFAQSection />
-        <HeizungCTASection />
+        <div className="container mx-auto space-y-12">
+          <HeizungHeroSection />
+          <HeizungBenefitsSection />
+          <SmartHomeSystemsSection />
+          <HeatingComparisonSection />
+          <ProductRecommendationsSection />
+          <OptimizationTipsSection />
+          <CalculatorSection />
+          <ProcessTimelineSection />
+          <HeizungFAQSection />
+          <HeizungCTASection />
+        </div>
       </div>
     </>
   );

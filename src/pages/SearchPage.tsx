@@ -10,7 +10,7 @@ import NewsletterIntegration from "@/components/newsletter/NewsletterIntegration
 const SearchPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto py-10 px-4">
+      <div className="container max-w-6xl mx-auto py-10 px-4">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Entdecken & Suchen

@@ -40,7 +40,7 @@ const Index = () => {
 
         {/* Kacheln für wichtige Ratgeber */}
         <section className="py-12 bg-white">
-          <div className="max-w-5xl mx-auto px-4">
+          <div className="container max-w-5xl mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">Top-Ratgeber für Ihr Sanierungsprojekt</h2>
             <p className="text-center text-gray-600 mb-8">Unsere wichtigsten Anleitungen für Ihre Planung.</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
