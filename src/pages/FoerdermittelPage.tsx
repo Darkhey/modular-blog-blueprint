@@ -12,7 +12,7 @@ const FoerdermittelPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 dark:from-gray-900 dark:to-gray-800">
       <main className="pb-12">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="container max-w-4xl mx-auto px-4">
           {/* Einleitung */}
           <section className="mt-10 mb-8">
             <span className="inline-block bg-green-200 text-green-900 text-xs font-bold px-3 py-1 rounded-full mb-2 tracking-wide">Fördermittel 2025</span>

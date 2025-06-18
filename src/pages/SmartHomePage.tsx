@@ -296,7 +296,7 @@ const SmartHomePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="py-12">
-        <div className="max-w-6xl mx-auto px-2 sm:px-4">
+        <div className="container max-w-6xl mx-auto px-2 sm:px-4">
           <h1 className="text-4xl font-bold mb-4">Smart Home: Bereiche & Möglichkeiten</h1>
           <p className="text-lg text-gray-600 mb-8">
             Entdecke, wie smarte Technik im Zuhause Alltag erleichtert, Energie spart und für mehr Sicherheit sorgt. Hier findest du alle Smart Home Bereiche im Überblick – inkl. Empfehlungen!

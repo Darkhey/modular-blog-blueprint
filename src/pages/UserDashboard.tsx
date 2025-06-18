@@ -45,9 +45,10 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Dashboard</CardTitle>
+      <div className="container mx-auto flex justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Dashboard</CardTitle>
           <div className="text-gray-500 text-sm">
             Willkommen, {profile?.username || session?.user?.email}
           </div>
@@ -57,7 +58,8 @@ const UserDashboard = () => {
             Logout
           </Button>
         </CardContent>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 };
