@@ -589,5 +589,78 @@ Die Dämmung der Kellerdecke ist oft übersehen, aber sehr effektiv. Sie reduzie
     paybackTime: '5-8 Jahre',
     fundingAvailable: 'Ja, 15% Zuschuss',
     effortLevel: 'Niedrig'
+  },
+  {
+    id: '9',
+    title: 'Solarthermie 2024: Warmwasser und Heizung mit Sonnenenergie',
+    excerpt: 'Mit Solarthermie nutzen Sie die Sonne für warmes Wasser und Heizungsunterstützung. Alles zu Kosten, Förderung und Planung.',
+    content: `# Solarthermie 2024: Warmwasser und Heizung mit Sonnenenergie
+
+<p>Solarthermieanlagen wandeln Sonnenstrahlen direkt in Wärme um. Diese Energie lässt sich für die Warmwasserbereitung und zur Unterstützung der Heizung nutzen. Moderne Systeme erreichen hohe Wirkungsgrade und sind in vielen Bestandsgebäuden nachrüstbar.</p>
+
+## Wie funktioniert Solarthermie?
+
+<p>Flach- oder Vakuumröhrenkollektoren auf dem Dach erhitzen eine Wärmeträgerflüssigkeit. Ein Wärmetauscher überträgt diese Wärme in einen Speicher, der das Warmwasser oder Heizungswasser bereitstellt.</p>
+
+### Typische Komponenten
+- Solarthermiekollektoren
+- Speicher mit Wärmeträger
+- Regelungstechnik und Pumpen
+
+## Vorteile der Solarthermie
+- Kostenlose Sonnenenergie nutzen
+- CO₂-Emissionen reduzieren
+- Unabhängiger von steigenden Energiepreisen
+- Lange Lebensdauer der Anlagen
+
+## Kosten und Förderung 2024
+
+<p>Die Investition für eine Solarthermieanlage liegt je nach Größe zwischen 5.000€ und 12.000€. Über die BEG-Förderung sind bis zu 30% Zuschuss möglich.</p>
+
+## Planung und Installation
+1. Dachausrichtung und -neigung prüfen
+2. Fachbetrieb auswählen und Angebot einholen
+3. Förderantrag vor Auftragstellung stellen
+4. Installation und Inbetriebnahme
+
+## Tipps für maximale Effizienz
+- Regelmäßige Wartung der Anlage
+- Kollektoren frei von Verschattung halten
+- Kombi mit Brennwertkessel oder Wärmepumpe prüfen
+
+## Fazit
+
+<p>Mit Solarthermie können Sie einen großen Teil des Warmwasserbedarfs decken und die Heizung entlasten. Besonders in Kombination mit staatlicher Förderung lohnt sich die Investition langfristig.</p>`,
+    topic: 'Solarenergie',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'solar')?.color || '#ea580c',
+    publishedAt: '2024-01-20',
+    readTime: 5,
+    slug: 'solarthermie-warmwasser-heizung',
+    seoTitle: 'Solarthermie 2024: Warmwasser & Heizung mit Sonnenenergie',
+    seoDescription: 'Solarthermie erklärt: Kosten, Förderung und Planung einer Anlage für warmes Wasser und Heizungsunterstützung.',
+    keywords: ['Solarthermie', 'Warmwasser', 'Heizungsunterstützung', 'BEG Förderung'],
+    difficulty: 2,
+    savingsPotential: 'Bis zu 60%',
+    paybackTime: '10-15 Jahre',
+    fundingAvailable: 'Ja, bis zu 30%',
+    effortLevel: 'Mittel',
+    keyBenefits: [
+      'Kostenfreie Sonnenenergie nutzen',
+      'Reduzierte Heizkosten',
+      'Weniger CO₂-Emissionen',
+      'Unabhängigkeit von fossilen Brennstoffen'
+    ],
+    importantNotice: 'Förderanträge müssen vor Auftragsvergabe gestellt werden und eine geeignete Dachfläche ist Voraussetzung.',
+    tableOfContents: [
+      { id: 'funktion', title: 'Wie funktioniert Solarthermie?' },
+      { id: 'vorteile', title: 'Vorteile der Solarthermie' },
+      { id: 'kosten-foerderung', title: 'Kosten und Förderung' },
+      { id: 'planung', title: 'Planung und Installation' },
+      { id: 'tipps', title: 'Tipps für maximale Effizienz' }
+    ],
+    costs: [
+      { item: 'Solarkollektor', costPerSqm: '300-500€', totalCost: '3.000-6.000€', funding: 'Bis zu 30%' },
+      { item: 'Solarspeicher', costPerSqm: '-', totalCost: '1.000-3.000€', funding: 'Bis zu 30%' }
+    ]
   }
 ];
