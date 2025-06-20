@@ -43,11 +43,21 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="/photo-1518005020951-eccb494ad742.jpg" as="image" type="image/jpeg">
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!-- Google Consent Mode v2 (muss VOR Analytics geladen werden) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      
+      // Standard-Consent: Alles deaktiviert (Google-konform)
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted'
+      });
+      
       gtag('js', new Date());
       gtag('config', 'G-XXXXXXXXXX', {
         anonymize_ip: true,
@@ -57,17 +67,20 @@
       });
     </script>
 
-    <!-- Google AdSense - Optimiert nach Google Guidelines -->
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+
+    <!-- Google AdSense - Consent Mode konform -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4326654077043920" crossorigin="anonymous"></script>
     <script>
       window.adsbygoogle = window.adsbygoogle || [];
       
-      // AdSense Auto Ads Konfiguration (Google-konform)
+      // AdSense wird durch Consent Mode gesteuert
       adsbygoogle.push({
         google_ad_client: "ca-pub-4326654077043920",
-        enable_page_level_ads: true,
+        enable_page_level_ads: false, // Wird durch Cookie-Consent aktiviert
         overlays: {bottom: true},
-        google_adtest: "off" // Für Produktion auf "off" setzen
+        google_adtest: "off"
       });
 
       // Fehlerbehandlung für AdSense
