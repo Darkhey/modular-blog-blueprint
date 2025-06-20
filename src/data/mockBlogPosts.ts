@@ -589,5 +589,37 @@ Die Dämmung der Kellerdecke ist oft übersehen, aber sehr effektiv. Sie reduzie
     paybackTime: '5-8 Jahre',
     fundingAvailable: 'Ja, 15% Zuschuss',
     effortLevel: 'Niedrig'
+  },
+  {
+    id: '9',
+    title: 'Balkonkraftwerk 2025: Strom vom eigenen Balkon',
+    excerpt: 'Mit einem Balkonkraftwerk erzeugen Sie Solarstrom selbst. So funktioniert die Mini-PV-Anlage und was Sie beachten sollten.',
+    content: `# Balkonkraftwerk 2025: Strom vom eigenen Balkon
+
+Mini-Photovoltaikanlagen machen Sie unabhängiger vom Stromanbieter und lassen sich fast überall installieren.
+
+## Vorteile der Mini-PV-Anlage
+- Einfache Montage ohne Fachbetrieb
+- Anschaffungskosten ab 500€
+- Senkt die Stromrechnung spürbar
+
+## Installation und Förderung
+Vor dem Anschluss muss das Balkonkraftwerk beim Netzbetreiber gemeldet werden. Manche Bundesländer bieten Zuschüsse an.
+
+## Fazit
+Mit einem Balkonkraftwerk nutzen Sie die Sonne optimal und produzieren Ihren eigenen Strom.`,
+    topic: 'Solarenergie',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'solar')?.color || '#f59e0b',
+    publishedAt: '2024-07-04',
+    readTime: 4,
+    slug: 'balkonkraftwerk-2025-mini-pv',
+    seoTitle: 'Balkonkraftwerk 2025: Mini-PV-Anlage Kosten & Tipps',
+    seoDescription: 'Balkonkraftwerk 2025: Installation, Kosten und mögliche Förderungen für die eigene Mini-Solaranlage.',
+    keywords: ['Balkonkraftwerk', 'Mini-PV', 'Solar Balkonanlage', 'Eigenverbrauch'],
+    difficulty: 1,
+    savingsPotential: 'Bis zu 15% Stromkosten',
+    paybackTime: '5-7 Jahre',
+    fundingAvailable: 'Regional möglich',
+    effortLevel: 'Niedrig'
   }
 ];
