@@ -31,7 +31,7 @@ const BlogPost = () => {
               <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-8 lg:p-12">
                   <BlogPostHeader post={post} />
-                  <div className="prose prose-lg max-w-none">
+                  <div className="prose prose-lg max-w-4xl mx-auto">
                     <ArticleBody post={post} />
                   </div>
                 </div>
