@@ -48,44 +48,8 @@ const CommentSystem = ({ postId, postSlug }: CommentSystemProps) => {
   }, [postId]);
 
   const fetchComments = async () => {
-    // Mock data - in reality this would come from a comments table
-    const mockComments: Comment[] = [
-      {
-        id: '1',
-        post_id: postId,
-        author_name: 'Max Mustermann',
-        author_email: 'max@example.com',
-        content: 'Sehr informativer Artikel! Hat mir bei der Planung meiner Sanierung geholfen.',
-        created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-        likes: 5,
-        is_approved: true,
-        replies: [
-          {
-            id: '2',
-            post_id: postId,
-            author_name: 'Anna Schmidt',
-            author_email: 'anna@example.com',
-            content: 'Kann ich nur bestätigen! Besonders die Tipps zu Fördermitteln waren hilfreich.',
-            created_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-            parent_id: '1',
-            likes: 2,
-            is_approved: true
-          }
-        ]
-      },
-      {
-        id: '3',
-        post_id: postId,
-        author_name: 'Peter Weber',
-        author_email: 'peter@example.com',
-        content: 'Gibt es auch Informationen zu Kosten für kleinere Wohnungen? Bei mir sind es nur 60qm.',
-        created_at: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
-        likes: 1,
-        is_approved: true
-      }
-    ];
-    
-    setComments(mockComments);
+    // Initialize with empty array - no mock data
+    setComments([]);
     setLoading(false);
   };
 
