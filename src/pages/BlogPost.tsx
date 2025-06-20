@@ -25,7 +25,7 @@ const BlogPost = () => {
     <>
       <BlogPostContentSEO post={post} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-        <div className="container max-w-6xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-3 max-w-none">
               <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
