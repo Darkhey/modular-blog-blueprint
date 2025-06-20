@@ -151,14 +151,14 @@ const ArticleBody = ({ post }: ArticleBodyProps) => {
 
     if (!isDaemmstoffe) {
       return (
-        <div className="prose prose-lg max-w-none mb-12 mx-auto">
+        <div className="prose prose-lg max-w-4xl mb-12 mx-auto">
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       );
     }
 
     return (
-      <div className="prose max-w-none prose-lg mb-12 mx-auto">
+      <div className="prose max-w-4xl prose-lg mb-12 mx-auto">
         <h2 className="text-3xl font-bold text-emerald-800 mb-4">Dämmstoffe im Vergleich: Mineralwolle, EPS, Holzfaser &amp; mehr</h2>
         <p className="text-lg mb-6 text-gray-700">
           Für eine energieeffiziente Sanierung ist die Wahl des richtigen Dämmstoffs entscheidend. Hier finden Sie einen ausführlichen Überblick zu Eigenschaften, Einsatzbereichen, Vorteilen, Nachteilen und Fördermöglichkeiten der wichtigsten Materialien.

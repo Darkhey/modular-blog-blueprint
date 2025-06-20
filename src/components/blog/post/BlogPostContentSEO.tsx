@@ -7,7 +7,7 @@ interface BlogPostContentSEOProps {
 
 const BlogPostContentSEO = ({ post }: BlogPostContentSEOProps) => {
   return (
-    <div className="prose prose-lg max-w-none">
+    <div className="prose prose-lg max-w-4xl mx-auto">
       <section id="einfuehrung" className="mb-8">
         <h2 className="text-3xl font-bold mb-6 text-gray-900 border-b border-gray-200 pb-4">
           Warum Dämmung die beste Investition in Ihr Haus ist
