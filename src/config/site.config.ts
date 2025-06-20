@@ -1,3 +1,4 @@
+
 export const siteConfig = {
   // Projekt-Identität
   projectName: "Sanieren & Sparen",
@@ -38,14 +39,14 @@ export const siteConfig = {
     kontakt: "/kontakt"
   },
   
-  // Werbung
+  // Werbung (Google AdSense konform)
   adsEnabled: true,
   adsSettings: {
     positions: {
       afterParagraph: true,
       sidebarTop: true,
       footerBanner: true,
-      headerBanner: false
+      headerBanner: true
     },
     adCodes: {
       banner: '<div class="bg-gray-100 p-4 rounded text-center text-sm text-gray-600">Werbung</div>',
@@ -54,7 +55,7 @@ export const siteConfig = {
     }
   },
   
-  // Google Services
+  // Google Services (Optimiert für AdSense Compliance)
   googleServices: {
     // Analytics
     analytics: {
@@ -68,15 +69,21 @@ export const siteConfig = {
       }
     },
     
-    // AdSense
+    // AdSense (Google-konform konfiguriert)
     adsense: {
       enabled: true,
-      publisherId: "ca-pub-XXXXXXXXXXXXXXXX", // Wird später durch echte Publisher ID ersetzt
+      publisherId: "ca-pub-4326654077043920", // Ihre echte Publisher ID
       config: {
-        adtest: "on", // Für Entwicklung, später entfernen
-        data_ad_client: "ca-pub-XXXXXXXXXXXXXXXX",
+        adtest: "off", // Für Produktion
+        data_ad_client: "ca-pub-4326654077043920",
         enable_page_level_ads: true,
-        overlays: {bottom: true}
+        overlays: {bottom: true},
+        // Google-konforme Responsive-Einstellungen
+        responsive: {
+          enabled: true,
+          minWidth: 320,
+          maxWidth: 1200
+        }
       }
     },
 

@@ -35,99 +35,111 @@ const AdSlot = ({
   const getAdSlotId = () => {
     switch (position) {
       case 'banner':
-        return '1234567890'; // Banner oben
+        return '1234567890'; // Ersetzen Sie durch Ihre echten Ad Unit IDs
       case 'sidebar':
-        return '1234567891'; // Sidebar rechts
+        return '1234567891';
       case 'footer':
-        return '1234567892'; // Footer
+        return '1234567892';
       case 'article':
-        return '1234567893'; // In Artikeln
+        return '1234567893';
       case 'header':
-        return '1234567894'; // Header-Bereich
+        return '1234567894';
       case 'content':
-        return '1234567895'; // Content-Bereich
+        return '1234567895';
       default:
         return adSlot || '1234567890';
     }
   };
 
-  // Responsive Größen basierend auf Position
+  // Responsive Größen basierend auf Position (Google-konform)
   const getAdStyle = () => {
     switch (position) {
       case 'banner':
       case 'header':
-        return { display: 'block', width: '100%', height: '90px' };
+        return { display: 'block', width: '100%', height: '90px', minWidth: '320px' };
       case 'sidebar':
-        return { display: 'block', width: '300px', height: '250px' };
+        return { display: 'block', width: '300px', height: '250px', minWidth: '300px' };
       case 'footer':
-        return { display: 'block', width: '100%', height: '100px' };
+        return { display: 'block', width: '100%', height: '100px', minWidth: '320px' };
       case 'article':
       case 'content':
-        return { display: 'block', width: '100%', height: '280px' };
+        return { display: 'block', width: '100%', height: '280px', minWidth: '320px', maxWidth: '728px', margin: '0 auto' };
       default:
-        return { display: 'block' };
+        return { display: 'block', minWidth: '320px' };
     }
   };
 
-  // Echte AdSense Integration
+  // Google AdSense konforme Implementierung
   if (siteConfig.googleServices.adsense.enabled) {
     return (
-      <div className={`ad-container ${className} my-4`} ref={adRef}>
-        <div className="text-xs text-gray-400 text-center mb-1">Anzeige</div>
-        <ins
-          className="adsbygoogle"
-          style={getAdStyle()}
-          data-ad-client="ca-pub-4326654077043920"
-          data-ad-slot={getAdSlotId()}
-          data-ad-format={responsive ? 'auto' : adFormat}
-          data-full-width-responsive={responsive ? 'true' : 'false'}
-        />
+      <div className={`ad-container ${className} my-6`} ref={adRef}>
+        {/* Google-konforme Anzeigenkennzeichnung */}
+        <div className="text-xs text-gray-500 text-center mb-2 font-light">
+          Werbung
+        </div>
+        <div className="flex justify-center">
+          <ins
+            className="adsbygoogle"
+            style={getAdStyle()}
+            data-ad-client="ca-pub-4326654077043920"
+            data-ad-slot={getAdSlotId()}
+            data-ad-format={responsive ? 'auto' : adFormat}
+            data-full-width-responsive={responsive ? 'true' : 'false'}
+            data-adtest="off"
+          />
+        </div>
       </div>
     );
   }
 
-  // Fallback für Entwicklung - schöne Platzhalter
+  // Entwicklungs-Platzhalter (Google-konform gestaltet)
   const getPlaceholderContent = () => {
     switch (position) {
       case 'banner':
         return (
-          <div className="bg-gradient-to-r from-blue-100 to-green-100 border-2 border-dashed border-blue-300 rounded-lg p-4 text-center">
-            <div className="text-blue-600 font-medium">Banner Werbung (728x90)</div>
-            <div className="text-xs text-blue-500 mt-1">Hier erscheint Ihre Werbung</div>
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-gray-200 rounded-lg p-4 text-center max-w-4xl mx-auto">
+            <div className="text-xs text-gray-400 mb-2">Werbung</div>
+            <div className="text-blue-600 font-medium">Banner Anzeige (728x90)</div>
+            <div className="text-xs text-blue-500 mt-1">Responsive Leaderboard</div>
           </div>
         );
       case 'sidebar':
         return (
-          <div className="bg-gradient-to-b from-purple-100 to-pink-100 border-2 border-dashed border-purple-300 rounded-lg p-4 text-center">
-            <div className="text-purple-600 font-medium">Sidebar Werbung</div>
+          <div className="bg-gradient-to-b from-purple-50 to-pink-50 border border-gray-200 rounded-lg p-4 text-center w-full max-w-xs">
+            <div className="text-xs text-gray-400 mb-2">Werbung</div>
+            <div className="text-purple-600 font-medium">Sidebar Anzeige</div>
             <div className="text-xs text-purple-500 mt-1">300x250 Medium Rectangle</div>
           </div>
         );
       case 'article':
+      case 'content':
         return (
-          <div className="bg-gradient-to-r from-green-100 to-blue-100 border-2 border-dashed border-green-300 rounded-lg p-6 text-center">
-            <div className="text-green-600 font-medium">Artikel Werbung</div>
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-gray-200 rounded-lg p-6 text-center max-w-2xl mx-auto">
+            <div className="text-xs text-gray-400 mb-2">Werbung</div>
+            <div className="text-green-600 font-medium">Content Anzeige</div>
             <div className="text-xs text-green-500 mt-1">Responsive Display Ad</div>
           </div>
         );
       case 'footer':
         return (
-          <div className="bg-gradient-to-r from-gray-100 to-blue-100 border-2 border-dashed border-gray-300 rounded-lg p-3 text-center">
-            <div className="text-gray-600 font-medium">Footer Werbung</div>
-            <div className="text-xs text-gray-500 mt-1">Leaderboard 728x90</div>
+          <div className="bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200 rounded-lg p-3 text-center max-w-4xl mx-auto">
+            <div className="text-xs text-gray-400 mb-2">Werbung</div>
+            <div className="text-gray-600 font-medium">Footer Anzeige</div>
+            <div className="text-xs text-gray-500 mt-1">Responsive Banner</div>
           </div>
         );
       default:
         return (
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded p-4 text-center text-sm text-blue-600">
-            Werbeplatz - {position}
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-gray-200 rounded p-4 text-center text-sm max-w-md mx-auto">
+            <div className="text-xs text-gray-400 mb-1">Werbung</div>
+            <div className="text-blue-600">Anzeigenplatz - {position}</div>
           </div>
         );
     }
   };
 
   return (
-    <div className={`ad-slot ${className} my-4`}>
+    <div className={`ad-slot ${className} my-6`}>
       {getPlaceholderContent()}
     </div>
   );
