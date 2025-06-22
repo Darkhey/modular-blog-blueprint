@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminBlogPosts from "./pages/AdminBlogPosts";
+import AdminBlogGenerator from "./pages/AdminBlogGenerator";
 import UserDashboard from "./pages/UserDashboard";
 import AdminLayout from "./components/layout/AdminLayout";
 
@@ -71,6 +72,7 @@ function App() {
                     <Route index element={<AdminDashboard />} />
                     <Route path="dashboard" element={<AdminDashboard />} />
                     <Route path="blog" element={<AdminBlogPosts />} />
+                    <Route path="blog/generator" element={<AdminBlogGenerator />} />
                   </Route>
                   <Route path="/suche" element={<SearchPage />} />
                   <Route path="*" element={<NotFound />} />

@@ -146,6 +146,11 @@ const Header = () => {
                         Blog-Verwaltung
                       </Link>
                     </SheetClose>
+                    <SheetClose asChild>
+                      <Link to="/admin/blog/generator" className="font-semibold text-lg">
+                        Blog Generator
+                      </Link>
+                    </SheetClose>
                   </div>
                 )}
                 {session && profile?.role !== 'admin' && (
@@ -215,6 +220,12 @@ const Header = () => {
                     className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
                   >
                     Blog-Verwaltung
+                  </Link>
+                  <Link
+                    to="/admin/blog/generator"
+                    className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-blue-600 font-semibold')}
+                  >
+                    Blog Generator
                   </Link>
                 </>
               )}
