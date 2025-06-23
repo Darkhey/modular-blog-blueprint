@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -20,31 +21,43 @@ const AuthPage = () => {
 
   useEffect(() => {
     const redirectAfterLogin = async (s: any) => {
-      const { data } = await supabase
+      console.log("Session received:", s);
+      
+      // Etwas warten, damit das Profil erstellt werden kann
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const { data, error } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", s.user.id)
         .maybeSingle();
+      
+      console.log("Profile data:", data, "Error:", error);
+      
       if (data?.role === "admin") {
+        console.log("Redirecting to admin dashboard");
         navigate("/admin", { replace: true });
       } else {
+        console.log("Redirecting to user dashboard");
         navigate("/dashboard", { replace: true });
       }
     };
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      console.log("Auth state changed:", _event, session);
       setSession(session);
-      if (session) {
-        redirectAfterLogin(session);
+      if (session && _event === 'SIGNED_IN') {
+        await redirectAfterLogin(session);
       }
     });
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      console.log("Current session:", session);
       setSession(session);
       if (session) {
-        redirectAfterLogin(session);
+        await redirectAfterLogin(session);
       }
     });
 
@@ -62,8 +75,12 @@ const AuthPage = () => {
         setLoading(false);
         return;
       }
+      console.log("Attempting login for:", email);
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setError(error.message);
+      if (error) {
+        console.error("Login error:", error);
+        setError(error.message);
+      }
     } else {
       if (!email || !password || !username || !confirmPassword) {
         setError("Bitte fülle alle Felder aus.");
