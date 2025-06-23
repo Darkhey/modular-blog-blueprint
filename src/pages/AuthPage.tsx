@@ -23,36 +23,57 @@ const AuthPage = () => {
     const redirectAfterLogin = async (s: any) => {
       console.log("Session received:", s);
       
-      // Etwas warten, damit das Profil erstellt werden kann
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!s?.user?.id) {
+        console.log("No valid user ID in session");
+        return;
+      }
       
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", s.user.id)
-        .maybeSingle();
+      // Längere Wartezeit für Profilerstellung
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      console.log("Profile data:", data, "Error:", error);
-      
-      if (data?.role === "admin") {
-        console.log("Redirecting to admin dashboard");
-        navigate("/admin", { replace: true });
-      } else {
-        console.log("Redirecting to user dashboard");
+      try {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", s.user.id)
+          .maybeSingle();
+        
+        console.log("Profile data:", data, "Error:", error);
+        
+        if (error) {
+          console.error("Error fetching profile:", error);
+          // Fallback zu user dashboard bei Fehler
+          navigate("/dashboard", { replace: true });
+          return;
+        }
+        
+        if (data?.role === "admin") {
+          console.log("Redirecting to admin dashboard");
+          navigate("/admin", { replace: true });
+        } else {
+          console.log("Redirecting to user dashboard");
+          navigate("/dashboard", { replace: true });
+        }
+      } catch (err) {
+        console.error("Exception during profile fetch:", err);
         navigate("/dashboard", { replace: true });
       }
     };
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      console.log("Auth state changed:", _event, session);
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event, session);
       setSession(session);
-      if (session && _event === 'SIGNED_IN') {
+      
+      if (session && event === 'SIGNED_IN') {
         await redirectAfterLogin(session);
+      } else if (!session && event === 'SIGNED_OUT') {
+        console.log("User signed out");
       }
     });
 
+    // Überprüfe bestehende Session
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       console.log("Current session:", session);
       setSession(session);

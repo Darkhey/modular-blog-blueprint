@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +9,7 @@ import { toast } from "sonner";
 const UserDashboard = () => {
   const [session, setSession] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,14 +19,30 @@ const UserDashboard = () => {
         navigate("/auth", { replace: true });
         return;
       }
+      
       setSession(session);
-      const { data } = await supabase
+      
+      // Profile laden
+      const { data, error } = await supabase
         .from("profiles")
         .select("username, role")
         .eq("id", session.user.id)
         .maybeSingle();
-      setProfile(data);
+      
+      if (data) {
+        setProfile(data);
+        
+        // Wenn Admin, zur Admin-Seite weiterleiten
+        if (data.role === 'admin') {
+          console.log("Admin detected, redirecting to admin dashboard");
+          navigate("/admin", { replace: true });
+          return;
+        }
+      }
+      
+      setLoading(false);
     };
+    
     init();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -43,24 +61,34 @@ const UserDashboard = () => {
     navigate("/", { replace: true });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="text-xl text-gray-500 animate-pulse">Lade Dashboard...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50">
       <div className="container mx-auto flex justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Dashboard</CardTitle>
-          <div className="text-gray-500 text-sm">
-            Willkommen, {profile?.username || session?.user?.email}
-          </div>
-        </CardHeader>
-        <CardContent>
-          {profile?.role === 'admin' && (
-            <Button className="w-full mb-4" onClick={() => navigate('/admin')}>Admin Dashboard</Button>
-          )}
-          <Button className="w-full" variant="secondary" onClick={onLogout}>
-            Logout
-          </Button>
-        </CardContent>
+            <div className="text-gray-500 text-sm">
+              Willkommen, {profile?.username || session?.user?.email}
+            </div>
+          </CardHeader>
+          <CardContent>
+            {profile?.role === 'admin' && (
+              <Button className="w-full mb-4" onClick={() => navigate('/admin')}>
+                Admin Dashboard
+              </Button>
+            )}
+            <Button className="w-full" variant="secondary" onClick={onLogout}>
+              Logout
+            </Button>
+          </CardContent>
         </Card>
       </div>
     </div>
