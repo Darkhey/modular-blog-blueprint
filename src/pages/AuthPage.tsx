@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +27,13 @@ const AuthPage = () => {
         return;
       }
       
-      // Längere Wartezeit für Profilerstellung
+      // DEBUG: Immer als Admin weiterleiten für Debug-Zwecke
+      console.log("DEBUG: Redirecting to admin dashboard (forced for debugging)");
+      navigate("/admin", { replace: true });
+      return;
+      
+      // Original code (commented out for debugging):
+      /*
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       try {
@@ -42,7 +47,6 @@ const AuthPage = () => {
         
         if (error) {
           console.error("Error fetching profile:", error);
-          // Fallback zu user dashboard bei Fehler
           navigate("/dashboard", { replace: true });
           return;
         }
@@ -58,6 +62,7 @@ const AuthPage = () => {
         console.error("Exception during profile fetch:", err);
         navigate("/dashboard", { replace: true });
       }
+      */
     };
 
     const {

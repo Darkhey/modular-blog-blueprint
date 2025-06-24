@@ -22,7 +22,13 @@ const UserDashboard = () => {
       
       setSession(session);
       
-      // Profile laden
+      // DEBUG: Immer als Admin behandeln für Debug-Zwecke
+      console.log("DEBUG: Treating user as admin for debugging purposes");
+      navigate("/admin", { replace: true });
+      return;
+      
+      // Original code (commented out for debugging):
+      /*
       const { data, error } = await supabase
         .from("profiles")
         .select("username, role")
@@ -32,7 +38,6 @@ const UserDashboard = () => {
       if (data) {
         setProfile(data);
         
-        // Wenn Admin, zur Admin-Seite weiterleiten
         if (data.role === 'admin') {
           console.log("Admin detected, redirecting to admin dashboard");
           navigate("/admin", { replace: true });
@@ -41,6 +46,7 @@ const UserDashboard = () => {
       }
       
       setLoading(false);
+      */
     };
     
     init();
@@ -80,11 +86,9 @@ const UserDashboard = () => {
             </div>
           </CardHeader>
           <CardContent>
-            {profile?.role === 'admin' && (
-              <Button className="w-full mb-4" onClick={() => navigate('/admin')}>
-                Admin Dashboard
-              </Button>
-            )}
+            <Button className="w-full mb-4" onClick={() => navigate('/admin')}>
+              Admin Dashboard
+            </Button>
             <Button className="w-full" variant="secondary" onClick={onLogout}>
               Logout
             </Button>
