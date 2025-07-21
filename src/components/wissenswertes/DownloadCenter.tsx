@@ -5,26 +5,69 @@ import { Download, FileText, CheckSquare, Calculator } from 'lucide-react';
 const DownloadCenter = () => {
   const downloadItems = [
     {
-      title: "Sanierungs-Checkliste",
-      description: "Schritt-für-Schritt Anleitung für Ihre Renovierung",
+      title: "Checkliste vor der Sanierung",
+      description: "20-Punkte-Plan für alle Vorbereitungen",
       icon: CheckSquare,
       type: "PDF",
-      size: "2.3 MB"
+      size: "0.1 MB",
+      url: "/downloads/pre-renovation-checklist.pdf",
     },
     {
-      title: "Kostenschätzer-Tabelle",
-      description: "Realistische Preise für alle Sanierungsmaßnahmen",
+      title: "Checkliste während der Sanierung",
+      description: "Alle Qualitäts- und Sicherheitskontrollen",
+      icon: CheckSquare,
+      type: "PDF",
+      size: "0.1 MB",
+      url: "/downloads/during-renovation-checklist.pdf",
+    },
+    {
+      title: "Checkliste nach der Sanierung",
+      description: "Wichtige Schritte nach Projektende",
+      icon: CheckSquare,
+      type: "PDF",
+      size: "0.1 MB",
+      url: "/downloads/post-renovation-checklist.pdf",
+    },
+    {
+      title: "Renovierungskosten 2025 (Excel)",
+      description: "Aktuelle Preisübersicht und Kalkulation",
       icon: Calculator,
       type: "Excel",
-      size: "1.8 MB"
+      size: "0.1 MB",
+      url: "/downloads/renovation-costs-guide-2025.xlsx",
+    },
+    {
+      title: "Renovierungskosten 2025 (PDF)",
+      description: "Alle Kosten tabellarisch als PDF",
+      icon: FileText,
+      type: "PDF",
+      size: "0.1 MB",
+      url: "/downloads/renovation-costs-guide-2025.pdf",
     },
     {
       title: "Fördermittel-Übersicht 2025",
-      description: "Alle aktuellen Förderprogramme im Überblick",
+      description: "Programme von Bund, Ländern und Kommunen",
       icon: FileText,
       type: "PDF",
-      size: "3.1 MB"
-    }
+      size: "0.1 MB",
+      url: "/downloads/funding-overview-2025.pdf",
+    },
+    {
+      title: "Zeitplan-Vorlage",
+      description: "Projektablauf im Excel-Gantt-Format",
+      icon: Calculator,
+      type: "Excel",
+      size: "0.1 MB",
+      url: "/downloads/renovation-timeline-template.xlsx",
+    },
+    {
+      title: "Budgetplaner-Vorlage",
+      description: "Alle Kosten und Förderungen im Blick",
+      icon: Calculator,
+      type: "Excel",
+      size: "0.1 MB",
+      url: "/downloads/budget-planner-template.xlsx",
+    },
   ];
 
   return (
@@ -58,9 +101,11 @@ const DownloadCenter = () => {
               <CardDescription className="mb-4">
                 {item.description}
               </CardDescription>
-              <Button className="w-full" variant="outline">
-                <Download className="h-4 w-4 mr-2" />
-                Herunterladen
+              <Button className="w-full" variant="outline" asChild>
+                <a href={item.url} download>
+                  <Download className="h-4 w-4 mr-2" />
+                  Herunterladen
+                </a>
               </Button>
             </CardContent>
           </Card>
