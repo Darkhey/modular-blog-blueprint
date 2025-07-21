@@ -70,7 +70,8 @@ const CookieConsent = () => {
           // Refresh existing ads if consent granted
           const adElements = document.querySelectorAll('.adsbygoogle');
           adElements.forEach((ad) => {
-            if (ad.dataset.adStatus !== 'filled') {
+            const htmlAd = ad as HTMLElement;
+            if (htmlAd.dataset.adStatus !== 'filled') {
               window.adsbygoogle.push({});
             }
           });

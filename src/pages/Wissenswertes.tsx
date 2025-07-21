@@ -4,6 +4,10 @@ import { siteConfig } from '@/config/site.config';
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+import DownloadCenter from '@/components/wissenswertes/DownloadCenter';
+import InteractiveTools from '@/components/wissenswertes/InteractiveTools';
+import VideoHub from '@/components/wissenswertes/VideoHub';
+import CommunitySection from '@/components/wissenswertes/CommunitySection';
 
 const Wissenswertes = () => {
   const externalLinks = [
@@ -212,6 +216,14 @@ const Wissenswertes = () => {
               </a>
             </div>
           </div>
+        </div>
+
+        {/* Neue Content-Sektionen */}
+        <div className="container max-w-7xl mx-auto px-4 py-12 space-y-16">
+          <InteractiveTools />
+          <DownloadCenter />
+          <VideoHub />
+          <CommunitySection />
         </div>
 
         <EnergyAdvisorSearch />
