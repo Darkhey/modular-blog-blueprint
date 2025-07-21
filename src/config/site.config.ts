@@ -39,7 +39,7 @@ export const siteConfig = {
     kontakt: "/kontakt"
   },
   
-  // Werbung (Google AdSense konform)
+  // Werbung (Google AdSense optimiert)
   adsEnabled: true,
   adsSettings: {
     positions: {
@@ -48,14 +48,15 @@ export const siteConfig = {
       footerBanner: true,
       headerBanner: true
     },
+    // Entfernt, da echte AdSense-Units verwendet werden
     adCodes: {
-      banner: '<div class="bg-gray-100 p-4 rounded text-center text-sm text-gray-600">Werbung</div>',
-      sidebar: '<div class="bg-gray-100 p-4 rounded text-center text-sm text-gray-600">Sidebar Ad</div>',
-      footer: '<div class="bg-gray-100 p-8 rounded text-center text-sm text-gray-600">Footer Banner</div>'
+      banner: '',
+      sidebar: '',
+      footer: ''
     }
   },
   
-  // Google Services (Optimiert für AdSense Compliance)
+  // Google Services (AdSense-optimiert)
   googleServices: {
     // Analytics
     analytics: {
@@ -65,25 +66,30 @@ export const siteConfig = {
         anonymize_ip: true,
         cookie_expires: 63072000, // 2 Jahre
         allow_google_signals: false,
-        allow_ad_personalization_signals: false
+        allow_ad_personalization_signals: false,
+        send_page_view: false // Manuell gesteuert
       }
     },
     
-    // AdSense (Google-konform konfiguriert)
+    // AdSense (Produktions-ready)
     adsense: {
       enabled: true,
-      publisherId: "ca-pub-4326654077043920", // Ihre echte Publisher ID
+      publisherId: "ca-pub-4326654077043920", // Echte Publisher ID
       config: {
-        adtest: "off", // Für Produktion
+        adtest: "off", // Produktionsmodus
         data_ad_client: "ca-pub-4326654077043920",
         enable_page_level_ads: true,
+        tag_partner: "site_kit",
         overlays: {bottom: true},
-        // Google-konforme Responsive-Einstellungen
+        // Optimierte Performance-Einstellungen
         responsive: {
           enabled: true,
           minWidth: 320,
           maxWidth: 1200
-        }
+        },
+        // Lazy Loading für bessere Performance
+        lazyLoad: true,
+        refreshRate: 30000 // 30 Sekunden zwischen Refreshs
       }
     },
 

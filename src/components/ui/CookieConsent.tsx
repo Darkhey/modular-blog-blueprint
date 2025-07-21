@@ -18,7 +18,6 @@ const CookieConsent = () => {
       const consent = localStorage.getItem('cookie-consent');
       if (!consent) {
         setShowConsent(true);
-        // Google-konforme Standard-Einstellung: Alles deaktiviert bis Nutzer zustimmt
         initializeGoogleConsent(false, false);
       } else {
         const consentData = JSON.parse(consent);
@@ -35,7 +34,6 @@ const CookieConsent = () => {
 
   const initializeGoogleConsent = (analytics: boolean, advertising: boolean) => {
     if (typeof window.gtag === 'function') {
-      // Google-konforme Initialisierung
       window.gtag('consent', 'default', {
         analytics_storage: analytics ? 'granted' : 'denied',
         ad_storage: advertising ? 'granted' : 'denied',
@@ -43,6 +41,7 @@ const CookieConsent = () => {
         ad_personalization: advertising ? 'granted' : 'denied',
         functionality_storage: 'granted',
         security_storage: 'granted',
+        wait_for_update: 500
       });
     }
   };
@@ -57,14 +56,28 @@ const CookieConsent = () => {
       });
     }
 
-    // AdSense Consent Mode aktivieren/deaktivieren
+    // AdSense optimierte Aktivierung
     if (siteConfig.googleServices.adsense.enabled && window.adsbygoogle) {
-      window.adsbygoogle.push({
-        params: {
-          google_ad_client: siteConfig.googleServices.adsense.publisherId,
-          enable_page_level_ads: advertising,
+      try {
+        if (advertising) {
+          // AdSense aktivieren
+          window.adsbygoogle.push({
+            google_ad_client: siteConfig.googleServices.adsense.publisherId,
+            enable_page_level_ads: true,
+            tag_partner: "site_kit"
+          });
+          
+          // Refresh existing ads if consent granted
+          const adElements = document.querySelectorAll('.adsbygoogle');
+          adElements.forEach((ad) => {
+            if (ad.dataset.adStatus !== 'filled') {
+              window.adsbygoogle.push({});
+            }
+          });
         }
-      });
+      } catch (error) {
+        console.error('AdSense Aktivierungsfehler:', error);
+      }
     }
   };
 
@@ -75,19 +88,21 @@ const CookieConsent = () => {
         analytics,
         advertising,
         timestamp: Date.now(),
-        version: '1.0'
+        version: '1.1',
+        gdpr_applies: true
       };
       
       localStorage.setItem('cookie-consent', JSON.stringify(consentData));
       updateGoogleConsent(analytics, advertising);
       setShowConsent(false);
 
-      // Google-konforme Tracking-Events
+      // Tracking-Events für Consent
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'consent_update', {
           event_category: 'privacy',
           analytics_consent: analytics,
-          advertising_consent: advertising
+          advertising_consent: advertising,
+          consent_method: 'manual_selection'
         });
       }
     } catch (error) {
@@ -138,7 +153,7 @@ const CookieConsent = () => {
         </p>
 
         <div className="mb-6 space-y-4">
-          {/* Notwendige Cookies - immer aktiv */}
+          {/* Notwendige Cookies */}
           <div className="flex items-center justify-between rounded-lg border p-4 bg-gray-50">
             <Label className="flex flex-col space-y-1 cursor-default pr-4">
               <span className="font-medium text-sm">Notwendige Cookies</span>
@@ -161,11 +176,13 @@ const CookieConsent = () => {
             />
           </div>
 
-          {/* Advertising Cookies */}
+          {/* Advertising Cookies - Erweitert */}
           <div className="flex items-center justify-between rounded-lg border p-4 shadow-sm bg-white">
             <Label htmlFor="advertising-switch" className="flex flex-col space-y-1 cursor-pointer pr-4">
               <span className="font-medium text-sm">Werbung & Personalisierung</span>
-              <span className="text-xs text-gray-500">Für relevante Anzeigen (Google AdSense)</span>
+              <span className="text-xs text-gray-500">
+                Für relevante Anzeigen und personalisierte Inhalte (Google AdSense)
+              </span>
             </Label>
             <Switch
               id="advertising-switch"
