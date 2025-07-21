@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,7 +20,13 @@ import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
 import SolarenergiePage from "./pages/SolarenergiePage";
 import FensterTuerenPage from "./pages/FensterTuerenPage";
 import SmartHomePage from "./pages/SmartHomePage";
-import Wissenswertes from "./pages/Wissenswertes";
+import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
+import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
+import WissenswertesTools from "./pages/wissenswertes/WissenswertesTools";
+import WissenswertesDownloads from "./pages/wissenswertes/WissenswertesDownloads";
+import WissenswertesVideos from "./pages/wissenswertes/WissenswertesVideos";
+import WissenswertesCommunity from "./pages/wissenswertes/WissenswertesCommunity";
+import WissenswertesExperten from "./pages/wissenswertes/WissenswertesExperten";
 import ProjektplanerPage from "./pages/ProjektplanerPage";
 import BudgetplanPage from "./pages/BudgetplanPage";
 import Kontakt from "./pages/Kontakt";
@@ -60,7 +67,16 @@ function App() {
                   <Route path="/solarenergie" element={<SolarenergiePage />} />
                   <Route path="/fenster-tueren" element={<FensterTuerenPage />} />
                   <Route path="/smart-home" element={<SmartHomePage />} />
-                  <Route path="/wissenswertes" element={<Wissenswertes />} />
+                  
+                  {/* Wissenswertes nested routes */}
+                  <Route path="/wissenswertes" element={<WissenswertesIndex />} />
+                  <Route path="/wissenswertes/links" element={<WissenswertesLinks />} />
+                  <Route path="/wissenswertes/tools" element={<WissenswertesTools />} />
+                  <Route path="/wissenswertes/downloads" element={<WissenswertesDownloads />} />
+                  <Route path="/wissenswertes/videos" element={<WissenswertesVideos />} />
+                  <Route path="/wissenswertes/community" element={<WissenswertesCommunity />} />
+                  <Route path="/wissenswertes/experten" element={<WissenswertesExperten />} />
+                  
                   <Route path="/projektplaner" element={<ProjektplanerPage />} />
                   <Route path="/budgetplan" element={<BudgetplanPage />} />
                   <Route path="/kontakt" element={<Kontakt />} />

@@ -1,3 +1,4 @@
+
 import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Zap, Menu } from 'lucide-react';
@@ -81,6 +82,15 @@ const Header = () => {
     }
   }, [session]);
 
+  const wissenswertesItems = [
+    { title: "Externe Links & Portale", to: "/wissenswertes/links", description: "Kuratierte Sammlung wichtiger Websites und Portale" },
+    { title: "Rechner & Tools", to: "/wissenswertes/tools", description: "Interaktive Berechnungstools und Planungshilfen" },
+    { title: "Downloads & Checklisten", to: "/wissenswertes/downloads", description: "Kostenlose PDFs und Excel-Vorlagen" },
+    { title: "Videos & Tutorials", to: "/wissenswertes/videos", description: "Lehrreiche Videos und Schritt-für-Schritt Anleitungen" },
+    { title: "Community & Erfahrungen", to: "/wissenswertes/community", description: "Erfolgsgeschichten und Erfahrungsaustausch" },
+    { title: "Hersteller & Experten", to: "/wissenswertes/experten", description: "Energieberater-Suche und Hersteller-Verzeichnis" }
+  ];
+
   return (
     <header className="bg-white/95 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
       {siteConfig.adsEnabled && siteConfig.adsSettings.positions.headerBanner && (
@@ -121,6 +131,19 @@ const Header = () => {
                           <SheetClose asChild key={topic.id}>
                             <Link to={topic.seoUrl} className="text-sm">
                               {topic.name}
+                            </Link>
+                          </SheetClose>
+                        ))}
+                      </div>
+                    </div>
+                  ) : item.name === 'Wissenswertes' ? (
+                    <div key={item.name} className="space-y-2">
+                      <span className="font-semibold text-lg">{item.name}</span>
+                      <div className="ml-2 flex flex-col space-y-1">
+                        {wissenswertesItems.map((wissenswertesItem) => (
+                          <SheetClose asChild key={wissenswertesItem.to}>
+                            <Link to={wissenswertesItem.to} className="text-sm">
+                              {wissenswertesItem.title}
                             </Link>
                           </SheetClose>
                         ))}
@@ -189,6 +212,23 @@ const Header = () => {
                                 title={topic.name}
                               >
                                 {topic.description}
+                              </ListItem>
+                            ))}
+                          </ul>
+                        </NavigationMenuContent>
+                      </>
+                    ) : item.name === 'Wissenswertes' ? (
+                      <>
+                        <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                            {wissenswertesItems.map((wissenswertesItem) => (
+                              <ListItem
+                                key={wissenswertesItem.to}
+                                to={wissenswertesItem.to}
+                                title={wissenswertesItem.title}
+                              >
+                                {wissenswertesItem.description}
                               </ListItem>
                             ))}
                           </ul>
