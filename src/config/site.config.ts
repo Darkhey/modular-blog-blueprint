@@ -1,4 +1,3 @@
-
 export const siteConfig = {
   // Projekt-Identität
   projectName: "Sanieren & Sparen",
@@ -39,7 +38,7 @@ export const siteConfig = {
     kontakt: "/kontakt"
   },
   
-  // Werbung (Google AdSense optimiert)
+  // Werbung (Google AdSense Auto Ads aktiviert)
   adsEnabled: true,
   adsSettings: {
     positions: {
@@ -47,16 +46,10 @@ export const siteConfig = {
       sidebarTop: true,
       footerBanner: true,
       headerBanner: true
-    },
-    // Entfernt, da echte AdSense-Units verwendet werden
-    adCodes: {
-      banner: '',
-      sidebar: '',
-      footer: ''
     }
   },
   
-  // Google Services (AdSense-optimiert)
+  // Google Services (AdSense Auto Ads optimiert)
   googleServices: {
     // Analytics
     analytics: {
@@ -71,25 +64,16 @@ export const siteConfig = {
       }
     },
     
-    // AdSense (Produktions-ready)
+    // AdSense (Auto Ads - konfiguriert über Dashboard)
     adsense: {
       enabled: true,
       publisherId: "ca-pub-4326654077043920", // Echte Publisher ID
       config: {
-        adtest: "off", // Produktionsmodus
+        // Auto Ads werden über das AdSense-Dashboard konfiguriert
+        // Kein JavaScript-Setup mehr erforderlich
         data_ad_client: "ca-pub-4326654077043920",
-        enable_page_level_ads: true,
-        tag_partner: "site_kit",
-        overlays: {bottom: true},
-        // Optimierte Performance-Einstellungen
-        responsive: {
-          enabled: true,
-          minWidth: 320,
-          maxWidth: 1200
-        },
-        // Lazy Loading für bessere Performance
-        lazyLoad: true,
-        refreshRate: 30000 // 30 Sekunden zwischen Refreshs
+        // Test-Modus aktiviert für Entwicklung
+        adtest: "on"
       }
     },
 

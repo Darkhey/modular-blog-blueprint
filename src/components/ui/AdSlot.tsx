@@ -21,6 +21,8 @@ const AdSlot = ({
   const adInitialized = useRef(false);
 
   useEffect(() => {
+    // Auto Ads werden automatisch über das AdSense-Dashboard geladen
+    // Manuelle Ad-Units nur bei expliziter adSlot-Angabe
     if (siteConfig.googleServices.adsense.enabled && window.adsbygoogle && adSlot && !adInitialized.current) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -33,13 +35,13 @@ const AdSlot = ({
 
   if (!siteConfig.adsEnabled) return null;
 
-  // Echte Ad Unit IDs für verschiedene Positionen
+  // Für manuelle Ad-Units (optional - Auto Ads funktionieren ohne diese)
   const getAdSlotId = () => {
     switch (position) {
       case 'banner':
         return '2345678901'; // Banner Ad Unit
       case 'sidebar':
-        return '3456789012'; // Sidebar Ad Unit
+        return '3456789012'; // Sidebar Ad Unit  
       case 'footer':
         return '4567890123'; // Footer Ad Unit
       case 'article':
@@ -53,130 +55,40 @@ const AdSlot = ({
     }
   };
 
-  // Optimierte responsive Größen
-  const getAdStyle = () => {
-    switch (position) {
-      case 'banner':
-      case 'header':
-        return { 
-          display: 'block', 
-          width: '100%', 
-          height: 'auto',
-          minHeight: '90px',
-          maxHeight: '120px'
-        };
-      case 'sidebar':
-        return { 
-          display: 'block', 
-          width: '100%', 
-          height: 'auto',
-          minHeight: '250px',
-          maxWidth: '300px'
-        };
-      case 'footer':
-        return { 
-          display: 'block', 
-          width: '100%', 
-          height: 'auto',
-          minHeight: '100px',
-          maxHeight: '120px'
-        };
-      case 'article':
-      case 'content':
-        return { 
-          display: 'block', 
-          width: '100%', 
-          height: 'auto',
-          minHeight: '280px',
-          maxWidth: '728px',
-          margin: '0 auto'
-        };
-      default:
-        return { display: 'block', width: '100%', height: 'auto' };
-    }
+  // Entwicklungs-Platzhalter (Auto Ads sind unsichtbar bis aktiviert)
+  const getPlaceholderContent = () => {
+    return (
+      <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-gray-200 rounded-lg p-4 text-center max-w-2xl mx-auto min-h-[120px] flex items-center justify-center">
+        <div>
+          <div className="text-xs text-gray-400 mb-2">Auto Ads Platzhalter</div>
+          <div className="text-blue-600 font-medium">Google Auto Ads - {position}</div>
+          <div className="text-xs text-blue-500 mt-1">Wird automatisch über AdSense-Dashboard konfiguriert</div>
+        </div>
+      </div>
+    );
   };
 
-  // AdSense-konforme Implementierung
-  if (siteConfig.googleServices.adsense.enabled) {
-    return (
-      <div className={`ad-container ${className} my-6`} ref={adRef}>
-        <div className="text-xs text-gray-500 text-center mb-2 font-light">
-          Anzeige
-        </div>
-        <div className="flex justify-center">
+  // In Produktionsumgebung werden Auto Ads automatisch an optimalen Stellen eingefügt
+  // Diese Platzhalter dienen nur zur Entwicklungsvisualisierung
+  return (
+    <div className={`ad-slot ${className} my-6`}>
+      {/* Auto Ads werden automatisch eingefügt - kein manueller Code erforderlich */}
+      {process.env.NODE_ENV === 'development' && getPlaceholderContent()}
+      
+      {/* Optionale manuelle Ad-Unit (falls spezifische Platzierung gewünscht) */}
+      {adSlot && (
+        <div className="flex justify-center" ref={adRef}>
           <ins
             className="adsbygoogle"
-            style={getAdStyle()}
+            style={{ display: 'block', width: '100%', height: 'auto' }}
             data-ad-client={siteConfig.googleServices.adsense.publisherId}
             data-ad-slot={getAdSlotId()}
             data-ad-format={responsive ? 'auto' : adFormat}
             data-full-width-responsive={responsive ? 'true' : 'false'}
-            data-adtest="off"
+            data-adtest={siteConfig.googleServices.adsense.config.adtest}
           />
         </div>
-      </div>
-    );
-  }
-
-  // Entwicklungs-Platzhalter mit realistischen Dimensionen
-  const getPlaceholderContent = () => {
-    switch (position) {
-      case 'banner':
-        return (
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-gray-200 rounded-lg p-4 text-center max-w-4xl mx-auto min-h-[90px] flex items-center justify-center">
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Anzeige</div>
-              <div className="text-blue-600 font-medium">Banner Anzeige (728x90)</div>
-              <div className="text-xs text-blue-500 mt-1">Responsive Leaderboard</div>
-            </div>
-          </div>
-        );
-      case 'sidebar':
-        return (
-          <div className="bg-gradient-to-b from-purple-50 to-pink-50 border border-gray-200 rounded-lg p-4 text-center w-full max-w-xs min-h-[250px] flex items-center justify-center">
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Anzeige</div>
-              <div className="text-purple-600 font-medium">Sidebar Anzeige</div>
-              <div className="text-xs text-purple-500 mt-1">300x250 Medium Rectangle</div>
-            </div>
-          </div>
-        );
-      case 'article':
-      case 'content':
-        return (
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 border border-gray-200 rounded-lg p-6 text-center max-w-2xl mx-auto min-h-[280px] flex items-center justify-center">
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Anzeige</div>
-              <div className="text-green-600 font-medium">Content Anzeige</div>
-              <div className="text-xs text-green-500 mt-1">Responsive Display Ad</div>
-            </div>
-          </div>
-        );
-      case 'footer':
-        return (
-          <div className="bg-gradient-to-r from-gray-50 to-blue-50 border border-gray-200 rounded-lg p-3 text-center max-w-4xl mx-auto min-h-[100px] flex items-center justify-center">
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Anzeige</div>
-              <div className="text-gray-600 font-medium">Footer Anzeige</div>
-              <div className="text-xs text-gray-500 mt-1">Responsive Banner</div>
-            </div>
-          </div>
-        );
-      default:
-        return (
-          <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-gray-200 rounded p-4 text-center text-sm max-w-md mx-auto min-h-[120px] flex items-center justify-center">
-            <div>
-              <div className="text-xs text-gray-400 mb-1">Anzeige</div>
-              <div className="text-blue-600">Anzeigenplatz - {position}</div>
-            </div>
-          </div>
-        );
-    }
-  };
-
-  return (
-    <div className={`ad-slot ${className} my-6`}>
-      {getPlaceholderContent()}
+      )}
     </div>
   );
 };
