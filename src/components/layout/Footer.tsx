@@ -7,13 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
       {/* Footer Banner Ad */}
-      {siteConfig.adsEnabled && siteConfig.adsSettings.positions.footerBanner && (
-        <div className="border-b border-gray-800 py-6">
-          <div className="max-w-7xl mx-auto px-4">
-            <div dangerouslySetInnerHTML={{ __html: siteConfig.adsSettings.adCodes.footer }} />
-          </div>
-        </div>
-      )}
+      {/* Auto Ads are handled via AdSense dashboard - no manual banner code needed */}
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
