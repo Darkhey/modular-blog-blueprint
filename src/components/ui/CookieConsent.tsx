@@ -61,31 +61,6 @@ const CookieConsent = () => {
         ad_personalization: advertising ? 'granted' : 'denied',
       });
     }
-
-    // AdSense optimierte Aktivierung - verhindert Doppelinitialisierung
-    if (siteConfig.googleServices.adsense.enabled && window.adsbygoogle && advertising) {
-      try {
-        if (!window.adSenseInitialized) {
-          window.adsbygoogle.push({
-            google_ad_client: siteConfig.googleServices.adsense.publisherId,
-            enable_page_level_ads: true,
-            tag_partner: "site_kit"
-          });
-          window.adSenseInitialized = true;
-        }
-        
-        // Refresh existing ads if consent granted
-        const adElements = document.querySelectorAll('.adsbygoogle');
-        adElements.forEach((ad) => {
-          const htmlAd = ad as HTMLElement;
-          if (htmlAd.dataset.adStatus !== 'filled') {
-            window.adsbygoogle.push({});
-          }
-        });
-      } catch (error) {
-        console.error('AdSense Aktivierungsfehler:', error);
-      }
-    }
   };
 
   const handleSaveConsent = (analytics: boolean, advertising: boolean) => {
