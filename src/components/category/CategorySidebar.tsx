@@ -1,6 +1,6 @@
 
 import QuickStats from '@/components/shared/QuickStats';
-import AdSlot from '@/components/ui/AdSlot';
+
 import { siteConfig } from '@/config/site.config';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -19,9 +19,7 @@ const CategorySidebar = ({ currentCategorySlug }: CategorySidebarProps) => {
 
   return (
     <div className="sticky top-24 space-y-6">
-      {siteConfig.adsEnabled && siteConfig.adsSettings.positions.sidebarTop && (
-        <AdSlot position="sidebar" />
-      )}
+      {/* Auto Ads are handled via AdSense dashboard */}
 
       <div className="bg-white p-6 rounded-lg border">
         <h3 className="font-semibold text-gray-900 mb-4">Weitere Themen</h3>

@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { FolderKanban, TrendingUp, Bookmark, Clock } from 'lucide-react';
-import AdSlot from '@/components/ui/AdSlot';
+
 import BlogCard from '@/components/blog/BlogCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -110,9 +110,7 @@ const BlogAndCategoriesSection = ({
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-6">
                             {/* AdSense - Top Banner */}
-                            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-xl p-1 shadow-sm">
-                                <AdSlot position="sidebar" className="w-full" />
-                            </div>
+                            {/* Auto Ads are handled via AdSense dashboard */}
 
                             {/* Quick Stats mit verbessertem Design */}
                             <div className="transform hover:scale-105 transition-transform duration-200">
@@ -153,9 +151,7 @@ const BlogAndCategoriesSection = ({
                             </Card>
 
                             {/* AdSense - Middle Banner */}
-                            <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-1 shadow-sm">
-                                <AdSlot position="sidebar" className="w-full" />
-                            </div>
+                            {/* Auto Ads are handled via AdSense dashboard */}
 
                             {/* Quick Links */}
                             <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -207,9 +203,7 @@ const BlogAndCategoriesSection = ({
                             </Card>
 
                             {/* AdSense - Bottom Banner */}
-                            <div className="bg-gradient-to-br from-green-50 to-yellow-50 rounded-xl p-1 shadow-sm">
-                                <AdSlot position="sidebar" className="w-full" />
-                            </div>
+                            {/* Auto Ads are handled via AdSense dashboard */}
                         </div>
                     </div>
                 </div>

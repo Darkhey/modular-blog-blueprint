@@ -2,14 +2,10 @@
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
-import HeaderAdSection from '@/components/home/HeaderAdSection';
-import AdBannerSection from '@/components/home/AdBannerSection';
 import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
 import FeaturesSection from '@/components/home/FeaturesSection';
 import ImageCarouselSection from '@/components/home/ImageCarouselSection';
 import StatsSection from '@/components/home/StatsSection';
-import ContentAdSection from '@/components/home/ContentAdSection';
-import ArticleAdSection from '@/components/home/ArticleAdSection';
 import CalculatorsSection from '@/components/home/CalculatorsSection';
 import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
@@ -23,15 +19,11 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-white">
       
       <main>
-        <HeaderAdSection />
         <HeroSection />
-        <AdBannerSection />
         <FeaturedExpertSection />
-        <ContentAdSection />
         <FeaturesSection />
         <ImageCarouselSection />
         <StatsSection />
-        <ArticleAdSection />
         <CalculatorsSection />
         <BlogAndCategoriesSection
           posts={posts}
@@ -116,7 +108,6 @@ const Index = () => {
           </div>
         </section>
         
-        <ContentAdSection />
         <NewsletterSection />
       </main>
     </div>

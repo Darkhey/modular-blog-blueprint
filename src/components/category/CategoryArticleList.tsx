@@ -1,7 +1,7 @@
 
 import { BlogPost } from '@/hooks/useBlogPosts';
 import BlogCard from '@/components/blog/BlogCard';
-import AdSlot from '@/components/ui/AdSlot';
+
 import { siteConfig } from '@/config/site.config';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -55,11 +55,7 @@ const CategoryArticleList = ({ posts, isLoading, categoryName }: CategoryArticle
         {posts.map((post, index) => (
           <div key={post.id}>
             <BlogCard post={post} />
-            {(index + 1) % 4 === 0 && siteConfig.adsEnabled && (
-              <div className="mt-6 mb-6">
-                <AdSlot position="banner" />
-              </div>
-            )}
+            {/* Auto Ads every 4 articles - handled via AdSense dashboard */}
           </div>
         ))}
       </div>

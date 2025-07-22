@@ -1,6 +1,6 @@
 
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import AdSlot from '@/components/ui/AdSlot';
+
 import { siteConfig } from '@/config/site.config';
 
 const Kontakt = () => {
@@ -10,7 +10,7 @@ const Kontakt = () => {
       <div className="container max-w-4xl mx-auto px-4 py-12">
         {/* Header Banner Ad */}
         <div className="mb-8">
-          <AdSlot position="banner" className="w-full" />
+          {/* Auto Ads are handled via AdSense dashboard */}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -71,7 +71,7 @@ const Kontakt = () => {
 
               {/* Article Ad */}
               <div className="mt-8">
-                <AdSlot position="article" className="w-full" />
+                {/* Auto Ads are handled via AdSense dashboard */}
               </div>
 
               <div className="mt-8 p-6 bg-green-50 rounded-lg border border-green-200">
@@ -88,7 +88,7 @@ const Kontakt = () => {
 
           {/* Sidebar with Ads */}
           <div className="space-y-6">
-            <AdSlot position="sidebar" className="w-full" />
+            {/* Auto Ads are handled via AdSense dashboard */}
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold text-gray-900 mb-4">Schnellkontakt</h3>
@@ -129,7 +129,7 @@ const Kontakt = () => {
               </form>
             </div>
 
-            <AdSlot position="sidebar" className="w-full" />
+            {/* Auto Ads are handled via AdSense dashboard */}
           </div>
         </div>
       </div>

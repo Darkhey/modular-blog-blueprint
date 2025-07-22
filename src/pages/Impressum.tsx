@@ -1,12 +1,12 @@
 
-import AdSlot from '@/components/ui/AdSlot';
+
 
 const Impressum = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       
       <div className="container max-w-4xl mx-auto px-4 py-12">
-        <AdSlot position="banner" className="w-full mb-8" />
+        {/* Auto Ads are handled via AdSense dashboard */}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
@@ -32,7 +32,7 @@ const Impressum = () => {
                   </p>
                 </div>
 
-                <AdSlot position="article" className="w-full my-8" />
+                {/* Auto Ads are handled via AdSense dashboard */}
 
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">EU-Streitschlichtung</h2>
@@ -83,8 +83,7 @@ const Impressum = () => {
           </div>
 
           <div className="space-y-6">
-            <AdSlot position="sidebar" className="w-full" />
-            <AdSlot position="sidebar" className="w-full" />
+            {/* Auto Ads are handled via AdSense dashboard */}
           </div>
         </div>
       </div>

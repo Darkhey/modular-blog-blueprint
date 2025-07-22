@@ -1,6 +1,6 @@
 
 import { ArrowUp } from 'lucide-react';
-import AdSlot from '@/components/ui/AdSlot';
+
 import { siteConfig } from '@/config/site.config';
 import { BlogPost } from '@/hooks/useBlogPosts';
 import TableOfContents from './TableOfContents';
@@ -18,9 +18,7 @@ const BlogPostSidebar = ({ post }: BlogPostSidebarProps) => {
       <TableOfContents tableOfContents={tableOfContents} />
       <QuickFacts post={post} />
 
-      {siteConfig.adsEnabled && siteConfig.adsSettings.positions.sidebarTop && (
-        <AdSlot position="sidebar" />
-      )}
+      {/* Auto Ads are handled via AdSense dashboard */}
 
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
