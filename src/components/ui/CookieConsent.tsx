@@ -8,6 +8,12 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { siteConfig } from '@/config/site.config';
 
+declare global {
+  interface Window {
+    adSenseInitialized?: boolean;
+  }
+}
+
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] = useState(false);
@@ -56,26 +62,26 @@ const CookieConsent = () => {
       });
     }
 
-    // AdSense optimierte Aktivierung
-    if (siteConfig.googleServices.adsense.enabled && window.adsbygoogle) {
+    // AdSense optimierte Aktivierung - verhindert Doppelinitialisierung
+    if (siteConfig.googleServices.adsense.enabled && window.adsbygoogle && advertising) {
       try {
-        if (advertising) {
-          // AdSense aktivieren
+        if (!window.adSenseInitialized) {
           window.adsbygoogle.push({
             google_ad_client: siteConfig.googleServices.adsense.publisherId,
             enable_page_level_ads: true,
             tag_partner: "site_kit"
           });
-          
-          // Refresh existing ads if consent granted
-          const adElements = document.querySelectorAll('.adsbygoogle');
-          adElements.forEach((ad) => {
-            const htmlAd = ad as HTMLElement;
-            if (htmlAd.dataset.adStatus !== 'filled') {
-              window.adsbygoogle.push({});
-            }
-          });
+          window.adSenseInitialized = true;
         }
+        
+        // Refresh existing ads if consent granted
+        const adElements = document.querySelectorAll('.adsbygoogle');
+        adElements.forEach((ad) => {
+          const htmlAd = ad as HTMLElement;
+          if (htmlAd.dataset.adStatus !== 'filled') {
+            window.adsbygoogle.push({});
+          }
+        });
       } catch (error) {
         console.error('AdSense Aktivierungsfehler:', error);
       }

@@ -74,15 +74,8 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4326654077043920" crossorigin="anonymous"></script>
     <script>
       window.adsbygoogle = window.adsbygoogle || [];
+      window.adSenseInitialized = false;
       
-      // AdSense wird durch Consent Mode gesteuert
-      adsbygoogle.push({
-        google_ad_client: "ca-pub-4326654077043920",
-        enable_page_level_ads: false, // Wird durch Cookie-Consent aktiviert
-        overlays: {bottom: true},
-        google_adtest: "off"
-      });
-
       // Fehlerbehandlung für AdSense
       window.addEventListener('error', function(e) {
         if (e.message && e.message.indexOf('adsbygoogle') > -1) {
