@@ -20,21 +20,9 @@ const AuthPage = () => {
 
   useEffect(() => {
     const redirectAfterLogin = async (s: any) => {
-      console.log("Session received:", s);
-      
       if (!s?.user?.id) {
-        console.log("No valid user ID in session");
         return;
       }
-      
-      // DEBUG: Immer als Admin weiterleiten für Debug-Zwecke
-      console.log("DEBUG: Redirecting to admin dashboard (forced for debugging)");
-      navigate("/admin", { replace: true });
-      return;
-      
-      // Original code (commented out for debugging):
-      /*
-      await new Promise(resolve => setTimeout(resolve, 2000));
       
       try {
         const { data, error } = await supabase
@@ -43,8 +31,6 @@ const AuthPage = () => {
           .eq("id", s.user.id)
           .maybeSingle();
         
-        console.log("Profile data:", data, "Error:", error);
-        
         if (error) {
           console.error("Error fetching profile:", error);
           navigate("/dashboard", { replace: true });
@@ -52,17 +38,14 @@ const AuthPage = () => {
         }
         
         if (data?.role === "admin") {
-          console.log("Redirecting to admin dashboard");
           navigate("/admin", { replace: true });
         } else {
-          console.log("Redirecting to user dashboard");
           navigate("/dashboard", { replace: true });
         }
       } catch (err) {
         console.error("Exception during profile fetch:", err);
         navigate("/dashboard", { replace: true });
       }
-      */
     };
 
     const {

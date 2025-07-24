@@ -53,22 +53,52 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const payload = {
-      ...data,
-      published_at: data.published_at ? new Date(data.published_at).toISOString() : null,
-      read_time: Number(data.read_time) || 8,
-    };
-    let dbres;
-    if (postId) {
-      dbres = await supabase.from("blog_posts").update(payload).eq("id", postId);
-    } else {
-      dbres = await supabase.from("blog_posts").insert([payload]);
-    }
-    setLoading(false);
-    if (dbres.error) {
-      toast.error("Fehler beim Speichern: " + dbres.error.message);
-    } else {
-      onSaved();
+    
+    try {
+      // Check if user has admin privileges
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast.error("Sie müssen angemeldet sein.");
+        setLoading(false);
+        return;
+      }
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .maybeSingle();
+
+      if (profileError || !profile || profile.role !== 'admin') {
+        toast.error("Zugriff verweigert. Nur Administratoren können Artikel bearbeiten.");
+        setLoading(false);
+        return;
+      }
+
+      const payload = {
+        ...data,
+        published_at: data.published_at ? new Date(data.published_at).toISOString() : null,
+        read_time: Number(data.read_time) || 8,
+      };
+      
+      let dbres;
+      if (postId) {
+        dbres = await supabase.from("blog_posts").update(payload).eq("id", postId);
+      } else {
+        dbres = await supabase.from("blog_posts").insert([payload]);
+      }
+      
+      if (dbres.error) {
+        toast.error("Fehler beim Speichern: " + dbres.error.message);
+      } else {
+        toast.success("Artikel erfolgreich gespeichert.");
+        onSaved();
+      }
+    } catch (error) {
+      toast.error("Ein unerwarteter Fehler ist aufgetreten.");
+      console.error("Error saving blog post:", error);
+    } finally {
+      setLoading(false);
     }
   }
 

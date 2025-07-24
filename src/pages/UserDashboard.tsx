@@ -22,13 +22,6 @@ const UserDashboard = () => {
       
       setSession(session);
       
-      // DEBUG: Immer als Admin behandeln für Debug-Zwecke
-      console.log("DEBUG: Treating user as admin for debugging purposes");
-      navigate("/admin", { replace: true });
-      return;
-      
-      // Original code (commented out for debugging):
-      /*
       const { data, error } = await supabase
         .from("profiles")
         .select("username, role")
@@ -39,14 +32,12 @@ const UserDashboard = () => {
         setProfile(data);
         
         if (data.role === 'admin') {
-          console.log("Admin detected, redirecting to admin dashboard");
           navigate("/admin", { replace: true });
           return;
         }
       }
       
       setLoading(false);
-      */
     };
     
     init();

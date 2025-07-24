@@ -37,6 +37,11 @@ export const useArticleRating = (postId: string) => {
   // Bewertung absenden
   const { mutateAsync: submitRating } = useMutation({
     mutationFn: async (rating: number) => {
+      // Validate rating value
+      if (!rating || rating < 1 || rating > 5 || !Number.isInteger(rating)) {
+        throw new Error("Rating must be an integer between 1 and 5");
+      }
+      
       // Insert rating
       const { error } = await supabase
         .from("blog_post_ratings")
@@ -54,9 +59,14 @@ export const useArticleRating = (postId: string) => {
     isLoading,
     submitRating: async (val: number) => {
       try {
+        // Store rating in localStorage after successful submission
         await submitRating(val);
+        if (typeof window !== "undefined") {
+          localStorage.setItem(`blogPostRating:${postId}`, val.toString());
+        }
         return true;
-      } catch {
+      } catch (error) {
+        console.error("Rating submission failed:", error);
         return false;
       }
     },
