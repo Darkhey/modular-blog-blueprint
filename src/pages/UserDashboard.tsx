@@ -77,9 +77,12 @@ const UserDashboard = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <Button className="w-full mb-4" onClick={() => navigate('/admin')}>
-              Admin Dashboard
-            </Button>
+            {/* Only show admin button for admin users */}
+            {profile?.role === 'admin' && (
+              <Button className="w-full mb-4" onClick={() => navigate('/admin')}>
+                Admin Dashboard
+              </Button>
+            )}
             <Button className="w-full" variant="secondary" onClick={onLogout}>
               Logout
             </Button>

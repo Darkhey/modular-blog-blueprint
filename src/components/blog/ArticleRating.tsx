@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Star, Loader2 } from "lucide-react";
 import { useArticleRating } from "@/hooks/useArticleRating";
 import { Button } from "@/components/ui/button";
+import { secureStorage } from "@/utils/secureStorage";
 
-// Hilfsfunktion Fingerprint: Einfache LocalStorage Lösung für Demo
+// Hilfsfunktion Fingerprint: Secure storage solution
 const getUserRatingKey = (postId: string) => `blogPostRating:${postId}`;
 
 type ArticleRatingProps = {
@@ -19,18 +20,25 @@ const ArticleRating: React.FC<ArticleRatingProps> = ({ postId }) => {
   const [hasRated, setHasRated] = useState<boolean>(false);
 
   useEffect(() => {
-    // Prüfe LocalStorage beim Mount
-    const stored = localStorage.getItem(getUserRatingKey(postId));
+    // Prüfe secure storage beim Mount
+    const stored = secureStorage.getItem(getUserRatingKey(postId));
     if (stored) setHasRated(true);
   }, [postId]);
 
   const handleRate = async (value: number) => {
+    // Input validation
+    if (!Number.isInteger(value) || value < 1 || value > 5) {
+      console.error("Invalid rating value");
+      return;
+    }
+
     if (hasRated || isLoading) return;
 
     const ok = await submitRating(value);
     if (ok) {
       setHasRated(true);
-      localStorage.setItem(getUserRatingKey(postId), value.toString());
+      // Store in secure storage (expires in 24 hours)
+      secureStorage.setItem(getUserRatingKey(postId), value.toString(), 1440);
       refetch();
     }
   };

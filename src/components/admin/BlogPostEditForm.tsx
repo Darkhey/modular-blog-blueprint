@@ -55,6 +55,31 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
     setLoading(true);
     
     try {
+      // Input validation
+      if (!data.title?.trim()) {
+        toast.error("Titel ist erforderlich");
+        setLoading(false);
+        return;
+      }
+      
+      if (!data.slug?.trim()) {
+        toast.error("Slug ist erforderlich");
+        setLoading(false);
+        return;
+      }
+      
+      if (!data.content?.trim()) {
+        toast.error("Inhalt ist erforderlich");
+        setLoading(false);
+        return;
+      }
+      
+      if (!data.excerpt?.trim()) {
+        toast.error("Zusammenfassung ist erforderlich");
+        setLoading(false);
+        return;
+      }
+
       // Check if user has admin privileges
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
@@ -75,10 +100,20 @@ export default function BlogPostEditForm({ postId, onClose, onSaved }: BlogPostE
         return;
       }
 
-      const payload = {
+      // Sanitize inputs
+      const sanitizedData = {
         ...data,
-        published_at: data.published_at ? new Date(data.published_at).toISOString() : null,
-        read_time: Number(data.read_time) || 8,
+        title: data.title.trim(),
+        slug: data.slug.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-'),
+        content: data.content.trim(),
+        excerpt: data.excerpt.trim(),
+        topic: data.topic.trim()
+      };
+
+      const payload = {
+        ...sanitizedData,
+        published_at: sanitizedData.published_at ? new Date(sanitizedData.published_at).toISOString() : null,
+        read_time: Number(sanitizedData.read_time) || 8,
       };
       
       let dbres;
