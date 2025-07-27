@@ -621,5 +621,87 @@ Mit einem Balkonkraftwerk nutzen Sie die Sonne optimal und produzieren Ihren eig
     paybackTime: '5-7 Jahre',
     fundingAvailable: 'Regional möglich',
     effortLevel: 'Niedrig'
-  }
+  },
+{
+    id: '10',
+    title: 'Fenster & Türen richtig sanieren: Energiesparen, Sicherheit und Förderung',
+    excerpt: 'Ratgeber: Wie moderne Fenster und Türen Kosten senken, Komfort erhöhen und welche Förderungen es 2025 gibt.',
+    content: `# Fenster & Türen richtig sanieren: Energiesparen, Sicherheit und Förderung
+
+Fenster und Außentüren zählen zu den größten Schwachstellen eines Gebäudes. Über alte Einfachverglasungen gehen bis zu 25% der Wärme verloren. Moderne Fenstersysteme mit Dreifachverglasung, gedämmten Rahmen und fachgerechter Abdichtung reduzieren diesen Verlust drastisch.
+
+## Warum der Austausch lohnt
+- **Energieeinsparung**: Aktuelle Fenstersysteme erreichen Uw-Werte unter 0.9 W/(m²K).
+- **Komfortgewinn**: Keine Zugluft, besserer Schallschutz, mehr Tageslicht.
+- **Sicherheit**: Neue Beschläge mit Pilzkopfverriegelung erfüllen RC2 oder höher.
+- **Förderfähig**: Über die [Bundesförderung für effiziente Gebäude](https://www.bafa.de/DE/Energie/Energieeffizienz/BEG/beg_node.html) gibt es Zuschüsse, bei Kombination mit KfW-Krediten zusätzlich Tilgungszuschüsse.
+
+## Typische Fenstertypen
+1. **Dreh-Kipp-Fenster** – Standard, flexibel beim Lüften.
+2. **Schiebefenster & -türen** – bodentiefe Verglasung ohne störende Flügel.
+3. **Festverglasung** – besonders gut gedämmt, günstig bei großen Glasflächen.
+
+Der Gesamt-U-Wert (Uw) hängt von Verglasung und Rahmen ab. Details zu den Materialarten finden Sie in unserem [Materialvergleich](https://sanierenundsparen.de/blog/fenstermaterialien-vergleich-kunststoff-holz-alu).
+
+## Haustüren im Fokus
+Haustüren prägen die Optik und müssen gleichzeitig hohen Sicherheitsanforderungen genügen. Gängige Modelle verfügen über Mehrfachverriegelung und stabile Schließbleche. Für Einfamilienhäuser wird mindestens Widerstandsklasse RC2 empfohlen. Weitere Informationen zum Einbruchschutz bietet die [Polizei-Beratung](https://www.polizei-beratung.de/themen-und-tipps/einbruch/).
+
+## Förderprogramme 2025
+Für den Austausch von Fenstern und Türen lässt sich die BEG-Zuschussförderung (BAFA) mit günstigen Krediten der [KfW-Bank](https://www.kfw.de/) kombinieren. Förderfähig sind nur Systeme, die die technischen Mindestanforderungen erfüllen (Uw < 0.95 W/(m²K) bzw. Ud < 1.3 W/(m²K)). Ein Energieberater muss den Antrag begleiten.
+
+## Kostenüberblick (Richtwerte)
+| Element | Preis pro Stück (inkl. Einbau) | Förderung |
+|----------------------|---------------------------------|------------------|
+| Kunststofffenster    | 400 - 800 € | bis 20% BEG |
+| Holzfenster          | 600 - 1.200 € | bis 20% BEG |
+| Alufenster           | 800 - 1.500 € | bis 20% BEG |
+| Holz-Alu-Fenster     | 900 - 1.800 € | bis 20% BEG |
+| Haustür (RC2)        | 1.500 - 3.000 € | je nach Modell |
+
+Förderdetails und regionale Programme finden Sie unter [Energie-Förderprogramme.de](https://www.energie-foerderprogramme.de/).
+
+## Ablauf einer Fenstersanierung
+1. **Analyse & Beratung** – Energieberater beauftragen, U-Werte prüfen.
+2. **Angebote einholen** – Fachbetriebe vergleichen, Material wählen.
+3. **Förderantrag stellen** – Vor Vertragsabschluss.
+4. **Montage** – Fachgerechte Abdichtung (RAL) vermeidet Bauschäden.
+5. **Fördernachweis einreichen** – Rechnungen und Bestätigungen bei BAFA/KfW hochladen.
+
+## Fazit
+Der Tausch von Fenstern und Türen erhöht nicht nur die Energieeffizienz, sondern auch Komfort und Sicherheit. Dank staatlicher Förderung amortisiert sich die Investition schneller als viele denken. Weitere Tipps finden Sie auf [sanierenundsparen.de](https://sanierenundsparen.de/themen/fenster-tueren).
+`,
+    topic: 'Fenster & Türen',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'fenster')?.color || '#0ea5e9',
+    publishedAt: '2025-06-15',
+    readTime: 12,
+    slug: 'fenster-tueren-sanieren-ratgeber-2025',
+    seoTitle: 'Fenster & Türen sanieren 2025: Förderung, Kosten & Sicherheit',
+    seoDescription: 'Umfassender Ratgeber zu Fenstern und Türen. Energie sparen, Sicherheit erhöhen und alle Förderungen 2025.',
+    keywords: ['Fenster', 'Türen', 'Fenster Sanierung', 'BEG Förderung', 'U-Wert'],
+    difficulty: 2,
+    savingsPotential: 'Bis zu 25% Heizkosten',
+    paybackTime: '10-15 Jahre',
+    fundingAvailable: 'Ja, BEG-Zuschuss',
+    effortLevel: 'Mittel',
+    keyBenefits: [
+      'Weniger Wärmeverlust',
+      'Mehr Sicherheit',
+      'Wertsteigerung',
+      'Förderungen nutzen'
+    ],
+    importantNotice: 'Alle Förderanträge müssen vor Vertragsabschluss gestellt werden.',
+    tableOfContents: [
+      { id: 'warum-austausch', title: 'Warum der Austausch lohnt' },
+      { id: 'fenstertypen', title: 'Typische Fenstertypen' },
+      { id: 'haustueren', title: 'Haustüren im Fokus' },
+      { id: 'foerderung', title: 'Förderprogramme 2025' },
+      { id: 'kosten', title: 'Kostenüberblick' },
+      { id: 'ablauf', title: 'Ablauf der Sanierung' }
+    ],
+    costs: [
+      { item: 'Kunststofffenster', costPerSqm: 'ca. 350€', totalCost: '400-800€', funding: 'bis 20%' },
+      { item: 'Holzfenster', costPerSqm: 'ca. 500€', totalCost: '600-1.200€', funding: 'bis 20%' },
+      { item: 'Alufenster', costPerSqm: 'ca. 700€', totalCost: '800-1.500€', funding: 'bis 20%' }
+    ]
+}
 ];
