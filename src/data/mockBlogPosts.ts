@@ -622,4 +622,86 @@ Mit einem Balkonkraftwerk nutzen Sie die Sonne optimal und produzieren Ihren eig
     fundingAvailable: 'Regional möglich',
     effortLevel: 'Niedrig'
   }
+,  {
+    id: '10',
+    title: 'D\u00e4mmung & Isolierung 2025: Komplett-Ratgeber',
+    excerpt: 'Alle wichtigen Ma\u00dfnahmen und F\u00f6rderungen f\u00fcr eine optimale W\u00e4rmed\u00e4mmung.',
+    content: `# D\u00e4mmung & Isolierung 2025: Ihr Weg zum Energiesparhaus
+
+<p>Eine gut geplante D\u00e4mmung senkt Heizkosten langfristig und steigert den Wohnkomfort. Auf <a href="https://sanierenundsparen.de/themen/daemmung-isolierung">Sanieren & Sparen</a> finden sich ausf\u00fchrliche Tipps, die wir hier zusammenfassen.</p>
+
+## Warum jetzt d\u00e4mmen?
+- Sofortige Heizkostensenkung um bis zu 50 %
+- Schutz der Bausubstanz vor Feuchte und Schimmel
+- Bessere Energieeffizienzklasse erh\u00f6ht den Immobilienwert
+
+## Wichtigste Bereiche
+### Dach und oberste Geschossdecke
+- Bis zu 30 % Energieverlust ohne D\u00e4mmung
+- Kosten: 20–80 €/m\u00b2 je nach Methode
+
+### Au\u00dfenw\u00e4nde
+- WDVS oder vorgeh\u00e4ngte Fassade
+- Kosten: 100‒200 €/m\u00b2
+
+### Keller und Bodenplatte
+- Kellerdeckend\u00e4mmung ab 25 €/m\u00b2
+- Perimeterd\u00e4mmung f\u00fcr den Neubau
+
+## D\u00e4mmstoffe im Vergleich
+- <strong>Mineralwolle:</strong> g\u00fcnstig, nicht brennbar
+- <strong>EPS/XPS:</strong> preiswert, aber begrenzt hitzebest\u00e4ndig
+- <strong>Holzfaser/Zellulose:</strong> \u00f6kologisch mit gutem Hitzeschutz
+
+## F\u00f6rderm\u00f6glichkeiten
+- BAFA-Zuschuss f\u00fcr Einzelma\u00dfnahmen bis 20 %
+- iSFP-Bonus +5 % bei individuellem Sanierungsfahrplan
+- Steuerbonus: 20 % der Kosten \u00fcber drei Jahre absetzbar
+
+## Schritt f\u00fcr Schritt
+1. Energieberatung buchen
+2. Ma\u00dfnahmen priorisieren und Angebote einholen
+3. F\u00f6rderantrag vor Vertragsabschluss stellen
+4. Professionelle Ausf\u00fchrung durch Fachbetriebe
+5. Qualit\u00e4t per Blower-Door-Test pr\u00fcfen
+
+## H\u00e4ufige Fehler vermeiden
+- Keine Dampfsperre bei Innend\u00e4mmung
+- Zu geringe D\u00e4mmst\u00e4rke w\u00e4hlt
+- Förderfristen vers\u00e4umt
+
+## Fazit
+<p>Mit der richtigen Planung wird Ihre D\u00e4mmung zum nachhaltigen Sparprogramm. Nutzen Sie die F\u00f6rderangebote und starten Sie noch dieses Jahr.</p>`,
+    topic: 'D\u00e4mmung & Isolierung',
+    topicColor: siteConfig.contentTopics.find(t => t.id === 'daemmung')?.color || '#7c3aed',
+    publishedAt: '2025-01-05',
+    readTime: 9,
+    slug: 'daemmung-isolierung-2025-ratgeber',
+    seoTitle: 'D\u00e4mmung & Isolierung 2025: Alle Ma\u00dfnahmen und F\u00f6rderungen',
+    seoDescription: 'Umfassender Leitfaden zur W\u00e4rmed\u00e4mmung 2025 mit Tipps zu Dach, Wand und Keller sowie aktuellen F\u00f6rderungen.',
+    keywords: ['D\u00e4mmung 2025','Isolierung','F\u00f6rderung','W\u00e4rmed\u00e4mmung'],
+    difficulty: 2,
+    savingsPotential: 'Bis zu 50%',
+    paybackTime: '10-15 Jahre',
+    fundingAvailable: 'Ja, bis 40%',
+    effortLevel: 'Mittel',
+    keyBenefits: [
+      'Weniger Heizkosten',
+      'Werterhalt der Immobilie',
+      'Besseres Raumklima'
+    ],
+    importantNotice: 'F\u00f6rderantr\u00e4ge m\u00fcssen vor Beginn der Arbeiten gestellt werden.',
+    tableOfContents: [
+      { id: 'warum-jetzt', title: 'Warum jetzt d\u00e4mmen?' },
+      { id: 'bereiche', title: 'Wichtigste Bereiche' },
+      { id: 'daemmstoffe', title: 'D\u00e4mmstoffe im Vergleich' },
+      { id: 'foerderung', title: 'F\u00f6rderm\u00f6glichkeiten' },
+      { id: 'schritte', title: 'Schritt f\u00fcr Schritt' }
+    ],
+    costs: [
+      { item: 'Dachbodend\u00e4mmung', costPerSqm: '20-40\u20ac', totalCost: '3.000-5.000\u20ac', funding: '20%' },
+      { item: 'Fassadend\u00e4mmung', costPerSqm: '120-180\u20ac', totalCost: '18.000-25.000\u20ac', funding: '20%' },
+      { item: 'Kellerdeckend\u00e4mmung', costPerSqm: '25-45\u20ac', totalCost: '2.500-4.500\u20ac', funding: '15%' }
+    ]
+  }
 ];
