@@ -25,12 +25,18 @@ export const useAdsense = () => {
 
     try {
       const consentStr = localStorage.getItem('cookie-consent');
-      const consent = consentStr ? JSON.parse(consentStr) : null;
-      if (consent?.advertising) {
+      if (!consentStr) {
+        console.log('No consent data found, skipping AdSense loading');
+        return;
+      }
+      const consent = JSON.parse(consentStr);
+      if (consent && typeof consent === 'object' && consent.advertising === true) {
         loadScript();
+      } else {
+        console.log('Advertising consent not granted, skipping AdSense loading');
       }
     } catch (err) {
-      console.error('AdSense initialization failed', err);
+      console.error('AdSense initialization failed - invalid consent data:', err);
     }
   }, []);
 };
