@@ -76,6 +76,7 @@ const CookieConsent = () => {
       
       localStorage.setItem('cookie-consent', JSON.stringify(consentData));
       updateGoogleConsent(analytics, advertising);
+      window.dispatchEvent(new Event('ads_consent_updated'));
       setShowConsent(false);
 
       // Tracking-Events für Consent
