@@ -430,49 +430,49 @@ Die Bundesförderung für effiziente Gebäude (BEG) bietet attraktive Zuschüsse
   },
   {
     id: '3',
-    title: 'Fördermittel 2024: Diese Zuschüsse sollten Sie kennen',
-    excerpt: 'Bis zu 70% Zuschuss für Ihre Sanierung. Ein Überblick über alle aktuellen Förderprogramme von Bund und Ländern.',
-    content: `# Fördermittel 2024: Diese Zuschüsse sollten Sie kennen
+    title: 'Fördermittel 2025: Diese Zuschüsse sollten Sie kennen',
+    excerpt: 'Bis zu 70% Zuschuss für Ihre Sanierung. Ein Überblick über alle Förderprogramme 2025 von Bund, Ländern und Kommunen.',
+    content: `# Fördermittel 2025: Diese Zuschüsse sollten Sie kennen
 
-Der Staat fördert energetische Sanierungen mit attraktiven Zuschüssen. Bis zu 70% der Kosten können erstattet werden.
+Der Staat fördert energetische Sanierungen auch 2025 mit attraktiven Zuschüssen. Bis zu 70% der Kosten können erstattet werden. Einen vollständigen Überblick finden Sie in unserem <a href="https://sanierenundsparen.de/themen/foerdermittel" target="_blank" rel="noopener">Ratgeber Fördermittel 2025</a>.
 
 ## BAFA-Förderung
 
-Das Bundesamt für Wirtschaft und Ausfuhrkontrolle fördert:
-- Wärmepumpen: bis zu 70%
-- Solarthermie: bis zu 25%
-- Biomasse-Heizungen: bis zu 20%
+Das Bundesamt für Wirtschaft und Ausfuhrkontrolle fördert unter anderem:
+- [Wärmepumpen](https://www.bafa.de/DE/Energie/Energieeffizienz/Waermepumpe/waermepumpe_node.html) mit bis zu 70%
+- [Solarthermie](https://www.bafa.de/DE/Energie/Energieeffizienz/Solarthermie/solarthermie_node.html) mit bis zu 25%
+- [Biomasse-Heizungen](https://www.bafa.de/DE/Energie/Energieeffizienz/Biomasse/biomasse_node.html) mit bis zu 20%
 
 ## KfW-Programme
 
-### KfW 261: Wohngebäude - Kredit
+### <a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilien/Energieeffizient-Sanieren-Kredit-(261-262)/" target="_blank" rel="noopener">KfW 261: Wohngebäude – Kredit</a>
 - Bis zu 150.000€ pro Wohneinheit
 - Tilgungszuschuss bis zu 37.500€
 - Zinssatz ab 0,01%
 
-### KfW 461: Wohngebäude - Zuschuss
+### <a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilien/Energieeffizient-Sanieren-Zuschuss-(461)/" target="_blank" rel="noopener">KfW 461: Wohngebäude – Zuschuss</a>
 - Direkter Zuschuss ohne Kredit
 - Bis zu 75.000€ pro Wohneinheit
 
 ## Regionale Programme
 
-Viele Bundesländer und Kommunen haben zusätzliche Programme. Diese können oft kombiniert werden.
+Viele Bundesländer und Kommunen bieten zusätzliche <a href="/themen/foerdermittel#regionale-programme">Programme</a>. Diese lassen sich häufig mit BAFA und KfW kombinieren.
 
 ## Antragstellung
 
-Wichtig: Förderantrag VOR Beginn der Maßnahme stellen! Ein Energieberater hilft bei der optimalen Beantragung.
+Wichtig: Förderantrag <b>vor Beginn</b> der Maßnahme stellen! Ein <a href="https://www.energie-effizienz-experten.de/" target="_blank" rel="noopener">zertifizierter Energieberater</a> hilft bei der optimalen Beantragung.
 
 ## Fazit
 
-2024 sind die Förderbedingungen so attraktiv wie nie. Nutzen Sie die Chance für Ihre energetische Sanierung.`,
+2025 bleiben die Förderbedingungen attraktiv. Nutzen Sie die Chance und planen Sie jetzt Ihre energetische Sanierung.`,
     topic: 'Fördermittel',
     topicColor: siteConfig.contentTopics.find(t => t.id === 'foerderung')?.color || '#059669',
-    publishedAt: '2024-01-10',
+    publishedAt: '2025-01-10',
     readTime: 6,
-    slug: 'foerdermittel-2024-zuschuss-sanierung',
-    seoTitle: 'Fördermittel 2024: Bis zu 70% Zuschuss für Sanierung',
-    seoDescription: 'Alle Förderprogramme 2024 im Überblick. BAFA, KfW und regionale Zuschüsse für Ihre energetische Sanierung optimal kombinieren.',
-    keywords: ['Fördermittel 2024', 'BAFA', 'KfW', 'Sanierung Zuschuss'],
+    slug: 'foerdermittel-2025-zuschuss-sanierung',
+    seoTitle: 'Fördermittel 2025: Bis zu 70% Zuschuss für Sanierung',
+    seoDescription: 'Alle Förderprogramme 2025 im Überblick. BAFA, KfW und regionale Zuschüsse für Ihre energetische Sanierung optimal kombinieren.',
+    keywords: ['Fördermittel 2025', 'BAFA', 'KfW', 'Sanierung Zuschuss'],
     difficulty: 1,
     savingsPotential: 'Bis zu 70%',
     paybackTime: 'Sofort',

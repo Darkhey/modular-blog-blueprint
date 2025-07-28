@@ -112,8 +112,8 @@ export const siteConfig = {
       description: "Staatliche Zuschüsse und Finanzierungshilfen optimal nutzen",
       color: "#059669",
       seoUrl: "/foerdermittel",
-      seoTitle: "Fördermittel 2024 - Bis zu 70% Zuschuss für Sanierung",
-      seoDescription: "Alle Förderprogramme 2024: BAFA bis 70%, KfW bis 150.000€, regionale Zuschüsse. Optimal kombinieren und bis zu 25.000€ sparen.",
+      seoTitle: "Fördermittel 2025 - Bis zu 70% Zuschuss für Sanierung",
+      seoDescription: "Alle Förderprogramme 2025: BAFA bis 70%, KfW bis 150.000€, regionale Zuschüsse. Optimal kombinieren und bis zu 25.000€ sparen.",
       keywords: ["Fördermittel", "BAFA", "KfW", "Sanierung Zuschuss", "Energieförderung", "BEG"]
     },
     {
