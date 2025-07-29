@@ -22,14 +22,14 @@ const CookieConsent = () => {
   useEffect(() => {
     try {
       const consent = localStorage.getItem('cookie-consent');
-      if (!consent) {
-        setShowConsent(true);
-        initializeGoogleConsent(false, false);
-      } else {
+      if (consent) {
         const consentData = JSON.parse(consent);
         setAnalyticsConsent(consentData.analytics);
         setAdvertisingConsent(consentData.advertising);
         updateGoogleConsent(consentData.analytics, consentData.advertising);
+      } else {
+        setShowConsent(true);
+        initializeGoogleConsent(false, false);
       }
     } catch (error) {
       console.error("Cookie-Consent Fehler:", error);
