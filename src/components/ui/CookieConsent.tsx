@@ -16,15 +16,26 @@ declare global {
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
-  const [analyticsConsent, setAnalyticsConsent] = useState(false);
-  const [advertisingConsent, setAdvertisingConsent] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState(true);
+  const [advertisingConsent, setAdvertisingConsent] = useState(true);
 
   useEffect(() => {
     try {
       const consent = localStorage.getItem('cookie-consent');
       if (!consent) {
+        const consentData = {
+          necessary: true,
+          analytics: true,
+          advertising: true,
+          timestamp: Date.now(),
+          version: '1.1',
+          gdpr_applies: true
+        };
+        localStorage.setItem('cookie-consent', JSON.stringify(consentData));
+        initializeGoogleConsent(true, true);
+        setAnalyticsConsent(true);
+        setAdvertisingConsent(true);
         setShowConsent(true);
-        initializeGoogleConsent(false, false);
       } else {
         const consentData = JSON.parse(consent);
         setAnalyticsConsent(consentData.analytics);
@@ -34,7 +45,7 @@ const CookieConsent = () => {
     } catch (error) {
       console.error("Cookie-Consent Fehler:", error);
       setShowConsent(true);
-      initializeGoogleConsent(false, false);
+      initializeGoogleConsent(true, true);
     }
   }, []);
 
