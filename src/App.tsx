@@ -40,12 +40,14 @@ import AdminBlogPosts from "./pages/AdminBlogPosts";
 import AdminBlogGenerator from "./pages/AdminBlogGenerator";
 import UserDashboard from "./pages/UserDashboard";
 import AdminLayout from "./components/layout/AdminLayout";
-import { useAdsense } from "@/hooks/useAdsense";
+import { useAdvertisingConsent } from "@/hooks/useAdvertisingConsent";
+import { useAdsenseLoader } from "@/hooks/useAdsenseLoader";
 
 const queryClient = new QueryClient();
 
 function App() {
-  useAdsense();
+  const advertisingConsent = useAdvertisingConsent();
+  useAdsenseLoader(advertisingConsent);
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
