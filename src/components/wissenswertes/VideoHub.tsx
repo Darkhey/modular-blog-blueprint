@@ -1,87 +1,249 @@
-import * as React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Play, Clock, User, Calendar } from 'lucide-react';
-import { AspectRatio } from '@/components/ui/aspect-ratio';
+import * as React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Play } from "lucide-react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
+
+interface VideoItem {
+  title: string;
+  youtubeId: string;
+  description: React.ReactNode;
+}
+
+interface VideoCategory {
+  title: string;
+  videos: VideoItem[];
+}
 
 const VideoHub = () => {
   const plugin = React.useRef(Autoplay({ delay: 5000 }));
 
-  const videoCategories = [
+  const videoCategories: VideoCategory[] = [
     {
-      title: "Dämmung & Isolierung",
+      title: "Fördermittel & Finanzierung",
       videos: [
         {
-          title: "Dachboden richtig dämmen",
-          duration: "12:34",
-          expert: "Thomas Müller",
-          date: "15.01.2025",
-          youtubeId: "dQw4w9WgXcQ",
-          views: "23.5k",
+          title: "KfW-Förderung verständlich erklärt",
+          youtubeId: "QKhaIxCC3ek",
+          description: (
+            <span>
+              Welche KfW-Programme 2024 bereitstehen und wie der Antrag
+              funktioniert. Weitere Tipps gibt es im{' '}
+              <Link to="/blog/foerdermittel-2025-zuschuss-sanierung">
+                Blogartikel zu Fördermitteln
+              </Link>
+              .
+            </span>
+          ),
         },
         {
-          title: "Kellerdecke isolieren - Schritt für Schritt",
-          duration: "8:45",
-          expert: "Sarah Weber",
-          date: "12.01.2025",
-          youtubeId: "3fumBcKC6RE",
-          views: "18.2k",
+          title: "Steuertricks für die Sanierung",
+          youtubeId: "9q2FXn0a5lc",
+          description: (
+            <span>
+              Wie du Handwerkerrechnungen optimal absetzt und welche Nachweise
+              nötig sind. Noch mehr steuerliche Hinweise findest du in unserem{' '}
+              <Link to="/blog/foerdermittel-2025-zuschuss-sanierung">
+                Ratgeber zu Fördermitteln
+              </Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Realistische Kosten & Förderbeispiele",
+          youtubeId: "ttz54uEL54k",
+          description: (
+            <span>
+              Rechenbeispiele, welche Maßnahmen was kosten und wie viel nach
+              Zuschüssen übrig bleibt. Eine ausführliche Tabelle findest du im{' '}
+              <Link to="/blog/foerdermittel-2025-zuschuss-sanierung">
+                Artikel zu Förderbeispielen
+              </Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Energieberatung & iSFP erklärt",
+          youtubeId: "3uWMx_VQg0M",
+          description: (
+            <span>
+              Warum ein individueller Sanierungsfahrplan wichtig ist und wie du
+              ihn beantragst. Eine Schritt-für-Schritt-Anleitung gibt es im{' '}
+              <Link to="/blog/daemmung-heizkosten-sparen">Artikel zur Dämmung</Link>.
+            </span>
+          ),
+        },
+        {
+          title: "Viel sparen durch staatliche Förderung",
+          youtubeId: "vgtadpskOLQ",
+          description: (
+            <span>
+              Überblick über aktuelle Fördermittel und wie du verschiedene
+              Programme kombinierst. Einen ausführlichen Leitfaden findest du im{' '}
+              <Link to="/blog/foerdermittel-2025-zuschuss-sanierung">
+                Blog zu Fördermitteln 2025
+              </Link>
+              .
+            </span>
+          ),
         },
       ],
     },
     {
-      title: "Heizung & Energie",
+      title: "Praxis & Eigenleistung",
       videos: [
         {
-          title: "Wärmepumpe installieren - Anleitung",
-          duration: "15:20",
-          expert: "Michael Schmidt",
-          date: "10.01.2025",
-          youtubeId: "L_jWHffIx5E",
-          views: "31.8k",
+          title: "Energieeffizienz von H auf A in wenigen Monaten",
+          youtubeId: "FbWOuRJhvFU",
+          description: (
+            <span>
+              Ein reales Projekt zeigt den Weg vom Altbau zur Effizienzklasse A
+              und welche Maßnahmen entscheidend waren. Alle Hintergründe im{' '}
+              <Link to="/blog/heizung-modernisieren-energiekosten-sparen">
+                passenden Blogbeitrag
+              </Link>
+              .
+            </span>
+          ),
         },
         {
-          title: "Heizkörper entlüften und optimieren",
-          duration: "6:15",
-          expert: "Anna Klein",
-          date: "08.01.2025",
-          youtubeId: "ub82Xb1C8os",
-          views: "12.4k",
+          title: "Nachhaltig sanieren und langfristig sparen",
+          youtubeId: "4km3S-k2XHI",
+          description: (
+            <span>
+              Ökologische Baustoffe und regionale Planung helfen Klima und
+              Geldbeutel. Mehr zum Thema findest du im{' '}
+              <Link to="/blog/daemmung-heizkosten-sparen">Ratgeber Dämmung</Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Sanieren mit Eigenleistung – was ist realistisch?",
+          youtubeId: "zFy4EqREhvk",
+          description: (
+            <span>
+              Was Heimwerker wirklich selbst machen können – inklusive Risiken
+              und Einsparpotenzial. Praktische Tipps findest du auch in unserer{' '}
+              <Link to="/blog/kellerdecke-daemmen-anleitung">Anleitung zur Kellerdeckendämmung</Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "10 Dinge, die du selbst machen kannst bei der Sanierung",
+          youtubeId: "eBAvCdDkkx8",
+          description: (
+            <span>
+              Schnelle Tipps, wo ohne Handwerkerkosten angepackt werden kann –
+              vom Dämmen bis zum Rückbau. Noch mehr DIY-Ideen gibt es im{' '}
+              <Link to="/blog/kellerdecke-daemmen-anleitung">Kellerdecken-Guide</Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Energetisch sanieren – Mega-Ersparnis oder teurer Fehler?",
+          youtubeId: "WpBjHE9aeVY",
+          description: (
+            <span>
+              Hausbau Helden zeigen Praxisbeispiele und echte Kostenvergleiche.
+              Mehr Hintergründe findest du im{' '}
+              <Link to="/blog/heizung-modernisieren-energiekosten-sparen">
+                Beitrag zur Heizungsmodernisierung
+              </Link>
+              .
+            </span>
+          ),
         },
       ],
     },
     {
-      title: "Projektplanung",
+      title: "Planung & Fehlervermeidung",
       videos: [
         {
-          title: "Sanierung richtig vorbereiten",
-          duration: "9:10",
-          expert: "Jens Bauer",
-          date: "05.01.2025",
-          youtubeId: "9bZkp7q19f0",
-          views: "14.7k",
+          title: "Energetische Sanierung in 8 Schritten",
+          youtubeId: "QdgQrTh5rus",
+          description: (
+            <span>
+              Vom Energieberater bis zur Umsetzung – der strukturierte Ablauf.
+              Begleitend empfehlen wir den{' '}
+              <Link to="/blog/fenster-tueren-sanieren-ratgeber-2025">Sanierungsratgeber</Link>
+              , der jeden Schritt ausführlich erklärt.
+            </span>
+          ),
         },
         {
-          title: "Budget realistisch kalkulieren",
-          duration: "7:30",
-          expert: "Claudia Hoffmann",
-          date: "02.01.2025",
-          youtubeId: "qRZkAQnXiPU",
-          views: "11.9k",
+          title: "Fehler vermeiden beim Sanieren",
+          youtubeId: "OZbjTkDOIGM",
+          description: (
+            <span>
+              Nadine Gehrmann fasst typische Planungs- und Ausführungsfehler
+              zusammen. Eine Checkliste gibt es im{' '}
+              <Link to="/blog/fenster-tueren-sanieren-ratgeber-2025">ausführlichen Artikel</Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Sanieren lohnt sich – oder?",
+          youtubeId: "5jijtL_Ytrc",
+          description: (
+            <span>
+              Beispiele, wann Sanierung wirtschaftlich sinnvoll war und wann
+              nicht. Weitere Kosten-Nutzen-Rechnungen findest du im{' '}
+              <Link to="/blog/heizung-modernisieren-energiekosten-sparen">
+                Artikel zur Heizungsmodernisierung
+              </Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Reihenfolge der Sanierungsschritte",
+          youtubeId: "oCNC8PW7EgA",
+          description: (
+            <span>
+              Was zuerst erledigt werden sollte – Fenster, Dach oder Heizung?
+              Eine empfohlene Reihenfolge findest du im{' '}
+              <Link to="/blog/fenster-tueren-sanieren-ratgeber-2025">
+                Ratgeber Fenster & Türen
+              </Link>
+              .
+            </span>
+          ),
+        },
+        {
+          title: "Sanieren im Bestand mit Plan",
+          youtubeId: "kY6wg3L6UxY",
+          description: (
+            <span>
+              Praxisbeispiele für stressfreie Modernisierung inklusive Förderung.
+              Wie du dabei Schritt für Schritt vorgehst, erklärt der{' '}
+              <Link to="/blog/fenster-tueren-sanieren-ratgeber-2025">
+                ausführliche Sanierungsratgeber
+              </Link>
+              .
+            </span>
+          ),
         },
       ],
     },
@@ -118,7 +280,8 @@ const VideoHub = () => {
                           alt={`Vorschaubild von ${video.title}`}
                           loading="lazy"
                           onError={(e) => {
-                            (e.currentTarget as HTMLImageElement).src = '/placeholder.svg';
+                            (e.currentTarget as HTMLImageElement).src =
+                              "/placeholder.svg";
                           }}
                           className="w-full h-full object-cover"
                         />
@@ -129,10 +292,6 @@ const VideoHub = () => {
                           Abspielen
                         </Button>
                       </div>
-                      <Badge className="absolute bottom-2 right-2 bg-black/70 text-white">
-                        <Clock className="h-3 w-3 mr-1" />
-                        {video.duration}
-                      </Badge>
                     </div>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl">
@@ -141,7 +300,7 @@ const VideoHub = () => {
                         src={`https://www.youtube.com/embed/${video.youtubeId}`}
                         title={video.title}
                         referrerPolicy="no-referrer"
-                        sandbox="allow-scripts allow-same-origin"
+                        sandbox="allow-scripts"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         className="w-full h-full rounded-md"
@@ -159,8 +318,10 @@ const VideoHub = () => {
 
       {videoCategories.map((category, categoryIndex) => (
         <div key={categoryIndex} className="space-y-4">
-          <h3 className="text-2xl font-semibold text-foreground">{category.title}</h3>
-          
+          <h3 className="text-2xl font-semibold text-foreground">
+            {category.title}
+          </h3>
+
           <div className="grid md:grid-cols-2 gap-6">
             {category.videos.map((video, videoIndex) => (
               <Dialog key={videoIndex}>
@@ -172,7 +333,8 @@ const VideoHub = () => {
                         alt={`Vorschaubild von ${video.title}`}
                         loading="lazy"
                         onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = '/placeholder.svg';
+                          (e.currentTarget as HTMLImageElement).src =
+                            "/placeholder.svg";
                         }}
                         className="w-full h-48 object-cover"
                       />
@@ -182,34 +344,15 @@ const VideoHub = () => {
                           Abspielen
                         </Button>
                       </div>
-                      <Badge className="absolute top-2 right-2 bg-black/70 text-white">
-                        <Clock className="h-3 w-3 mr-1" />
-                        {video.duration}
-                      </Badge>
                     </div>
                   </DialogTrigger>
 
                   <CardHeader>
                     <CardTitle className="text-lg">{video.title}</CardTitle>
-                    <div className="flex items-center justify-between text-sm text-muted-foreground">
-                      <div className="flex items-center space-x-1">
-                        <User className="h-4 w-4" />
-                        <span>{video.expert}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="h-4 w-4" />
-                        <span>{video.date}</span>
-                      </div>
-                    </div>
                   </CardHeader>
 
                   <CardContent>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">{video.views} Aufrufe</span>
-                      <Button variant="outline" size="sm">
-                        Später ansehen
-                      </Button>
-                    </div>
+                    <CardDescription>{video.description}</CardDescription>
                   </CardContent>
                 </Card>
 
@@ -219,7 +362,7 @@ const VideoHub = () => {
                       src={`https://www.youtube.com/embed/${video.youtubeId}`}
                       title={video.title}
                       referrerPolicy="no-referrer"
-                      sandbox="allow-scripts allow-same-origin"
+                      sandbox="allow-scripts"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full rounded-md"
@@ -233,8 +376,8 @@ const VideoHub = () => {
       ))}
 
       <div className="text-center">
-        <Button variant="outline" size="lg">
-          Alle Videos anzeigen
+        <Button variant="outline" size="lg" asChild>
+          <Link to="/wissenswertes/videos">Alle Videos anzeigen</Link>
         </Button>
       </div>
     </div>
