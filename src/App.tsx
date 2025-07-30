@@ -42,18 +42,22 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminLayout from "./components/layout/AdminLayout";
 import { useAdvertisingConsent } from "@/hooks/useAdvertisingConsent";
 import { useAdsenseLoader } from "@/hooks/useAdsenseLoader";
+import { useAdblockDetector } from "@/hooks/useAdblockDetector";
+import AdblockPopup from "@/components/ui/AdblockPopup";
 
 const queryClient = new QueryClient();
 
 function App() {
   const advertisingConsent = useAdvertisingConsent();
   useAdsenseLoader(advertisingConsent);
+  const adblockDetected = useAdblockDetector(advertisingConsent);
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          {adblockDetected && <AdblockPopup open={true} />}
           <BrowserRouter>
             <div className="min-h-screen flex flex-col">
               <Header />
