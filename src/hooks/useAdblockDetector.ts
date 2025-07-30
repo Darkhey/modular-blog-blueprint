@@ -11,9 +11,8 @@ export function useAdblockDetector(enabled: boolean) {
     }
 
     const timer = setTimeout(() => {
-      if (typeof (window as any).adsbygoogle === 'undefined') {
-        setAdblockDetected(true);
-      }
+      const hasAdsbygoogle = typeof (window as Window & { adsbygoogle?: any }).adsbygoogle !== 'undefined';
+      setAdblockDetected(!hasAdsbygoogle);
     }, 3000);
 
     return () => clearTimeout(timer);
