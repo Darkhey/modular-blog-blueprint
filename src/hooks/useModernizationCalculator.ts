@@ -15,6 +15,14 @@ export interface CalculatorInputs {
   futureHeating: HeatingType;
 }
 
+export type SmartHomeSystem =
+  | 'thermostat'
+  | 'heizungssteuerung'
+  | 'sensoren'
+  | 'energiemanagement'
+  | 'wetterstation'
+  | 'sprachsteuerung';
+
 export interface CustomPrices {
   gas: string;
   oil: string;
@@ -31,7 +39,26 @@ export interface CalculationResults {
   savingsPercentage: number;
   co2Savings: number;
   amortizationPeriod?: number;
+  smartHomeInvestment: number;
 }
+
+const SMART_HOME_SAVINGS: Record<SmartHomeSystem, number> = {
+  thermostat: 0.15,
+  heizungssteuerung: 0.2,
+  sensoren: 0.1,
+  energiemanagement: 0.3,
+  wetterstation: 0.12,
+  sprachsteuerung: 0,
+};
+
+const SMART_HOME_COSTS: Record<SmartHomeSystem, number> = {
+  thermostat: 275,
+  heizungssteuerung: 1000,
+  sensoren: 100,
+  energiemanagement: 1650,
+  wetterstation: 400,
+  sprachsteuerung: 125,
+};
 
 export const useModernizationCalculator = () => {
   const [inputs, setInputs] = useState<CalculatorInputs>({
@@ -56,7 +83,25 @@ export const useModernizationCalculator = () => {
     fernwaerme: '0.12',
   });
 
+  const [selectedSmartSystems, setSelectedSmartSystems] = useState<SmartHomeSystem[]>([]);
+
   const [results, setResults] = useState<CalculationResults | null>(null);
+
+  const estimateSmartInvestment = () => {
+    const size = parseFloat(inputs.houseSize);
+    const rooms = Math.max(1, Math.floor(size / 20));   // Estimate ~20m² per room
+    const sensors = Math.max(1, Math.floor(size / 30)); // Estimate 1 sensor per 30m²
+    return selectedSmartSystems.reduce((sum, system) => {
+      const cost = SMART_HOME_COSTS[system];
+      if (system === 'thermostat') {
+        return sum + cost * rooms;
+      }
+      if (system === 'sensoren') {
+        return sum + cost * sensors;
+      }
+      return sum + cost;
+    }, 0);
+  };
 
   const calculateSavings = () => {
     const size = parseFloat(inputs.houseSize);
@@ -106,7 +151,7 @@ export const useModernizationCalculator = () => {
         const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
         let finalHotWaterKwh = hotWaterKwh;
-        let emissionFactor = CO2_FACTORS[heatingType];
+        const emissionFactor = CO2_FACTORS[heatingType];
 
         if (heatingType === 'waermepumpe') {
           finalHeatingKwh /= HEATPUMP_SCOP;
@@ -137,7 +182,7 @@ export const useModernizationCalculator = () => {
             finalHotWaterKwh /= HEATPUMP_SCOP;
             consumptionKwh /= HEATPUMP_SCOP;
         }
-        let hotWaterCost = finalHotWaterKwh * pricePerKwh;
+        const hotWaterCost = finalHotWaterKwh * pricePerKwh;
         const totalCost = consumption * pricePerKwh; // Original Kosten
 
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
@@ -151,18 +196,40 @@ export const useModernizationCalculator = () => {
     }
 
     const futureHeatingKwh = size * SPECIFIC_CONSUMPTION_FUTURE[inputs.futureInsulation];
-    const future = calculateCosts(futureHeatingKwh, hotWaterKwh, inputs.futureHeating);
+    let future = calculateCosts(futureHeatingKwh, hotWaterKwh, inputs.futureHeating);
+
+    const dynamicSavings: Record<SmartHomeSystem, number> = {
+      ...SMART_HOME_SAVINGS,
+      energiemanagement: inputs.futureHeating === 'waermepumpe' ? 0.3 : 0,
+    };
+
+
+    const smartFactor = selectedSmartSystems.reduce((acc, system) => {
+      const s = dynamicSavings[system];
+      return acc * (1 - s);
+    }, 1);
+
+    const smartInvestment = estimateSmartInvestment();
+
+    if (selectedSmartSystems.length > 0) {
+      future = calculateCosts(
+        futureHeatingKwh * smartFactor,
+        hotWaterKwh * smartFactor,
+        inputs.futureHeating
+      );
+    }
 
     const annualSavings = current.total - future.total;
     const savingsPercentage = annualSavings > 0 && current.total > 0 ? (annualSavings / current.total) * 100 : 0;
     const co2Savings = current.co2 - future.co2;
 
     let amortizationPeriod;
-    if (investment > 0 && annualSavings > 0) {
-        amortizationPeriod = investment / annualSavings;
+    const totalInvestment = investment + smartInvestment;
+    if (totalInvestment > 0 && annualSavings > 0) {
+        amortizationPeriod = totalInvestment / annualSavings;
     }
 
-    setResults({ current, future, annualSavings, savingsPercentage, co2Savings, amortizationPeriod });
+    setResults({ current, future, annualSavings, savingsPercentage, co2Savings, amortizationPeriod, smartHomeInvestment: smartInvestment });
   };
 
   const handleInputChange = (field: keyof CalculatorInputs, value: string) => {
@@ -173,18 +240,27 @@ export const useModernizationCalculator = () => {
     setCustomPrices(prev => ({ ...prev, [field]: value }));
   };
 
+  const toggleSmartSystem = (system: SmartHomeSystem) => {
+    setSelectedSmartSystems(prev =>
+      prev.includes(system) ? prev.filter(s => s !== system) : [...prev, system]
+    );
+  };
+
   return {
     inputs,
     calculationMode,
     currentConsumption,
     investmentCosts,
     customPrices,
+    selectedSmartSystems,
     results,
     handleInputChange,
     setCalculationMode,
     setCurrentConsumption,
     setInvestmentCosts,
     handlePriceChange,
+    estimateSmartInvestment,
+    toggleSmartSystem,
     calculateSavings
   };
 };
