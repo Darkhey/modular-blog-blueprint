@@ -22,6 +22,11 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
               <p className="text-lg font-semibold text-gray-800">Jährliche Ersparnis</p>
               <p className="text-5xl font-bold text-green-600 my-1">{results.annualSavings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}</p>
               <p className="text-lg font-semibold text-green-700">({results.savingsPercentage.toFixed(0)}% weniger Kosten)</p>
+              {results.smartHomeSavings > 0 && (
+                <p className="text-sm text-green-800 mt-1">
+                  Davon {results.smartHomeSavings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })} durch Smart Home
+                </p>
+              )}
             </div>
             <div className="text-center">
               {results.amortizationPeriod ? (
@@ -40,6 +45,9 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
                   <p className="text-5xl font-bold text-blue-600 my-1">
                       {results.amortizationPeriod.toFixed(1)} <span className="text-3xl">Jahre</span>
                   </p>
+                  {results.amortizationWithoutSmart && (
+                    <p className="text-sm text-blue-700">Ohne Smart Home: {results.amortizationWithoutSmart.toFixed(1)} Jahre</p>
+                  )}
                 </>
               ) : parseFloat(investmentCosts) > 0 ? (
                 <>
@@ -55,6 +63,10 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
           Geschätzte Smart-Home-Investition:{' '}
           {results.smartHomeInvestment.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
         </p>
+        <p className="text-center text-sm text-gray-600">
+          Gesamte Investition inkl. Smart Home:{' '}
+          {results.totalInvestment.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+        </p>
 
         {/* CO2-Einsparung */}
         <div className="mt-8">
@@ -66,6 +78,11 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
             </div>
           </div>
           <div className="text-xs text-gray-500 text-center mt-1">Durch Ihre Maßnahmen sinkt Ihr jährlicher Treibhausgas-Ausstoß deutlich.</div>
+          {results.smartHomeSavings > 0 && (
+            <p className="text-xs text-center text-green-700 mt-2">
+              Davon {results.co2SavingsSmart.toLocaleString('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} kg durch Smart Home Steuerung
+            </p>
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start text-center mt-6 pt-6 border-t">
