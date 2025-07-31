@@ -89,6 +89,8 @@ export const useModernizationCalculator = () => {
 
   const estimateSmartInvestment = () => {
     const size = parseFloat(inputs.houseSize);
+    const rooms = Math.max(1, Math.floor(size / 20));   // Estimate ~20m² per room
+    const sensors = Math.max(1, Math.floor(size / 30)); // Estimate 1 sensor per 30m²
     return selectedSmartSystems.reduce((sum, system) => {
       const cost = SMART_HOME_COSTS[system];
       if (system === 'thermostat') {
