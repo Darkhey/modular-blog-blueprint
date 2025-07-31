@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { Home, Heater, Landmark, Info } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,6 +7,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { CalculatorInputs, HeatingType, InsulationQuality, SmartHomeSystem } from '@/hooks/useModernizationCalculator';
 import { Checkbox } from '@/components/ui/checkbox';
+
+const SMART_HOME_INFOS: Record<SmartHomeSystem, string> = {
+  thermostat: 'Intelligente Thermostate optimieren automatisch die Raumtemperatur.',
+  heizungssteuerung: 'Zentrale Steuerung der gesamten Heizungsanlage.',
+  sensoren: 'Erkennt offene Fenster und passt die Heizung an.',
+  energiemanagement: 'Optimiert Eigenverbrauch und Lastspitzen.',
+  wetterstation: 'Passt die Heizung an aktuelle Wetterdaten an.',
+  sprachsteuerung: 'Ermöglicht komfortable Sprachbefehle.',
+};
 
 interface ModernizationPlanSectionProps {
   inputs: CalculatorInputs;
@@ -15,9 +25,20 @@ interface ModernizationPlanSectionProps {
   selectedSmartSystems: SmartHomeSystem[];
   toggleSmartSystem: (system: SmartHomeSystem) => void;
   estimateSmartInvestment: () => number;
+  recommendedSystems: SmartHomeSystem[];
 }
 
-const ModernizationPlanSection = ({ inputs, handleInputChange, investmentCosts, setInvestmentCosts, selectedSmartSystems, toggleSmartSystem, estimateSmartInvestment }: ModernizationPlanSectionProps) => {
+const ModernizationPlanSection = ({
+  inputs,
+  handleInputChange,
+  investmentCosts,
+  setInvestmentCosts,
+  selectedSmartSystems,
+  toggleSmartSystem,
+  estimateSmartInvestment,
+  recommendedSystems,
+}: ModernizationPlanSectionProps) => {
+  const [showSmartOptions, setShowSmartOptions] = useState(false);
   return (
     <div className="space-y-4 p-4 border rounded-lg bg-white">
       <h3 className="font-bold text-lg text-gray-800">Geplante Modernisierung</h3>
@@ -58,30 +79,51 @@ const ModernizationPlanSection = ({ inputs, handleInputChange, investmentCosts, 
         </Select>
       </div>
       <div>
-        <Label className="text-sm font-semibold text-gray-700">Smart Home Systeme</Label>
-        <div className="grid grid-cols-2 gap-2 mt-2">
-          {[
-            { id: 'thermostat', label: 'Thermostate' },
-            { id: 'heizungssteuerung', label: 'Heizungssteuerung' },
-            { id: 'sensoren', label: 'Sensoren' },
-            { id: 'energiemanagement', label: 'Energie-Management' },
-            { id: 'wetterstation', label: 'Wetterstation' },
-            { id: 'sprachsteuerung', label: 'Sprachsteuerung' },
-          ].map((opt) => (
-            <label key={opt.id} className="flex items-center space-x-2 text-sm">
-              <Checkbox
-                id={opt.id}
-                checked={selectedSmartSystems.includes(opt.id as SmartHomeSystem)}
-                onCheckedChange={() => toggleSmartSystem(opt.id as SmartHomeSystem)}
-              />
-              <span>{opt.label}</span>
-            </label>
-          ))}
-        </div>
-        <p className="text-xs text-gray-500 mt-2">
-          Geschätzte Zusatzkosten:{' '}
-          {estimateSmartInvestment().toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
-        </p>
+        <button
+          type="button"
+          onClick={() => setShowSmartOptions(!showSmartOptions)}
+          className="text-sm font-semibold text-gray-700 underline"
+        >
+          {showSmartOptions ? 'Smart Home Optionen verbergen' : 'Smart Home Optionen anzeigen'}
+        </button>
+        {showSmartOptions && (
+          <div className="mt-2">
+            <Label className="text-sm font-semibold text-gray-700">Smart Home Systeme</Label>
+            <div className="grid grid-cols-2 gap-2 mt-2">
+              {[
+                { id: 'thermostat', label: 'Thermostate' },
+                { id: 'heizungssteuerung', label: 'Heizungssteuerung' },
+                { id: 'sensoren', label: 'Sensoren' },
+                { id: 'energiemanagement', label: 'Energie-Management' },
+                { id: 'wetterstation', label: 'Wetterstation' },
+                { id: 'sprachsteuerung', label: 'Sprachsteuerung' },
+              ].map((opt) => (
+                <Tooltip key={opt.id}>
+                  <TooltipTrigger asChild>
+                    <label className="flex items-center space-x-2 text-sm">
+                      <Checkbox
+                        id={opt.id}
+                        checked={selectedSmartSystems.includes(opt.id as SmartHomeSystem)}
+                        onCheckedChange={() => toggleSmartSystem(opt.id as SmartHomeSystem)}
+                      />
+                      <span>{opt.label}</span>
+                    </label>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className="max-w-xs text-sm">{SMART_HOME_INFOS[opt.id as SmartHomeSystem]}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Geschätzte Zusatzkosten:{' '}
+              {estimateSmartInvestment().toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+            </p>
+            {recommendedSystems.length > 0 && (
+              <p className="text-xs text-green-700 mt-1">Empfohlen: {recommendedSystems.join(', ')}</p>
+            )}
+          </div>
+        )}
       </div>
       <div className="pt-2">
         <Tooltip>
