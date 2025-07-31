@@ -107,18 +107,27 @@ const SmartHomeSystemsSection = () => {
         </div>
 
         <Tabs value={selectedSmartSystem} onValueChange={setSelectedSmartSystem} className="space-y-8">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 gap-2 bg-gray-100 p-2 rounded-xl">
-            {smartHomeSystems.slice(0, 6).map((system) => (
-              <TabsTrigger 
-                key={system.id} 
-                value={system.id}
-                className="flex items-center gap-2 px-3 py-3 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm text-sm"
-              >
-                {system.icon}
-                <span className="hidden sm:inline">{system.name}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="w-full overflow-hidden">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 bg-gray-100 p-1 rounded-xl h-auto">
+              {smartHomeSystems.slice(0, 6).map((system) => (
+                <TabsTrigger 
+                  key={system.id} 
+                  value={system.id}
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 py-2 sm:py-3 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-sm text-xs sm:text-sm min-h-[60px] sm:min-h-[50px]"
+                >
+                  <div className="flex-shrink-0">
+                    {system.icon}
+                  </div>
+                  <span className="text-center leading-tight break-words hidden sm:inline lg:block">
+                    {system.name}
+                  </span>
+                  <span className="text-center leading-tight break-words text-[10px] sm:hidden">
+                    {system.name.split(' ')[0]}
+                  </span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           {smartHomeSystems.map((system) => (
             <TabsContent key={system.id} value={system.id} className="space-y-6">
