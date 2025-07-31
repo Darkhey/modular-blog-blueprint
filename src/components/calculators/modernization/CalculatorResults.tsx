@@ -51,6 +51,10 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
               ) : null}
             </div>
         </div>
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Geschätzte Smart-Home-Investition:{' '}
+          {results.smartHomeInvestment.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
+        </p>
 
         {/* CO2-Einsparung */}
         <div className="mt-8">
