@@ -17,7 +17,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
 
 interface VideoItem {
@@ -39,12 +39,12 @@ const VideoHub = () => {
       title: "Fördermittel & Finanzierung",
       videos: [
         {
-          title: "KfW-Förderung verständlich erklärt",
-          youtubeId: "QKhaIxCC3ek",
+          title: "Energieeffizient sanieren - Heizung modernisieren",
+          youtubeId: "9q2FXn0a5lc",
           description: (
             <span>
-              Welche KfW-Programme 2024 bereitstehen und wie der Antrag
-              funktioniert. Weitere Tipps gibt es im{' '}
+              Moderne Heiztechnik und optimale Förderung für maximale Effizienz.
+              Weitere Tipps gibt es im{' '}
               <Link to="/blog/foerdermittel-2025-zuschuss-sanierung">
                 Blogartikel zu Fördermitteln
               </Link>
@@ -295,13 +295,17 @@ const VideoHub = () => {
                     </div>
                   </DialogTrigger>
                   <DialogContent className="max-w-3xl">
+                    <DialogHeader className="sr-only">
+                      <DialogTitle>{video.title}</DialogTitle>
+                      <DialogDescription>Video wird abgespielt</DialogDescription>
+                    </DialogHeader>
                     <AspectRatio ratio={16 / 9}>
                       <iframe
-                        src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                        src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
                         title={video.title}
-                        referrerPolicy="no-referrer"
-                        sandbox="allow-scripts"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        sandbox="allow-scripts allow-same-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                         className="w-full h-full rounded-md"
                       />
@@ -357,13 +361,17 @@ const VideoHub = () => {
                 </Card>
 
                 <DialogContent className="max-w-3xl">
+                  <DialogHeader className="sr-only">
+                    <DialogTitle>{video.title}</DialogTitle>
+                    <DialogDescription>Video wird abgespielt</DialogDescription>
+                  </DialogHeader>
                   <AspectRatio ratio={16 / 9}>
                     <iframe
-                      src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                      src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`}
                       title={video.title}
-                      referrerPolicy="no-referrer"
-                      sandbox="allow-scripts"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      sandbox="allow-scripts allow-same-origin"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                       className="w-full h-full rounded-md"
                     />
