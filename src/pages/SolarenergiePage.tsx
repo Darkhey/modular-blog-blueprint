@@ -6,6 +6,7 @@ import SolarCalculator from '@/components/calculators/SolarCalculator';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
@@ -14,6 +15,13 @@ const SolarenergiePage = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <main className="py-12 md:py-16">
         <div className="container max-w-5xl mx-auto px-4 space-y-12">
+          <BreadcrumbNavigation 
+            items={[
+              { label: 'Ratgeber', href: '/wissenswertes' },
+              { label: 'Solarenergie' }
+            ]} 
+            className="pb-6"
+          />
           
           {/* Hero Section */}
           <section className="text-center">
@@ -26,7 +34,7 @@ const SolarenergiePage = () => {
           </section>
 
           {/* Calculator Section */}
-          <section>
+          <section id="rechner">
             <SolarCalculator />
           </section>
 

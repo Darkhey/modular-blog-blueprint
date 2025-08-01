@@ -2,6 +2,8 @@
 import { CalculationResults } from '@/hooks/useModernizationCalculator';
 import { TrendingUp, TrendingDown, Info, ChevronsRight, Leaf } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 
 interface CalculatorResultsProps {
   results: CalculationResults | null;
@@ -99,6 +101,11 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
             <Info className="w-5 h-5 mr-2" />
             Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten (Stand 2024/25).
           </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <ShareResults calculatorType="heating" results={results} />
+          <ResultsPDFExport calculatorType="heating" results={results} />
         </div>
       </div>
     </TooltipProvider>

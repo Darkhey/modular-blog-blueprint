@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import HeizungHeroSection from '@/components/heizung-modernisieren/HeizungHeroSection';
 import HeizungBenefitsSection from '@/components/heizung-modernisieren/HeizungBenefitsSection';
 import SmartHomeSystemsSection from '@/components/heizung-modernisieren/SmartHomeSystemsSection';
@@ -22,6 +23,14 @@ const HeizungModernisierenPage = () => {
 
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
         <div className="container mx-auto space-y-12">
+          <div className="pt-4">
+            <BreadcrumbNavigation 
+              items={[
+                { label: 'Ratgeber', href: '/wissenswertes' },
+                { label: 'Heizung modernisieren' }
+              ]} 
+            />
+          </div>
           <HeizungHeroSection />
           <HeizungBenefitsSection />
           <SmartHomeSystemsSection />

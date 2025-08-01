@@ -2,6 +2,8 @@
 import { ArrowRight, BadgePercent, Info } from 'lucide-react';
 import { CalculationResult } from './insulationCalculatorData';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import ShareResults from '@/components/shared/ShareResults';
+import { Link } from 'react-router-dom';
 
 interface InsulationCalculatorResultProps {
   result: CalculationResult;
@@ -98,6 +100,8 @@ const InsulationCalculatorResult = ({ result }: InsulationCalculatorResultProps)
             </div>
           </div>
         </div>
+        
+        <ShareResults calculatorType="insulation" results={result} className="mt-8" />
       </div>
     </TooltipProvider>
   );

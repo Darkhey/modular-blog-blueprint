@@ -12,7 +12,7 @@ const calculators = [
     route: '/heizung-modernisieren',
     color: 'red',
     features: ['Smart Home Einsparungen', 'Förderungen berücksichtigt', 'Amortisationsrechnung'],
-    savingsExample: 'Bis zu 30% Ersparnis'
+    savingsExample: '20-40% Heizkosten sparen'
   },
   {
     id: 'insulation',
@@ -22,7 +22,7 @@ const calculators = [
     route: '/daemmungsrechner',
     color: 'blue',
     features: ['Alle Dämmarten', 'Materialvergleich', 'Kostenberechnung'],
-    savingsExample: 'Bis zu 40% weniger Heizkosten'
+    savingsExample: '15-35% weniger Heizkosten'
   },
   {
     id: 'solar',
@@ -32,7 +32,7 @@ const calculators = [
     route: '/solarenergie',
     color: 'yellow',
     features: ['Dachflächenanalyse', 'Ertragsberechnung', 'Wirtschaftlichkeit'],
-    savingsExample: 'Bis zu 70% weniger Stromkosten'
+    savingsExample: 'Bis zu 50% weniger Stromkosten'
   }
 ];
 

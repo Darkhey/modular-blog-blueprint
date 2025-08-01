@@ -2,6 +2,7 @@
 import InsulationCalculator from '@/components/calculators/InsulationCalculator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import InsulationManufacturers from '@/components/manufacturers/InsulationManufacturers';
 
 const DaemmungsrechnerPage = () => {
@@ -9,6 +10,14 @@ const DaemmungsrechnerPage = () => {
     <div className="min-h-screen bg-gray-50">
       <main>
         <div className="container max-w-3xl mx-auto px-4 py-8">
+          <BreadcrumbNavigation 
+            items={[
+              { label: 'Ratgeber', href: '/wissenswertes' },
+              { label: 'Rechner & Tools', href: '/wissenswertes/tools' },
+              { label: 'Dämmungsrechner' }
+            ]} 
+            className="mb-6"
+          />
           <h1 className="text-3xl font-bold text-gray-900 mb-4 animate-fade-in">
             Dämmungsrechner
           </h1>

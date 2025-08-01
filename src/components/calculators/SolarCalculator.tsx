@@ -1,6 +1,8 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import QuickAccessButtons from './QuickAccessButtons';
+import CalculatorStructuredData from '../seo/CalculatorStructuredData';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -70,7 +72,13 @@ const SolarCalculator = () => {
   };
 
   return (
-    <Card className="w-full">
+    <>
+      <CalculatorStructuredData 
+        calculatorType="solar" 
+        title="Solar-Potenzial Rechner - Solaranlage berechnen"
+        description="Ermitteln Sie das Potenzial Ihrer Dachfläche für eine Solaranlage. Dachflächenanalyse, Ertragsberechnung und Wirtschaftlichkeit."
+      />
+      <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <BarChart className="text-primary" />
@@ -147,7 +155,14 @@ const SolarCalculator = () => {
           </div>
         </CardContent>
       )}
+      
+      {results && (
+        <CardContent className="pt-0">
+          <QuickAccessButtons currentCalculator="solar" className="mt-6" />
+        </CardContent>
+      )}
     </Card>
+    </>
   );
 };
 

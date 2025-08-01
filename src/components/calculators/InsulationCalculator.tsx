@@ -12,6 +12,8 @@ import {
 import InsulationCalculatorForm from './insulation/InsulationCalculatorForm';
 import InsulationCalculatorResult from './insulation/InsulationCalculatorResult';
 import InsulationInfoSection from "./insulation/InsulationInfoSection";
+import QuickAccessButtons from './QuickAccessButtons';
+import CalculatorStructuredData from '../seo/CalculatorStructuredData';
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -71,7 +73,13 @@ const InsulationCalculator = () => {
   };
 
   return (
-    <Card className="max-w-3xl mx-auto animate-fade-in">
+    <>
+      <CalculatorStructuredData 
+        calculatorType="insulation" 
+        title="Dämmungsrechner - Einsparungen und Amortisation berechnen"
+        description="Berechnen Sie Einsparungen und Amortisation Ihrer Dämmmaßnahme. Alle Dämmstoffe, Materialvergleich und Kostenberechnung."
+      />
+      <Card className="max-w-3xl mx-auto animate-fade-in">
       <CardHeader>
         <div className="flex items-center gap-4">
           <div className="bg-primary/10 text-primary p-3 rounded-full">
@@ -91,9 +99,11 @@ const InsulationCalculator = () => {
           selectedBuildingPart={selectedBuildingPart}
         />
         {result && <InsulationCalculatorResult result={result} />}
+        <QuickAccessButtons currentCalculator="insulation" className="mt-8" />
         <InsulationInfoSection />
       </CardContent>
     </Card>
+    </>
   );
 };
 
