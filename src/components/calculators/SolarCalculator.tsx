@@ -132,7 +132,10 @@ const SolarCalculator = () => {
               
               {results && (
                 <div className="flex gap-2">
-                  <ShareResults />
+                  <ShareResults 
+                    calculatorType="solar"
+                    results={results}
+                  />
                   <ResultsPDFExport 
                     results={results}
                     calculatorType="solar"
