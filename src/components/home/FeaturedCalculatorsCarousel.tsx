@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Calculator, Flame, Home, Sun, ChevronRight } from 'lucide-react';
+import { Calculator, Flame, Home, Sun, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useState, useEffect } from 'react';
 
 const calculators = [
   {
@@ -37,6 +40,23 @@ const calculators = [
 ];
 
 const FeaturedCalculatorsCarousel = () => {
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
   const getColorClasses = (color: string) => {
     switch (color) {
       case 'red':
@@ -90,20 +110,26 @@ const FeaturedCalculatorsCarousel = () => {
           </div>
         </div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full"
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            setApi={setApi}
+            className="w-full"
+          >
+          <CarouselContent className="-ml-2 md:-ml-4 relative">
+            {/* Mobile scroll hint gradient */}
+            {isMobile && (
+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background/80 to-transparent z-10 pointer-events-none" />
+            )}
             {calculators.map((calculator) => {
               const colors = getColorClasses(calculator.color);
               const Icon = calculator.icon;
               
               return (
-                <CarouselItem key={calculator.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={calculator.id} className="pl-2 md:pl-4 basis-[85%] sm:basis-[70%] md:basis-1/2 lg:basis-1/3">
                   <Card className="h-full group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-primary/20">
                     <CardContent className="p-6 h-full flex flex-col">
                       <div className="flex items-start gap-4 mb-4">
@@ -151,7 +177,62 @@ const FeaturedCalculatorsCarousel = () => {
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex -left-12" />
           <CarouselNext className="hidden md:flex -right-12" />
-        </Carousel>
+          </Carousel>
+
+          {/* Mobile Navigation Controls */}
+          {isMobile && (
+            <div className="flex items-center justify-center gap-4 mt-6">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => api?.scrollPrev()}
+                className="h-10 w-10 p-0 rounded-full shadow-sm"
+                disabled={!api}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Vorheriger Rechner</span>
+              </Button>
+              
+              <div className="flex gap-2">
+                {Array.from({ length: count }, (_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => api?.scrollTo(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index + 1 === current 
+                        ? 'bg-primary w-6' 
+                        : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                    }`}
+                    aria-label={`Zu Rechner ${index + 1} springen`}
+                  />
+                ))}
+              </div>
+              
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => api?.scrollNext()}
+                className="h-10 w-10 p-0 rounded-full shadow-sm"
+                disabled={!api}
+              >
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">Nächster Rechner</span>
+              </Button>
+            </div>
+          )}
+
+          {/* Mobile swipe hint */}
+          {isMobile && (
+            <div className="flex items-center justify-center gap-2 mt-4 text-xs text-muted-foreground">
+              <div className="flex gap-1">
+                <div className="w-1 h-1 bg-muted-foreground/40 rounded-full animate-pulse" />
+                <div className="w-1 h-1 bg-muted-foreground/40 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <div className="w-1 h-1 bg-muted-foreground/40 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+              </div>
+              <span>Wischen für mehr Rechner</span>
+            </div>
+          )}
+        </div>
 
         <div className="text-center mt-8">
           <p className="text-sm text-muted-foreground">
