@@ -44,6 +44,7 @@ import { useAdvertisingConsent } from "@/hooks/useAdvertisingConsent";
 import { useAdsenseLoader } from "@/hooks/useAdsenseLoader";
 import { useAdblockDetector } from "@/hooks/useAdblockDetector";
 import AdblockPopup from "@/components/ui/AdblockPopup";
+import StickyBannerAd from "@/components/ads/StickyBannerAd";
 
 const queryClient = new QueryClient();
 
@@ -103,6 +104,7 @@ function App() {
                 </Routes>
               </main>
               <Footer />
+              <StickyBannerAd position="bottom" />
               <CookieConsent />
             </div>
           </BrowserRouter>

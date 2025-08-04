@@ -5,6 +5,8 @@ import { siteConfig } from '@/config/site.config';
 import { BlogPost } from '@/hooks/useBlogPosts';
 import TableOfContents from './TableOfContents';
 import QuickFacts from './QuickFacts';
+import SidebarAd from '@/components/ads/SidebarAd';
+import NativeAd from '@/components/ads/NativeAd';
 
 interface BlogPostSidebarProps {
   post: BlogPost;
@@ -16,9 +18,9 @@ const BlogPostSidebar = ({ post }: BlogPostSidebarProps) => {
   return (
     <div className="sticky top-24 space-y-6 max-w-sm">
       <TableOfContents tableOfContents={tableOfContents} />
+      <SidebarAd />
       <QuickFacts post={post} />
-
-      {/* Auto Ads are handled via AdSense dashboard */}
+      <NativeAd title="Weitere Sanierungstipps" />
 
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
