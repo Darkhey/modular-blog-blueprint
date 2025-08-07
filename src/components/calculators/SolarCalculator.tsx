@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { BarChart, Calculator } from 'lucide-react';
+import { BarChart, Calculator, Loader2 } from 'lucide-react';
 import { SolarInputs } from '@/types/solarCalculator';
 import { calculateSolarResults } from '@/utils/solarCalculations';
 import SolarInputForm from './solar/SolarInputForm';
@@ -11,6 +11,7 @@ import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+import { useToast } from '@/components/ui/use-toast';
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
@@ -31,6 +32,7 @@ const SolarCalculator = () => {
 
   const [results, setResults] = useState<any>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const { toast } = useToast();
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
     setInputs(prev => ({
@@ -38,14 +40,24 @@ const SolarCalculator = () => {
       [field]: value
     }));
   };
+  const validateInputs = (): string[] => {
+    const errs: string[] = [];
+    if (inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
+    if (inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
+    if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
+    if (inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
+    if (inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
+    if (inputs.mitSpeicher && inputs.speicherkapazitaet <= 0) errs.push('Speicherkapazität muss > 0 kWh sein');
+    return errs;
+  };
 
   const handleCalculate = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (inputs.dachflaeche <= 0 || inputs.stromverbrauch <= 0 || inputs.plz.length !== 5) {
+    const errors = validateInputs();
+    if (errors.length) {
+      toast({ title: 'Eingaben prüfen', description: errors.join(' • '), variant: 'destructive' });
       return;
     }
-
     setIsCalculating(true);
     
     // Simulate calculation delay for better UX
@@ -124,10 +136,14 @@ const SolarCalculator = () => {
                 type="submit" 
                 size="lg" 
                 disabled={isCalculating}
+                aria-busy={isCalculating}
                 className="flex-1 md:flex-none"
               >
-                <Calculator className="mr-2 h-5 w-5" />
-                {isCalculating ? 'Berechnung läuft...' : 'Detailliert berechnen'}
+                {isCalculating ? (
+                  <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Berechnung läuft...</>
+                ) : (
+                  <><Calculator className="mr-2 h-5 w-5" /> Detailliert berechnen</>
+                )}
               </Button>
               
               {results && (

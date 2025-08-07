@@ -7,12 +7,17 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
-
+import { Helmet } from 'react-helmet-async';
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Helmet>
+        <title>Solar-Rechner & Ratgeber | Photovoltaik berechnen</title>
+        <meta name="description" content="Berechnen Sie Ihr Solar-Potenzial: PV-Anlage, Speicher, E-Auto & 20-Jahres-Prognose. Kostenloser Solar-Rechner mit regionaler Optimierung." />
+        <link rel="canonical" href="https://energieberater-direkt.de/solarenergie" />
+      </Helmet>
       <main className="py-12 md:py-16">
         <div className="container max-w-5xl mx-auto px-4 space-y-12">
           <BreadcrumbNavigation 
