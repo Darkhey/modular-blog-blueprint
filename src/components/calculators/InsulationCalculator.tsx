@@ -14,6 +14,8 @@ import InsulationCalculatorResult from './insulation/InsulationCalculatorResult'
 import InsulationInfoSection from "./insulation/InsulationInfoSection";
 import QuickAccessButtons from './QuickAccessButtons';
 import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+import ShareResults from '../shared/ShareResults';
+import ResultsPDFExport from '../shared/ResultsPDFExport';
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -98,7 +100,15 @@ const InsulationCalculator = () => {
           selectedSystem={selectedSystem}
           selectedBuildingPart={selectedBuildingPart}
         />
-        {result && <InsulationCalculatorResult result={result} />}
+        {result && (
+          <>
+            <InsulationCalculatorResult result={result} />
+            <div className="mt-4 flex gap-2 flex-wrap">
+              <ShareResults calculatorType="insulation" results={result} />
+              <ResultsPDFExport calculatorType="insulation" results={result} />
+            </div>
+          </>
+        )}
         <QuickAccessButtons currentCalculator="insulation" className="mt-8" />
         <InsulationInfoSection />
       </CardContent>

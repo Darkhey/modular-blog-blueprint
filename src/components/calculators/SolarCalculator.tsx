@@ -11,7 +11,7 @@ import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 import CalculatorStructuredData from '../seo/CalculatorStructuredData';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
