@@ -10,6 +10,8 @@ import ExpertSettings from './modernization/ExpertSettings';
 import CalculatorResults from './modernization/CalculatorResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+import ShareResults from '../shared/ShareResults';
+import ResultsPDFExport from '../shared/ResultsPDFExport';
 
 const ModernizationSavingsCalculator = () => {
   const {
@@ -79,6 +81,12 @@ const ModernizationSavingsCalculator = () => {
           </Button>
 
           <CalculatorResults results={results} investmentCosts={investmentCosts} />
+          {results && (
+            <div className="mt-4 flex gap-2 flex-wrap">
+              <ShareResults calculatorType="heating" results={results} />
+              <ResultsPDFExport calculatorType="heating" results={results} />
+            </div>
+          )}
           
           <QuickAccessButtons currentCalculator="heating" className="mt-8" />
         </CardContent>

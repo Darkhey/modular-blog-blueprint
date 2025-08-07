@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Share2, Link, Copy, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 
 interface ShareResultsProps {
   calculatorType: string;
@@ -15,12 +15,19 @@ const ShareResults = ({ calculatorType, results, className = "" }: ShareResultsP
 
   const generateShareText = () => {
     switch (calculatorType) {
-      case 'heating':
-        return `Meine Heizungsmodernisierung: ${results.totalSavingsPerYear ? Math.round(results.totalSavingsPerYear) : 'N/A'}€/Jahr Ersparnis, Amortisation in ${results.amortizationYears ? Math.round(results.amortizationYears) : 'N/A'} Jahren. Berechnet auf energieberater-direkt.de`;
+      case 'heating': {
+        const yearly = results?.annualSavings ?? results?.totalSavingsPerYear;
+        const amort = results?.amortizationPeriod ?? results?.amortizationYears;
+        return `Meine Heizungsmodernisierung: ${yearly ? Math.round(yearly) : 'N/A'}€/Jahr Ersparnis, Amortisation in ${amort ? Math.round(amort) : 'N/A'} Jahren. Berechnet auf energieberater-direkt.de`;
+      }
       case 'insulation':
         return `Meine Dämmung: ${results.investment ? Math.round(results.investment) : 'N/A'}€ Investment, ${results.savingsPerYear ? Math.round(results.savingsPerYear) : 'N/A'}€/Jahr Ersparnis, Amortisation in ${results.amortization ? Math.round(results.amortization) : 'N/A'} Jahren. Berechnet auf energieberater-direkt.de`;
-      case 'solar':
-        return `Meine Solar-Anlage: ${results.estimatedOutput ? Math.round(results.estimatedOutput) : 'N/A'} kWh/Jahr, ${results.savings ? Math.round(results.savings) : 'N/A'}€/Jahr Ersparnis, Amortisation in ${results.amortisation ? results.amortisation : 'N/A'} Jahren. Berechnet auf energieberater-direkt.de`;
+      case 'solar': {
+        const kwh = results?.jahresertrag ?? results?.estimatedOutput;
+        const savings = results?.gesamtersparnis ?? results?.savings;
+        const amortAny = results?.amortisationMitSpeicher ?? results?.amortisationOhneSpeicher ?? results?.amortisation;
+        return `Meine Solar-Anlage: ${kwh ? Math.round(kwh) : 'N/A'} kWh/Jahr, ${savings ? Math.round(savings) : 'N/A'}€/Jahr Ersparnis, Amortisation in ${amortAny ? Math.round(amortAny) : 'N/A'} Jahren. Berechnet auf energieberater-direkt.de`;
+      }
       default:
         return 'Meine Energieberatung - berechnet auf energieberater-direkt.de';
     }
@@ -28,18 +35,19 @@ const ShareResults = ({ calculatorType, results, className = "" }: ShareResultsP
 
   const handleCopyLink = async () => {
     const shareText = generateShareText();
+    const content = `${shareText}\n${window.location.href}`;
     try {
-      await navigator.clipboard.writeText(shareText);
+      await navigator.clipboard.writeText(content);
       setCopied(true);
       toast({
-        title: "Link kopiert!",
-        description: "Der Ergebnislink wurde in die Zwischenablage kopiert.",
+        title: "Kopiert!",
+        description: "Text und Link wurden in die Zwischenablage kopiert.",
       });
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       toast({
         title: "Fehler",
-        description: "Link konnte nicht kopiert werden.",
+        description: "Kopieren nicht möglich.",
         variant: "destructive",
       });
     }

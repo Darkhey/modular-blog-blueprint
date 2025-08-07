@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FileDown, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 
 interface ResultsPDFExportProps {
   calculatorType: string;
@@ -28,9 +28,9 @@ IHRE EINGABEN:
 - Heizungsart: ${results.inputs?.heatingType || 'N/A'}
 
 ERGEBNISSE:
-- Jährliche Ersparnis: ${results.totalSavingsPerYear ? Math.round(results.totalSavingsPerYear).toLocaleString('de-DE') : 'N/A'} €
+- Jährliche Ersparnis: ${results.annualSavings ? Math.round(results.annualSavings).toLocaleString('de-DE') : (results.totalSavingsPerYear ? Math.round(results.totalSavingsPerYear).toLocaleString('de-DE') : 'N/A')} €
 - Ersparnis in %: ${results.savingsPercentage ? results.savingsPercentage.toFixed(0) : 'N/A'}%
-- Amortisationszeit: ${results.amortizationYears ? Math.round(results.amortizationYears) : 'N/A'} Jahre
+- Amortisationszeit: ${results.amortizationPeriod ? Math.round(results.amortizationPeriod) : (results.amortizationYears ? Math.round(results.amortizationYears) : 'N/A')} Jahre
 - CO₂-Einsparung: ${results.co2Savings ? Math.round(results.co2Savings).toLocaleString('de-DE') : 'N/A'} kg/Jahr
 
 KOSTEN VORHER/NACHHER:
@@ -61,9 +61,9 @@ Erstellt am: ${currentDate}
 
 ERGEBNISSE:
 - Anlagengröße: ${results.anlageGroesse || 'N/A'} kWp
-- Jährlicher Stromertrag: ${results.stromertrag ? results.stromertrag.toLocaleString('de-DE') : 'N/A'} kWh
+- Jährlicher Stromertrag: ${results.jahresertrag ? results.jahresertrag.toLocaleString('de-DE') : 'N/A'} kWh
 - Jährliche Ersparnis: ${results.gesamtersparnis ? results.gesamtersparnis.toLocaleString('de-DE') : 'N/A'} €
-- Amortisationszeit: ${results.amortisation || 'N/A'} Jahre
+- Amortisationszeit: ${(results.amortisationMitSpeicher ?? results.amortisationOhneSpeicher ?? results.amortisation) || 'N/A'} Jahre
 
 Erstellt mit energieberater-direkt.de
 Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
