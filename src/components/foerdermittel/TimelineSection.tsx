@@ -38,7 +38,7 @@ const TimelineSection = () => (
   <section className="mb-14 animate-fade-in">
     <h2 className="text-2xl font-bold mb-7 text-center text-green-900 dark:text-green-200">Ablauf: Schritt-für-Schritt zum Fördergeld</h2>
     {/* Timeline horizontal on Desktop, vertical on Mobile */}
-    <div className="flex flex-col md:flex-row md:items-start gap-8">
+    <div className="overflow-x-hidden flex flex-col md:flex-row md:items-start gap-8">
       {steps.map((s, i) => (
         <div
           key={s.title}
