@@ -40,15 +40,15 @@ const fetchOpenGraphImage = async (url: string): Promise<string | null> => {
 // Fallback stock photos for each category
 const getStockPhoto = (id: string): string => {
   const stockPhotos: Record<string, string> = {
-    'heizung': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop',
-    'beleuchtung': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-    'energiemanagement': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-    'sicherheit': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-    'haushalt': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop',
-    'entertainment': 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop'
+    heizung: 'https://images.unsplash.com/photo-1581598831147-598d5b6cf1ab?auto=format&fit=crop&w=400&h=300',
+    beleuchtung: 'https://images.unsplash.com/photo-1542773667-38543c5174a1?auto=format&fit=crop&w=400&h=300',
+    energiemanagement: 'https://images.unsplash.com/photo-1581091215367-59c3aa60d5b1?auto=format&fit=crop&w=400&h=300',
+    sicherheit: 'https://images.unsplash.com/photo-1587394708532-3b3d0a76fe7e?auto=format&fit=crop&w=400&h=300',
+    haushalt: 'https://images.unsplash.com/photo-1581579184806-1a45df7ca85b?auto=format&fit=crop&w=400&h=300',
+    entertainment: 'https://images.unsplash.com/photo-1512427691650-95ce3c47ce02?auto=format&fit=crop&w=400&h=300'
   };
-  
-  return stockPhotos[id] || 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop';
+
+  return stockPhotos[id] || 'https://images.unsplash.com/photo-1542773667-38543c5174a1?auto=format&fit=crop&w=400&h=300';
 };
 
 const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
