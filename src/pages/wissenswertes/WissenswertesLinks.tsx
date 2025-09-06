@@ -68,6 +68,22 @@ const WissenswertesLinks = () => {
         { name: "BMWK", url: "https://www.bmwk.de", description: "Aktuelle Gesetze und Förderprogramme" },
         { name: "EnEV-online", url: "https://www.enev-online.de", description: "Fachportal zum Gebäudeenergiegesetz" }
       ]
+    },
+    {
+      category: "Fachmagazine & Blogs",
+      links: [
+        { name: "Energie-Fachberater", url: "https://www.energie-fachberater.de", description: "Praxisnahe Sanierungstipps und Fachwissen" },
+        { name: "Gebäude-Energieberater Magazin", url: "https://www.geb-info.de", description: "Fachzeitschrift rund um energetisches Bauen" },
+        { name: "Baulinks", url: "https://www.baulinks.de", description: "Aktuelle Branchennews und Hintergrundberichte" }
+      ]
+    },
+    {
+      category: "Normen & Gesetze",
+      links: [
+        { name: "GEG im Volltext", url: "https://www.gesetze-im-internet.de/geg/", description: "Gebäudeenergiegesetz als Onlineversion" },
+        { name: "DIN-Normen im Beuth Verlag", url: "https://www.beuth.de/de", description: "Offizieller Shop für Bau- und Energienormen" },
+        { name: "Baurechtsportal der Länder", url: "https://www.baurecht.de", description: "Übersicht der Landesbauordnungen" }
+      ]
     }
   ];
 
@@ -79,10 +95,15 @@ const WissenswertesLinks = () => {
     : externalLinks.filter((cat) => cat.category === selectedCategory);
 
   return (
-    <WissenswertesLayout 
+    <WissenswertesLayout
       title="Externe Links & Portale"
       description="Kuratierte Sammlung der wichtigsten Websites und Portale für Sanierung und Energieeffizienz"
     >
+      <p className="mb-8 text-gray-700 dark:text-gray-300">
+        Unsere Linksammlung führt Sie zu offiziellen Stellen, unabhängigen Ratgebern und praktischen
+        Werkzeugen rund um die energetische Sanierung. Alle Empfehlungen sind handverlesen und werden
+        regelmäßig aktualisiert, damit Sie schnell die passende Unterstützung finden.
+      </p>
       {/* Category Filter */}
       <div className="mb-8">
         <ToggleGroup

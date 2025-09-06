@@ -59,8 +59,13 @@ const WissenswertesIndex = () => {
             Wissenswertes & Ressourcen
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Entdecken Sie unsere umfassende Sammlung von Tools, Ressourcen und Expertenwissen 
+            Entdecken Sie unsere umfassende Sammlung von Tools, Ressourcen und Expertenwissen
             für Ihre Sanierung und Modernisierung
+          </p>
+          <p className="mt-6 text-lg text-gray-700 dark:text-gray-300 max-w-4xl mx-auto">
+            Ob Sie erste Ideen sammeln oder bereits mitten in der Bauphase stecken – hier finden Sie
+            geprüfte Fachinformationen, praktische Hilfsmittel und echte Erfahrungsberichte, die Sie
+            auf dem Weg zum effizienten Zuhause begleiten.
           </p>
         </div>
 
@@ -99,7 +104,7 @@ const WissenswertesIndex = () => {
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Schnellzugriff
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
             <Button variant="outline" asChild>
               <Link to="/wissenswertes/tools">
                 <Calculator className="h-4 w-4 mr-2" />
@@ -122,6 +127,18 @@ const WissenswertesIndex = () => {
               <Link to="/wissenswertes/community">
                 <Users className="h-4 w-4 mr-2" />
                 Community
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/wissenswertes/links">
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Linksammlung
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link to="/wissenswertes/videos">
+                <Video className="h-4 w-4 mr-2" />
+                Videos ansehen
               </Link>
             </Button>
           </div>
