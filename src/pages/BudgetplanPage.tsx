@@ -1,6 +1,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Calculator, Euro, Home, Sun } from "lucide-react";
 
 const BudgetplanPage = () => {
   return (
@@ -55,6 +57,34 @@ const BudgetplanPage = () => {
               Einsparungen zu bewerten.
             </li>
           </ol>
+          <h2 className="text-xl font-semibold mt-6">Nützliche Rechner & Tools</h2>
+          <p>
+            Diese kostenlosen Online-Rechner helfen Ihnen, Ihr Sanierungsbudget
+            präzise zu planen und mögliche Einsparungen sowie Zuschüsse zu
+            ermitteln:
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Button asChild variant="outline" className="justify-start">
+              <Link to="/foerdermittel" className="flex items-center gap-2">
+                <Euro className="h-4 w-4" /> Fördermittel-Check
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="justify-start">
+              <Link to="/daemmungsrechner" className="flex items-center gap-2">
+                <Calculator className="h-4 w-4" /> Dämmungsrechner
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="justify-start">
+              <Link to="/solarenergie#rechner" className="flex items-center gap-2">
+                <Sun className="h-4 w-4" /> Solar-Rechner
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="justify-start">
+              <Link to="/projektplaner" className="flex items-center gap-2">
+                <Home className="h-4 w-4" /> Sanierungsplaner
+              </Link>
+            </Button>
+          </div>
           <p>
             Weitere hilfreiche Vorlagen wie Kostenübersichten und Finanzierungspläne finden
             Sie im
