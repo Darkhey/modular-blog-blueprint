@@ -27,7 +27,7 @@ export const successStories: SuccessStory[] = [
     savings: "€1.200/Jahr",
     rating: 5,
     story: "Durch die professionelle Beratung haben wir 30% mehr Förderung erhalten als ursprünglich geplant.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=1",
     likes: 24,
     responses: 8
   },
@@ -38,7 +38,7 @@ export const successStories: SuccessStory[] = [
     savings: "€800/Jahr",
     rating: 5,
     story: "Die Schritt-für-Schritt Anleitung war perfekt. Installation verlief problemlos.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=2",
     likes: 18,
     responses: 12
   },
@@ -49,7 +49,7 @@ export const successStories: SuccessStory[] = [
     savings: "€1.500/Jahr",
     rating: 4,
     story: "Mit dem Sanierungsplaner konnten wir die Maßnahmen perfekt aufeinander abstimmen.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=3",
     likes: 22,
     responses: 10
   },
@@ -60,7 +60,7 @@ export const successStories: SuccessStory[] = [
     savings: "€300/Jahr",
     rating: 4,
     story: "Die Tipps aus dem Forum haben mir viel Arbeit erspart.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=4",
     likes: 15,
     responses: 5
   },
@@ -71,7 +71,7 @@ export const successStories: SuccessStory[] = [
     savings: "€900/Jahr",
     rating: 5,
     story: "Dank der Förderübersicht haben wir die optimale Finanzierung gefunden.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=5",
     likes: 30,
     responses: 14
   },
@@ -82,7 +82,7 @@ export const successStories: SuccessStory[] = [
     savings: "€600/Jahr",
     rating: 5,
     story: "Mit dem KfW-Kredit 261 konnten wir unsere energetische Sanierung besonders günstig finanzieren.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=6",
     likes: 17,
     responses: 6
   },
@@ -93,7 +93,7 @@ export const successStories: SuccessStory[] = [
     savings: "€400/Jahr",
     rating: 4,
     story: "Die BAFA-Förderung half mir, die Kosten für eine effiziente Wärmepumpe deutlich zu senken.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=7",
     likes: 12,
     responses: 4
   },
@@ -104,7 +104,7 @@ export const successStories: SuccessStory[] = [
     savings: "€2.000/Jahr",
     rating: 5,
     story: "Ein Sanierungsfahrplan vom Energieberater war der Schlüssel zu maximaler Förderung und geringeren Energiekosten.",
-    avatar: "/placeholder.svg",
+    avatar: "https://i.pravatar.cc/150?img=8",
     likes: 35,
     responses: 16
   }

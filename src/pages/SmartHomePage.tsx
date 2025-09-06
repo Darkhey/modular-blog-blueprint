@@ -36,7 +36,7 @@ const smartHomeCategories = [
     title: "Smarte Heizungssteuerung",
     description:
       "Intelligente Thermostate passen die Raumtemperatur automatisch an Ihren Tagesablauf und die Wettervorhersage an. So heizen Sie nur, wenn es wirklich nötig ist, und können Ihre Heizkosten um bis zu 20% senken.",
-    image: "/placeholder.svg?id=photo-1581091226825-a6a2a5aee158",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
     alt: "Frau steuert Heizung per Smartphone-App",
     product: {
       name: "tado° Smartes Heizkörper-Thermostat",
@@ -50,7 +50,7 @@ const smartHomeCategories = [
     title: "Intelligente Beleuchtung",
     description:
       "Dimmbares Licht, Zeitpläne und Anwesenheitserkennung helfen, Strom zu sparen und Komfort zu erhöhen. Smarte LEDs schalten sich automatisch aus, wenn niemand da ist.",
-    image: "/placeholder.svg?id=photo-1581090464777-f3220bbe1b8b",
+    image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=400&fit=crop",
     alt: "Hand mit leuchtender Glühbirne, Symbol für smarte Beleuchtung",
     product: {
       name: "Philips Hue White Ambiance Starter-Set",
@@ -64,7 +64,7 @@ const smartHomeCategories = [
     title: "Energiemanagement & Steckdosen",
     description:
       "Finden Sie mit smarten Steckdosen die größten Stromverbraucher und schalten Sie Geräte per Zeitplan ganz aus. Perfekt zum Standby-Sparen.",
-    image: "/placeholder.svg?id=photo-1488590528505-98d2b5aba04b",
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
     alt: "Moderne smarte Steckdose in einer Wand",
     product: {
       name: "AVM FRITZ!DECT 200",
@@ -78,7 +78,7 @@ const smartHomeCategories = [
     title: "Smarte Sicherheit & Überwachung",
     description:
       "Mit intelligenten Kameras, Bewegungsmeldern und Tür-/Fenstersensoren behalten Sie Ihr Zuhause immer im Blick – auch unterwegs.",
-    image: "/placeholder.svg?id=photo-1618160702438-9b02ab6515c9",
+    image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop",
     alt: "Cam mit Sicht auf einen Eingangsbereich",
     product: {
       name: "eufy Security SoloCam S220",
@@ -91,7 +91,7 @@ const smartHomeCategories = [
     title: "Smarte Haushaltsgeräte",
     description:
       "Automatisieren Sie Haushaltsaufgaben! Intelligente Saugroboter, Waschmaschinen & Co. sparen Zeit und oft auch Strom.",
-    image: "/placeholder.svg?id=photo-1582562124811-c09040d0a901",
+    image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&h=400&fit=crop",
     alt: "Haushalt: smarter Saugroboter im Wohnzimmer",
     product: {
       name: "Roborock S8 Saugroboter",
@@ -104,7 +104,7 @@ const smartHomeCategories = [
     title: "Smart Entertainment & Multiroom",
     description:
       "Steuern Sie Musik, TV und Lautsprecher zentral. Smarte Lösungen sorgen für perfekten Sound & Komfort – auf Sprachbefehl oder per App.",
-    image: "/placeholder.svg?id=photo-1721322800607-8c38375eef04",
+    image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=600&h=400&fit=crop",
     alt: "Modernes Wohnzimmer mit vernetztem Soundsystem",
     product: {
       name: "Sonos One (Gen 2)",
