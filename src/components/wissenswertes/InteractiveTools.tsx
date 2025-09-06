@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import { Calculator, PlaneTakeoff, Zap, TrendingUp, Calendar, MapPin } from 'lucide-react';
 
 const InteractiveTools = () => {
@@ -8,8 +9,8 @@ const InteractiveTools = () => {
       title: "Sanierungsplaner",
       description: "Schritt-für-Schritt Planung Ihres Renovierungsprojekts",
       icon: PlaneTakeoff,
-      comingSoon: true,
-      path: "/planer"
+      comingSoon: false,
+      path: "/projektplaner"
     },
     {
       title: "Förderrechner",
@@ -79,12 +80,13 @@ const InteractiveTools = () => {
               <CardDescription className="mb-4 text-base">
                 {tool.description}
               </CardDescription>
-              <Button 
-                className="w-full" 
+              <Button
+                className="w-full"
                 variant={tool.comingSoon ? "outline" : "default"}
                 disabled={tool.comingSoon}
+                asChild={!tool.comingSoon}
               >
-                {tool.comingSoon ? "Bald verfügbar" : "Tool starten"}
+                {tool.comingSoon ? "Bald verfügbar" : <Link to={tool.path}>Tool starten</Link>}
               </Button>
             </CardContent>
           </Card>
