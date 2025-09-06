@@ -153,17 +153,22 @@ const calculateNeigungsFaktor = (neigung: number): number => {
 // Monatliche Ertragskurve (Deutschland)
 const MONTHLY_FACTORS = [0.4, 0.6, 0.9, 1.2, 1.4, 1.5, 1.5, 1.3, 1.1, 0.8, 0.5, 0.3];
 
-export const getConfiguration = (inputs: SolarInputs): SolarConfiguration => {
+export const getConfiguration = (
+  inputs: SolarInputs,
+  regionalFaktorOverride?: number
+): SolarConfiguration => {
   const plzPrefix = inputs.plz.substring(0, 2);
   const regionalData = REGIONAL_DATA[plzPrefix] || REGIONAL_DATA['50']; // Fallback auf NRW
-  
+
   return {
-    regionalFaktor: regionalData.faktor,
+    regionalFaktor: regionalFaktorOverride ?? regionalData.faktor,
     verschattungsFaktor: CONSTANTS.VERSCHATTUNG_FAKTOREN[inputs.verschattung],
     neigungsFaktor: calculateNeigungsFaktor(inputs.dachneigung),
     modulWirkungsgrad: CONSTANTS.MODUL_WIRKUNGSGRAD[inputs.modultyp],
     eigenverbrauchOhneSpeicher: CONSTANTS.EIGENVERBRAUCH_OHNE_SPEICHER,
-    eigenverbrauchMitSpeicher: inputs.mitSpeicher ? CONSTANTS.EIGENVERBRAUCH_MIT_SPEICHER : CONSTANTS.EIGENVERBRAUCH_OHNE_SPEICHER,
+    eigenverbrauchMitSpeicher: inputs.mitSpeicher
+      ? CONSTANTS.EIGENVERBRAUCH_MIT_SPEICHER
+      : CONSTANTS.EIGENVERBRAUCH_OHNE_SPEICHER,
   };
 };
 
@@ -190,8 +195,11 @@ export const calculateCosts = (inputs: SolarInputs, anlageGroesse: number): Sola
   };
 };
 
-export const calculateSolarResults = (inputs: SolarInputs): SolarResults => {
-  const config = getConfiguration(inputs);
+export const calculateSolarResults = (
+  inputs: SolarInputs,
+  regionalFaktorOverride?: number
+): SolarResults => {
+  const config = getConfiguration(inputs, regionalFaktorOverride);
   const anlageGroesse = parseFloat((inputs.dachflaeche / CONSTANTS.M2_PER_KWP).toFixed(2));
   
   // Jahresertrag berechnen

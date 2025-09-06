@@ -12,6 +12,7 @@ import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 import CalculatorStructuredData from '../seo/CalculatorStructuredData';
 import { useToast } from '@/hooks/use-toast';
+import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
@@ -32,6 +33,7 @@ const SolarCalculator = () => {
 
   const [results, setResults] = useState<any>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [sunshine, setSunshine] = useState<SunshineData | null>(null);
   const { toast } = useToast();
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
@@ -59,13 +61,17 @@ const SolarCalculator = () => {
       return;
     }
     setIsCalculating(true);
-    
-    // Simulate calculation delay for better UX
-    setTimeout(() => {
-      const calculatedResults = calculateSolarResults(inputs);
-      setResults(calculatedResults);
-      setIsCalculating(false);
-    }, 800);
+    const data = await fetchSunshineData(inputs.plz);
+    if (!data) {
+      toast({
+        title: 'Wetterdaten nicht verfügbar',
+        description: 'Berechnung mit Standardwerten ausgeführt.',
+      });
+    }
+    setSunshine(data);
+    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor);
+    setResults(calculatedResults);
+    setIsCalculating(false);
   };
 
   const getRecommendations = () => {
@@ -164,12 +170,27 @@ const SolarCalculator = () => {
 
         {results && (
           <>
-            <SolarResults 
-              results={results} 
+            <SolarResults
+              results={results}
               mitSpeicher={inputs.mitSpeicher}
               mitEAuto={inputs.mitEAuto}
             />
-            
+
+            {sunshine && (
+              <Card className="mt-4">
+                <CardHeader>
+                  <CardTitle className="text-lg">Aktuelle Sonnendaten</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-1">
+                  <p>
+                    Durchschnittliche Sonnenscheindauer (letzte 7 Tage):{' '}
+                    {sunshine.sunshineHours.toFixed(1)} h/Tag
+                  </p>
+                  <p>Sonnentage (≥4h): {sunshine.sunnyDays} / 7</p>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Smart-Empfehlungen */}
             {getRecommendations().length > 0 && (
               <Card>
