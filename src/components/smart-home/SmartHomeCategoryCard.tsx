@@ -100,7 +100,6 @@ const SmartHomeCategoryCard: React.FC<SmartHomeCategoryCardProps> = ({
     >
       <CardHeader className="pb-3">
         <div className="w-full aspect-video rounded-lg overflow-hidden mb-0 bg-gray-100 flex items-center justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={getImageSrc()}
             alt={alt}
