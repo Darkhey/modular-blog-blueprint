@@ -16,21 +16,21 @@ const InteractiveTools = () => {
       title: "Förderrechner",
       description: "Berechnen Sie alle verfügbaren Fördermittel für Ihr Projekt",
       icon: Calculator,
-      comingSoon: true,
+      comingSoon: false,
       path: "/foerderrechner"
     },
     {
       title: "Energie-Check",
       description: "Schnelle Bewertung Ihres Sanierungsbedarfs",
       icon: Zap,
-      comingSoon: true,
+      comingSoon: false,
       path: "/energie-check"
     },
     {
       title: "ROI-Rechner",
       description: "Amortisationszeiten für verschiedene Sanierungsmaßnahmen",
       icon: TrendingUp,
-      comingSoon: true,
+      comingSoon: false,
       path: "/roi-rechner"
     },
     {
