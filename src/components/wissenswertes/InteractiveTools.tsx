@@ -16,21 +16,21 @@ const InteractiveTools = () => {
       title: "Förderrechner",
       description: "Berechnen Sie alle verfügbaren Fördermittel für Ihr Projekt",
       icon: Calculator,
-      comingSoon: true,
+      comingSoon: false,
       path: "/foerderrechner"
     },
     {
       title: "Energie-Check",
       description: "Schnelle Bewertung Ihres Sanierungsbedarfs",
       icon: Zap,
-      comingSoon: true,
+      comingSoon: false,
       path: "/energie-check"
     },
     {
       title: "ROI-Rechner",
       description: "Amortisationszeiten für verschiedene Sanierungsmaßnahmen",
       icon: TrendingUp,
-      comingSoon: true,
+      comingSoon: false,
       path: "/roi-rechner"
     },
     {
@@ -59,8 +59,8 @@ const InteractiveTools = () => {
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool, index) => (
-          <Card key={index} className="hover:shadow-lg transition-shadow relative">
+        {tools.map((tool) => (
+          <Card key={tool.path} className="hover:shadow-lg transition-shadow relative">
             {tool.comingSoon && (
               <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full">
                 Bald verfügbar
@@ -68,8 +68,8 @@ const InteractiveTools = () => {
             )}
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <div className="p-3 bg-primary/10 rounded-lg">
-                  <tool.icon className="h-8 w-8 text-primary" />
+                <div className="p-3 bg-primary/10 rounded-lg" aria-hidden="true">
+                  <tool.icon className="h-8 w-8 text-primary" aria-hidden="true" />
                 </div>
                 <div>
                   <CardTitle className="text-xl">{tool.title}</CardTitle>
@@ -86,7 +86,9 @@ const InteractiveTools = () => {
                 disabled={tool.comingSoon}
                 asChild={!tool.comingSoon}
               >
-                {tool.comingSoon ? "Bald verfügbar" : <Link to={tool.path}>Tool starten</Link>}
+                {tool.comingSoon
+                  ? "Bald verfügbar"
+                  : <Link to={tool.path} aria-label={`Tool starten: ${tool.title}`}>Tool starten</Link>}
               </Button>
             </CardContent>
           </Card>
