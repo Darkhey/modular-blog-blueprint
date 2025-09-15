@@ -35,8 +35,17 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
                     <TooltipTrigger>
                       <Info className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Dachfläche ohne Schornsteine, Gauben etc.</p>
+                    <TooltipContent className="max-w-xs">
+                      <p>Nutzbare Fläche ohne Schornsteine oder Gauben. Pro kWp werden ca. 7 m² Dachfläche benötigt.</p>
+                      <p className="mt-2 text-xs">
+                        Quelle: <a href="/blog/solaranlage-planen-kaufen-2025" className="text-primary underline">Dachcheck</a> ·
+                        <a
+                          href="https://www.solarwirtschaft.de/photovoltaik/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline"
+                        >BSW</a>
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -53,7 +62,26 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="stromverbrauch">Jahresstromverbrauch</Label>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="stromverbrauch">Jahresstromverbrauch</Label>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs">
+                      <p>Durchschnittliche Haushalte verbrauchen 3.000–5.000 kWh pro Jahr.</p>
+                      <p className="mt-2 text-xs">
+                        Quelle: <a href="/blog/solaranlage-planen-kaufen-2025" className="text-primary underline">Verbrauch verstehen</a> ·
+                        <a
+                          href="https://www.stromspiegel.de/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline"
+                        >Stromspiegel</a>
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
                 <div className="flex items-center gap-2">
                   <Input
                     id="stromverbrauch"
@@ -79,7 +107,26 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="ausrichtung">Dachausrichtung</Label>
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="ausrichtung">Dachausrichtung</Label>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="h-4 w-4 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-xs">
+                      <p>Süd liefert den höchsten Ertrag, Ost/West verteilt den Strom gleichmäßig über den Tag.</p>
+                      <p className="mt-2 text-xs">
+                        Quelle: <a href="/blog/solarenergie-zukunft-eigenheim#eignung" className="text-primary underline">Ausrichtungsratgeber</a> ·
+                        <a
+                          href="https://www.pv-magazine.de/lexikon/ausrichtung/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline"
+                        >PV Magazine</a>
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
                 <Select value={inputs.ausrichtung} onValueChange={(value) => onInputChange('ausrichtung', value)}>
                   <SelectTrigger>
                     <SelectValue />
@@ -101,8 +148,17 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
                     <TooltipTrigger>
                       <Info className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Optimal: 30-35° • Flachdach: 0-15° • Steil: 45°+</p>
+                    <TooltipContent className="max-w-xs">
+                      <p>Optimal: 30–35°. Abweichungen reduzieren den Ertrag um etwa 5–15 %.</p>
+                      <p className="mt-2 text-xs">
+                        Quelle: <a href="/blog/solarenergie-zukunft-eigenheim#eignung" className="text-primary underline">Neigungsratgeber</a> ·
+                        <a
+                          href="https://www.pv-magazine.de/lexikon/neigungswinkel/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary underline"
+                        >PV Magazine</a>
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -181,8 +237,17 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
                       <TooltipTrigger>
                         <Info className="h-4 w-4 text-muted-foreground" />
                       </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Empfehlung: 1 kWh pro 1000 kWh Jahresverbrauch</p>
+                      <TooltipContent className="max-w-xs">
+                        <p>Faustregel: 1 kWh Speicher je 1.000 kWh Jahresverbrauch für hohe Autarkie.</p>
+                        <p className="mt-2 text-xs">
+                          Quelle: <a href="/blog/solaranlage-planen-kaufen-2025" className="text-primary underline">Speicherleitfaden</a> ·
+                          <a
+                            href="https://www.verbraucherzentrale.de/wissen/energie/photovoltaik/stromspeicher-fuer-die-photovoltaik-5953"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary underline"
+                          >Verbraucherzentrale</a>
+                        </p>
                       </TooltipContent>
                     </Tooltip>
                   </div>
@@ -246,8 +311,17 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
                   <TooltipTrigger>
                     <Info className="h-4 w-4 text-muted-foreground" />
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Anteil des Stromverbrauchs zwischen 6-18 Uhr</p>
+                  <TooltipContent className="max-w-xs">
+                    <p>Anteil des Stromverbrauchs zwischen 6–18 Uhr. Hohe Tagesnutzung steigert den Eigenverbrauch.</p>
+                    <p className="mt-2 text-xs">
+                      Quelle: <a href="/blog/solaranlage-planen-kaufen-2025" className="text-primary underline">Verbrauchsprofil</a> ·
+                      <a
+                        href="https://www.stromspiegel.de/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline"
+                      >Stromspiegel</a>
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               </div>
