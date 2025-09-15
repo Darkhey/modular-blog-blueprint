@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart-Geräte Ratgeber</title>
+</head>
+<body>
+  <h1>Smart-Geräte Ratgeber</h1>
+  <p>Smarte Geräte helfen dabei, Energie gezielt einzusetzen und unnötige Kosten zu vermeiden. Die folgenden Empfehlungen zeigen, wie sich Technik im Haushalt sinnvoll nutzen lässt.</p>
+  <p><!-- AFFILIATE_DISCLOSURE -->
+Hinweis: Einige Links sind Affiliate-Links. Wenn du darüber kaufst, erhalte ich eine kleine Provision, ohne Mehrkosten für dich.
+</p>
+  <h2>Empfohlene smarte Geräte</h2>
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="tado-v3plus-starter" data-cat="thermostate">
+    <h3>tado° Smart Thermostat Starter Kit V3+</h3>
+    <p class="pitch">Zeitpläne, Geofencing und Fenster-Offen-Erkennung reduzieren Heizlaufzeiten.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> typ. 10–20 % abhängig von Gebäude und Nutzerverhalten</li>
+      <li><strong>Funktion:</strong> Heizkörper- oder Raumthermostat mit App, Automationsprofilen und Anwesenheit</li>
+      <li><strong>Standards:</strong> Matter (Bridge-abhängig), Thread/Zigbee je nach Version</li>
+      <li><strong>Kompatibilität:</strong> Apple Home, Google Home, Alexa, Home Assistant (Community)</li>
+      <li><strong>Preisbereich:</strong> 120–220 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=tado+smart+thermostat+starter+kit+v3%2B&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Mehr Details bei Amazon ansehen</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="shelly-plus-plug-s" data-cat="steckdosen">
+    <h3>Shelly Plus Plug S</h3>
+    <p class="pitch">Schaltet Lasten zeit- oder ereignisgesteuert und misst den Verbrauch.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> 3–10 % durch Standby-Reduktion und Zeitpläne</li>
+      <li><strong>Funktion:</strong> WLAN-Zwischenstecker mit Energiemessung, Automationen lokal möglich</li>
+      <li><strong>Standards:</strong> WLAN, lokal via HTTP/MQTT; Matter-Bridge verfügbar</li>
+      <li><strong>Kompatibilität:</strong> Google Home, Alexa, Home Assistant</li>
+      <li><strong>Preisbereich:</strong> 15–25 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=Shelly+Plus+Plug+S&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Preis checken</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="hue-white-ambience-e27" data-cat="beleuchtung">
+    <h3>Philips Hue White Ambiance E27 (Einzel oder Starter)</h3>
+    <p class="pitch">Dimmbar und automatisierbar; Zeitpläne und Präsenz reduzieren unnötige Brenndauer.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> 5–15 % ggü. ungeregeltem Betrieb (bei LED-Bestand)</li>
+      <li><strong>Funktion:</strong> Smart-Leuchtmittel mit Szenen/Präsenz</li>
+      <li><strong>Standards:</strong> Zigbee, Matter (Bridge)</li>
+      <li><strong>Kompatibilität:</strong> Apple Home, Google Home, Alexa</li>
+      <li><strong>Preisbereich:</strong> 15–80 € je nach Set (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=philips+hue+white+ambiance+e27&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Zum Produkt</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="shelly-2pm" data-cat="rollladen">
+    <h3>Shelly 2PM (Jalousie/Rolladen-Steuerung)</h3>
+    <p class="pitch">Automatische Beschattung senkt Kühlbedarf und verbessert Winter-Wärmehaushalt.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> 5–20 % je nach Gebäude und Automationslogik</li>
+      <li><strong>Funktion:</strong> Zweikanal-Schalter mit Leistungs-/Energie-Messung, Jalousiemodus</li>
+      <li><strong>Standards:</strong> WLAN; lokale API</li>
+      <li><strong>Kompatibilität:</strong> Home Assistant, Alexa/Google (über Skills/Bridges)</li>
+      <li><strong>Preisbereich:</strong> 25–40 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=Shelly+2PM&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Zum Produkt</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="shelly-3em" data-cat="energiemonitoring">
+    <h3>Shelly 3EM (Drei-Phasen-Energiemesser)</h3>
+    <p class="pitch">Visualisiert Verbräuche/Lastspitzen; Grundlage für Lastmanagement.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> indirekt, Optimierung von Lasten und PV-Nutzung</li>
+      <li><strong>Funktion:</strong> 3-Phasen-Energiemessung, API, lokale Automationen</li>
+      <li><strong>Standards:</strong> WLAN, MQTT/HTTP; Integrationen breit verfügbar</li>
+      <li><strong>Kompatibilität:</strong> Home Assistant, offene Plattformen</li>
+      <li><strong>Preisbereich:</strong> 100–160 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=Shelly+3EM&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Mehr Details bei Amazon ansehen</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="aqara-water-leak" data-cat="wassersensor">
+    <h3>Aqara Water Leak Sensor</h3>
+    <p class="pitch">Erkennt Leckagen früh und verhindert Folgeschäden und Energieverluste durch Trocknung.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> indirekt, Schadensprävention</li>
+      <li><strong>Funktion:</strong> Lecksensor mit Alarm/Automation</li>
+      <li><strong>Standards:</strong> Zigbee; Matter über Hub</li>
+      <li><strong>Kompatibilität:</strong> Apple Home, Google Home, Alexa, Home Assistant (über Hub)</li>
+      <li><strong>Preisbereich:</strong> 15–35 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=Aqara+Water+Leak+Sensor&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Preis checken</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <!-- AFFILIATE_BLOCK_START:SMART -->
+  <section class="device-card" data-sku="pulsar-plus" data-cat="ev-wallbox">
+    <h3>Wallbox Pulsar Plus (Modellfamilie)</h3>
+    <p class="pitch">Zeit-/PV-geführt laden, Lastmanagement reduziert Spitzen und Netzbezugskosten.</p>
+    <ul class="specs">
+      <li><strong>Einsparpotenzial:</strong> Stromkostenoptimierung durch PV-Überschussnutzung/Zeittarife</li>
+      <li><strong>Funktion:</strong> 11–22 kW Wallbox, App, teils OCPP/Meter-Anbindung</li>
+      <li><strong>Standards:</strong> OCPP je nach Modell/Backend</li>
+      <li><strong>Kompatibilität:</strong> App/Backends, Home Assistant (Integrationen prüfen)</li>
+      <li><strong>Preisbereich:</strong> 600–1.100 € (ca.)</li>
+    </ul>
+    <p class="cta">
+      <a href="https://www.amazon.de/s?k=wallbox+pulsar+plus&tag=klexgetier0d-21" rel="nofollow sponsored noopener" target="_blank">Mehr Details bei Amazon ansehen</a>
+    </p>
+    <p class="note">Vergleiche immer mehrere Anbieter. Installation bei 230 V nur durch Fachkräfte.</p>
+  </section>
+  <!-- AFFILIATE_BLOCK_END:SMART -->
+
+  <h2>Fazit</h2>
+  <p>Mit den passenden smarten Geräten lässt sich Energie gezielt einsetzen und Komfort steigern. Wer Geräte sinnvoll kombiniert, kann dauerhaft Kosten sparen und Ressourcen schonen.</p>
+</body>
+</html>
