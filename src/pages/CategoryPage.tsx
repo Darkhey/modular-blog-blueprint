@@ -34,7 +34,7 @@ const CategoryPage = () => {
       );
     }
 
-    let sorted = [...filtered];
+    const sorted = [...filtered];
     switch (sortBy) {
       case "date_asc":
         sorted.sort((a, b) => new Date(a.published_at).getTime() - new Date(b.published_at).getTime());
