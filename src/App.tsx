@@ -13,6 +13,10 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
 import FoerdermittelPage from "./pages/FoerdermittelPage";
+import { lazy, Suspense } from "react";
+const FoerderrechnerPage = lazy(() => import("./pages/FoerderrechnerPage"));
+const EnergieCheckPage = lazy(() => import("./pages/EnergieCheckPage"));
+const ROIRechnerPage = lazy(() => import("./pages/ROIRechnerPage"));
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
 import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
@@ -63,12 +67,16 @@ function App() {
             <div className="min-h-screen flex flex-col overflow-x-hidden">
               <Header />
               <main className="flex-1">
+                <Suspense fallback={<div className="p-8">Lade…</div>}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/themen/:categorySlug" element={<CategoryPage />} />
                   <Route path="/foerdermittel" element={<FoerdermittelPage />} />
+                  <Route path="/foerderrechner" element={<FoerderrechnerPage />} />
+                  <Route path="/energie-check" element={<EnergieCheckPage />} />
+                  <Route path="/roi-rechner" element={<ROIRechnerPage />} />
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
@@ -102,6 +110,7 @@ function App() {
                   <Route path="/suche" element={<SearchPage />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
+                </Suspense>
               </main>
               <Footer />
               <StickyBannerAd position="bottom" />
