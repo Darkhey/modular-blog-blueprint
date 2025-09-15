@@ -20,14 +20,22 @@ export async function getFederalPrograms(): Promise<FederalProgram[]> {
     result?: { results?: GovDataPackage[] };
   }
 
-  const sanitizeUrl = (raw?: string): string => {
-    try {
-      const u = new URL(raw ?? '');
-      return u.protocol === 'https:' ? u.toString() : '#';
-    } catch {
-      return '#';
-    }
-  };
+export interface FederalProgram {
+  title: string;
+  description?: string;
+  url?: string | null;
+}
+
+const sanitizeUrl = (raw?: string): string | null => {
+  try {
+    const u = new URL(raw ?? '');
+    return u.protocol === 'https:' ? u.toString() : null;
+  } catch {
+    return null;
+  }
+};
+
+    url: sanitizeUrl(pkg.url ?? pkg.resources?.[0]?.url)
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10_000);
