@@ -1,11 +1,30 @@
 
 import React from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { CheckCircle, Info, HelpCircle } from "lucide-react";
 
 interface FAQItem {
   question: string;
   answer: string;
+}
+
+interface ProductRecommendation {
+  name: string;
+  description: string;
+  link: string;
+  image: string;
+  alt: string;
+  highlights?: string[];
+  priceHint?: string;
 }
 
 interface GuideSection {
@@ -15,6 +34,8 @@ interface GuideSection {
   advantages?: string[];
   faq?: FAQItem[];
   icon?: React.ReactNode;
+  productCarouselTitle?: string;
+  products?: ProductRecommendation[];
 }
 
 interface SmartHomeCategoryGuideProps {
@@ -22,6 +43,86 @@ interface SmartHomeCategoryGuideProps {
   title: string;
   sections: GuideSection[];
 }
+
+const GuideProductCarousel: React.FC<{
+  title?: string;
+  products: ProductRecommendation[];
+}> = ({ title, products }) => {
+  const autoplay = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
+  );
+  const hasMultipleProducts = products.length > 1;
+
+  return (
+    <div className="mt-4">
+      {title && (
+        <h4 className="font-medium text-green-700 mb-2">
+          {title}
+        </h4>
+      )}
+      <Carousel
+        className="w-full"
+        opts={{ align: "start", loop: hasMultipleProducts }}
+        plugins={hasMultipleProducts ? [autoplay.current] : []}
+        onMouseEnter={hasMultipleProducts ? autoplay.current.stop : undefined}
+        onMouseLeave={hasMultipleProducts ? autoplay.current.reset : undefined}
+      >
+        <CarouselContent className="-ml-2 md:-ml-4">
+          {products.map((product, index) => (
+            <CarouselItem
+              key={`${product.name}-${index}`}
+              className="pl-2 md:pl-4 basis-[85%] sm:basis-[60%] lg:basis-1/3"
+            >
+              <div className="h-full rounded-lg border border-green-100 bg-white shadow-sm overflow-hidden flex flex-col">
+                <div className="aspect-video bg-gray-100">
+                  <img
+                    src={product.image}
+                    alt={product.alt}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-4 space-y-3">
+                  <div>
+                    <h5 className="text-lg font-semibold text-gray-900">
+                      {product.name}
+                    </h5>
+                    <p className="mt-1 text-sm text-gray-600">
+                      {product.description}
+                    </p>
+                    {product.priceHint && (
+                      <p className="mt-1 text-sm font-medium text-emerald-700">
+                        {product.priceHint}
+                      </p>
+                    )}
+                  </div>
+                  {product.highlights && product.highlights.length > 0 && (
+                    <ul className="text-sm text-gray-700 list-disc list-inside space-y-1">
+                      {product.highlights.map((highlight, idx) => (
+                        <li key={idx}>{highlight}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <Button asChild className="mt-auto bg-emerald-600 hover:bg-emerald-700">
+                    <a href={product.link} target="_blank" rel="noopener noreferrer">
+                      Jetzt auf Amazon ansehen
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {hasMultipleProducts && (
+          <>
+            <CarouselPrevious className="hidden sm:flex -left-10" />
+            <CarouselNext className="hidden sm:flex -right-10" />
+          </>
+        )}
+      </Carousel>
+    </div>
+  );
+};
 
 const SmartHomeCategoryGuide: React.FC<SmartHomeCategoryGuideProps> = ({ id, title, sections }) => (
   <section id={`${id}-guide`} className="my-12 max-w-3xl mx-auto">
@@ -57,6 +158,12 @@ const SmartHomeCategoryGuide: React.FC<SmartHomeCategoryGuideProps> = ({ id, tit
                 ))}
               </ul>
             </div>
+          )}
+          {section.products && section.products.length > 0 && (
+            <GuideProductCarousel
+              title={section.productCarouselTitle}
+              products={section.products}
+            />
           )}
           {section.faq && (
             <Accordion type="single" collapsible className="mt-4 border-t pt-4">
