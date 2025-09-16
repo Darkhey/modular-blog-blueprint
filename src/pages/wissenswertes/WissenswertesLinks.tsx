@@ -9,87 +9,87 @@ const WissenswertesLinks = () => {
     {
       category: "Fördermittel & Beratung",
       links: [
-        { name: "BAFA - Bundesförderung", url: "https://www.bafa.de", description: "Offizielle Förderung für Heizung & Sanierung" },
-        { name: "KfW - Förderbank", url: "https://www.kfw.de", description: "Kredite und Zuschüsse für Gebäudesanierung" },
-        { name: "Energieberater finden", url: "https://www.energie-effizienz-experten.de", description: "Qualifizierte Energieberater in Ihrer Nähe" },
-        { name: "Verbraucherzentrale Energieberatung", url: "https://www.verbraucherzentrale-energieberatung.de/", description: "Unabhängige Beratung zu Energiefragen" },
-        { name: "co2online", url: "https://www.co2online.de", description: "Gemeinnützige Beratung für Klimaschutz" }
+        { name: "BAFA - Bundesförderung", url: "https://www.bafa.de", description: "Überblick über aktuelle Zuschüsse und Programme der Bundesförderung für effiziente Gebäude." },
+        { name: "KfW - Förderbank", url: "https://www.kfw.de", description: "Förderkredite, Zuschüsse und Hintergrundwissen für energetische Modernisierungen im Wohngebäude." },
+        { name: "Energieberater finden", url: "https://www.energie-effizienz-experten.de", description: "Datenbank der Energieeffizienz-Expertenliste mit zertifizierten Beratern in Ihrer Region." },
+        { name: "Verbraucherzentrale Energieberatung", url: "https://www.verbraucherzentrale-energieberatung.de/", description: "Bundesweite Beratungsangebote, Checks und Webinare rund um Energiefragen im Haushalt." },
+        { name: "co2online", url: "https://www.co2online.de", description: "Interaktive Rechner, Ratgeber und Aktionen für klimafreundliches Wohnen und Sanieren." }
       ]
     },
     {
       category: "Rechner & Tools",
       links: [
-        { name: "Heizspiegel", url: "https://www.heizspiegel.de", description: "Vergleichen Sie Ihren Heizenergieverbrauch" },
-        { name: "U-Wert-Rechner", url: "https://www.ubakus.de/u-wert-rechner/", description: "U-Werte für Bauteile online berechnen" },
-        { name: "Solarrechner der HTW Berlin", url: "https://solar.htw-berlin.de/rechner/", description: "Unabhängigkeitsrechner für Photovoltaik" },
-        { name: "Förderdatenbank des Bundes", url: "https://www.foerderdatenbank.de", description: "Umfassende Fördermittel-Suche" }
+        { name: "Heizspiegel", url: "https://www.heizspiegel.de", description: "Vergleichen Sie Ihre Heizkosten mit bundesweiten Referenzwerten und erhalten Sie Sparhinweise." },
+        { name: "U-Wert-Rechner", url: "https://www.ubakus.de/u-wert-rechner/", description: "Bauteile digital nachbilden und Wärmeverluste sowie Taupunktgefahr präzise einschätzen." },
+        { name: "Solarrechner der HTW Berlin", url: "https://solar.htw-berlin.de/rechner/", description: "Simulieren Sie den Solarertrag, Autarkiegrad und Wirtschaftlichkeit geplanter Photovoltaik-Anlagen." },
+        { name: "Förderdatenbank des Bundes", url: "https://www.foerderdatenbank.de", description: "Filterbare Übersicht aller Förderprogramme von Bund, Ländern und Kommunen." }
       ]
     },
     {
       category: "Fachbetriebe & Verbände",
       links: [
-        { name: "ZVSHK", url: "https://www.zvshk.de/fachbetriebssuche.html", description: "Fachbetriebssuche für Sanitär, Heizung, Klima" },
-        { name: "Fachverband WDVS", url: "https://www.fachverband-wdvs.de/mitglieder/mitglieder-finden/", description: "Experten für Wärmedämm-Verbundsysteme" },
-        { name: "Bundesverband Solarwirtschaft", url: "https://www.solarwirtschaft.de/fuer-verbraucher/installateurssuche/", description: "Installateurs-Suche für Solaranlagen" },
-        { name: "MyHammer", url: "https://www.my-hammer.de", description: "Handwerker und Aufträge finden" }
+        { name: "ZVSHK", url: "https://www.zvshk.de/fachbetriebssuche.html", description: "Innungsfachbetriebe für Sanitär, Heizung und Klima mit Qualifikationen und Kontaktdaten." },
+        { name: "Fachverband WDVS", url: "https://www.fachverband-wdvs.de/mitglieder/mitglieder-finden/", description: "Spezialisierte Betriebe für Wärmedämm-Verbundsysteme inklusive Leistungsprofilen." },
+        { name: "Bundesverband Solarwirtschaft", url: "https://www.solarwirtschaft.de/fuer-verbraucher/installateurssuche/", description: "Installateurssuche für Photovoltaik und Solarthermie mit regionaler Filterung." },
+        { name: "MyHammer", url: "https://www.my-hammer.de", description: "Online-Plattform, um Handwerksaufträge einzustellen und Angebote zu vergleichen." }
       ]
     },
     {
       category: "Systeme & Hersteller",
       links: [
-        { name: "Thermofloc", url: "https://www.thermofloc.de", description: "Hersteller von Zellulosedämmung" },
-        { name: "Steico", url: "https://www.steico.com/de", description: "Anbieter von Holzfaser-Dämmstoffen" },
-        { name: "Viessmann", url: "https://www.viessmann.de", description: "Systemlösungen für Wärme, Kälte und Strom" },
-        { name: "Schüco", url: "https://www.schueco.com/de", description: "Anbieter für Fenster-, Türen- und Fassadensysteme" }
+        { name: "Thermofloc", url: "https://www.thermofloc.de", description: "Produktübersicht, Verarbeitungstipps und Referenzobjekte für Zellulosedämmungen." },
+        { name: "Steico", url: "https://www.steico.com/de", description: "Holzbasierte Dämm- und Konstruktionssysteme mit technischen Daten und Planungshilfen." },
+        { name: "Viessmann", url: "https://www.viessmann.de", description: "Integrierte Lösungen für Heizung, Kühlung und Photovoltaik inklusive Produktberatern." },
+        { name: "Schüco", url: "https://www.schueco.com/de", description: "Fenster-, Türen- und Fassadensysteme mit Inspirationen, Technikdaten und Partnernetzwerk." }
       ]
     },
     {
       category: "Experten & Netzwerke",
       links: [
-        { name: "Energie-Wände", url: "https://www.energie-wände.de", description: "Experten für Einblasdämmung im Raum Hannover" },
-        { name: "GIH e.V.", url: "https://www.gih.de/", description: "Bundesverband der Gebäude-Energieberater" },
-        { name: "IB-Krieger", url: "https://www.ib-krieger.de/", description: "Ingenieurbüro für Bauphysik & Energieberatung" }
+        { name: "Energie-Wände", url: "https://www.energie-wände.de", description: "Spezialbetrieb für Einblasdämmung mit Projektbeispielen, Leistungen und Ansprechpartnern." },
+        { name: "GIH e.V.", url: "https://www.gih.de/", description: "Bundesweiter Verband der Energieberater mit Fachartikeln, Veranstaltungen und Ansprechpartnern vor Ort." },
+        { name: "IB-Krieger", url: "https://www.ib-krieger.de/", description: "Ingenieurbüro für Bauphysik und Energieberatung mit Leistungsprofil und Referenzen." }
       ]
     },
     {
       category: "Wissensportale & Ratgeber",
       links: [
-        { name: "BINE Informationsdienst", url: "https://www.bine.info", description: "Fachinfos zu Energieeffizienz und Erneuerbaren" },
-        { name: "BauNetz Wissen", url: "https://www.baunetzwissen.de", description: "Bautechnisches Fachwissen und Praxisbeispiele" },
-        { name: "Effizienzhaus-online", url: "https://www.effizienzhaus-online.de", description: "Ratgeber für energieeffizientes Bauen und Sanieren" },
-        { name: "energieheld", url: "https://www.energieheld.de", description: "Sanierungsratgeber und Kostenschätzung" }
+        { name: "BINE Informationsdienst", url: "https://www.bine.info", description: "Projektberichte, Dossiers und Forschungsergebnisse rund um Energieeffizienz und Erneuerbare." },
+        { name: "BauNetz Wissen", url: "https://www.baunetzwissen.de", description: "Aufbereitete Fachbeiträge, Details und Praxisbeispiele zu allen Gewerken." },
+        { name: "Effizienzhaus-online", url: "https://www.effizienzhaus-online.de", description: "Vergleichsrechner, Produkte und Schritt-für-Schritt-Ratgeber für Sanierungsvorhaben." },
+        { name: "energieheld", url: "https://www.energieheld.de", description: "Wissensdatenbank mit Sanierungsguides, Kostenvergleichen und Handwerkervermittlung." }
       ]
     },
     {
       category: "Behördliche Informationen",
       links: [
-        { name: "Deutsche Energie-Agentur", url: "https://www.dena.de", description: "Energieeffizienz und Klimaschutz auf Bundesebene" },
-        { name: "Umweltbundesamt", url: "https://www.umweltbundesamt.de", description: "Informationen zu Umwelt- und Klimaschutz" },
-        { name: "BMWK", url: "https://www.bmwk.de", description: "Aktuelle Gesetze und Förderprogramme" },
-        { name: "EnEV-online", url: "https://www.enev-online.de", description: "Fachportal zum Gebäudeenergiegesetz" }
+        { name: "Deutsche Energie-Agentur", url: "https://www.dena.de", description: "Programme, Studien und Leitfäden zur Energiewende auf Bundesebene." },
+        { name: "Umweltbundesamt", url: "https://www.umweltbundesamt.de", description: "Publikationen, Daten und Empfehlungen zu Klima-, Umwelt- und Ressourcenschutz." },
+        { name: "BMWK", url: "https://www.bmwk.de", description: "Aktuelle Gesetzesinitiativen, Förderprogramme und Pressemitteilungen des Wirtschaftsministeriums." },
+        { name: "EnEV-online", url: "https://www.enev-online.de", description: "Kommentierungen, Berechnungshilfen und News zum Gebäudeenergiegesetz." }
       ]
     },
     {
       category: "Fachmagazine & Blogs",
       links: [
-        { name: "Energie-Fachberater", url: "https://www.energie-fachberater.de", description: "Praxisnahe Sanierungstipps und Fachwissen" },
-        { name: "Gebäude-Energieberater Magazin", url: "https://www.geb-info.de", description: "Fachzeitschrift rund um energetisches Bauen" },
-        { name: "Baulinks", url: "https://www.baulinks.de", description: "Aktuelle Branchennews und Hintergrundberichte" }
+        { name: "Energie-Fachberater", url: "https://www.energie-fachberater.de", description: "Tägliche News, Produktinformationen und Schritt-für-Schritt-Anleitungen zur Sanierung." },
+        { name: "Gebäude-Energieberater Magazin", url: "https://www.geb-info.de", description: "Fachmagazin mit Artikeln, Webinaren und Weiterbildung für Energieberater." },
+        { name: "Baulinks", url: "https://www.baulinks.de", description: "Branchenportal mit tagesaktuellen Meldungen, Produktneuheiten und Hintergrundanalysen." }
       ]
     },
     {
       category: "Normen & Gesetze",
       links: [
-        { name: "GEG im Volltext", url: "https://www.gesetze-im-internet.de/geg/", description: "Gebäudeenergiegesetz als Onlineversion" },
-        { name: "DIN-Normen im Beuth Verlag", url: "https://www.beuth.de/de", description: "Offizieller Shop für Bau- und Energienormen" },
-        { name: "Baurechtsportal der Länder", url: "https://www.baurecht.de", description: "Übersicht der Landesbauordnungen" }
+        { name: "GEG im Volltext", url: "https://www.gesetze-im-internet.de/geg/", description: "Recherchierbare Online-Fassung des Gebäudeenergiegesetzes mit amtlichen Erläuterungen." },
+        { name: "DIN-Normen im Beuth Verlag", url: "https://www.beuth.de/de", description: "Offizieller Shop für DIN-Normen mit Vorschauen, Downloads und Bestellmöglichkeit." },
+        { name: "Baurechtsportal der Länder", url: "https://www.baurecht.de", description: "Direktzugriff auf Landesbauordnungen, Verwaltungsvorschriften und Rechtsgrundlagen." }
       ]
     }
   ];
 
   const [selectedCategory, setSelectedCategory] = useState('alle');
   const categories = ['alle', ...Array.from(new Set(externalLinks.map((cat) => cat.category)))];
-  
+
   const filteredLinks = selectedCategory === 'alle'
     ? externalLinks
     : externalLinks.filter((cat) => cat.category === selectedCategory);
