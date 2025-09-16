@@ -25,7 +25,7 @@ export interface BlogPost {
 }
 
 // Erweiterte Mock-Daten für Demo-Zwecke
-export const mockBlogPosts: BlogPost[] = [
+const baseMockBlogPosts: BlogPost[] = [
   {
     id: '1',
     title: 'Heizung modernisieren: Bis zu 40% Energiekosten sparen',
@@ -705,3 +705,127 @@ Der Tausch von Fenstern und Türen erhöht nicht nur die Energieeffizienz, sonde
     ]
 }
 ];
+
+const sanierungsFehlerPost: BlogPost = {
+  id: 'sanierung-fehler-risiken',
+  title: 'Typische Fehler & Risiken bei Sanierungen – und wie du sie vermeidest',
+  excerpt:
+    'Warum Sanierungen selten am Budget scheitern, sondern an fehlender Planung – plus konkrete Maßnahmen gegen Baupfusch, Kostenfallen und Schimmel.',
+  content: `# Typische Fehler & Risiken bei Sanierungen – und wie du sie vermeidest
+
+<p>Auf <strong><a href="https://www.sanierenundsparen.de" target="_blank" rel="noopener">www.sanierenundsparen.de</a></strong> zeigen wir täglich, dass viele Sanierungen nicht am Budget scheitern, sondern an vermeidbaren Planungsfehlern. Wer typische Sanierung Fehler kennt, erkennt Stolpersteine frühzeitig und schützt die eigene Investition.</p>
+
+<h2 id="typische-fehler-sanierung">Typische Fehler bei der Sanierung</h2>
+<p>Die meisten Sanierungsprojekte entgleisen, weil zentrale Schritte übersprungen oder falsch priorisiert werden. Diese Sanierung Fehler solltest du unbedingt kennen.</p>
+
+<h3 id="ohne-energieberatung">Ohne Energieberatung starten</h3>
+<p>Ohne fundierte Energieberatung fehlt die Basis für jede Entscheidung: Du kennst weder den tatsächlichen Energiebedarf noch die sinnvollste Reihenfolge der Maßnahmen.</p>
+<ul>
+  <li><strong>Risiko:</strong> Ineffiziente Investitionen und verlorene Förderchancen.</li>
+  <li><strong>Lösung:</strong> Beratung durch zertifizierte Energieeffizienz-Experten einplanen und als roten Faden nutzen.</li>
+</ul>
+
+<h3 id="falsche-reihenfolge">Maßnahmen in falscher Reihenfolge</h3>
+<p>Eine neue Heizung vor der Dämmung einzubauen ist klassische Fehlplanung. Die Anlage wird zu groß dimensioniert, der Verbrauch bleibt hoch und Nachjustierungen kosten Geld.</p>
+<p><strong>Tipp:</strong> Gebäudehülle sanieren, dann Anlagentechnik optimieren – so nutzt du die gesamte Effizienz.</p>
+
+<h3 id="billig-statt-nachhaltig">Billig statt nachhaltig: falsche Materialwahl</h3>
+<p>Billigmaterial kann kurzfristig sparen, verursacht aber oft Baupfusch, Reklamationen und vorzeitige Folgesanierungen. Nachhaltige Baustoffe schützen Bausubstanz und Raumklima.</p>
+<p><strong>Check:</strong> Auf Umweltlabels, Garantien und Referenzen achten.</p>
+
+<h3 id="foerdermittel-zu-spaet">Fördermittel zu spät beantragt</h3>
+<p>Viele Förderprogramme verlangen den Antrag vor Vertragsabschluss. Wer zu spät dran ist, verschenkt tausende Euro Zuschuss oder günstige Kredite.</p>
+<p><strong>Merke:</strong> Förderfähigkeit schon in der Konzeptphase prüfen und Fristen im Projektplan verankern.</p>
+
+<h3 id="eigenleistung-ueberschaetzt">Eigenleistungen überschätzt</h3>
+<p>DIY-Mut ist gut, doch ohne Fachwissen können Leitungen, Dämmungen oder Abdichtungen schnell zum Sicherheitsrisiko werden.</p>
+<ul>
+  <li><strong>Gefahr:</strong> Verzögerungen, Nacharbeiten und Haftungsprobleme.</li>
+  <li><strong>Besser:</strong> Eigenleistungen nur dort einplanen, wo du Erfahrung und Zeitreserven hast.</li>
+</ul>
+
+<h3 id="pfusch-unkualifizierte-handwerker">Pfusch durch unqualifizierte Handwerker</h3>
+<p>Fehlende Qualifikationen und fehlende Qualitätskontrollen führen zu Baupfusch, der mühsam und teuer korrigiert werden muss.</p>
+<p><strong>So gehst du vor:</strong> Meisterbetriebe mit Referenzen wählen, Leistungen detailliert ausschreiben und Abnahmen dokumentieren.</p>
+
+<h2 id="sanierung-risiken">Risiken bei Sanierungen</h2>
+<p>Zu den größten Sanierung Risiken gehören verdeckte Folgeschäden, die erst nach Abschluss sichtbar werden. Wer sie kennt, kann rechtzeitig gegensteuern.</p>
+
+<h3 id="schimmelrisiko">Schimmel durch falsche Dämmung</h3>
+<p>Eine falsch ausgeführte Dämmung verschiebt den Taupunkt und begünstigt Schimmel. Kontrollierte Lüftung und luftdichte Anschlüsse sind Pflicht.</p>
+
+<h3 id="kostenexplosion">Kostenexplosion bei fehlendem Puffer</h3>
+<p>Preissteigerungen, Lieferengpässe oder Zusatzarbeiten können das Budget sprengen. Ohne Reserven ist die Finanzierung schnell in Gefahr.</p>
+
+<h3 id="wertminderung">Wertminderung bei unsachgemäßer Ausführung</h3>
+<p>Fehlerhafte Ausführungen mindern den Immobilienwert, gefährden Gewährleistung und erschweren spätere Verkäufe oder Anschlussfinanzierungen.</p>
+
+<h2 id="loesungen-sanierung-fehler-vermeiden">So vermeidest du Sanierungsfehler</h2>
+<p>Strukturierte Planung hilft, Sanierung Risiken zu minimieren und eine zweite Sanierung zu vermeiden. Mit diesen Grundregeln hältst du das Projekt auf Kurs.</p>
+<ul>
+  <li><strong>Frühzeitige Planung mit Fachleuten:</strong> Architekt, Energieberater und Fachplaner rechtzeitig einbinden, damit Statik, Technik und Förderungen zusammenspielen.</li>
+  <li><strong>Realistische Budgetierung:</strong> Alle Kostenpositionen erfassen und einen Puffer von 10–20&nbsp;% für Unvorhergesehenes zurücklegen.</li>
+  <li><strong>Qualität vor billig:</strong> Nur geprüfte Materialien und Systeme verbauen, die gängige Normen erfüllen – so verhinderst du Baupfusch von Beginn an.</li>
+  <li><strong>Verträge &amp; Garantien prüfen:</strong> Leistungsbeschreibungen, Termine, Gewährleistung und Haftung schriftlich fixieren und regelmäßig kontrollieren.</li>
+</ul>
+<p>Mit einer strukturierten Planung kannst du Baupfusch verhindern und kostspielige Nacharbeiten sparen – so lässt sich eine zweite Sanierung vermeiden, bevor sie überhaupt nötig wird.</p>
+
+<h3 id="empfehlenswerte-ratgeber">Empfehlenswerte Ratgeber für deinen Projektplan</h3>
+<p>Vertiefe dein Wissen mit praxisnahen Handbüchern, die Checklisten und Detailwissen liefern.</p>
+<p><!-- AFFILIATE_DISCLOSURE -->
+Hinweis: Einige Links sind Affiliate-Links. Wenn du darüber kaufst, erhalte ich eine kleine Provision, ohne Mehrkosten für dich.
+</p>
+<ul>
+  <li><a href="https://www.amazon.de/s?k=bausanierung+fehler+vermeiden&tag=klexgetier0d-21" rel="nofollow noopener" target="_blank">Bausanierung richtig planen – Bestseller-Übersicht</a>: Aktuelle Praxisratgeber rund um Sanierung Fehler, Budgetplanung und rechtliche Absicherung.</li>
+</ul>
+
+<h2 id="checkliste-sanierung-fehler">Checkliste: Diese 7 Fehler darfst du nicht machen</h2>
+<ol>
+  <li>Ohne Energieberatung loslegen und damit falsche Prioritäten setzen.</li>
+  <li>Maßnahmenreihenfolge ignorieren – erst Gebäudehülle, dann Technik.</li>
+  <li>Billigmaterialien einkaufen, die zu Baupfusch führen.</li>
+  <li>Fördermittel nach Vertragsabschluss beantragen und Ansprüche verlieren.</li>
+  <li>Eigenleistungen überschätzen und Zeit- sowie Qualitätsprobleme riskieren.</li>
+  <li>Handwerker ohne Qualifikationsnachweis beauftragen.</li>
+  <li>Finanzpuffer streichen und dadurch Kostenexplosionen nicht auffangen.</li>
+</ol>
+
+<h2 id="fazit-sanierung">Fazit: Fehler vermeiden spart Nerven, Geld und Energie</h2>
+<p>Wenn du Sanierung Fehler konsequent vermeidest, reduzierst du Stress, Kosten und Energieverbrauch. Die besten Tipps, Checklisten und Tools findest du jederzeit auf <strong><a href="https://www.sanierenundsparen.de" target="_blank" rel="noopener">www.sanierenundsparen.de</a></strong>.</p>`,
+  topic: 'Sanierung planen',
+  topicColor: '#16a34a',
+  publishedAt: '2025-07-16',
+  readTime: 11,
+  slug: 'typische-sanierungsfehler-vermeiden',
+  seoTitle: 'Sanierung Fehler & Risiken: Typische Patzer erkennen und vermeiden',
+  seoDescription:
+    'Sanierung Fehler vermeiden: Häufige Risiken wie Baupfusch, Schimmel und Kostenexplosion erkennen und mit Experten-Tipps sicher sanieren.',
+  keywords: ['Sanierung Fehler', 'Sanierung Risiken', 'Sanierung vermeiden', 'Baupfusch', 'Renovierung planen'],
+  difficulty: 1,
+  savingsPotential: 'Bis zu 20% Projektkosten sparen',
+  paybackTime: 'Direkt nach Umsetzung',
+  fundingAvailable: 'Ja, je nach Maßnahme',
+  effortLevel: 'Planungsaufwand',
+  keyBenefits: [
+    'Planungssicherheit vom ersten Schritt an',
+    'Kostenkontrolle durch realistische Budgets',
+    'Schutz vor Baupfusch und Folgeschäden',
+    'Schneller Zugang zu Fördermitteln'
+  ],
+  importantNotice:
+    'Beantrage Fördermittel immer vor der Beauftragung und halte alle Absprachen schriftlich fest.',
+  tableOfContents: [
+    { id: 'typische-fehler-sanierung', title: 'Typische Fehler bei der Sanierung' },
+    { id: 'sanierung-risiken', title: 'Risiken bei Sanierungen' },
+    { id: 'loesungen-sanierung-fehler-vermeiden', title: 'So vermeidest du Sanierungsfehler' },
+    { id: 'empfehlenswerte-ratgeber', title: 'Empfehlenswerte Ratgeber' },
+    { id: 'checkliste-sanierung-fehler', title: 'Checkliste: Diese 7 Fehler darfst du nicht machen' },
+    { id: 'fazit-sanierung', title: 'Fazit' }
+  ]
+};
+
+export const mockBlogPosts: BlogPost[] = baseMockBlogPosts.some(
+  post => post.slug === sanierungsFehlerPost.slug
+)
+  ? baseMockBlogPosts
+  : [...baseMockBlogPosts, sanierungsFehlerPost];
