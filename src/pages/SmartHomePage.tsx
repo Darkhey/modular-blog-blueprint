@@ -159,21 +159,84 @@ const smartHomeGuides = [
       {
         heading: "Was bringt smarte Beleuchtung?",
         icon: <Lightbulb className="text-yellow-500" />,
-        text: "Mit smarten LEDs und Lichtsystemen schalten Sie das Licht automatisch an oder aus, dimmen nach Stimmung oder Uhrzeit und sparen Strom durch Zeitpläne oder Bewegungssensoren.",
+        text:
+          "Smarte Beleuchtung vernetzt LED-Lampen, Lightstrips und Schalter zu einem durchdachten Lichtsystem. Über Apps, Sprachbefehle oder Sensoren reagiert Ihr Zuhause auf Tageslicht, Anwesenheit und Routinen – vom sanften Aufwachlicht über fokussierte Arbeitsbeleuchtung bis hin zu stimmungsvollen Farbwelten am Abend. Gleichzeitig behalten Sie den Energieverbrauch im Blick, automatisieren das Ausschalten in leeren Räumen und kombinieren Sicherheitsfunktionen wie Anwesenheitssimulation oder Lichtwarnungen.",
         advantages: [
-          "Bis zu 80 % Energieersparnis gegenüber Halogen",
-          "Komfortabel per App, Sprache oder automatisch steuerbar",
-          "Lichtfarben und Helligkeit je nach Situation"
+          "Bis zu 80 % Energieersparnis gegenüber Halogen dank effizienter LEDs",
+          "Automatische Routinen sorgen für passendes Licht beim Aufstehen, Arbeiten und Entspannen",
+          "Flexible Lichtfarben und -temperaturen für Konzentration, Wohlfühl-Atmosphäre oder Party",
+          "Mehr Sicherheit durch Anwesenheitssimulation und Lichtwarnungen bei Bewegung"
         ],
         tips: [
-          "Szenen einrichten (z.B. Kinoabend, Arbeiten, Entspannen).",
-          "Bewegungsmelder im Flur für automatisches Ausschalten.",
-          "Mit Sonnenuntergang koppeln für automatische Beleuchtung am Abend."
+          "Szenen einrichten (z.B. Kinoabend, Arbeiten, Entspannen) und per Sprachbefehl abrufen.",
+          "Bewegungs- und Präsenzmelder im Flur oder Bad für automatisches Ausschalten kombinieren.",
+          "Mit Sonnenuntergang koppeln oder geofencing nutzen, damit Licht automatisch bei Heimkehr angeht.",
+          "Circadiane Automationen aktivieren: morgens kaltweißes Licht, abends warmweiß zum Entspannen.",
+          "Akzentbeleuchtung mit Lightstrips oder Panels setzen, um Möbel und Bilder effektvoll hervorzuheben."
+        ],
+        productCarouselTitle: "Amazon-Empfehlungen für smarte Beleuchtung",
+        products: [
+          {
+            name: "Philips Hue White & Color Ambiance E27 Starter-Set",
+            description:
+              "Klassisches Hue-Starterpaket mit Bridge für den Einstieg ins vernetzte Licht – ideal für Szenen, Routinen und Sprachsteuerung.",
+            link:
+              "https://www.amazon.de/s?k=Philips+Hue+White+%26+Color+Ambiance+E27+Starter+Set&tag=klexgetier0d-21",
+            image: "https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600&h=400&fit=crop",
+            alt: "Modernes Wohnzimmer mit farbig beleuchteten LED-Lampen",
+            priceHint: "Set aus Bridge + 3 E27-Lampen",
+            highlights: [
+              "16 Millionen Farben und dynamische Szenen",
+              "Matter- und Zigbee-kompatibel",
+              "Volle App- und Sprachsteuerung"
+            ]
+          },
+          {
+            name: "Nanoleaf Shapes Hexagons Starter Kit",
+            description:
+              "Modulare LED-Panels für Design-Akzente an der Wand – reagiert auf Musik, Touch und Automationen im Smart Home.",
+            link:
+              "https://www.amazon.de/s?k=Nanoleaf+Shapes+Hexagons+Starter+Kit&tag=klexgetier0d-21",
+            image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&h=400&fit=crop",
+            alt: "Dekorative Licht-Panels in hexagonaler Form an einer Wand",
+            priceHint: "Starter-Set mit 7 Panels",
+            highlights: [
+              "Musik-Sync und Rhythmusmodus",
+              "Erweiterbar auf individuelle Formen",
+              "Kompatibel mit Apple Home, Alexa & Google"
+            ]
+          },
+          {
+            name: "Govee LED Lightstrip M1",
+            description:
+              "Hochdichter Lightstrip mit segmentierter Farbsteuerung – perfekt für indirekte Beleuchtung hinter Möbeln oder Fernsehern.",
+            link: "https://www.amazon.de/s?k=Govee+LED+Lightstrip+M1&tag=klexgetier0d-21",
+            image: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?w=600&h=400&fit=crop",
+            alt: "LED-Lichtstreifen, der ein Regal farbig beleuchtet",
+            priceHint: "5 Meter Lightstrip mit Controller",
+            highlights: [
+              "Segmentierte Farbzonen und DIY-Effekte",
+              "Musik- und Szenenmodus mit App",
+              "Matter-Unterstützung für gängige Smart-Home-Plattformen"
+            ]
+          }
         ],
         faq: [
           {
             question: "Brauche ich neue Lampen oder reichen smarte Glühbirnen?",
-            answer: "Meistens reichen smarte Birnen, es gibt sie mit Standard-Sockeln für viele Leuchten."
+            answer: "Meistens reichen smarte Birnen, es gibt sie mit Standard-Sockeln für viele Leuchten. Für Schienensysteme oder Einbauspots stehen passende Retrofit-Leuchtmittel bereit."
+          },
+          {
+            question: "Kann ich vorhandene Wandschalter weiter nutzen?",
+            answer: "Ja, über Friends-of-Hue- oder Zigbee-Schalter sowie smarte Unterputz-Module lassen sich bestehende Schalter integrieren, ohne dass Lampen stromlos werden."
+          },
+          {
+            question: "Welche Funkstandards sollte ich wählen?",
+            answer: "Bewährt haben sich Zigbee (z.B. Philips Hue, Innr) oder Thread/Matter für hohe Zuverlässigkeit. WLAN-Lampen eignen sich für einzelne Punkte, benötigen aber mehr Router-Kapazität."
+          },
+          {
+            question: "Wie sicher sind cloudbasierte Lichtsysteme?",
+            answer: "Aktualisieren Sie regelmäßig Firmware und nutzen Sie Zwei-Faktor-Logins. Viele Systeme funktionieren zudem lokal weiter, selbst wenn die Cloud einmal ausfällt."
           }
         ]
       }
