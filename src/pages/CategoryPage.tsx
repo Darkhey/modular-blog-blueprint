@@ -11,6 +11,7 @@ import CategoryHero from '@/components/category/CategoryHero';
 import CategoryArticleList from '@/components/category/CategoryArticleList';
 import CategorySidebar from '@/components/category/CategorySidebar';
 import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
+import CategoryPageSEO from '@/components/seo/CategoryPageSEO';
 
 const CategoryPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -61,8 +62,9 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      
+    <>
+      <CategoryPageSEO category={currentTopic} postCount={filteredAndSortedPosts.length} />
+      <div className="min-h-screen bg-gray-50">
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <CategoryHero category={currentTopic} />
 
@@ -93,7 +95,8 @@ const CategoryPage = () => {
         </div>
       </div>
 
-    </div>
+      </div>
+    </>
   );
 };
 

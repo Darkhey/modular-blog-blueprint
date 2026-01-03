@@ -9,7 +9,7 @@ import type { Session } from "@supabase/supabase-js";
 
 interface Profile {
   username: string | null;
-  role: "admin" | "user" | null;
+  role: string | null;
 }
 
 const UserDashboard = () => {

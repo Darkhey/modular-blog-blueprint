@@ -17,6 +17,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import type { EmblaPluginType } from "embla-carousel";
 import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Link } from "react-router-dom";
 
@@ -262,7 +263,7 @@ const VideoHub = () => {
 
       <div className="relative">
         <Carousel
-          plugins={[plugin.current]}
+          plugins={[plugin.current as any]}
           opts={{ loop: true }}
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}

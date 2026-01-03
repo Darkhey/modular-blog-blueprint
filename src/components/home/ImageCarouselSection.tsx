@@ -7,7 +7,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay"
+import Autoplay from "embla-carousel-autoplay";
+import type { EmblaPluginType } from "embla-carousel";
 import { Link } from "react-router-dom";
 
 const images = [
@@ -53,7 +54,7 @@ const ImageCarouselSection = () => {
           Inspiration für Ihr Zuhause
         </h2>
         <Carousel
-          plugins={[plugin.current]}
+          plugins={[plugin.current as any]}
           className="w-full"
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}

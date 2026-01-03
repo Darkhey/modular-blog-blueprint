@@ -1,6 +1,7 @@
 
 import { Helmet } from 'react-helmet-async';
 import { BlogPost } from '@/hooks/useBlogPosts';
+import { siteConfig } from '@/config/site.config';
 
 interface BlogPostSEOProps {
   post: BlogPost;
@@ -8,10 +9,14 @@ interface BlogPostSEOProps {
 }
 
 const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
-  const seoTitle = post.seo_title || `${post.title} | Sanieren & Sparen`;
+  const seoTitle = post.seo_title || `${post.title} | ${siteConfig.projectName}`;
   const seoDescription = post.seo_description || post.excerpt;
   const keywords = post.keywords?.join(', ') || `${post.topic}, Sanierung, Energieeffizienz`;
-  const image = post.hero_image_url || post.cover_url || "https://sanieren-sparen.de/logo.png";
+  const image = post.hero_image_url || post.cover_url || `${siteConfig.siteUrl}/logo.png`;
+  const publisherLogo = `${siteConfig.siteUrl}/logo.png`;
+  
+  // Calculate word count for reading time estimate
+  const wordCount = post.content?.split(/\s+/).length || 0;
   
   const structuredData = {
     "@context": "https://schema.org",
@@ -21,14 +26,15 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
     "image": image,
     "author": {
       "@type": "Person",
-      "name": post.blog_authors?.name || "Sanieren & Sparen Redaktion"
+      "name": post.blog_authors?.name || `${siteConfig.projectName} Redaktion`,
+      "url": siteConfig.siteUrl
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Sanieren & Sparen",
+      "name": siteConfig.projectName,
       "logo": {
         "@type": "ImageObject",
-        "url": "https://sanieren-sparen.de/logo.png"
+        "url": publisherLogo
       }
     },
     "datePublished": post.published_at,
@@ -39,7 +45,9 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
     },
     "articleSection": post.topic,
     "keywords": keywords,
+    "wordCount": wordCount,
     "timeRequired": `PT${post.read_time}M`,
+    "inLanguage": "de-DE",
     "about": [
       {
         "@type": "Thing",
@@ -48,26 +56,34 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
     ]
   };
 
-  // FAQ structured data if the post contains FAQs
-  const faqData = {
+  // Breadcrumb structured data
+  const breadcrumbData = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@type": "BreadcrumbList",
+    "itemListElement": [
       {
-        "@type": "Question",
-        "name": "Welche Türarten gibt es?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Es gibt Haustüren, Zimmertüren, Schiebe- und Falttüren sowie spezielle Sicherheitstüren mit verschiedenen Materialien und Eigenschaften."
-        }
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": siteConfig.siteUrl
       },
       {
-        "@type": "Question", 
-        "name": "Was kostet eine neue Haustür?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Die Kosten für eine neue Haustür variieren je nach Material und Ausstattung zwischen 800€ und 5.000€ inklusive Einbau."
-        }
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": `${siteConfig.siteUrl}/blog`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.topic,
+        "item": `${siteConfig.siteUrl}/themen/${post.topic.toLowerCase().replace(/\s+/g, '-')}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": post.title,
+        "item": canonicalUrl
       }
     ]
   };
@@ -78,7 +94,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <title>{seoTitle}</title>
       <meta name="description" content={seoDescription} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content={post.blog_authors?.name || "Sanieren & Sparen Redaktion"} />
+      <meta name="author" content={post.blog_authors?.name || `${siteConfig.projectName} Redaktion`} />
       <link rel="canonical" href={canonicalUrl} />
 
       {/* Open Graph Tags */}
@@ -88,7 +104,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={image} />
       <meta property="og:locale" content="de_DE" />
-      <meta property="og:site_name" content="Sanieren & Sparen" />
+      <meta property="og:site_name" content={siteConfig.projectName} />
       <meta property="article:published_time" content={post.published_at} />
       <meta property="article:modified_time" content={post.published_at} />
       <meta property="article:section" content={post.topic} />
@@ -101,18 +117,20 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <meta name="twitter:image" content={image} />
 
       {/* Additional SEO Tags */}
-      <meta name="robots" content="index, follow" />
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="googlebot" content="index, follow" />
       <meta name="language" content="de" />
       <meta name="geo.region" content="DE" />
       <meta name="geo.country" content="Deutschland" />
 
-      {/* Structured Data */}
+      {/* Structured Data - Article */}
       <script type="application/ld+json">
         {JSON.stringify(structuredData)}
       </script>
+      
+      {/* Structured Data - Breadcrumbs */}
       <script type="application/ld+json">
-        {JSON.stringify(faqData)}
+        {JSON.stringify(breadcrumbData)}
       </script>
     </Helmet>
   );
