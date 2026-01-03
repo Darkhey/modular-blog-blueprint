@@ -2,7 +2,8 @@ export const siteConfig = {
   // Projekt-Identität
   projectName: "Sanieren & Sparen",
   tagline: "Ihr Ratgeber für energieeffiziente Sanierung",
-  domain: "sanierenundsparen.de",
+  domain: "sanieren-sparen.de",
+  siteUrl: "https://sanieren-sparen.de",
   
   // Design & Branding
   themeColors: {

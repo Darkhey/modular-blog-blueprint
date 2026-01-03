@@ -3,16 +3,14 @@ import { getFederalPrograms, FederalProgram } from '@/integrations/govdata';
 import { useQuery } from '@tanstack/react-query';
 
 const FoerderrechnerPage = () => {
-  const { data: programs = [], error, isLoading } = useQuery<FederalProgram[], Error>(
-    ['federal-programs'],
-    getFederalPrograms,
-    {
-      staleTime: 24 * 60 * 60 * 1000,
-      cacheTime: 24 * 60 * 60 * 1000,
-      refetchOnWindowFocus: false,
-      retry: 1,
-    }
-  );
+  const { data: programs = [], error, isLoading } = useQuery<FederalProgram[], Error>({
+    queryKey: ['federal-programs'],
+    queryFn: getFederalPrograms,
+    staleTime: 24 * 60 * 60 * 1000,
+    gcTime: 24 * 60 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: 1,
+  });
 
   return (
     <div className="min-h-screen bg-gray-50">

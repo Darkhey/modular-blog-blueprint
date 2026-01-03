@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import type { EmblaPluginType } from "embla-carousel";
 import { CheckCircle, Info, HelpCircle } from "lucide-react";
 
 interface FAQItem {
@@ -63,7 +64,7 @@ const GuideProductCarousel: React.FC<{
       <Carousel
         className="w-full"
         opts={{ align: "start", loop: hasMultipleProducts }}
-        plugins={hasMultipleProducts ? [autoplay.current] : []}
+        plugins={hasMultipleProducts ? [autoplay.current as any] : []}
         onMouseEnter={hasMultipleProducts ? autoplay.current.stop : undefined}
         onMouseLeave={hasMultipleProducts ? autoplay.current.reset : undefined}
       >

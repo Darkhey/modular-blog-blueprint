@@ -67,20 +67,36 @@ const Footer = () => {
             </ul>
 
             {/* Social Media */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" role="list" aria-label="Social Media Links">
               {siteConfig.socialLinks.newsletter && (
-                <Link to={siteConfig.socialLinks.newsletter} className="text-gray-400 hover:text-white">
-                  <Mail size={20} />
+                <Link 
+                  to={siteConfig.socialLinks.newsletter} 
+                  className="text-gray-400 hover:text-white transition-colors"
+                  aria-label="Newsletter abonnieren"
+                >
+                  <Mail size={20} aria-hidden="true" />
                 </Link>
               )}
               {siteConfig.socialLinks.instagram && (
-                <a href={siteConfig.socialLinks.instagram} className="text-gray-400 hover:text-white">
-                  <Instagram size={20} />
+                <a 
+                  href={siteConfig.socialLinks.instagram} 
+                  className="text-gray-400 hover:text-white transition-colors"
+                  aria-label="Besuchen Sie uns auf Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Instagram size={20} aria-hidden="true" />
                 </a>
               )}
               {siteConfig.socialLinks.facebook && (
-                <a href={siteConfig.socialLinks.facebook} className="text-gray-400 hover:text-white">
-                  <Facebook size={20} />
+                <a 
+                  href={siteConfig.socialLinks.facebook} 
+                  className="text-gray-400 hover:text-white transition-colors"
+                  aria-label="Besuchen Sie uns auf Facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Facebook size={20} aria-hidden="true" />
                 </a>
               )}
             </div>

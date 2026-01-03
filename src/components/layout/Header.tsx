@@ -92,11 +92,20 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white/95 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
-      {/* Auto Ads are handled via AdSense dashboard - no manual banner code needed */}
+    <>
+      {/* Skip Link for Accessibility */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-primary focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg focus:ring-2 focus:ring-primary"
+      >
+        Zum Hauptinhalt springen
+      </a>
+      
+      <header role="banner" className="bg-white/95 backdrop-blur-sm shadow-sm border-b sticky top-0 z-50">
+        {/* Auto Ads are handled via AdSense dashboard - no manual banner code needed */}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
           {/* Logo/Brand */}
           <Link to="/" className="flex items-center group">
             <div className="relative">
@@ -284,6 +293,7 @@ const Header = () => {
         </div>
       </div>
     </header>
+    </>
   );
 };
 

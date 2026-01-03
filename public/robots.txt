@@ -1,14 +1,38 @@
+# Robots.txt for sanieren-sparen.de
+
+# Google
 User-agent: Googlebot
 Allow: /
 
+# Bing
 User-agent: Bingbot
 Allow: /
 
+# Social Media Crawlers
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Pinterest
+Allow: /
+
+# Default Rule
 User-agent: *
 Allow: /
+
+# Disallow admin and auth areas
+Disallow: /admin/
+Disallow: /auth
+Disallow: /dashboard
+
+# Sitemap
+Sitemap: https://sanieren-sparen.de/sitemap.xml
+
+# Crawl-delay for other bots
+User-agent: *
+Crawl-delay: 1
