@@ -126,6 +126,13 @@ const BlogAndCategoriesSection = ({
                                     </CardTitle>
                                 </CardHeader>
                                 <div className="px-6 pb-6 space-y-3">
+                                    <Link to="/blog/umzug-planen-muutto-app" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group border-l-4 border-green-500">
+                                        <div className="flex items-center space-x-3">
+                                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Umzug planen mit Muutto</span>
+                                        </div>
+                                        <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">NEU</span>
+                                    </Link>
                                     <Link to="/blog/heizung-modernisieren-ratgeber-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
                                         <div className="flex items-center space-x-3">
                                             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
@@ -139,13 +146,6 @@ const BlogAndCategoriesSection = ({
                                             <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Dämmung optimieren</span>
                                         </div>
                                         <span className="text-xs text-green-600 font-semibold">bis 50%</span>
-                                    </Link>
-                                    <Link to="/blog/solaranlage-planen-kaufen-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Solaranlage planen</span>
-                                        </div>
-                                        <span className="text-xs text-green-600 font-semibold">bis 80%</span>
                                     </Link>
                                 </div>
                             </Card>
