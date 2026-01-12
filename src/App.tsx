@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
+import TopicsPage from "./pages/TopicsPage";
 import FoerdermittelPage from "./pages/FoerdermittelPage";
 import { lazy, Suspense } from "react";
 const FoerderrechnerPage = lazy(() => import("./pages/FoerderrechnerPage"));
@@ -72,6 +73,7 @@ function App() {
                   <Route path="/" element={<Index />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/themen" element={<TopicsPage />} />
                   <Route path="/themen/:categorySlug" element={<CategoryPage />} />
                   <Route path="/foerdermittel" element={<FoerdermittelPage />} />
                   <Route path="/foerderrechner" element={<FoerderrechnerPage />} />
