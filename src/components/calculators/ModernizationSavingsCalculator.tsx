@@ -22,6 +22,7 @@ const ModernizationSavingsCalculator = () => {
     customPrices,
     selectedSmartSystems,
     estimateSmartInvestment,
+    getRecommendedSmartSystems,
     results,
     handleInputChange,
     setCalculationMode,
@@ -67,6 +68,7 @@ const ModernizationSavingsCalculator = () => {
               selectedSmartSystems={selectedSmartSystems}
               toggleSmartSystem={toggleSmartSystem}
               estimateSmartInvestment={estimateSmartInvestment}
+              recommendedSystems={getRecommendedSmartSystems()}
             />
           </div>
 
