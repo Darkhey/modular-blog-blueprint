@@ -68,7 +68,26 @@ ERGEBNISSE:
 Erstellt mit energieberater-direkt.de
 Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
         `;
-      default:
+      case 'kostenrechner': {
+        const lines = (results?.gewerke || []).map((g: any) =>
+          `- ${g.label}: ${g.menge} ${g.unit} → Ø ${Math.round(g.bruttoAvg).toLocaleString('de-DE')} € (Förderung: -${Math.round(g.foerderung).toLocaleString('de-DE')} €, Eigenanteil: ${Math.round(g.nettoAvg).toLocaleString('de-DE')} €)`
+        ).join('\n');
+        return `
+KOSTEN-VERGLEICHSRECHNER - ERGEBNIS
+Erstellt am: ${currentDate}
+
+AUSGEWÄHLTE GEWERKE:
+${lines}
+
+GESAMT:
+- Bruttokosten (Ø): ${Math.round(results?.totalBruttoAvg || 0).toLocaleString('de-DE')} €
+- Förderabzug: -${Math.round(results?.totalFoerderung || 0).toLocaleString('de-DE')} €
+- Eigenanteil (Ø): ${Math.round(results?.totalNettoAvg || 0).toLocaleString('de-DE')} €
+
+Erstellt mit energieberater-direkt.de
+Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
+        `;
+      }
         return 'Berechnungsergebnis - energieberater-direkt.de';
     }
   };
