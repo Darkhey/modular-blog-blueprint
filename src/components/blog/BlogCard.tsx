@@ -33,6 +33,7 @@ const topicImageMap: [string, string][] = [
   ['BAFA', foerdermittelImg],
   ['Zuschuss', foerdermittelImg],
   ['Sanierung', sanierungsfahrplanImg],
+  ['Renovierung', renovierungstrendsImg],
   ['Grauwasser', daemmungImg],
 ];
 
