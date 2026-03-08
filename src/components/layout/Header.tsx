@@ -89,6 +89,10 @@ const Header = () => {
     }
   }, [session]);
 
+  const toolsItems = [
+    { title: "Smart Home Produkte", to: "/smart-home-produkte", description: "Produktvergleich: Thermostate, Sensoren & Steuerungen" },
+  ];
+
   const wissenswertesItems = [
     { title: "Externe Links & Portale", to: "/wissenswertes/links", description: "Kuratierte Sammlung wichtiger Websites und Portale" },
     { title: "Rechner & Tools", to: "/wissenswertes/tools", description: "Interaktive Berechnungstools und Planungshilfen" },
@@ -146,6 +150,9 @@ const Header = () => {
                               <Link to={topic.seoUrl} className="text-sm">{topic.name}</Link>
                             </SheetClose>
                           ))}
+                          <SheetClose asChild>
+                            <Link to="/smart-home-produkte" className="text-sm">Smart Home Produkte</Link>
+                          </SheetClose>
                         </div>
                       </div>
                     ) : item.name === 'Wissenswertes' ? (
@@ -193,9 +200,10 @@ const Header = () => {
                           <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
                           <NavigationMenuContent>
                             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                              {siteConfig.contentTopics.map((topic) => (
+                          {siteConfig.contentTopics.map((topic) => (
                                 <ListItem key={topic.id} to={topic.seoUrl} title={topic.name}>{topic.description}</ListItem>
                               ))}
+                              <ListItem to="/smart-home-produkte" title="Smart Home Produkte">Produktvergleich: Thermostate, Sensoren & Steuerungen</ListItem>
                             </ul>
                           </NavigationMenuContent>
                         </>

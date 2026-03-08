@@ -42,6 +42,14 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link 
+                  to="/smart-home-produkte" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Smart Home Produkte
+                </Link>
+              </li>
             </ul>
           </div>
 
