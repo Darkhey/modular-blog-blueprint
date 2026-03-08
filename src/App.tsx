@@ -30,6 +30,11 @@ import FensterTuerenPage from "./pages/FensterTuerenPage";
 import SmartHomePage from "./pages/SmartHomePage";
 import SmartHomeProduktePages from "./pages/SmartHomeProduktePages";
 import SanierungsCheckPage from "./pages/SanierungsCheckPage";
+const BadezimmerSanierungPage = lazy(() => import("./pages/BadezimmerSanierungPage"));
+const BarrierefreiesWohnenPage = lazy(() => import("./pages/BarrierefreiesWohnenPage"));
+const ElektroinstallationPage = lazy(() => import("./pages/ElektroinstallationPage"));
+const SchimmelbeseitigungPage = lazy(() => import("./pages/SchimmelbeseitigungPage"));
+const SanierungsChecklistenPage = lazy(() => import("./pages/SanierungsChecklistenPage"));
 import GlossarPage from "./pages/GlossarPage";
 import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
 import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
@@ -98,6 +103,11 @@ function App() {
                   <Route path="/smart-home-produkte" element={<SmartHomeProduktePages />} />
                   <Route path="/sanierungscheck" element={<SanierungsCheckPage />} />
                   <Route path="/glossar" element={<GlossarPage />} />
+                  <Route path="/badezimmer-sanierung" element={<BadezimmerSanierungPage />} />
+                  <Route path="/barrierefreies-wohnen" element={<BarrierefreiesWohnenPage />} />
+                  <Route path="/elektroinstallation" element={<ElektroinstallationPage />} />
+                  <Route path="/schimmelbeseitigung" element={<SchimmelbeseitigungPage />} />
+                  <Route path="/sanierungschecklisten" element={<SanierungsChecklistenPage />} />
                   
                   {/* Wissenswertes nested routes */}
                   <Route path="/wissenswertes" element={<WissenswertesIndex />} />
