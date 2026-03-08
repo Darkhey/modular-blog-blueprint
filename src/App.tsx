@@ -35,6 +35,9 @@ const BarrierefreiesWohnenPage = lazy(() => import("./pages/BarrierefreiesWohnen
 const ElektroinstallationPage = lazy(() => import("./pages/ElektroinstallationPage"));
 const SchimmelbeseitigungPage = lazy(() => import("./pages/SchimmelbeseitigungPage"));
 const SanierungsChecklistenPage = lazy(() => import("./pages/SanierungsChecklistenPage"));
+const KellersanierungPage = lazy(() => import("./pages/KellersanierungPage"));
+const DachausbauPage = lazy(() => import("./pages/DachausbauPage"));
+const GartengestaltungPage = lazy(() => import("./pages/GartengestaltungPage"));
 import GlossarPage from "./pages/GlossarPage";
 import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
 import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
@@ -108,6 +111,9 @@ function App() {
                   <Route path="/elektroinstallation" element={<ElektroinstallationPage />} />
                   <Route path="/schimmelbeseitigung" element={<SchimmelbeseitigungPage />} />
                   <Route path="/sanierungschecklisten" element={<SanierungsChecklistenPage />} />
+                  <Route path="/kellersanierung" element={<KellersanierungPage />} />
+                  <Route path="/dachausbau" element={<DachausbauPage />} />
+                  <Route path="/gartengestaltung" element={<GartengestaltungPage />} />
                   
                   {/* Wissenswertes nested routes */}
                   <Route path="/wissenswertes" element={<WissenswertesIndex />} />
