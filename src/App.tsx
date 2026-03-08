@@ -25,6 +25,7 @@ import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
 import SolarenergiePage from "./pages/SolarenergiePage";
 import FensterTuerenPage from "./pages/FensterTuerenPage";
 import SmartHomePage from "./pages/SmartHomePage";
+import SmartHomeProduktePages from "./pages/SmartHomeProduktePages";
 import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
 import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
 import WissenswertesTools from "./pages/wissenswertes/WissenswertesTools";
@@ -87,6 +88,7 @@ function App() {
                   <Route path="/solarenergie" element={<SolarenergiePage />} />
                   <Route path="/fenster-tueren" element={<FensterTuerenPage />} />
                   <Route path="/smart-home" element={<SmartHomePage />} />
+                  <Route path="/smart-home-produkte" element={<SmartHomeProduktePages />} />
                   
                   {/* Wissenswertes nested routes */}
                   <Route path="/wissenswertes" element={<WissenswertesIndex />} />
