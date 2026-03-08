@@ -122,6 +122,7 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <AutoPilotStatus />
         <BlogContentGeneratorInfo />
         
         <BlogContentGeneratorForm
