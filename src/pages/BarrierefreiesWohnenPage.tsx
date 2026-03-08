@@ -1,6 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
-import { Accessibility, DoorOpen, Bath, ChefHat, Stairs, ArrowRight, BadgeEuro } from 'lucide-react';
+import { Accessibility, DoorOpen, Bath, ChefHat, ArrowUp, ArrowRight, BadgeEuro } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,7 +12,7 @@ import FAQSection from '@/components/ratgeber/FAQSection';
 
 const measures = [
   { icon: Bath, title: 'Badezimmer', desc: 'Bodengleiche Dusche, rutschfeste Fliesen, Haltegriffe, unterfahrbares Waschbecken', cost: '8.000 – 15.000 €' },
-  { icon: Stairs, title: 'Treppen & Aufzüge', desc: 'Treppenlift, Rampen, Handläufe beidseitig, Aufzug nachrüsten', cost: '3.000 – 25.000 €' },
+  { icon: ArrowUp, title: 'Treppen & Aufzüge', desc: 'Treppenlift, Rampen, Handläufe beidseitig, Aufzug nachrüsten', cost: '3.000 – 25.000 €' },
   { icon: DoorOpen, title: 'Türen & Schwellen', desc: 'Türverbreiterung auf ≥80 cm, schwellenlose Übergänge, automatische Türöffner', cost: '1.500 – 5.000 €' },
   { icon: ChefHat, title: 'Küche', desc: 'Unterfahrbare Arbeitsflächen, absenkbare Oberschränke, Einhandmischer', cost: '4.000 – 12.000 €' },
 ];
