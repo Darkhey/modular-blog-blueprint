@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import BlogPostEditForm from "@/components/admin/BlogPostEditForm";
 import BlogContentGenerator from "@/components/admin/BlogContentGenerator";
 import ContentManagementTabs from "@/components/admin/ContentManagementTabs";
-import { Eye, GitBranch } from "lucide-react";
+import { Eye, GitBranch, Bot } from "lucide-react";
 
 type BlogPost = {
   id: string;
@@ -105,12 +105,22 @@ const AdminBlogPosts = () => {
                   Admin: {profile?.email}
                 </div>
               </div>
-              <Button
-                onClick={() => setShowContentManagement(!showContentManagement)}
-                variant={showContentManagement ? "default" : "outline"}
-              >
-                {showContentManagement ? "Artikel-Liste" : "Content-Management"}
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={() => navigate("/admin/blog/auto-generated")}
+                  variant="outline"
+                  size="sm"
+                >
+                  <Bot className="h-4 w-4 mr-1" />
+                  Auto-Pilot Übersicht
+                </Button>
+                <Button
+                  onClick={() => setShowContentManagement(!showContentManagement)}
+                  variant={showContentManagement ? "default" : "outline"}
+                >
+                  {showContentManagement ? "Artikel-Liste" : "Content-Management"}
+                </Button>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
