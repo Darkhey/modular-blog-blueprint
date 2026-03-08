@@ -1,6 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { mockBlogPosts } from '@/data/mockBlogPosts';
 
 export interface BlogPost {
   id: string;
@@ -47,6 +48,37 @@ export interface BlogPost {
   is_featured?: boolean;
 }
 
+// Convert mock camelCase data to snake_case BlogPost format
+const convertMockPost = (mock: any): BlogPost => ({
+  id: mock.id,
+  title: mock.title,
+  excerpt: mock.excerpt,
+  content: mock.content,
+  topic: mock.topic,
+  topic_color: mock.topicColor,
+  published_at: mock.publishedAt,
+  read_time: mock.readTime,
+  slug: mock.slug,
+  hero_image_url: mock.heroImageUrl,
+  cover_url: mock.coverUrl,
+  seo_title: mock.seoTitle,
+  seo_description: mock.seoDescription,
+  keywords: mock.keywords,
+  difficulty: mock.difficulty,
+  savings_potential: mock.savingsPotential,
+  payback_time: mock.paybackTime,
+  funding_available: mock.fundingAvailable,
+  effort_level: mock.effortLevel,
+  key_benefits: mock.keyBenefits,
+  important_notice: mock.importantNotice,
+  table_of_contents: mock.tableOfContents,
+  costs: mock.costs,
+  status: 'published',
+});
+
+const getMockFallbackPosts = (): BlogPost[] =>
+  mockBlogPosts.map(convertMockPost);
+
 export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
   return useQuery({
     queryKey: ['blog-posts', topic, limit, tag],
@@ -72,7 +104,6 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
       }
 
       if (tag) {
-        // Nur blog_posts mit passendem Tag auswählen
         query = query.contains('keywords', [tag]);
       }
 
@@ -83,11 +114,25 @@ export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
       const { data, error } = await query;
 
       if (error) {
-        console.error('Error fetching blog posts:', error);
-        throw error;
+        console.error('Error fetching blog posts, using fallback:', error);
+        // Fallback to mock data
+        let fallback = getMockFallbackPosts();
+        if (topic) fallback = fallback.filter(p => p.topic === topic);
+        if (tag) fallback = fallback.filter(p => p.keywords?.includes(tag));
+        if (limit) fallback = fallback.slice(0, limit);
+        return fallback;
       }
 
-      return data as BlogPost[];
+      // Merge: add mock posts that don't exist in Supabase
+      const supabaseSlugs = new Set((data || []).map((p: any) => p.slug));
+      let mockFallbacks = getMockFallbackPosts().filter(p => !supabaseSlugs.has(p.slug));
+      if (topic) mockFallbacks = mockFallbacks.filter(p => p.topic === topic);
+      if (tag) mockFallbacks = mockFallbacks.filter(p => p.keywords?.includes(tag));
+
+      const merged = [...(data as BlogPost[]), ...mockFallbacks]
+        .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+
+      return limit ? merged.slice(0, limit) : merged;
     }
   });
 };
@@ -102,9 +147,11 @@ export const useBlogPost = (slug: string) => {
         .eq('slug', slug)
         .single();
 
-      if (error) {
-        console.error('Error fetching blog post:', error);
-        throw error;
+      if (error || !data) {
+        // Fallback to mock data
+        const mockPost = getMockFallbackPosts().find(p => p.slug === slug);
+        if (mockPost) return mockPost;
+        throw error || new Error('Post not found');
       }
 
       return data as BlogPost;
