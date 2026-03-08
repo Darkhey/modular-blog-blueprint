@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-dachausbau.jpg';
 import { Home, Clock, Ruler, Hammer, Lightbulb, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -66,7 +67,7 @@ const DachausbauPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Home} title="Dachausbau" subtitle="Vom Speicher zum Wohntraum – Kosten, Planung und Fördermittel" />
+      <RatgeberHero icon={Home} title="Dachausbau" subtitle="Vom Speicher zum Wohntraum – Kosten, Planung und Fördermittel" backgroundImage={heroImage} />
 
       {/* Timeline */}
       <section className="py-12 md:py-16">

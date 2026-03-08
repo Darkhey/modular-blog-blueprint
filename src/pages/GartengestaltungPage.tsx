@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-gartengestaltung.jpg';
 import { TreePine, Clock, Flower2, Fence, Droplets, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -66,7 +67,7 @@ const GartengestaltungPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={TreePine} title="Gartengestaltung" subtitle="Planung, Kosten und Ideen für Ihren Traumgarten" />
+      <RatgeberHero icon={TreePine} title="Gartengestaltung" subtitle="Planung, Kosten und Ideen für Ihren Traumgarten" backgroundImage={heroImage} />
 
       {/* Timeline */}
       <section className="py-12 md:py-16">

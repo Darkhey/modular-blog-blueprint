@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-kellersanierung.jpg';
 import { Warehouse, Droplets, Clock, Shield, Thermometer, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -64,7 +65,7 @@ const KellersanierungPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Warehouse} title="Kellersanierung" subtitle="Abdichtung, Dämmung und Ausbau – so wird Ihr Keller trocken und nutzbar" />
+      <RatgeberHero icon={Warehouse} title="Kellersanierung" subtitle="Abdichtung, Dämmung und Ausbau – so wird Ihr Keller trocken und nutzbar" backgroundImage={heroImage} />
 
       {/* Timeline */}
       <section className="py-12 md:py-16">
