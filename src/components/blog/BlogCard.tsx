@@ -8,22 +8,48 @@ import solarImg from '@/assets/blog-hero-solar.jpg';
 import foerdermittelImg from '@/assets/blog-hero-foerdermittel.jpg';
 import einblasdaemmungImg from '@/assets/blog-hero-einblasdaemmung.jpg';
 import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
+import fensterImg from '@/assets/blog-hero-fenster.jpg';
+import smarthomeImg from '@/assets/blog-hero-smarthome.jpg';
+import waermepumpeImg from '@/assets/blog-hero-waermepumpe.jpg';
 
-const topicFallbackImages: Record<string, string> = {
-  'Heizung': heizungImg,
-  'Dämmung': daemmungImg,
-  'Solar': solarImg,
-  'Fenster': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop',
-  'Fördermittel': foerdermittelImg,
-  'Einblasdämmung': einblasdaemmungImg,
-  'Sanierung': sanierungsfahrplanImg,
-  'Immobilienkauf': sanierungsfahrplanImg,
+// Topic keywords → local images (priority order)
+const topicImageMap: [string, string][] = [
+  ['Fenster', fensterImg],
+  ['Tür', fensterImg],
+  ['Smart Home', smarthomeImg],
+  ['Smart', smarthomeImg],
+  ['Thermostat', smarthomeImg],
+  ['Wärmepumpe', waermepumpeImg],
+  ['Heizung', heizungImg],
+  ['Dämmung', daemmungImg],
+  ['Einblasdämmung', einblasdaemmungImg],
+  ['Isolierung', daemmungImg],
+  ['Solar', solarImg],
+  ['Photovoltaik', solarImg],
+  ['Balkonkraftwerk', solarImg],
+  ['Förder', foerdermittelImg],
+  ['KfW', foerdermittelImg],
+  ['BAFA', foerdermittelImg],
+  ['Zuschuss', foerdermittelImg],
+  ['Sanierung', sanierungsfahrplanImg],
+  ['Grauwasser', daemmungImg],
+];
+
+const findTopicImage = (post: BlogPost): string | null => {
+  const searchText = `${post.title} ${post.topic}`;
+  for (const [keyword, img] of topicImageMap) {
+    if (searchText.includes(keyword)) return img;
+  }
+  return null;
 };
 
-const getImage = (post: BlogPost) =>
-  post.hero_image_url || post.cover_url ||
-  Object.entries(topicFallbackImages).find(([key]) => post.topic?.includes(key))?.[1] ||
-  sanierungsfahrplanImg;
+const getImage = (post: BlogPost) => {
+  // Always prefer our curated local images based on topic/title keywords
+  const topicImg = findTopicImage(post);
+  if (topicImg) return topicImg;
+  // Only fall back to DB URLs if no local match
+  return post.hero_image_url || post.cover_url || sanierungsfahrplanImg;
+};
 
 interface BlogCardProps {
   post: BlogPost;
