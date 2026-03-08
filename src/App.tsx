@@ -23,6 +23,7 @@ import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import RechnerVergleichPage from "./pages/RechnerVergleichPage";
 const KostenrechnerPage = lazy(() => import("./pages/KostenrechnerPage"));
+const ReferenzenPage = lazy(() => import("./pages/ReferenzenPage"));
 import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
 import SolarenergiePage from "./pages/SolarenergiePage";
 import FensterTuerenPage from "./pages/FensterTuerenPage";
@@ -107,6 +108,7 @@ function App() {
                   <Route path="/wissenswertes/community" element={<WissenswertesCommunity />} />
                   <Route path="/wissenswertes/experten" element={<WissenswertesExperten />} />
                   
+                  <Route path="/referenzen" element={<ReferenzenPage />} />
                   <Route path="/projektplaner" element={<ProjektplanerPage />} />
                   <Route path="/budgetplan" element={<BudgetplanPage />} />
                   <Route path="/kontakt" element={<Kontakt />} />
