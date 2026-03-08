@@ -11,6 +11,7 @@ import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
 import fensterImg from '@/assets/blog-hero-fenster.jpg';
 import smarthomeImg from '@/assets/blog-hero-smarthome.jpg';
 import waermepumpeImg from '@/assets/blog-hero-waermepumpe.jpg';
+import waermepumpeAltbauImg from '@/assets/blog-hero-waermepumpe-altbau.jpg';
 import renovierungstrendsImg from '@/assets/blog-hero-renovierungstrends-2026.jpg';
 import badezimmerImg from '@/assets/blog-hero-badezimmer.jpg';
 
@@ -18,6 +19,7 @@ import badezimmerImg from '@/assets/blog-hero-badezimmer.jpg';
 const topicImageMap: [string, string][] = [
   ['Badezimmer', badezimmerImg],
   ['Feuchtraum', badezimmerImg],
+  ['Altbau', waermepumpeAltbauImg],
   ['Fenster', fensterImg],
   ['Tür', fensterImg],
   ['Smart Home', smarthomeImg],

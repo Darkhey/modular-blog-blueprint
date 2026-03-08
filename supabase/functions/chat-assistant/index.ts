@@ -99,6 +99,7 @@ serve(async (req) => {
       { title: "Einblasdämmung: Günstigste Dämmmethode", slug: "einblasdaemmung-ratgeber-2025", topic: "Dämmung", excerpt: "Schnelle, günstige Dämmung für Bestandsgebäude." },
       { title: "Renovierungstrends 2026", slug: "renovierungstrends-2026", topic: "Sanierung planen", excerpt: "KI-Energiemanagement, modulare Sanierung, neue Förderprogramme." },
       { title: "Badezimmer renovieren & Feuchträume sanieren", slug: "badezimmer-renovierung-feuchtraeume-2026", topic: "Sanierung planen", excerpt: "Abdichtung, barrierefreie Dusche, Schimmelschutz und KfW-Förderung." },
+      { title: "Wärmepumpe im Altbau 2026: Funktioniert das wirklich?", slug: "waermepumpe-altbau-2026-ratgeber", topic: "Heizung", excerpt: "Praxistipps, Kostenbeispiele und Förderungen für Wärmepumpen im Bestandsgebäude." },
     ];
 
     // Merge, avoid duplicates
