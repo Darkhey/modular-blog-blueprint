@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, Loader2 } from "lucide-react";
-import { BlogPost } from "@/hooks/useBlogPosts";
+import { BlogPost, getMockFallbackPosts } from "@/hooks/useBlogPosts";
 import BlogCard from "@/components/blog/BlogCard";
 
 interface SearchResult extends BlogPost {
