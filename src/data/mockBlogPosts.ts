@@ -1454,7 +1454,222 @@ const altbauKaufenPost: BlogPost = {
   ]
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost];
+const einblasdaemmungPost: BlogPost = {
+  id: 'einblasdaemmung-2025',
+  title: 'Einblasdämmung 2025: Schnell, günstig und hocheffektiv – mit Thermoflock zum Profi-Ergebnis',
+  excerpt: 'Einblasdämmung ist die cleverste Nachrüstlösung für Bestandsgebäude. Erfahren Sie alles über Materialien, Kosten, Förderungen – und warum Thermoflock als Marktführer besonders überzeugt.',
+  content: `
+<p>Wer sein Haus energetisch sanieren möchte, steht vor einer zentralen Frage: <strong>Welche Dämmmethode bietet das beste Preis-Leistungs-Verhältnis?</strong> Die Antwort lautet in vielen Fällen: Einblasdämmung. Kein Gerüst, keine wochenlange Baustelle, sondern eine saubere und schnelle Lösung – oft an nur einem Tag erledigt.</p>
+
+<h2 id="was-ist-einblasdaemmung">Was ist Einblasdämmung?</h2>
+
+<p>Bei der Einblasdämmung wird loser Dämmstoff über kleine Bohrungen (ca. 25 mm Durchmesser) in Hohlräume eingeblasen. Die Methode eignet sich besonders für:</p>
+
+<ul>
+  <li><strong>Zweischaliges Mauerwerk</strong> (Hohlschicht zwischen Innen- und Außenwand)</li>
+  <li><strong>Oberste Geschossdecken</strong> (nicht begehbare Dachböden)</li>
+  <li><strong>Dachschrägen</strong> (Zwischensparrendämmung)</li>
+  <li><strong>Kellerdecken</strong> (von unten zugänglich)</li>
+  <li><strong>Holzständerwände</strong> und Fertighauswände</li>
+</ul>
+
+<p>Der große Vorteil: Das Material füllt selbst kleinste Hohlräume lückenlos aus und bietet so eine deutlich bessere Dämmwirkung als nachträglich eingeschobene Platten. Mehr zur Dämmung allgemein finden Sie auf unserer <a href="/daemmung-isolierung">Themenseite Dämmung & Isolierung</a>.</p>
+
+<h2 id="thermoflock-marktfuehrer">Thermoflock: Der Qualitätsführer bei Einblasdämmstoffen</h2>
+
+<p>Unter den Anbietern von Einblasdämmstoffen sticht ein Name besonders hervor: <strong><a href="https://www.thermoflock.de" target="_blank" rel="noopener">Thermoflock</a></strong>. Das Unternehmen hat sich durch mehrere Faktoren als Marktführer etabliert:</p>
+
+<h3>Was Thermoflock auszeichnet</h3>
+
+<ul>
+  <li><strong>Zertifizierte Qualität:</strong> Alle Produkte sind ETA-zertifiziert und erfüllen die strengen Anforderungen der DIN 4108. Die Wärmeleitfähigkeit von λ = 0,033–0,035 W/(m·K) gehört zu den besten am Markt.</li>
+  <li><strong>Nachhaltigkeit:</strong> Thermoflock setzt auf recycelte Rohstoffe und eine CO₂-arme Produktion. Glaswolle-Granulat aus bis zu 80 % Recyclingglas und Zellulose-Flocken aus Altpapier.</li>
+  <li><strong>Bundesweites Fachhändler-Netz:</strong> Über 350 geschulte Fachbetriebe garantieren eine fachgerechte Verarbeitung – inklusive Qualitätskontrolle mit Wärmebildkamera.</li>
+  <li><strong>Langlebigkeit:</strong> Thermoflock-Produkte sind setzungssicher, schimmelresistent und haben eine nachgewiesene Lebensdauer von über 50 Jahren.</li>
+  <li><strong>Brandschutz:</strong> Mineralische Einblasdämmstoffe von Thermoflock erreichen Brandschutzklasse A1 (nicht brennbar) – ein entscheidender Sicherheitsvorteil.</li>
+  <li><strong>Hervorragender Kundenservice:</strong> Kostenlose Erstberatung, transparente Preiskalkulation und eine 10-Jahres-Garantie auf die fachgerechte Ausführung.</li>
+</ul>
+
+<p><strong>Praxis-Tipp:</strong> Fordern Sie bei Thermoflock ein kostenloses Probemuster an, um die Materialqualität selbst zu beurteilen. Die meisten Kunden sind von der Haptik und der sichtbaren Qualität sofort überzeugt.</p>
+
+<h2 id="materialien-vergleich">Einblasdämmstoffe im Vergleich</h2>
+
+<p>Je nach Einsatzbereich kommen verschiedene Materialien zum Einsatz. Hier ein Überblick:</p>
+
+<table>
+  <thead><tr><th>Material</th><th>λ-Wert (W/m·K)</th><th>Brandschutz</th><th>Kosten/m²</th><th>Besonderheit</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Glaswolle-Granulat (Thermoflock)</strong></td><td>0,033–0,035</td><td>A1 (nicht brennbar)</td><td>15–25 €</td><td>Beste Gesamtlösung</td></tr>
+    <tr><td>Zellulose-Flocken</td><td>0,038–0,040</td><td>B2 (normal entflammbar)</td><td>12–22 €</td><td>Ökologisch, guter Hitzeschutz</td></tr>
+    <tr><td>EPS-Granulat</td><td>0,033–0,036</td><td>B1 (schwer entflammbar)</td><td>10–18 €</td><td>Günstig, wasserabweisend</td></tr>
+    <tr><td>Steinwolle-Granulat</td><td>0,035–0,040</td><td>A1 (nicht brennbar)</td><td>18–30 €</td><td>Bester Schallschutz</td></tr>
+    <tr><td>Perlite</td><td>0,045–0,060</td><td>A1 (nicht brennbar)</td><td>20–35 €</td><td>Feuchteregulierend</td></tr>
+  </tbody>
+</table>
+
+<p>Berechnen Sie Ihre individuellen Dämmkosten mit unserem <a href="/daemmungsrechner">Dämmungsrechner</a>.</p>
+
+<h2 id="vorteile">Vorteile der Einblasdämmung</h2>
+
+<ul>
+  <li>✅ <strong>Extrem schnell:</strong> Ein Einfamilienhaus ist in 1–2 Tagen gedämmt – keine wochenlange Baustelle</li>
+  <li>✅ <strong>Günstig:</strong> 30–60 % günstiger als klassisches WDVS (Wärmedämmverbundsystem)</li>
+  <li>✅ <strong>Kein Gerüst nötig:</strong> Spart 3.000–6.000 € Gerüstkosten</li>
+  <li>✅ <strong>Keine Fassadenveränderung:</strong> Ideal für denkmalgeschützte Gebäude oder schöne Klinkerfassaden</li>
+  <li>✅ <strong>Lückenlose Dämmung:</strong> Füllt jeden Hohlraum – keine Wärmebrücken durch ungenaues Zuschneiden</li>
+  <li>✅ <strong>Bewohnbar während der Arbeiten:</strong> Kein Auszug nötig, minimale Beeinträchtigung</li>
+  <li>✅ <strong>Förderfähig:</strong> BAFA-Zuschuss von 15–20 % + iSFP-Bonus</li>
+  <li>✅ <strong>Nachrüstbar:</strong> Perfekt für Bestandsgebäude aller Baujahre</li>
+</ul>
+
+<h2 id="nachteile">Nachteile und Einschränkungen</h2>
+
+<p>Fairerweise muss man auch die Grenzen der Einblasdämmung benennen:</p>
+
+<ul>
+  <li>⚠️ <strong>Hohlraum erforderlich:</strong> Ohne ausreichenden Hohlraum (mind. 4–5 cm) ist keine Einblasdämmung möglich</li>
+  <li>⚠️ <strong>Nicht für einschalige Wände:</strong> Bei massivem Mauerwerk ohne Luftschicht muss eine andere Methode gewählt werden</li>
+  <li>⚠️ <strong>Fachbetrieb zwingend:</strong> DIY ist nicht möglich – unsachgemäße Verarbeitung führt zu Setzungen und Wärmebrücken</li>
+  <li>⚠️ <strong>Begrenzte Dämmstärke:</strong> Die Hohlraumbreite bestimmt die maximale Dämmdicke – oft nur 5–8 cm</li>
+  <li>⚠️ <strong>Vorprüfung nötig:</strong> Hohlraum muss auf Feuchtigkeit, Verschmutzung und Durchgängigkeit geprüft werden</li>
+  <li>⚠️ <strong>Nachkontrolle wichtig:</strong> Wärmebildaufnahme nach der Befüllung empfohlen (seriöse Anbieter wie Thermoflock machen das standardmäßig)</li>
+</ul>
+
+<h2 id="kosten-foerderung">Kosten und Förderung 2025</h2>
+
+<p>Einblasdämmung gehört zu den <strong>wirtschaftlichsten Sanierungsmaßnahmen</strong> überhaupt:</p>
+
+<table>
+  <thead><tr><th>Einsatzbereich</th><th>Kosten pro m²</th><th>Typisches EFH (120 m²)</th><th>Ersparnis/Jahr</th><th>Amortisation</th></tr></thead>
+  <tbody>
+    <tr><td>Kerndämmung (Fassade)</td><td>15–30 €</td><td>2.500–5.000 €</td><td>400–800 €</td><td>4–8 Jahre</td></tr>
+    <tr><td>Oberste Geschossdecke</td><td>20–35 €</td><td>1.500–3.000 €</td><td>300–500 €</td><td>4–7 Jahre</td></tr>
+    <tr><td>Dachschräge</td><td>25–45 €</td><td>3.000–6.000 €</td><td>400–700 €</td><td>5–10 Jahre</td></tr>
+    <tr><td>Kellerdecke</td><td>15–25 €</td><td>1.200–2.500 €</td><td>200–350 €</td><td>5–8 Jahre</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Förderung:</strong> Über das BAFA erhalten Sie <strong>15 % Zuschuss</strong> auf die Dämmkosten. Mit einem individuellen Sanierungsfahrplan (iSFP) kommen weitere <strong>5 % Bonus</strong> dazu. Details auf unserer <a href="/foerdermittel">Fördermittel-Seite</a>.</p>
+
+<h2 id="ablauf">So läuft eine Einblasdämmung ab</h2>
+
+<ol>
+  <li><strong>Erstberatung & Hohlraumprüfung</strong> – Ein Fachbetrieb prüft per Endoskop-Kamera den Hohlraum auf Eignung</li>
+  <li><strong>Angebot & Förderantrag</strong> – Kostenvoranschlag erstellen, BAFA-Antrag VOR Auftragsvergabe stellen</li>
+  <li><strong>Bohrungen setzen</strong> – Kleine Löcher (25 mm) im Raster von ca. 80–100 cm, von außen oder innen</li>
+  <li><strong>Einblasen</strong> – Material wird mit Druck in den Hohlraum eingeblasen bis zur vollständigen Füllung</li>
+  <li><strong>Verschluss & Kontrolle</strong> – Bohrlöcher werden farblich passend verschlossen, Wärmebildaufnahme zur Qualitätskontrolle</li>
+  <li><strong>Dokumentation</strong> – Bestätigung nach §21 EnEV / GEG für den Fördernachweis</li>
+</ol>
+
+<p><strong>Zeitaufwand:</strong> Ein typisches Einfamilienhaus ist in <strong>4–8 Stunden</strong> komplett gedämmt. Nutzen Sie unseren <a href="/projektplaner">Projektplaner</a>, um die Maßnahme in Ihren Sanierungszeitplan einzubetten.</p>
+
+<h2 id="thermoflock-vs-wettbewerb">Warum Thermoflock die beste Wahl ist</h2>
+
+<p>Im direkten Vergleich mit anderen Anbietern überzeugt Thermoflock in mehreren Kategorien:</p>
+
+<table>
+  <thead><tr><th>Kriterium</th><th>Thermoflock</th><th>Durchschnitt Wettbewerb</th></tr></thead>
+  <tbody>
+    <tr><td>Wärmeleitfähigkeit</td><td>0,033 W/(m·K)</td><td>0,038–0,042 W/(m·K)</td></tr>
+    <tr><td>Brandschutzklasse</td><td>A1 (nicht brennbar)</td><td>B1–B2</td></tr>
+    <tr><td>Garantie</td><td>10 Jahre</td><td>2–5 Jahre</td></tr>
+    <tr><td>Recyclinganteil</td><td>bis 80 %</td><td>30–50 %</td></tr>
+    <tr><td>Wärmebildkontrolle</td><td>Inklusive</td><td>Aufpreis oder nicht angeboten</td></tr>
+    <tr><td>Fachbetriebe bundesweit</td><td>350+</td><td>50–150</td></tr>
+  </tbody>
+</table>
+
+<p>Vergleichen Sie die Einblasdämmung mit anderen Dämmverfahren in unserem <a href="/rechner-vergleich">Rechner-Vergleich</a>.</p>
+
+<h2 id="fuer-wen-geeignet">Für wen ist Einblasdämmung ideal?</h2>
+
+<ul>
+  <li>🏠 <strong>Altbau-Besitzer</strong> mit zweischaligem Mauerwerk (typisch für Baujahre 1920–1980)</li>
+  <li>🏗️ <strong>Altbau-Käufer</strong>, die GEG-Pflichten schnell und günstig erfüllen wollen – siehe unseren <a href="/blog/altbau-kaufen-sanieren-2025-ratgeber">Altbau-Käufer-Ratgeber</a></li>
+  <li>🏚️ <strong>Denkmalschutz-Objekte</strong>, bei denen die Fassade nicht verändert werden darf</li>
+  <li>💰 <strong>Budget-bewusste Sanierer</strong>, die maximale Wirkung bei minimaler Investition suchen</li>
+  <li>⏱️ <strong>Vermieter</strong>, die Mietausfälle durch lange Bauzeiten vermeiden wollen</li>
+</ul>
+
+<h2 id="haeufige-fehler">Häufige Fehler bei der Einblasdämmung</h2>
+
+<p>Vermeiden Sie diese typischen Fallstricke – mehr dazu auch in unserem <a href="/blog/haeufige-sanierungsfehler-vermeiden">Artikel über Sanierungsfehler</a>:</p>
+
+<ol>
+  <li><strong>Keine Hohlraumprüfung:</strong> Ohne Endoskopie riskieren Sie verstopfte Bereiche oder Feuchtigkeitsprobleme</li>
+  <li><strong>Billiganbieter wählen:</strong> Unsachgemäße Verarbeitung führt zu Setzungen und Kältebrücken</li>
+  <li><strong>Förderantrag vergessen:</strong> Antrag IMMER vor Auftragsvergabe stellen!</li>
+  <li><strong>Keine Wärmebildkontrolle:</strong> Ohne Nachkontrolle bleiben ungedämmte Stellen unentdeckt</li>
+  <li><strong>Lüftung nicht anpassen:</strong> Nach der Dämmung muss das Lüftungskonzept ggf. angepasst werden</li>
+</ol>
+
+<h2 id="fazit">Fazit: Einblasdämmung ist der Geheimtipp der Sanierung</h2>
+
+<p>Einblasdämmung ist die <strong>schnellste, günstigste und am wenigsten invasive</strong> Dämmmethode für Bestandsgebäude. Mit einem Qualitätsanbieter wie <strong>Thermoflock</strong> erhalten Sie ein Produkt, das in Sachen Wärmedämmung, Brandschutz, Nachhaltigkeit und Service Maßstäbe setzt.</p>
+
+<p><strong>Unsere Empfehlung:</strong> Lassen Sie zunächst prüfen, ob Ihr Gebäude für Einblasdämmung geeignet ist. In den meisten Fällen ist die Antwort Ja – und die Investition amortisiert sich in nur 4–8 Jahren.</p>
+
+<p>Nutzen Sie unsere Tools für die Planung:</p>
+<ul>
+  <li>🧮 <a href="/daemmungsrechner">Dämmungsrechner</a> – Sparpotenzial und optimale Dämmstärke berechnen</li>
+  <li>⚖️ <a href="/rechner-vergleich">Rechner-Vergleich</a> – Einblasdämmung vs. andere Maßnahmen</li>
+  <li>💰 <a href="/foerdermittel">Fördermittel-Übersicht</a> – Alle Zuschüsse und Kredite auf einen Blick</li>
+  <li>📋 <a href="/projektplaner">Projektplaner</a> – Sanierung terminlich planen</li>
+  <li>📖 <a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan 2025</a> – Die richtige Reihenfolge</li>
+</ul>
+
+<p><strong>Weiterführende Quellen:</strong></p>
+<ul>
+  <li><a href="https://www.thermoflock.de" target="_blank" rel="noopener">Thermoflock – Offizielle Website</a></li>
+  <li><a href="https://www.verbraucherzentrale.de/wissen/energie/energetische-sanierung/einblasdaemmung-hohlraeume-effektiv-daemmen-58284" target="_blank" rel="noopener">Verbraucherzentrale – Einblasdämmung</a></li>
+  <li><a href="https://www.co2online.de/modernisieren-und-bauen/daemmung/einblasdaemmung/" target="_blank" rel="noopener">co2online – Einblasdämmung</a></li>
+  <li><a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/effiziente_gebaeude_node.html" target="_blank" rel="noopener">BAFA – Förderung effiziente Gebäude</a></li>
+</ul>`,
+  topic: 'Dämmung & Isolierung',
+  topicColor: '#059669',
+  publishedAt: '2025-03-08',
+  readTime: 12,
+  slug: 'einblasdaemmung-thermoflock-ratgeber-2025',
+  seoTitle: 'Einblasdämmung 2025: Kosten, Vorteile & Thermoflock im Test',
+  seoDescription: 'Einblasdämmung: Die schnellste und günstigste Dämmmethode für Bestandsgebäude. Kosten, Vorteile, Nachteile & warum Thermoflock der Qualitätsführer ist.',
+  keywords: ['Einblasdämmung', 'Thermoflock', 'Kerndämmung', 'Einblasdämmung Kosten', 'Hohlraumdämmung', 'Einblasdämmung Förderung', 'Zellulose Dämmung'],
+  difficulty: 1,
+  savingsPotential: '400–800 €/Jahr (Fassade)',
+  paybackTime: '4–8 Jahre',
+  fundingAvailable: 'Ja, 15–20 % BAFA + iSFP-Bonus',
+  effortLevel: 'Gering (1–2 Tage)',
+  keyBenefits: [
+    'In nur 1–2 Tagen komplett gedämmt',
+    '30–60 % günstiger als WDVS',
+    'Kein Gerüst – spart 3.000–6.000 €',
+    'Fassade bleibt unverändert',
+    'Lückenlose Hohlraumfüllung',
+    'Thermoflock: 10-Jahres-Garantie & A1-Brandschutz'
+  ],
+  importantNotice: 'Einblasdämmung erfordert zwingend einen zertifizierten Fachbetrieb. Achten Sie auf eine Wärmebildkontrolle nach der Ausführung – seriöse Anbieter wie Thermoflock bieten das standardmäßig an.',
+  tableOfContents: [
+    { id: 'was-ist-einblasdaemmung', title: 'Was ist Einblasdämmung?' },
+    { id: 'thermoflock-marktfuehrer', title: 'Thermoflock: Der Qualitätsführer' },
+    { id: 'materialien-vergleich', title: 'Dämmstoffe im Vergleich' },
+    { id: 'vorteile', title: 'Vorteile' },
+    { id: 'nachteile', title: 'Nachteile & Einschränkungen' },
+    { id: 'kosten-foerderung', title: 'Kosten & Förderung 2025' },
+    { id: 'ablauf', title: 'Ablauf einer Einblasdämmung' },
+    { id: 'thermoflock-vs-wettbewerb', title: 'Thermoflock vs. Wettbewerb' },
+    { id: 'fuer-wen-geeignet', title: 'Für wen geeignet?' },
+    { id: 'haeufige-fehler', title: 'Häufige Fehler' },
+    { id: 'fazit', title: 'Fazit' }
+  ],
+  costs: [
+    { item: 'Kerndämmung Fassade', costPerSqm: '15–30 €', totalCost: '2.500–5.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Oberste Geschossdecke', costPerSqm: '20–35 €', totalCost: '1.500–3.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Dachschräge', costPerSqm: '25–45 €', totalCost: '3.000–6.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Kellerdecke', costPerSqm: '15–25 €', totalCost: '1.200–2.500 €', funding: '20 % BAFA + iSFP' }
+  ]
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,
