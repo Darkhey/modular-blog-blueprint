@@ -13,6 +13,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import CategoryPage from "./pages/CategoryPage";
 import FoerdermittelPage from "./pages/FoerdermittelPage";
+import RegionalFoerderungPage from "./pages/RegionalFoerderungPage";
 import { lazy, Suspense } from "react";
 const FoerderrechnerPage = lazy(() => import("./pages/FoerderrechnerPage"));
 const EnergieCheckPage = lazy(() => import("./pages/EnergieCheckPage"));
@@ -78,6 +79,7 @@ function App() {
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/themen/:categorySlug" element={<CategoryPage />} />
                   <Route path="/foerdermittel" element={<FoerdermittelPage />} />
+                  <Route path="/foerdermittel/regional" element={<RegionalFoerderungPage />} />
                   <Route path="/foerderrechner" element={<FoerderrechnerPage />} />
                   <Route path="/energie-check" element={<EnergieCheckPage />} />
                   <Route path="/roi-rechner" element={<ROIRechnerPage />} />

@@ -58,6 +58,14 @@ const Footer = () => {
                   Sanierungscheck
                 </Link>
               </li>
+              <li>
+                <Link 
+                  to="/foerdermittel/regional" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Regionale Förderung
+                </Link>
+              </li>
             </ul>
           </div>
 
