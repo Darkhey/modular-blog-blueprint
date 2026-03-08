@@ -8,6 +8,7 @@ import { useBlogCategories } from "@/hooks/useBlogCategories";
 import BlogContentGeneratorForm from "./BlogContentGeneratorForm";
 import BlogContentGeneratorActions from "./BlogContentGeneratorActions";
 import BlogContentGeneratorInfo from "./BlogContentGeneratorInfo";
+import AutoPilotStatus from "./AutoPilotStatus";
 
 interface BlogContentGeneratorProps {
   onArticleCreated: () => void;
@@ -121,6 +122,7 @@ const BlogContentGenerator = ({ onArticleCreated }: BlogContentGeneratorProps) =
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        <AutoPilotStatus />
         <BlogContentGeneratorInfo />
         
         <BlogContentGeneratorForm
