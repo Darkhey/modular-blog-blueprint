@@ -1871,7 +1871,271 @@ const renovierungsTrends2026Post: BlogPost = {
 <p><em>Quellen: <a href="https://www.bmwk.de/" target="_blank" rel="noopener noreferrer">BMWK</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer-Institut</a>, <a href="https://www.dena.de/" target="_blank" rel="noopener noreferrer">Deutsche Energie-Agentur (dena)</a>. Stand: März 2026.</em></p>`
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post];
+const badezimmerRenovierungPost: BlogPost = {
+  id: 'badezimmer-renovierung-feuchtraeume-2026',
+  title: 'Badezimmer renovieren & Feuchträume sanieren: Der komplette Ratgeber 2026',
+  slug: 'badezimmer-renovierung-feuchtraeume-2026',
+  excerpt: 'Von Abdichtung über barrierefreie Dusche bis zu smarter Belüftung – so renovieren Sie Ihr Bad fachgerecht, vermeiden Schimmel und sparen durch clevere Fördermittel.',
+  topic: 'Sanierung planen',
+  topicColor: '#059669',
+  publishedAt: '2026-03-05',
+  readTime: 20,
+  seoTitle: 'Badezimmer renovieren 2026: Kosten, Ablauf & Förderung für Feuchträume',
+  seoDescription: 'Bad renovieren 2026: Komplett-Ratgeber mit Kosten, Abdichtung nach DIN, barrierefreier Umbau, Schimmelschutz und KfW-Förderung bis 6.250 €.',
+  keywords: ['Badezimmer renovieren', 'Feuchtraum sanieren', 'Bad Kosten', 'barrierefreies Bad', 'Abdichtung Bad', 'Schimmel Bad', 'KfW Badumbau', 'Badezimmer 2026'],
+  difficulty: 2,
+  savingsPotential: 'Bis zu 30 % Wasserkosten durch moderne Armaturen',
+  paybackTime: '8–15 Jahre',
+  fundingAvailable: 'Bis zu 6.250 € KfW-Zuschuss (barrierefrei)',
+  effortLevel: 'Mittel bis hoch',
+  keyBenefits: [
+    'Fachgerechte Abdichtung verhindert Feuchteschäden',
+    'Barrierefreier Umbau wird mit bis zu 6.250 € gefördert',
+    'Moderne Armaturen sparen bis zu 30 % Wasser',
+    'Wertsteigerung der Immobilie um 5–10 %'
+  ],
+  importantNotice: 'Die Abdichtung in Feuchträumen muss nach DIN 18534 ausgeführt werden. Fehlerhafte Abdichtungen sind der häufigste Grund für Wasserschäden und Schimmel. Lassen Sie diese Arbeit unbedingt von einem Fachbetrieb ausführen.',
+  tableOfContents: [
+    { id: 'wann-renovieren', title: 'Wann sollten Sie Ihr Bad renovieren?' },
+    { id: 'kosten-ueberblick', title: 'Kosten im Überblick' },
+    { id: 'abdichtung', title: 'Abdichtung: Das A und O im Feuchtraum' },
+    { id: 'bodengleiche-dusche', title: 'Bodengleiche Dusche: Planung & Umsetzung' },
+    { id: 'schimmel-vermeiden', title: 'Schimmel vermeiden: Lüftung & Materialwahl' },
+    { id: 'barrierefreier-umbau', title: 'Barrierefreier Umbau & Förderung' },
+    { id: 'materialien', title: 'Fliesen, Putz & Alternativen' },
+    { id: 'sanitaerobjekte', title: 'Sanitärobjekte: Trends 2026' },
+    { id: 'smart-bad', title: 'Smartes Badezimmer' },
+    { id: 'handwerker-tipps', title: 'Den richtigen Handwerker finden' },
+    { id: 'fazit', title: 'Fazit & Checkliste' }
+  ],
+  content: `<p>Das Badezimmer gehört zu den meistgenutzten Räumen im Haus – und zu den anspruchsvollsten bei der Renovierung. Feuchtigkeit, Temperaturschwankungen und tägliche Beanspruchung stellen besondere Anforderungen an Materialien und Ausführung. In diesem umfassenden Ratgeber erfahren Sie, worauf es bei der Badrenovierung 2026 ankommt, welche Kosten auf Sie zukommen und wie Sie von Fördermitteln profitieren.</p>
+
+<h2 id="wann-renovieren">Wann sollten Sie Ihr Bad renovieren?</h2>
+
+<p>Eine Badrenovierung ist nicht nur eine Frage des Geschmacks. Diese Warnsignale sollten Sie ernst nehmen:</p>
+
+<ul>
+  <li><strong>Undichte Fugen und Silikone:</strong> Verfärbte oder sich lösende Fugen sind Einfallstore für Feuchtigkeit</li>
+  <li><strong>Schimmelflecken:</strong> Besonders an Decken, Fensterlaibungen und hinter Möbeln – das <a href="https://www.umweltbundesamt.de/themen/gesundheit/umwelteinfluesse-auf-den-menschen/schimmel/schimmelbefall-erkennen-beseitigen" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a> warnt vor Gesundheitsrisiken</li>
+  <li><strong>Risse in Fliesen oder Wänden:</strong> Können auf Bewegungen im Untergrund hindeuten</li>
+  <li><strong>Veraltete Sanitärtechnik:</strong> Alte WCs verbrauchen bis zu 12 Liter pro Spülung – moderne nur 3–4,5 Liter</li>
+  <li><strong>Fehlende Barrierefreiheit:</strong> Hohe Badewannenränder und enge Duschen werden im Alter zur Gefahr</li>
+</ul>
+
+<p><strong>Faustregel:</strong> Alle 20–25 Jahre steht eine grundlegende Badrenovierung an. Die <a href="https://www.verbraucherzentrale.de/wissen/umwelt-haushalt/wohnen/bad-renovieren-was-kostet-ein-neues-badezimmer-78968" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a> empfiehlt, spätestens bei sichtbaren Feuchteschäden zu handeln.</p>
+
+<h2 id="kosten-ueberblick">Kosten im Überblick</h2>
+
+<p>Die Kosten einer Badrenovierung hängen stark vom Umfang ab. Hier eine realistische Einordnung für ein durchschnittliches Bad (ca. 8 m²):</p>
+
+<h3>Kostenrahmen nach Ausstattungsniveau</h3>
+<ul>
+  <li><strong>Basis-Renovierung</strong> (neues Silikon, Armaturen, Anstrich): 2.000–5.000 €</li>
+  <li><strong>Standard-Komplettrenovierung</strong> (neue Fliesen, Sanitärobjekte, Armaturen): 10.000–18.000 €</li>
+  <li><strong>Gehobene Komplettsanierung</strong> (bodengleiche Dusche, Fußbodenheizung, hochwertige Fliesen): 18.000–30.000 €</li>
+  <li><strong>Luxus-Bad</strong> (Naturstein, Regendusche, freistehende Wanne, Smart-Home): ab 30.000 €</li>
+</ul>
+
+<p>Detaillierte Kostenaufstellungen finden Sie beim <a href="https://www.baukosteninformationszentrum.de/" target="_blank" rel="noopener noreferrer">Baukosteninformationszentrum (BKI)</a>. Für die Gesamtkostenplanung Ihrer Sanierung nutzen Sie unseren <a href="/budgetplan">Budgetplaner</a>.</p>
+
+<h3>Einzelposten im Detail</h3>
+<ul>
+  <li><strong>Demontage & Entsorgung:</strong> 1.000–2.500 €</li>
+  <li><strong>Rohinstallation (Wasser & Abwasser):</strong> 1.500–3.500 €</li>
+  <li><strong>Elektroinstallation:</strong> 800–2.000 €</li>
+  <li><strong>Abdichtung:</strong> 500–1.500 € (kritisch – hier nicht sparen!)</li>
+  <li><strong>Estrich & Bodenaufbau:</strong> 500–1.200 €</li>
+  <li><strong>Fliesen inkl. Verlegung:</strong> 2.000–5.000 € (je nach Material)</li>
+  <li><strong>Sanitärobjekte:</strong> 1.500–5.000 € (WC, Waschbecken, Dusche/Wanne)</li>
+  <li><strong>Armaturen:</strong> 500–2.000 €</li>
+</ul>
+
+<h2 id="abdichtung">Abdichtung: Das A und O im Feuchtraum</h2>
+
+<p>Die fachgerechte Abdichtung ist die wichtigste Maßnahme bei jeder Feuchtraumsanierung. Seit 2017 regelt die <a href="https://www.din.de/de/mitwirken/normenausschuesse/nabau/veroeffentlichungen/wdc-beuth:din21:265187285" target="_blank" rel="noopener noreferrer">DIN 18534</a> die Abdichtung von Innenräumen verbindlich.</p>
+
+<h3>Feuchtigkeitsklassen nach DIN 18534</h3>
+<ul>
+  <li><strong>W0-I (gering):</strong> Wandflächen im Handwaschbereich</li>
+  <li><strong>W1-I (mäßig):</strong> Duschbereich häuslicher Bäder – <em>Standardfall bei Privatbädern</em></li>
+  <li><strong>W2-I (hoch):</strong> Bodenflächen mit Bodenablauf, gewerbliche Nassräume</li>
+  <li><strong>W3-I (sehr hoch):</strong> Schwimmbäder, gewerbliche Großküchen</li>
+</ul>
+
+<h3>Zugelassene Abdichtungssysteme</h3>
+<ul>
+  <li><strong>Flüssigkunststoff (PMBC):</strong> Flexibel, einfach zu verarbeiten – Marktführer sind <a href="https://www.pci-augsburg.de/" target="_blank" rel="noopener noreferrer">PCI</a>, <a href="https://www.sopro.com/de/" target="_blank" rel="noopener noreferrer">Sopro</a> und <a href="https://www.ceresit.de/" target="_blank" rel="noopener noreferrer">Ceresit</a></li>
+  <li><strong>Bahnenabdichtung:</strong> Besonders zuverlässig im Bodenbereich</li>
+  <li><strong>Verbundabdichtung (AIV):</strong> Kombination aus Dichtbahn und Fliesenkleber – direkt unter den Fliesen</li>
+</ul>
+
+<p><strong>Wichtig:</strong> An Durchdringungen (Rohrdurchführungen, Armaturen, Abläufe) entstehen die meisten Schäden. Verwenden Sie hier spezielle <strong>Dichtmanschetten</strong> und <strong>Dichtbänder</strong> in den Ecken und Übergängen. Die <a href="https://www.zvshk.de/" target="_blank" rel="noopener noreferrer">Zentralvereinigung des Deutschen Sanitärhandwerks (ZVSHK)</a> bietet Merkblätter zur fachgerechten Ausführung.</p>
+
+<h2 id="bodengleiche-dusche">Bodengleiche Dusche: Planung & Umsetzung</h2>
+
+<p>Die bodengleiche (barrierefreie) Dusche ist der wichtigste Trend im modernen Bad. Sie sieht nicht nur elegant aus, sondern ist auch sicherer und leichter zu reinigen.</p>
+
+<h3>Technische Voraussetzungen</h3>
+<ul>
+  <li><strong>Aufbauhöhe:</strong> Mindestens 65–70 mm für Gefälle und Ablauf – bei Altbauten oft die größte Herausforderung</li>
+  <li><strong>Gefälle:</strong> Mindestens 1,5 % (empfohlen 2 %) zum Ablauf – das sind ca. 2 cm auf 1 m</li>
+  <li><strong>Ablaufleistung:</strong> Mindestens 0,4 l/s bei Regenduschen, besser 0,6 l/s – <a href="https://www.geberit.de/badezimmer/dusche/duschrinnen/" target="_blank" rel="noopener noreferrer">Geberit</a> und <a href="https://www.viega.de/de/produkte/entwasserung/advantix.html" target="_blank" rel="noopener noreferrer">Viega Advantix</a> sind bewährte Systeme</li>
+  <li><strong>Rutschhemmung:</strong> Mindestens Bewertungsgruppe B (R10) nach <a href="https://www.dguv.de/" target="_blank" rel="noopener noreferrer">DGUV</a> – besser R11 für ältere Menschen</li>
+</ul>
+
+<h3>Lösungen bei geringer Aufbauhöhe</h3>
+<ul>
+  <li><strong>Duschrinnen mit flachem Einbau:</strong> Ab 54 mm Aufbauhöhe (z. B. <a href="https://www.schluter.de/produkte/schluter-kerdi-line" target="_blank" rel="noopener noreferrer">Schlüter KERDI-LINE</a>)</li>
+  <li><strong>Podestlösung:</strong> Erhöhte Duschfläche statt Absenken des Bodens</li>
+  <li><strong>Pumpenablauf:</strong> Für Situationen, in denen kein natürliches Gefälle möglich ist</li>
+</ul>
+
+<h2 id="schimmel-vermeiden">Schimmel vermeiden: Lüftung & Materialwahl</h2>
+
+<p>Schimmel ist das größte Risiko in Feuchträumen. Nach dem <a href="https://www.umweltbundesamt.de/sites/default/files/medien/421/publikationen/schimmelleitfaden_2024.pdf" target="_blank" rel="noopener noreferrer">Schimmelleitfaden des Umweltbundesamts</a> sind drei Faktoren entscheidend:</p>
+
+<h3>1. Ausreichende Lüftung</h3>
+<ul>
+  <li><strong>Fenster vorhanden:</strong> Nach jedem Duschen 5–10 Min. Stoßlüften – besser: Kipplüftung vermeiden</li>
+  <li><strong>Innenliegendes Bad:</strong> Dezentrale Lüftungsanlage mit Feuchtigkeitssensor ist Pflicht – <a href="https://www.maico-ventilatoren.com/" target="_blank" rel="noopener noreferrer">Maico</a> und <a href="https://www.heliosventilatoren.de/" target="_blank" rel="noopener noreferrer">Helios</a> bieten passende Lösungen</li>
+  <li><strong>Förderung:</strong> Lüftungsanlagen sind über die <a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/effiziente_gebaeude_node.html" target="_blank" rel="noopener noreferrer">BEG-Einzelmaßnahmen (BAFA)</a> mit 15–20 % förderfähig</li>
+</ul>
+
+<h3>2. Schimmelhemmende Materialien</h3>
+<ul>
+  <li><strong>Kalkputz:</strong> Natürlich alkalisch und schimmelhemmend – ideal für Feuchträume</li>
+  <li><strong>Feuchtraumplatten (Typ H1):</strong> Imprägnierte Gipskartonplatten nach <a href="https://www.knauf.de/" target="_blank" rel="noopener noreferrer">Knauf</a>- oder <a href="https://www.rigips.de/" target="_blank" rel="noopener noreferrer">Rigips</a>-Standard</li>
+  <li><strong>Zementgebundene Bauplatten:</strong> Für extreme Feuchtebelastung (z. B. begehbare Duschen)</li>
+</ul>
+
+<h3>3. Richtige Oberflächentemperatur</h3>
+<p>Kalte Wandoberflächen begünstigen Kondensat. Eine <strong>Fußbodenheizung im Bad</strong> erhöht die Oberflächentemperatur und senkt das Schimmelrisiko erheblich. Lesen Sie auch unseren Ratgeber zur <a href="/blog/daemmung-der-schluessel-zu-niedrigen-heizkosten">Dämmung als Schlüssel zu niedrigen Heizkosten</a>.</p>
+
+<h2 id="barrierefreier-umbau">Barrierefreier Umbau & Förderung</h2>
+
+<p>Der barrierefreie Badumbau wird von der <a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/F%C3%B6rderprodukte/Altersgerecht-Umbauen-Investitionszuschuss-(455)/" target="_blank" rel="noopener noreferrer">KfW mit dem Programm 455-B</a> gefördert:</p>
+
+<h3>KfW-Förderung „Altersgerecht Umbauen"</h3>
+<ul>
+  <li><strong>Zuschuss:</strong> 12,5 % der förderfähigen Kosten, maximal <strong>6.250 €</strong></li>
+  <li><strong>Förderfähig:</strong> Bodengleiche Dusche, Türverbreiterung, rutschhemmende Böden, unterfahrbares Waschbecken, Stützgriffe</li>
+  <li><strong>Antragstellung:</strong> Vor Beginn der Baumaßnahme im <a href="https://www.kfw.de/zuschussportal" target="_blank" rel="noopener noreferrer">KfW-Zuschussportal</a></li>
+  <li><strong>Kombinierbar</strong> mit der BEG-Förderung für Lüftungsanlagen</li>
+</ul>
+
+<p>Weitere Fördermöglichkeiten finden Sie in unserem <a href="/foerdermittel">Fördermittel-Ratgeber</a> und können diese mit dem <a href="/foerderrechner">Förderrechner</a> berechnen.</p>
+
+<h3>Anforderungen nach DIN 18040-2</h3>
+<ul>
+  <li><strong>Bewegungsfläche:</strong> Mind. 120 × 120 cm vor WC und Waschtisch (rollstuhlgerecht: 150 × 150 cm)</li>
+  <li><strong>Duschplatz:</strong> Mind. 120 × 120 cm, bodengleich, mit Klappsitz</li>
+  <li><strong>Türbreite:</strong> Mind. 80 cm lichte Durchgangsbreite (rollstuhlgerecht: 90 cm)</li>
+  <li><strong>WC-Höhe:</strong> 46–48 cm Sitzhöhe (statt Standard 40 cm)</li>
+</ul>
+
+<p>Die <a href="https://www.din.de/" target="_blank" rel="noopener noreferrer">DIN-Normen</a> können über den Beuth Verlag eingesehen werden.</p>
+
+<h2 id="materialien">Fliesen, Putz & Alternativen</h2>
+
+<h3>Fliesen – der Klassiker</h3>
+<ul>
+  <li><strong>Großformatige Fliesen (60×120 cm+):</strong> Weniger Fugen = weniger Schimmelrisiko, edlere Optik – <a href="https://www.villeroy-boch.de/bad-und-wellness/fliesen.html" target="_blank" rel="noopener noreferrer">Villeroy & Boch</a> und <a href="https://www.agrob-buchtal.de/" target="_blank" rel="noopener noreferrer">Agrob Buchtal</a> sind führende deutsche Hersteller</li>
+  <li><strong>Feinsteinzeug:</strong> Wasseraufnahme unter 0,5 % – ideal für Nassräume</li>
+  <li><strong>Holzoptik-Fliesen:</strong> Warme Optik ohne Feuchtigkeitsprobleme</li>
+</ul>
+
+<h3>Fugenlose Alternativen</h3>
+<ul>
+  <li><strong>Mikrozement / Béton Ciré:</strong> Fugenlose Wandgestaltung, wasserdicht nach Versiegelung</li>
+  <li><strong>Wandpaneele:</strong> Schnelle Montage, kein Fliesenkleber nötig – z. B. <a href="https://www.hsk.de/" target="_blank" rel="noopener noreferrer">HSK Renodeco</a></li>
+  <li><strong>Epoxidharz-Beschichtungen:</strong> Hochbelastbar, hygienisch, fugenlos</li>
+</ul>
+
+<h3>Decke und Wände außerhalb des Spritzwasserbereichs</h3>
+<ul>
+  <li><strong>Feuchtraumfarbe:</strong> Mit fungiziden Zusätzen, Klasse 1 (scheuerbeständig)</li>
+  <li><strong>Kalkputz:</strong> Natürlich schimmelhemmend und feuchtigkeitsregulierend</li>
+  <li><strong>Lehm-Feinputz:</strong> Reguliert Luftfeuchtigkeit aktiv – <a href="https://www.claytec.de/" target="_blank" rel="noopener noreferrer">Claytec</a> ist Spezialist</li>
+</ul>
+
+<h2 id="sanitaerobjekte">Sanitärobjekte: Trends 2026</h2>
+
+<h3>WC</h3>
+<ul>
+  <li><strong>Spülrandloses WC:</strong> Hygienischer, leichter zu reinigen – Standard bei <a href="https://www.duravit.de/" target="_blank" rel="noopener noreferrer">Duravit</a>, <a href="https://www.villeroy-boch.de/" target="_blank" rel="noopener noreferrer">Villeroy & Boch</a> und <a href="https://www.geberit.de/" target="_blank" rel="noopener noreferrer">Geberit</a></li>
+  <li><strong>Dusch-WC:</strong> Immer beliebter – das <a href="https://www.geberit.de/badezimmer/wc-und-wc-sitze/dusch-wcs/geberit-aquaclean/" target="_blank" rel="noopener noreferrer">Geberit AquaClean</a> ist Marktführer</li>
+  <li><strong>Wassersparende Spülung:</strong> 2-Mengen-Spülung mit 3/4,5 Litern spart jährlich bis zu 10.000 Liter</li>
+</ul>
+
+<h3>Armaturen</h3>
+<ul>
+  <li><strong>Thermostatarmaturen:</strong> Verbrühschutz und Energieeinsparung – <a href="https://www.grohe.de/" target="_blank" rel="noopener noreferrer">GROHE</a> und <a href="https://www.hansgrohe.de/" target="_blank" rel="noopener noreferrer">hansgrohe</a> führen den Markt</li>
+  <li><strong>Durchflussbegrenzer:</strong> Reduzieren den Wasserverbrauch um bis zu 50 % ohne Komfortverlust</li>
+  <li><strong>Berührungslose Armaturen:</strong> Hygienisch, wassersparend – nicht nur für öffentliche Gebäude</li>
+</ul>
+
+<h2 id="smart-bad">Smartes Badezimmer</h2>
+
+<p>Die Digitalisierung erreicht auch das Badezimmer. Sinnvolle Smart-Home-Lösungen für Feuchträume:</p>
+
+<ul>
+  <li><strong>Smarte Lüftung:</strong> Feuchtigkeitssensoren steuern den Abluftventilator automatisch – integrierbar in <a href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer">Home Assistant</a> oder <a href="https://www.homematic-ip.com/de/" target="_blank" rel="noopener noreferrer">Homematic IP</a></li>
+  <li><strong>Fußbodenheizung mit Zeitsteuerung:</strong> Warme Fliesen zum Aufstehen, Absenkung während der Abwesenheit</li>
+  <li><strong>LED-Spiegelschränke:</strong> Integrierte Beleuchtung mit Tageslichtsimulation</li>
+  <li><strong>Wasserschutzsensoren:</strong> Erkennen Leckagen frühzeitig und melden per App – z. B. <a href="https://www.grohe.de/de_de/grohe-sense/" target="_blank" rel="noopener noreferrer">GROHE Sense</a></li>
+</ul>
+
+<p>Mehr zum Thema vernetzte Haustechnik in unserem <a href="/blog/smart-home-heizung-thermostate-test">Smart-Home-Thermostate-Test</a>.</p>
+
+<h2 id="handwerker-tipps">Den richtigen Handwerker finden</h2>
+
+<p>Eine Badezimmerrenovierung erfordert das Zusammenspiel mehrerer Gewerke. So finden Sie die richtigen Fachbetriebe:</p>
+
+<ul>
+  <li><strong>Innungsbetriebe:</strong> Über die <a href="https://www.zvshk.de/betriebssuche/" target="_blank" rel="noopener noreferrer">Betriebssuche des ZVSHK</a> finden Sie qualifizierte SHK-Fachbetriebe</li>
+  <li><strong>Handwerkskammer:</strong> Die <a href="https://www.hwk.de/" target="_blank" rel="noopener noreferrer">Handwerkskammern</a> vermitteln geprüfte Meisterbetriebe</li>
+  <li><strong>Online-Portale:</strong> <a href="https://www.myhammer.de/" target="_blank" rel="noopener noreferrer">MyHammer</a> und <a href="https://www.check24.de/profis/" target="_blank" rel="noopener noreferrer">Check24 Profis</a> bieten Preisvergleiche</li>
+  <li><strong>Badplaner:</strong> Viele Hersteller wie <a href="https://www.elements-show.de/" target="_blank" rel="noopener noreferrer">ELEMENTS</a> bieten professionelle Badplanung inkl. 3D-Visualisierung</li>
+</ul>
+
+<h3>Tipps für die Handwerkersuche</h3>
+<ol>
+  <li>Mindestens <strong>drei Angebote</strong> einholen</li>
+  <li>Auf <strong>detaillierte Leistungsbeschreibung</strong> achten (Materialien, Marken, Mengen)</li>
+  <li>Nach <strong>Referenzen und Fotos</strong> abgeschlossener Projekte fragen</li>
+  <li>Zahlungsplan vereinbaren: Nie mehr als 30 % Anzahlung</li>
+  <li><strong>Gewährleistung:</strong> Gesetzlich 5 Jahre nach VOB, 2 Jahre nach BGB</li>
+</ol>
+
+<h2 id="fazit">Fazit & Checkliste</h2>
+
+<p>Eine Badrenovierung ist eine komplexe Maßnahme, die sorgfältige Planung erfordert. Mit der richtigen Vorbereitung und qualifizierten Handwerkern schaffen Sie einen Feuchtraum, der Jahrzehnte hält und den Wohnwert Ihres Hauses deutlich steigert.</p>
+
+<h3>Ihre Checkliste für die Badrenovierung</h3>
+<ol>
+  <li>✅ <strong>Budget festlegen:</strong> Nutzen Sie unseren <a href="/budgetplan">Budgetplaner</a></li>
+  <li>✅ <strong>Fördermittel prüfen:</strong> KfW 455-B (barrierefrei) + ggf. BAFA (Lüftung) – berechnen im <a href="/foerderrechner">Förderrechner</a></li>
+  <li>✅ <strong>Planung:</strong> Grundriss, Sanitärpositionen, Elektrik – am besten mit Badplaner</li>
+  <li>✅ <strong>Abdichtungskonzept:</strong> Nach DIN 18534 – vom Fachbetrieb erstellen lassen</li>
+  <li>✅ <strong>Handwerker beauftragen:</strong> Mindestens 3 Angebote, auf Innungsmitgliedschaft achten</li>
+  <li>✅ <strong>Materialien bestellen:</strong> Fliesen, Sanitärobjekte, Armaturen – Lieferzeiten einplanen (4–8 Wochen)</li>
+  <li>✅ <strong>Bauzeit einplanen:</strong> Komplettrenovierung dauert typisch 2–4 Wochen</li>
+  <li>✅ <strong>Abnahme:</strong> Dichtigkeitsprüfung, Wasseranschlüsse testen, Protokoll anfertigen</li>
+</ol>
+
+<p><strong>Weiterführende Ratgeber auf unserer Seite:</strong></p>
+<ul>
+  <li><a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan: Die optimale Reihenfolge</a></li>
+  <li><a href="/blog/renovierungstrends-2026">Renovierungstrends 2026</a></li>
+  <li><a href="/blog/foerdermittel-2025-zuschuesse">Fördermittel 2025: Diese Zuschüsse sollten Sie kennen</a></li>
+  <li><a href="/blog/typische-fehler-risiken-sanierungen">Typische Fehler bei Sanierungen vermeiden</a></li>
+  <li><a href="/blog/neue-beg-foerderung-2024">Neue BEG-Förderung: Bis zu 70 % Zuschuss</a></li>
+</ul>
+
+<p><em>Quellen: <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.zvshk.de/" target="_blank" rel="noopener noreferrer">ZVSHK</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.din.de/" target="_blank" rel="noopener noreferrer">DIN</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>. Stand: März 2026.</em></p>`
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,
