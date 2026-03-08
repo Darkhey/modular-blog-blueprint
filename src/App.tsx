@@ -81,6 +81,7 @@ function App() {
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
+                  <Route path="/rechner-vergleich" element={<RechnerVergleichPage />} />
                   <Route path="/heizung-modernisieren" element={<HeizungModernisierenPage />} />
                   <Route path="/solarenergie" element={<SolarenergiePage />} />
                   <Route path="/fenster-tueren" element={<FensterTuerenPage />} />
