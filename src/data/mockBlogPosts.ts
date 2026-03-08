@@ -2424,7 +2424,273 @@ const waermepumpeAltbauPost: BlogPost = {
 <p><em>Quellen: <a href="https://www.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer ISE</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>, <a href="https://www.bdh-industrie.de/" target="_blank" rel="noopener noreferrer">BDH</a>. Stand: März 2026.</em></p>`
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost];
+const kernsanierungVsTeilsanierungPost: BlogPost = {
+  id: 'kernsanierung-vs-teil',
+  title: 'Kernsanierung vs. Teilsanierung 2026: Was lohnt sich wann?',
+  excerpt: 'Komplettsanierung oder gezielte Einzelmaßnahmen? Entscheidungshilfe mit Kostenvergleich, Fördermöglichkeiten und Praxisbeispielen für Ihr Sanierungsprojekt.',
+  topic: 'Sanierung planen',
+  topicColor: 'bg-indigo-100 text-indigo-800',
+  publishedAt: '2026-03-05',
+  readTime: 16,
+  slug: 'kernsanierung-vs-teilsanierung-2026',
+  seoTitle: 'Kernsanierung vs. Teilsanierung 2026 | Kosten, Förderung & Entscheidungshilfe',
+  seoDescription: 'Kernsanierung oder Teilsanierung? Kostenvergleich, Fördermöglichkeiten bis 70%, Praxisbeispiele und Entscheidungshilfe für Ihre Sanierung 2026.',
+  keywords: ['Kernsanierung', 'Teilsanierung', 'Komplettsanierung', 'Sanierungskosten', 'Sanierung Förderung', 'Altbau sanieren', 'Sanierungsplanung 2026', 'energetische Sanierung'],
+  difficulty: 2,
+  savingsPotential: 'bis 60% Energiekosten',
+  paybackTime: '8–20 Jahre',
+  fundingAvailable: 'Bis zu 70% (BAFA/KfW)',
+  effortLevel: 'Hoch (Kernsanierung) / Mittel (Teilsanierung)',
+  keyBenefits: [
+    'Klare Entscheidungshilfe für Ihre Situation',
+    'Kostenvergleich mit realen Zahlen 2026',
+    'Fördermittel optimal kombinieren',
+    'Praxisbeispiele mit Vorher-Nachher-Vergleich'
+  ],
+  importantNotice: 'Lassen Sie vor einer Entscheidung immer einen individuellen Sanierungsfahrplan (iSFP) erstellen – das bringt 5 % Extra-Förderung und vermeidet kostspielige Fehler.',
+  tableOfContents: [
+    { id: 'definition', title: 'Was ist Kern- vs. Teilsanierung?' },
+    { id: 'kostenvergleich', title: 'Kostenvergleich 2026' },
+    { id: 'entscheidungshilfe', title: 'Entscheidungshilfe: Was passt zu mir?' },
+    { id: 'foerderung', title: 'Fördermöglichkeiten' },
+    { id: 'reihenfolge', title: 'Optimale Sanierungsreihenfolge' },
+    { id: 'praxisbeispiele', title: 'Praxisbeispiele' },
+    { id: 'fehler', title: 'Häufige Fehler vermeiden' },
+    { id: 'fazit', title: 'Fazit & Checkliste' }
+  ],
+  costs: [
+    { item: 'Kernsanierung EFH (120 m²)', costPerSqm: '800–1.500 €/m²', totalCost: '96.000–180.000 €', funding: 'bis 70 % auf Einzelmaßnahmen' },
+    { item: 'Teilsanierung Heizung + Dämmung', costPerSqm: '200–400 €/m²', totalCost: '24.000–48.000 €', funding: 'bis 70 % (BAFA)' },
+    { item: 'Teilsanierung Fenster + Fassade', costPerSqm: '250–450 €/m²', totalCost: '30.000–54.000 €', funding: 'bis 20 % + iSFP-Bonus' },
+    { item: 'Nur Heizungstausch (Wärmepumpe)', costPerSqm: '—', totalCost: '20.000–35.000 €', funding: 'bis 70 % (BAFA)' },
+    { item: 'Nur Dachdämmung', costPerSqm: '100–200 €/m²', totalCost: '10.000–20.000 €', funding: 'bis 20 % + iSFP-Bonus' }
+  ],
+  content: `<h1>Kernsanierung vs. Teilsanierung 2026: Was lohnt sich wann?</h1>
+
+<p>Wenn Ihr Haus in die Jahre gekommen ist, stehen Sie vor einer zentralen Frage: <strong>Alles auf einmal sanieren oder gezielt einzelne Bereiche verbessern?</strong> Beide Ansätze haben Vor- und Nachteile – und die richtige Wahl hängt von Ihrem Budget, dem Gebäudezustand und Ihren Zielen ab.</p>
+
+<p>In diesem Ratgeber vergleichen wir Kernsanierung und Teilsanierung mit aktuellen Kostendaten 2026, zeigen Fördermöglichkeiten auf und geben Ihnen eine klare Entscheidungshilfe.</p>
+
+<h2 id="definition">Was ist Kern- vs. Teilsanierung?</h2>
+
+<h3>Kernsanierung (Komplettsanierung)</h3>
+<p>Bei einer Kernsanierung wird das Gebäude <strong>bis auf die tragende Substanz zurückgebaut</strong> und komplett neu aufgebaut. Das umfasst in der Regel:</p>
+<ul>
+  <li>Kompletter Rückbau der Innenausbauten (Böden, Wände, Decken)</li>
+  <li>Erneuerung aller Leitungen (Elektro, Wasser, Heizung)</li>
+  <li>Neue Fenster und Türen</li>
+  <li>Fassadendämmung und Dachdämmung</li>
+  <li>Neues Heizsystem (z. B. Wärmepumpe)</li>
+  <li>Neue Bäder und Küche</li>
+  <li>Ggf. Grundrissänderungen</li>
+</ul>
+
+<h3>Teilsanierung (Einzelmaßnahmen)</h3>
+<p>Bei einer Teilsanierung werden <strong>gezielt einzelne Bereiche</strong> modernisiert, ohne das gesamte Gebäude zu öffnen:</p>
+<ul>
+  <li>Heizungstausch (z. B. Öl → Wärmepumpe)</li>
+  <li>Fenstertausch</li>
+  <li>Dachdämmung oder Fassadendämmung</li>
+  <li>Kellerdeckendämmung</li>
+  <li>Einzelne Badsanierung</li>
+</ul>
+
+<h2 id="kostenvergleich">Kostenvergleich 2026</h2>
+
+<h3>Kernsanierung – typische Kosten</h3>
+<table>
+  <thead>
+    <tr><th>Gewerk</th><th>Kosten pro m²</th><th>EFH 120 m²</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Rückbau & Entsorgung</td><td>50–100 €</td><td>6.000–12.000 €</td></tr>
+    <tr><td>Rohbau & Mauerwerk</td><td>80–150 €</td><td>9.600–18.000 €</td></tr>
+    <tr><td>Elektroinstallation</td><td>60–100 €</td><td>7.200–12.000 €</td></tr>
+    <tr><td>Sanitär & Heizung</td><td>120–200 €</td><td>14.400–24.000 €</td></tr>
+    <tr><td>Fenster & Türen</td><td>80–150 €</td><td>9.600–18.000 €</td></tr>
+    <tr><td>Dämmung (Fassade + Dach)</td><td>100–200 €</td><td>12.000–24.000 €</td></tr>
+    <tr><td>Innenausbau & Böden</td><td>150–250 €</td><td>18.000–30.000 €</td></tr>
+    <tr><td>Bäder (2 Stück)</td><td>—</td><td>15.000–30.000 €</td></tr>
+    <tr><td><strong>Gesamt Kernsanierung</strong></td><td><strong>800–1.500 €</strong></td><td><strong>96.000–180.000 €</strong></td></tr>
+  </tbody>
+</table>
+
+<h3>Teilsanierung – typische Kosten</h3>
+<table>
+  <thead>
+    <tr><th>Maßnahme</th><th>Kosten</th><th>Energieeinsparung</th><th>Förderung</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Heizungstausch (Wärmepumpe)</td><td>20.000–35.000 €</td><td>25–40 %</td><td>bis 70 %</td></tr>
+    <tr><td>Fassadendämmung (WDVS)</td><td>15.000–30.000 €</td><td>15–25 %</td><td>bis 20 % + iSFP</td></tr>
+    <tr><td>Dachdämmung</td><td>10.000–20.000 €</td><td>10–20 %</td><td>bis 20 % + iSFP</td></tr>
+    <tr><td>Fenstertausch (3-fach)</td><td>8.000–18.000 €</td><td>10–15 %</td><td>bis 20 % + iSFP</td></tr>
+    <tr><td>Kellerdeckendämmung</td><td>3.000–6.000 €</td><td>5–10 %</td><td>bis 20 % + iSFP</td></tr>
+    <tr><td><strong>Alle Maßnahmen zusammen</strong></td><td><strong>56.000–109.000 €</strong></td><td><strong>bis 60 %</strong></td><td><strong>je Maßnahme einzeln</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Wichtiger Hinweis:</strong> Bei der Teilsanierung können Sie <strong>jede Maßnahme einzeln fördern lassen</strong> – das kann in Summe sogar mehr Förderung ergeben als ein Komplett-Kredit der KfW.</p>
+
+<h2 id="entscheidungshilfe">Entscheidungshilfe: Was passt zu mir?</h2>
+
+<h3>Kernsanierung ist sinnvoll, wenn…</h3>
+<ul>
+  <li>✅ Das Gebäude vor 1970 gebaut wurde und <strong>umfassende Schäden</strong> aufweist</li>
+  <li>✅ Sie einen <strong>Altbau gerade erst kaufen</strong> und ohnehin alles planen können</li>
+  <li>✅ Der <strong>Grundriss</strong> grundlegend verändert werden soll</li>
+  <li>✅ Die Elektrik und Sanitärleitungen <strong>komplett veraltet</strong> sind (z. B. noch Bleirohre)</li>
+  <li>✅ Sie einen <strong>KfW-Effizienzhaus-Standard</strong> erreichen wollen (hohe Förderung)</li>
+  <li>✅ Das Budget <strong>100.000 € +</strong> beträgt</li>
+</ul>
+
+<h3>Teilsanierung ist sinnvoll, wenn…</h3>
+<ul>
+  <li>✅ Die <strong>Bausubstanz grundsätzlich gut</strong> ist</li>
+  <li>✅ Sie <strong>schrittweise investieren</strong> möchten (z. B. erst Heizung, dann Dämmung)</li>
+  <li>✅ Das Haus während der Sanierung <strong>bewohnt bleiben</strong> soll</li>
+  <li>✅ Der <strong>Grundriss passt</strong> und keine Leitungen getauscht werden müssen</li>
+  <li>✅ Das Budget <strong>unter 80.000 €</strong> liegt</li>
+  <li>✅ Einzelne Gewerke <strong>besonders dringend</strong> sind (z. B. 30 Jahre alte Ölheizung)</li>
+</ul>
+
+<h3>Schnell-Check: 5 Fragen zur Entscheidung</h3>
+<ol>
+  <li><strong>Wie alt ist die Elektrik?</strong> → Vor 1975 = eher Kernsanierung</li>
+  <li><strong>Soll der Grundriss geändert werden?</strong> → Ja = Kernsanierung</li>
+  <li><strong>Können Sie während der Bauzeit ausziehen?</strong> → Nein = Teilsanierung</li>
+  <li><strong>Wie ist der Zustand der Rohrleitungen?</strong> → Bleirohre = Kernsanierung</li>
+  <li><strong>Haben Sie mehr als 100.000 € Budget?</strong> → Ja = Kernsanierung erwägen</li>
+</ol>
+
+<h2 id="foerderung">Fördermöglichkeiten 2026</h2>
+
+<h3>Förderung bei Kernsanierung</h3>
+<table>
+  <thead>
+    <tr><th>Förderprogramm</th><th>Förderart</th><th>Max. Förderung</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>KfW 261 (Effizienzhaus)</td><td>Kredit + Tilgungszuschuss</td><td>bis 150.000 € Kredit, bis 45 % Zuschuss</td></tr>
+    <tr><td>BEG EM (Einzelmaßnahmen)</td><td>Zuschuss</td><td>je Maßnahme separat</td></tr>
+    <tr><td>iSFP-Bonus</td><td>Zuschuss-Aufschlag</td><td>+5 % auf jede Maßnahme</td></tr>
+    <tr><td>Steuerbonus § 35c EStG</td><td>Steuerermäßigung</td><td>20 % der Kosten über 3 Jahre</td></tr>
+  </tbody>
+</table>
+
+<h3>Förderung bei Teilsanierung</h3>
+<table>
+  <thead>
+    <tr><th>Maßnahme</th><th>Basis-Förderung</th><th>Mit iSFP-Bonus</th><th>Max. Zuschuss</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Heizungstausch (Wärmepumpe)</td><td>30 %</td><td>35 %</td><td>bis 70 % mit Boni</td></tr>
+    <tr><td>Fassadendämmung</td><td>15 %</td><td>20 %</td><td>max. 60.000 € Kosten</td></tr>
+    <tr><td>Dachdämmung</td><td>15 %</td><td>20 %</td><td>max. 60.000 € Kosten</td></tr>
+    <tr><td>Fenstertausch</td><td>15 %</td><td>20 %</td><td>max. 60.000 € Kosten</td></tr>
+  </tbody>
+</table>
+
+<p><strong>⚠️ Wichtig:</strong> Förderanträge immer <strong>VOR der Auftragsvergabe</strong> stellen! Nutzen Sie unseren <a href="/foerderrechner">Förderrechner</a>, um Ihren individuellen Zuschuss zu berechnen.</p>
+
+<h2 id="reihenfolge">Optimale Sanierungsreihenfolge bei Teilsanierung</h2>
+
+<p>Wer schrittweise saniert, sollte die richtige Reihenfolge einhalten – sonst drohen Bauschäden und Effizienzverluste:</p>
+
+<ol>
+  <li><strong>Schritt 1: Gebäudehülle dämmen</strong> – Dach, Fassade, Kellerdecke → Heizlast senken</li>
+  <li><strong>Schritt 2: Fenster und Türen tauschen</strong> – Passend zur neuen Dämmstärke</li>
+  <li><strong>Schritt 3: Heizung modernisieren</strong> – Jetzt kann die neue Heizung kleiner dimensioniert werden</li>
+  <li><strong>Schritt 4: Lüftungsanlage</strong> – Für kontrollierte Lüftung im gedämmten Haus</li>
+  <li><strong>Schritt 5: Photovoltaik + Smart Home</strong> – Eigenstrom für Wärmepumpe nutzen</li>
+</ol>
+
+<p>Mehr Details finden Sie in unserem <a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan</a>.</p>
+
+<h2 id="praxisbeispiele">Praxisbeispiele</h2>
+
+<h3>Beispiel 1: Kernsanierung – Einfamilienhaus 1958, Köln</h3>
+<table>
+  <thead>
+    <tr><th>Position</th><th>Kosten</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Rückbau + Entsorgung</td><td>11.000 €</td></tr>
+    <tr><td>Rohbau, Elektrik, Sanitär</td><td>38.000 €</td></tr>
+    <tr><td>Fenster + Haustür</td><td>16.000 €</td></tr>
+    <tr><td>Fassaden- und Dachdämmung</td><td>32.000 €</td></tr>
+    <tr><td>Wärmepumpe + Fußbodenheizung</td><td>28.000 €</td></tr>
+    <tr><td>Bäder, Küche, Böden, Innenausbau</td><td>35.000 €</td></tr>
+    <tr><td><strong>Gesamtkosten</strong></td><td><strong>160.000 €</strong></td></tr>
+    <tr><td>KfW-Effizienzhaus 55 Förderung</td><td>–52.500 € (Tilgungszuschuss)</td></tr>
+    <tr><td><strong>Eigenanteil</strong></td><td><strong>107.500 €</strong></td></tr>
+  </tbody>
+</table>
+<p><strong>Ergebnis:</strong> Energieverbrauch von 280 kWh/m²a auf 45 kWh/m²a gesenkt. Heizkosten von 3.800 €/Jahr auf 950 €/Jahr. <strong>Amortisation: ca. 12 Jahre</strong> (bei steigenden Energiepreisen schneller).</p>
+
+<h3>Beispiel 2: Teilsanierung über 3 Jahre – EFH 1975, Hamburg</h3>
+<table>
+  <thead>
+    <tr><th>Jahr</th><th>Maßnahme</th><th>Kosten</th><th>Förderung</th><th>Eigenanteil</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>2026</td><td>Ölheizung → Wärmepumpe</td><td>28.000 €</td><td>–16.800 € (60 %)</td><td>11.200 €</td></tr>
+    <tr><td>2027</td><td>Dachdämmung + Fenster OG</td><td>22.000 €</td><td>–4.400 € (20 %)</td><td>17.600 €</td></tr>
+    <tr><td>2028</td><td>Fassadendämmung + PV</td><td>35.000 €</td><td>–7.000 € (20 %)</td><td>28.000 €</td></tr>
+    <tr><td><strong>Gesamt</strong></td><td></td><td><strong>85.000 €</strong></td><td><strong>–28.200 €</strong></td><td><strong>56.800 €</strong></td></tr>
+  </tbody>
+</table>
+<p><strong>Ergebnis:</strong> Energieverbrauch von 220 kWh/m²a auf 75 kWh/m²a. Heizkosten von 3.200 €/Jahr auf 1.100 €/Jahr. <strong>Vorteil:</strong> Kein Auszug nötig, finanzielle Belastung über 3 Jahre verteilt.</p>
+
+<h2 id="fehler">Häufige Fehler vermeiden</h2>
+
+<h3>Fehler bei Kernsanierung</h3>
+<ol>
+  <li><strong>Kein Puffer eingeplant:</strong> Rechnen Sie immer 15–20 % Kostenreserve ein</li>
+  <li><strong>Falscher Energiestandard:</strong> KfW 55 vs. KfW 40 genau durchrechnen – der Aufpreis lohnt sich nicht immer</li>
+  <li><strong>Bauzeit unterschätzt:</strong> Kernsanierungen dauern 4–8 Monate, planen Sie Mietwohnung ein</li>
+  <li><strong>Statik vergessen:</strong> Bei Grundrissänderungen immer Statiker einbeziehen</li>
+</ol>
+
+<h3>Fehler bei Teilsanierung</h3>
+<ol>
+  <li><strong>Falsche Reihenfolge:</strong> Erst Heizung, dann Dämmung → Heizung ist überdimensioniert</li>
+  <li><strong>Wärmebrücken ignoriert:</strong> Neue Fenster in ungedämmter Wand → Schimmelgefahr</li>
+  <li><strong>Förderung verpasst:</strong> Erst beauftragen, dann Antrag → keine Förderung</li>
+  <li><strong>Keine Gesamtplanung:</strong> Einzelmaßnahmen ohne Gesamtkonzept → suboptimale Ergebnisse</li>
+</ol>
+
+<p>Lesen Sie mehr dazu in unserem Artikel <a href="/blog/typische-sanierungsfehler-vermeiden">Typische Sanierungsfehler vermeiden</a>.</p>
+
+<h2 id="fazit">Fazit & Checkliste</h2>
+
+<p>Ob Kernsanierung oder Teilsanierung – <strong>beides kann sich lohnen</strong>, wenn es zur Situation passt. Die Kernsanierung liefert den besten Energiestandard und Komfort, kostet aber mehr und erfordert einen Auszug. Die Teilsanierung ist flexibler, günstiger pro Jahr und ermöglicht bewohntes Sanieren.</p>
+
+<h3>Ihre Checkliste</h3>
+<ol>
+  <li>✅ <strong>Energieberater beauftragen:</strong> iSFP erstellen lassen → +5 % Förderbonus (<a href="/wissenswertes/experten">Energieberater-Suche</a>)</li>
+  <li>✅ <strong>Gebäudezustand prüfen:</strong> Elektrik, Sanitär, Statik bewerten lassen</li>
+  <li>✅ <strong>Budget realistisch planen:</strong> <a href="/budgetplan">Budgetplaner</a> nutzen, 15–20 % Reserve</li>
+  <li>✅ <strong>Förderung berechnen:</strong> <a href="/foerderrechner">Förderrechner</a> für individuelle Berechnung</li>
+  <li>✅ <strong>Sanierungsreihenfolge festlegen:</strong> Erst Hülle, dann Technik</li>
+  <li>✅ <strong>Angebote vergleichen:</strong> Mind. 3 Fachbetriebe anfragen</li>
+  <li>✅ <strong>Förderantrag VOR Beauftragung:</strong> Gilt für BAFA und KfW!</li>
+  <li>✅ <strong>Baubegleitung:</strong> KfW fördert qualifizierte Baubegleitung mit 50 %</li>
+</ol>
+
+<p><strong>Weiterführende Ratgeber:</strong></p>
+<ul>
+  <li><a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan: Die optimale Reihenfolge</a></li>
+  <li><a href="/blog/altbau-kaufen-sanieren-2025-ratgeber">Altbau kaufen & sanieren: Der große Ratgeber</a></li>
+  <li><a href="/blog/foerdermittel-finanzierungsmodelle-sanierung">Fördermittel & Finanzierung optimal kombinieren</a></li>
+  <li><a href="/blog/waermepumpe-altbau-2026-ratgeber">Wärmepumpe im Altbau 2026</a></li>
+  <li><a href="/blog/typische-sanierungsfehler-vermeiden">Typische Sanierungsfehler vermeiden</a></li>
+</ul>
+
+<p><em>Quellen: <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>, <a href="https://www.dena.de/" target="_blank" rel="noopener noreferrer">dena</a>, <a href="https://www.bdh-industrie.de/" target="_blank" rel="noopener noreferrer">BDH</a>. Stand: März 2026.</em></p>`
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,

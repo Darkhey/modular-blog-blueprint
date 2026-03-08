@@ -14,9 +14,12 @@ import waermepumpeImg from '@/assets/blog-hero-waermepumpe.jpg';
 import waermepumpeAltbauImg from '@/assets/blog-hero-waermepumpe-altbau.jpg';
 import renovierungstrendsImg from '@/assets/blog-hero-renovierungstrends-2026.jpg';
 import badezimmerImg from '@/assets/blog-hero-badezimmer.jpg';
+import kernsanierungImg from '@/assets/blog-hero-kernsanierung.jpg';
 
 // Topic keywords → local images (priority order)
 const topicImageMap: [string, string][] = [
+  ['Kernsanierung', kernsanierungImg],
+  ['Teilsanierung', kernsanierungImg],
   ['Badezimmer', badezimmerImg],
   ['Feuchtraum', badezimmerImg],
   ['Altbau', waermepumpeAltbauImg],
