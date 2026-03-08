@@ -16,6 +16,8 @@ import badezimmerImg from '@/assets/blog-hero-badezimmer.jpg';
 
 // Topic keywords → local images (priority order)
 const topicImageMap: [string, string][] = [
+  ['Badezimmer', badezimmerImg],
+  ['Feuchtraum', badezimmerImg],
   ['Fenster', fensterImg],
   ['Tür', fensterImg],
   ['Smart Home', smarthomeImg],
