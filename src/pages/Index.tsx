@@ -2,6 +2,7 @@
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
+import MuuttoBanner from '@/components/home/MuuttoBanner';
 import FeaturedCalculatorsCarousel from '@/components/home/FeaturedCalculatorsCarousel';
 import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
 import FeaturesSection from '@/components/home/FeaturesSection';
@@ -21,6 +22,7 @@ const Index = () => {
       
       <main>
         <HeroSection />
+        <MuuttoBanner />
         <FeaturedCalculatorsCarousel />
         <FeaturedExpertSection />
         <FeaturesSection />
