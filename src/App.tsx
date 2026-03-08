@@ -20,6 +20,7 @@ const ROIRechnerPage = lazy(() => import("./pages/ROIRechnerPage"));
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
 import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
+import RechnerVergleichPage from "./pages/RechnerVergleichPage";
 import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
 import SolarenergiePage from "./pages/SolarenergiePage";
 import FensterTuerenPage from "./pages/FensterTuerenPage";
