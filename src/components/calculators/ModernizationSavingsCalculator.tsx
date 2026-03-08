@@ -40,13 +40,13 @@ const ModernizationSavingsCalculator = () => {
         description="Berechnen Sie Ihr Sparpotenzial durch Heizungsmodernisierung mit Smart Home Integration. Kostenlos, sofort und ohne Anmeldung."
       />
       <TooltipProvider>
-      <Card className="w-full max-w-5xl mx-auto bg-gradient-to-br from-white to-green-50 border-2 border-green-200 shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-t-lg">
+      <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
+        <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg">
           <CardTitle className="flex items-center text-2xl">
             <Calculator className="mr-3 w-8 h-8" />
             Modernisierungs-Einspar-Rechner
           </CardTitle>
-          <CardDescription className="text-green-100">Berechnen Sie Ihr Sparpotenzial durch Sanierungsmaßnahmen.</CardDescription>
+          <CardDescription className="text-emerald-100">Berechnen Sie Ihr Sparpotenzial durch Sanierungsmaßnahmen.</CardDescription>
         </CardHeader>
         
         <CardContent className="p-8">
@@ -75,7 +75,7 @@ const ModernizationSavingsCalculator = () => {
             handlePriceChange={handlePriceChange}
           />
 
-          <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-[1.02] transition-all duration-300">
             <Zap className="mr-2 w-5 h-5" />
             Sparpotenzial berechnen!
           </Button>
