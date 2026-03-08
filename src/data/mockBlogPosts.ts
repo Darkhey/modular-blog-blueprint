@@ -2135,7 +2135,296 @@ const badezimmerRenovierungPost: BlogPost = {
 <p><em>Quellen: <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.zvshk.de/" target="_blank" rel="noopener noreferrer">ZVSHK</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.din.de/" target="_blank" rel="noopener noreferrer">DIN</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>. Stand: März 2026.</em></p>`
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost];
+const waermepumpeAltbauPost: BlogPost = {
+  id: 'waermepumpe-altbau-2026-ratgeber',
+  title: 'Wärmepumpe im Altbau 2026: Funktioniert das wirklich?',
+  excerpt: 'Ja, Wärmepumpen funktionieren auch im Altbau – wenn die Rahmenbedingungen stimmen. Wir zeigen, welche Systeme sich eignen, was es kostet und welche Förderungen Sie nutzen können.',
+  topic: 'Heizung',
+  topicColor: 'bg-red-100 text-red-700',
+  publishedAt: '2026-03-05',
+  readTime: 14,
+  slug: 'waermepumpe-altbau-2026-ratgeber',
+  seoTitle: 'Wärmepumpe im Altbau 2026: Kosten, Praxistipps & Förderung',
+  seoDescription: 'Wärmepumpe im Altbau – geht das? Ja! Erfahren Sie, welche Systeme sich eignen, reale Kostenbeispiele, typische Fehler und bis zu 70% Förderung.',
+  keywords: ['Wärmepumpe Altbau', 'Wärmepumpe Bestandsgebäude', 'Luft-Wasser-Wärmepumpe', 'Heizungstausch Altbau', 'Wärmepumpe Kosten', 'Wärmepumpe Förderung 2026', 'GEG 2026', 'Heizung modernisieren', 'Wärmepumpe Heizkörper', 'Vorlauftemperatur', 'JAZ Jahresarbeitszahl', 'BAFA Förderung Wärmepumpe', 'KfW Heizungstausch', 'Altbau sanieren', 'energetische Sanierung'],
+  difficulty: 2,
+  savingsPotential: '25–40 %',
+  paybackTime: '8–14 Jahre',
+  fundingAvailable: 'Bis zu 70 % (BAFA + Boni)',
+  effortLevel: 'Mittel bis hoch',
+  keyBenefits: [
+    'Bis zu 40 % geringere Heizkosten',
+    'Bis zu 70 % Förderung durch BAFA & KfW',
+    'Unabhängigkeit von Gas- und Ölpreisen',
+    'CO₂-Einsparung und Wertsteigerung der Immobilie'
+  ],
+  importantNotice: 'Wichtig: Förderantrag immer VOR Beauftragung des Handwerkers stellen! Lassen Sie vorab eine Heizlastberechnung nach DIN EN 12831 durchführen.',
+  tableOfContents: [
+    { id: 'funktioniert-waermepumpe-altbau', title: 'Funktioniert eine Wärmepumpe im Altbau?' },
+    { id: 'voraussetzungen', title: 'Voraussetzungen & Gebäudecheck' },
+    { id: 'waermepumpen-typen', title: 'Welche Wärmepumpe für welchen Altbau?' },
+    { id: 'kostenbeispiele', title: 'Reale Kostenbeispiele' },
+    { id: 'foerderung', title: 'Förderung 2026: Bis zu 70 % Zuschuss' },
+    { id: 'praxistipps', title: '10 Praxistipps für die Umsetzung' },
+    { id: 'heizkörper-oder-fussbodenheizung', title: 'Heizkörper oder Fußbodenheizung?' },
+    { id: 'typische-fehler', title: 'Typische Fehler vermeiden' },
+    { id: 'erfahrungsberichte', title: 'Erfahrungsberichte aus der Praxis' },
+    { id: 'fazit', title: 'Fazit & Checkliste' }
+  ],
+  costs: [
+    { item: 'Luft-Wasser-Wärmepumpe (inkl. Einbau)', costPerSqm: '100–170 €/m²', totalCost: '15.000–25.000 €', funding: 'Bis zu 70 %' },
+    { item: 'Sole-Wasser-Wärmepumpe (Erdwärme)', costPerSqm: '150–250 €/m²', totalCost: '20.000–35.000 €', funding: 'Bis zu 70 %' },
+    { item: 'Wasser-Wasser-Wärmepumpe', costPerSqm: '180–300 €/m²', totalCost: '25.000–45.000 €', funding: 'Bis zu 70 %' },
+    { item: 'Heizkörper-Austausch (Niedertemperatur)', costPerSqm: '30–60 €/m²', totalCost: '3.000–8.000 €', funding: 'Über BEG EM' },
+    { item: 'Hydraulischer Abgleich', costPerSqm: '–', totalCost: '650–1.500 €', funding: '15–20 % BAFA' },
+    { item: 'Heizlastberechnung (DIN EN 12831)', costPerSqm: '–', totalCost: '300–800 €', funding: 'Im iSFP enthalten' }
+  ],
+  content: `<p>Die Wärmepumpe gilt als Heizsystem der Zukunft – aber funktioniert sie wirklich im unsanierten oder teilsanierten Altbau? Die klare Antwort: <strong>Ja, in den allermeisten Fällen schon.</strong> Moderne Wärmepumpen arbeiten auch bei höheren Vorlauftemperaturen effizient, und mit den richtigen Maßnahmen erreichen Sie auch im Altbau hervorragende Ergebnisse.</p>
+
+<p>In diesem Praxis-Ratgeber zeigen wir Ihnen anhand realer Kostenbeispiele, welche Wärmepumpe zu Ihrem Altbau passt, welche Voraussetzungen Sie schaffen sollten und wie Sie bis zu 70 % Förderung nutzen können.</p>
+
+<h2 id="funktioniert-waermepumpe-altbau">Funktioniert eine Wärmepumpe im Altbau?</h2>
+
+<p>Lange galt der Mythos: „Wärmepumpen funktionieren nur im Neubau mit Fußbodenheizung." Das ist <strong>nachweislich falsch</strong>. Studien des <a href="https://www.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer ISE</a> zeigen, dass Wärmepumpen auch in Bestandsgebäuden mit Heizkörpern effizient arbeiten – selbst bei Vorlauftemperaturen bis 55 °C.</p>
+
+<h3>Die Fakten</h3>
+<ul>
+  <li><strong>Fraunhofer-Studie (2024):</strong> In 150 untersuchten Altbauten erreichten Wärmepumpen eine durchschnittliche Jahresarbeitszahl (JAZ) von 3,1 – das bedeutet: Aus 1 kWh Strom werden 3,1 kWh Wärme</li>
+  <li><strong>Vergleich Gasheizung:</strong> Eine Gasheizung hat einen Wirkungsgrad von maximal 0,95 – die Wärmepumpe ist also <strong>mehr als dreimal effizienter</strong></li>
+  <li><strong>Praxiserfahrung:</strong> Rund 70 % der in Deutschland installierten Wärmepumpen werden inzwischen im Bestand eingebaut</li>
+</ul>
+
+<h3>Wann funktioniert es besonders gut?</h3>
+<ul>
+  <li>Gebäude mit einem Heizwärmebedarf unter 150 kWh/m² pro Jahr</li>
+  <li>Vorlauftemperatur der Heizung maximal 55 °C (besser: unter 45 °C)</li>
+  <li>Ausreichend dimensionierte Heizkörper oder Flächenheizung</li>
+  <li>Grundlegende Dämmmaßnahmen (zumindest Dach/oberste Geschossdecke)</li>
+</ul>
+
+<h2 id="voraussetzungen">Voraussetzungen & Gebäudecheck</h2>
+
+<p>Bevor Sie eine Wärmepumpe im Altbau installieren, sollten Sie einige Punkte prüfen. Nicht jede Maßnahme ist zwingend erforderlich – aber je besser die Voraussetzungen, desto effizienter arbeitet die Anlage.</p>
+
+<h3>Der 5-Punkte-Gebäudecheck</h3>
+<ol>
+  <li><strong>Heizlastberechnung:</strong> Eine Berechnung nach <a href="https://www.din.de/" target="_blank" rel="noopener noreferrer">DIN EN 12831</a> zeigt, wie viel Heizleistung Ihr Haus wirklich benötigt. Kosten: 300–800 €, oft im individuellen Sanierungsfahrplan (iSFP) enthalten.</li>
+  <li><strong>Vorlauftemperatur ermitteln:</strong> Stellen Sie Ihre Heizung testweise auf 50–55 °C Vorlauftemperatur ein. Werden alle Räume warm? Dann steht einer Wärmepumpe nichts im Weg.</li>
+  <li><strong>Heizkörper prüfen:</strong> Ältere, unterdimensionierte Heizkörper können gegen größere Niedertemperatur-Heizkörper getauscht werden (Kosten: ca. 500–1.200 € pro Heizkörper inkl. Einbau).</li>
+  <li><strong>Dämmzustand bewerten:</strong> Eine <a href="/blog/daemmung-heizkosten-sparen">gute Dämmung</a> senkt die nötige Heizleistung und verbessert die Effizienz der Wärmepumpe erheblich. Priorität: Dach/oberste Geschossdecke und <a href="/blog/kellerdecke-daemmen-anleitung">Kellerdecke</a>.</li>
+  <li><strong>Aufstellort:</strong> Für die Außeneinheit einer Luft-Wasser-Wärmepumpe benötigen Sie einen geeigneten Platz im Außenbereich. Mindestabstand zur Grundstücksgrenze je nach Bundesland: 2,5–3 m.</li>
+</ol>
+
+<h3>Energieberater einbeziehen</h3>
+<p>Ein zertifizierter Energieberater kann alle Punkte professionell bewerten und einen individuellen Sanierungsfahrplan (iSFP) erstellen. Der iSFP wird vom <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA mit 80 %</a> gefördert (Eigenanteil: ca. 300–500 €) und bringt Ihnen zusätzlich einen <strong>5 % iSFP-Bonus</strong> bei der Umsetzung. Nutzen Sie unsere <a href="/wissenswertes/experten">Energieberater-Suche</a>.</p>
+
+<h2 id="waermepumpen-typen">Welche Wärmepumpe für welchen Altbau?</h2>
+
+<h3>1. Luft-Wasser-Wärmepumpe – Der Allrounder</h3>
+<ul>
+  <li><strong>Geeignet für:</strong> Die meisten Altbauten, auch ohne Garten</li>
+  <li><strong>Kosten:</strong> 15.000–25.000 € (inkl. Installation)</li>
+  <li><strong>JAZ im Altbau:</strong> 2,8–3,5</li>
+  <li><strong>Vorteile:</strong> Günstigste Option, einfache Installation, kein Erdbohrung nötig</li>
+  <li><strong>Nachteile:</strong> Etwas geringere Effizienz bei sehr kalten Außentemperaturen, Außeneinheit erzeugt Geräusche</li>
+</ul>
+
+<h3>2. Sole-Wasser-Wärmepumpe (Erdwärme) – Die Effizienteste</h3>
+<ul>
+  <li><strong>Geeignet für:</strong> Altbauten mit Garten oder Grundstück für Erdkollektoren/-sonden</li>
+  <li><strong>Kosten:</strong> 20.000–35.000 € (inkl. Erdarbeiten)</li>
+  <li><strong>JAZ im Altbau:</strong> 3,5–4,5</li>
+  <li><strong>Vorteile:</strong> Höchste Effizienz, leiser Betrieb, unabhängig von Außentemperatur</li>
+  <li><strong>Nachteile:</strong> Höhere Investition, Erdbohrung genehmigungspflichtig</li>
+</ul>
+
+<h3>3. Wasser-Wasser-Wärmepumpe (Grundwasser) – Der Spezialist</h3>
+<ul>
+  <li><strong>Geeignet für:</strong> Standorte mit geeignetem Grundwasser</li>
+  <li><strong>Kosten:</strong> 25.000–45.000 € (inkl. Brunnenbohrung)</li>
+  <li><strong>JAZ im Altbau:</strong> 4,0–5,0</li>
+  <li><strong>Vorteile:</strong> Beste Effizienz aller Systeme</li>
+  <li><strong>Nachteile:</strong> Aufwändige Genehmigung, nicht überall möglich</li>
+</ul>
+
+<h3>Empfehlung für die meisten Altbauten</h3>
+<p>Für die meisten Altbau-Projekte empfehlen wir die <strong>Luft-Wasser-Wärmepumpe</strong>. Sie bietet das beste Preis-Leistungs-Verhältnis, lässt sich schnell installieren und erreicht mit den richtigen Begleitmaßnahmen auch im Altbau gute Effizienzwerte. Vergleichen Sie die Kosten mit unserem <a href="/heizkostenrechner">Heizkostenrechner</a>.</p>
+
+<h2 id="kostenbeispiele">Reale Kostenbeispiele</h2>
+
+<p>Um die Kosten besser einschätzen zu können, hier drei reale Beispielrechnungen:</p>
+
+<h3>Beispiel 1: Einfamilienhaus Baujahr 1975, 140 m²</h3>
+<table>
+  <thead><tr><th>Position</th><th>Kosten</th></tr></thead>
+  <tbody>
+    <tr><td>Luft-Wasser-Wärmepumpe (9 kW)</td><td>18.500 €</td></tr>
+    <tr><td>Pufferspeicher 300 l</td><td>1.800 €</td></tr>
+    <tr><td>Hydraulischer Abgleich</td><td>950 €</td></tr>
+    <tr><td>4 neue Niedertemperatur-Heizkörper</td><td>3.200 €</td></tr>
+    <tr><td>Elektroinstallation / Zähler</td><td>1.200 €</td></tr>
+    <tr><td><strong>Gesamtkosten brutto</strong></td><td><strong>25.650 €</strong></td></tr>
+    <tr><td>BAFA-Förderung (35 % Basis + 10 % Klima-Bonus + 5 % iSFP)</td><td>– 12.825 €</td></tr>
+    <tr><td><strong>Eigenanteil</strong></td><td><strong>12.825 €</strong></td></tr>
+  </tbody>
+</table>
+<p><strong>Jährliche Ersparnis vs. alte Gasheizung:</strong> ca. 1.200–1.800 € → <strong>Amortisation in 7–11 Jahren</strong></p>
+
+<h3>Beispiel 2: Reihenhaus Baujahr 1960, 110 m², teilsaniert</h3>
+<table>
+  <thead><tr><th>Position</th><th>Kosten</th></tr></thead>
+  <tbody>
+    <tr><td>Luft-Wasser-Wärmepumpe (7 kW)</td><td>15.800 €</td></tr>
+    <tr><td>Pufferspeicher 200 l</td><td>1.400 €</td></tr>
+    <tr><td>Hydraulischer Abgleich</td><td>780 €</td></tr>
+    <tr><td>Elektroinstallation</td><td>900 €</td></tr>
+    <tr><td><strong>Gesamtkosten brutto</strong></td><td><strong>18.880 €</strong></td></tr>
+    <tr><td>BAFA-Förderung (35 % Basis + 20 % Einkommensbonus + 5 % iSFP)</td><td>– 11.328 €</td></tr>
+    <tr><td><strong>Eigenanteil</strong></td><td><strong>7.552 €</strong></td></tr>
+  </tbody>
+</table>
+<p><strong>Jährliche Ersparnis:</strong> ca. 900–1.400 € → <strong>Amortisation in 5–8 Jahren</strong></p>
+
+<h3>Beispiel 3: Mehrfamilienhaus (3 WE) Baujahr 1968, 280 m²</h3>
+<table>
+  <thead><tr><th>Position</th><th>Kosten</th></tr></thead>
+  <tbody>
+    <tr><td>Luft-Wasser-Wärmepumpe (16 kW, Kaskade)</td><td>32.000 €</td></tr>
+    <tr><td>Pufferspeicher 500 l</td><td>2.800 €</td></tr>
+    <tr><td>Hydraulischer Abgleich</td><td>1.400 €</td></tr>
+    <tr><td>Wärmemengenzähler je WE</td><td>1.500 €</td></tr>
+    <tr><td>Elektroinstallation</td><td>2.200 €</td></tr>
+    <tr><td><strong>Gesamtkosten brutto</strong></td><td><strong>39.900 €</strong></td></tr>
+    <tr><td>BAFA-Förderung (35 % Basis + 5 % iSFP)</td><td>– 15.960 €</td></tr>
+    <tr><td><strong>Eigenanteil</strong></td><td><strong>23.940 €</strong></td></tr>
+  </tbody>
+</table>
+<p><strong>Jährliche Ersparnis:</strong> ca. 2.500–3.800 € → <strong>Amortisation in 6–10 Jahren</strong></p>
+
+<p>Berechnen Sie Ihre individuelle Ersparnis mit unserem <a href="/roi-rechner">ROI-Rechner</a> oder erstellen Sie einen <a href="/budgetplan">Budgetplan</a>.</p>
+
+<h2 id="foerderung">Förderung 2026: Bis zu 70 % Zuschuss</h2>
+
+<p>Der Heizungstausch wird über die <a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/effiziente_gebaeude_node.html" target="_blank" rel="noopener noreferrer">Bundesförderung für effiziente Gebäude (BEG)</a> großzügig gefördert. Die Fördersätze können kombiniert werden:</p>
+
+<h3>Förderbausteine im Überblick</h3>
+<table>
+  <thead><tr><th>Baustein</th><th>Fördersatz</th><th>Bedingung</th></tr></thead>
+  <tbody>
+    <tr><td>Grundförderung</td><td>30 %</td><td>Einbau einer förderfähigen Wärmepumpe</td></tr>
+    <tr><td>Klima-Geschwindigkeitsbonus</td><td>+20 %</td><td>Austausch einer funktionstüchtigen Gas-/Ölheizung</td></tr>
+    <tr><td>Einkommensbonus</td><td>+30 %</td><td>Haushaltseinkommen unter 40.000 € brutto/Jahr</td></tr>
+    <tr><td>Effizienzbonus</td><td>+5 %</td><td>Nutzung eines natürlichen Kältemittels (z. B. Propan)</td></tr>
+    <tr><td>iSFP-Bonus</td><td>+5 %</td><td>Umsetzung im Rahmen eines Sanierungsfahrplans</td></tr>
+    <tr><td><strong>Maximum</strong></td><td><strong>70 %</strong></td><td>Maximal 30.000 € förderfähige Kosten (1. WE)</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Wichtig:</strong> Der Förderantrag muss <strong>vor der Beauftragung</strong> des Handwerkers gestellt werden! Detaillierte Infos in unserem <a href="/blog/foerdermittel-2025-zuschuss-sanierung">Fördermittel-Ratgeber</a>. Berechnen Sie Ihre Förderung im <a href="/foerderrechner">Förderrechner</a>.</p>
+
+<h3>Ergänzende Fördermöglichkeiten</h3>
+<ul>
+  <li><strong>KfW-Ergänzungskredit (358/359):</strong> Bis zu 120.000 € zu günstigen Konditionen (ab 0,01 % effektiver Jahreszins bei Einkommen unter 90.000 €)</li>
+  <li><strong>Steuerbonus (§ 35c EStG):</strong> Alternativ 20 % der Kosten über 3 Jahre steuerlich absetzbar</li>
+  <li><strong>Regionale Programme:</strong> Viele Bundesländer und Kommunen bieten zusätzliche Zuschüsse – prüfen Sie lokale Angebote</li>
+</ul>
+
+<h2 id="praxistipps">10 Praxistipps für die Umsetzung</h2>
+
+<ol>
+  <li><strong>Heizlastberechnung zuerst:</strong> Keine Wärmepumpe ohne vorherige Berechnung nach DIN EN 12831 – das verhindert Über- oder Unterdimensionierung.</li>
+  <li><strong>Vorlauftemperatur testen:</strong> Drehen Sie Ihre Heizung im Winter testweise auf 50 °C herunter. Wenn es warm bleibt, ist Ihr Haus bestens vorbereitet.</li>
+  <li><strong>Erst dämmen, dann heizen:</strong> Eine <a href="/blog/einblasdaemmung-ratgeber-2025">Einblasdämmung</a> der obersten Geschossdecke (ab 25 €/m²) kann die nötige Heizlast deutlich senken.</li>
+  <li><strong>Heizkörper nicht unterschätzen:</strong> Moderne Niedertemperatur-Heizkörper (Typ 33) geben bei gleicher Größe bis zu 70 % mehr Wärme ab als alte Typ-21-Heizkörper.</li>
+  <li><strong>Hydraulischer Abgleich:</strong> Pflicht bei Förderung und spart zusätzlich 5–15 % Heizkosten. Kosten: 650–1.500 €.</li>
+  <li><strong>Schallschutz beachten:</strong> Mindestabstand zur Nachbargrenze einhalten, ggf. Schallschutzhaube montieren (ca. 500–1.500 €).</li>
+  <li><strong>Wärmepumpentarif nutzen:</strong> Viele Stromanbieter bieten spezielle Wärmepumpentarife mit 20–30 % Rabatt auf den normalen Strompreis.</li>
+  <li><strong>Smart Home kombinieren:</strong> Ein <a href="/blog/smart-home-heizung-thermostate-test">intelligentes Thermostat</a> optimiert die Wärmepumpen-Steuerung und spart weitere 10–15 %.</li>
+  <li><strong>PV-Anlage einplanen:</strong> Mit einer <a href="/blog/photovoltaik-2024-lohnt-sich-solaranlage">Photovoltaikanlage</a> können Sie den Strom für die Wärmepumpe teilweise selbst erzeugen – das senkt die Betriebskosten um bis zu 30 %.</li>
+  <li><strong>Wartung einplanen:</strong> Wärmepumpen sind wartungsarm, aber ein jährlicher Check (ca. 150–250 €) sichert die Effizienz und Langlebigkeit.</li>
+</ol>
+
+<h2 id="heizkörper-oder-fussbodenheizung">Heizkörper oder Fußbodenheizung?</h2>
+
+<p>Eine der häufigsten Fragen bei der Wärmepumpe im Altbau. Die gute Nachricht: <strong>Beides funktioniert.</strong></p>
+
+<h3>Option 1: Bestehende Heizkörper nutzen</h3>
+<ul>
+  <li><strong>Möglich bei:</strong> Vorlauftemperatur ≤ 55 °C</li>
+  <li><strong>Optimierung:</strong> Unterdimensionierte Heizkörper gegen größere Modelle tauschen</li>
+  <li><strong>Kosten:</strong> 0 € (bestehende Heizkörper) bis 3.000–8.000 € (teilweiser Austausch)</li>
+  <li><strong>Vorteil:</strong> Keine Bauarbeiten am Boden nötig</li>
+</ul>
+
+<h3>Option 2: Fußbodenheizung nachrüsten</h3>
+<ul>
+  <li><strong>Dünnschichtsysteme:</strong> Nur 15–20 mm Aufbauhöhe, ideal für den Altbau</li>
+  <li><strong>Kosten:</strong> 50–90 €/m² (Fräs-System) bis 80–130 €/m² (Nass-System)</li>
+  <li><strong>Vorteil:</strong> Niedrigste Vorlauftemperatur (30–35 °C), höchste Wärmepumpen-Effizienz</li>
+  <li><strong>Nachteil:</strong> Aufwändige Einbauarbeiten, Einschränkung der Raumhöhe</li>
+</ul>
+
+<h3>Unsere Empfehlung</h3>
+<p>In den meisten Altbauten ist die <strong>Kombination</strong> am sinnvollsten: Fußbodenheizung im Bad und Wohnbereich (häufig ohnehin bei Renovierung möglich), große Niedertemperatur-Heizkörper in Schlaf- und Kinderzimmern.</p>
+
+<h2 id="typische-fehler">Typische Fehler vermeiden</h2>
+
+<p>Damit Ihre Wärmepumpe im Altbau optimal funktioniert, sollten Sie diese häufigen Fehler vermeiden:</p>
+
+<ol>
+  <li><strong>❌ Wärmepumpe überdimensioniert:</strong> Eine zu große Wärmepumpe taktet häufig (schaltet sich ständig ein und aus), was Effizienz und Lebensdauer mindert. Lösung: Sorgfältige Heizlastberechnung.</li>
+  <li><strong>❌ Kein hydraulischer Abgleich:</strong> Ohne Abgleich verteilt sich die Wärme ungleichmäßig und die Wärmepumpe arbeitet ineffizient.</li>
+  <li><strong>❌ Förderantrag zu spät:</strong> Wer den Handwerker vor dem Förderantrag beauftragt, verliert den Anspruch auf BAFA-Förderung komplett.</li>
+  <li><strong>❌ Bivalenter Betrieb nicht berücksichtigt:</strong> Bei sehr kalten Altbauten kann ein Heizstab oder eine kleine Gas-Spitzenlastkessel die Wärmepumpe an wenigen Tagen unterstützen – das spart eine teure Überdimensionierung.</li>
+  <li><strong>❌ Elektroinstallation vergessen:</strong> Die Wärmepumpe benötigt oft einen eigenen Stromzähler und ggf. einen Starkstromanschluss – das muss vorher geklärt werden.</li>
+</ol>
+
+<p>Mehr dazu in unserem Ratgeber <a href="/blog/typische-sanierungsfehler-vermeiden">Typische Sanierungsfehler vermeiden</a>.</p>
+
+<h2 id="erfahrungsberichte">Erfahrungsberichte aus der Praxis</h2>
+
+<h3>Familie Schneider, Einfamilienhaus 1972, Nähe Stuttgart</h3>
+<blockquote>
+  <p>„Wir haben unsere 25 Jahre alte Gasheizung durch eine Luft-Wasser-Wärmepumpe ersetzt. Mit iSFP und Klima-Bonus haben wir 50 % Förderung bekommen. Die ersten Heizkosten-Abrechnungen zeigen: Wir sparen etwa 1.500 € pro Jahr – und das Haus wird gleichmäßiger warm als vorher."</p>
+</blockquote>
+<p><strong>Details:</strong> 9 kW Luft-Wasser-WP, 4 von 12 Heizkörpern getauscht, Dachboden gedämmt. Gesamtkosten: 24.800 €, nach Förderung: 12.400 €.</p>
+
+<h3>Herr Müller, Altbauwohnung 1955, Hamburg</h3>
+<blockquote>
+  <p>„Als Vermieter eines kleinen Mehrfamilienhauses war ich skeptisch. Aber mit dem Einkommensbonus und dem Klima-Bonus lag meine Förderung bei 55 %. Die Mieter freuen sich über niedrigere Nebenkosten, und ich spare langfristig Wartungskosten."</p>
+</blockquote>
+
+<h2 id="fazit">Fazit & Checkliste</h2>
+
+<p>Eine Wärmepumpe im Altbau ist keine Zukunftsmusik mehr – sie ist <strong>heute schon wirtschaftlich sinnvoll</strong>, besonders mit den hohen Förderungen. Die wichtigsten Voraussetzungen: eine sorgfältige Planung, die richtige Dimensionierung und begleitende Maßnahmen wie Dämmung und hydraulischer Abgleich.</p>
+
+<h3>Ihre Checkliste für die Wärmepumpe im Altbau</h3>
+<ol>
+  <li>✅ <strong>Energieberater beauftragen:</strong> iSFP erstellen lassen (<a href="/wissenswertes/experten">Energieberater-Suche</a>)</li>
+  <li>✅ <strong>Heizlastberechnung:</strong> Nach DIN EN 12831 durchführen lassen</li>
+  <li>✅ <strong>Vorlauftemperatur testen:</strong> Im Winter auf 50–55 °C senken</li>
+  <li>✅ <strong>Begleitmaßnahmen planen:</strong> <a href="/blog/daemmung-heizkosten-sparen">Dämmung</a>, Heizkörpertausch, hydraulischer Abgleich</li>
+  <li>✅ <strong>Förderung berechnen:</strong> Mit dem <a href="/foerderrechner">Förderrechner</a> Ihre individuelle Förderung ermitteln</li>
+  <li>✅ <strong>Förderantrag stellen:</strong> BAFA-Antrag <strong>vor</strong> Beauftragung des Handwerkers</li>
+  <li>✅ <strong>Angebote einholen:</strong> Mindestens 3 Fachbetriebe vergleichen</li>
+  <li>✅ <strong>Budget planen:</strong> <a href="/budgetplan">Budgetplaner</a> nutzen</li>
+  <li>✅ <strong>PV-Kombination prüfen:</strong> <a href="/solarenergie#rechner">Solar-Rechner</a> für optimale Eigenverbrauchsquote</li>
+  <li>✅ <strong>Wärmepumpentarif:</strong> Günstigen Stromtarif beim Versorger anfragen</li>
+</ol>
+
+<p><strong>Weiterführende Ratgeber:</strong></p>
+<ul>
+  <li><a href="/blog/waermepumpe-vs-gas-vergleich">Wärmepumpe vs. Gas: Der große Vergleich</a></li>
+  <li><a href="/blog/heizung-modernisieren-energiekosten-sparen">Heizung modernisieren: Bis zu 40 % Energiekosten sparen</a></li>
+  <li><a href="/blog/foerdermittel-finanzierungsmodelle-sanierung">Fördermittel & Finanzierung optimal kombinieren</a></li>
+  <li><a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan: Die optimale Reihenfolge</a></li>
+  <li><a href="/blog/altbau-kaufen-sanieren-2025-ratgeber">Altbau kaufen & sanieren: Der große Ratgeber</a></li>
+</ul>
+
+<p><em>Quellen: <a href="https://www.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer ISE</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>, <a href="https://www.bdh-industrie.de/" target="_blank" rel="noopener noreferrer">BDH</a>. Stand: März 2026.</em></p>`
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,
