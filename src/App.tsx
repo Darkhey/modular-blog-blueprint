@@ -28,6 +28,7 @@ import FensterTuerenPage from "./pages/FensterTuerenPage";
 import SmartHomePage from "./pages/SmartHomePage";
 import SmartHomeProduktePages from "./pages/SmartHomeProduktePages";
 import SanierungsCheckPage from "./pages/SanierungsCheckPage";
+import GlossarPage from "./pages/GlossarPage";
 import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
 import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
 import WissenswertesTools from "./pages/wissenswertes/WissenswertesTools";
