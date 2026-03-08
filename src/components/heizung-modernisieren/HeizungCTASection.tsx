@@ -1,5 +1,5 @@
 
-import { Phone, Euro } from 'lucide-react';
+import { Phone, Euro, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -14,11 +14,17 @@ const HeizungCTASection = () => {
           Lassen Sie sich kostenlos beraten und planen Sie Ihre intelligente Heizungsmodernisierung. 
           Unsere Smart Home Experten finden die optimale Lösung für maximale Effizienz und Komfort.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
           <Link to="/kontakt">
             <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold">
               <Phone className="mr-2 w-5 h-5" />
               Kostenlose Smart Home Beratung
+            </Button>
+          </Link>
+          <Link to="/smart-home-produkte">
+            <Button size="lg" variant="outline" className="border-white text-black bg-white hover:bg-gray-100">
+              <Smartphone className="mr-2 w-5 h-5" />
+              Smart Home Produkte vergleichen
             </Button>
           </Link>
           <Link to="/foerdermittel">
