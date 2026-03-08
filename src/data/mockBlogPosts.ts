@@ -583,7 +583,7 @@ Die Dämmung der Kellerdecke ist oft übersehen, aber sehr effektiv. Sie reduzie
     slug: 'kellerdecke-daemmen-anleitung',
     seoTitle: 'Kellerdecke dämmen: Anleitung, Kosten & Materialien',
     seoDescription: 'Kellerdecke richtig dämmen: Schritt-für-Schritt Anleitung, beste Materialien und was die Dämmung kostet.',
-    keywords: ['Kellerdecke dämmen', 'Kellerdeckendämmung', 'kalte Füße', 'Wärmeverlust'],
+    keywords: ['Kellerdecke dämmen', 'Kellerdeckendämmung', 'kalte Füße', 'Wärmeverlust', 'Keller Dämmung', 'Energiesparen Keller', 'Dämmung von unten'],
     difficulty: 1,
     savingsPotential: 'Bis zu 15%',
     paybackTime: '5-8 Jahre',
@@ -615,7 +615,7 @@ Mit einem Balkonkraftwerk nutzen Sie die Sonne optimal und produzieren Ihren eig
     slug: 'balkonkraftwerk-2025-mini-pv',
     seoTitle: 'Balkonkraftwerk 2025: Mini-PV-Anlage Kosten & Tipps',
     seoDescription: 'Balkonkraftwerk 2025: Installation, Kosten und mögliche Förderungen für die eigene Mini-Solaranlage.',
-    keywords: ['Balkonkraftwerk', 'Mini-PV', 'Solar Balkonanlage', 'Eigenverbrauch'],
+    keywords: ['Balkonkraftwerk', 'Mini-PV', 'Solar Balkonanlage', 'Eigenverbrauch', 'Steckersolargerät', 'Balkon Solar', 'Mini-Solaranlage'],
     difficulty: 1,
     savingsPotential: 'Bis zu 15% Stromkosten',
     paybackTime: '5-7 Jahre',
@@ -1281,7 +1281,7 @@ const altbauKaufenPost: BlogPost = {
   <li><strong>Sanierungspflichten nach GEG</strong> – Heizungstausch-Pflicht bei bestimmten Altanlagen</li>
 </ol>
 
-<p>Lesen Sie auch unseren Artikel über <a href="/blog/haeufige-sanierungsfehler-vermeiden">häufige Sanierungsfehler</a>, um typische Fallstricke zu vermeiden.</p>
+<p>Lesen Sie auch unseren Artikel über <a href="/blog/typische-sanierungsfehler-vermeiden">häufige Sanierungsfehler</a>, um typische Fallstricke zu vermeiden.</p>
 
 <h2 id="sanierungskosten-kalkulieren">Sanierungskosten realistisch kalkulieren</h2>
 
@@ -1594,7 +1594,7 @@ const einblasdaemmungPost: BlogPost = {
 
 <h2 id="haeufige-fehler">Häufige Fehler bei der Einblasdämmung</h2>
 
-<p>Vermeiden Sie diese typischen Fallstricke – mehr dazu auch in unserem <a href="/blog/haeufige-sanierungsfehler-vermeiden">Artikel über Sanierungsfehler</a>:</p>
+<p>Vermeiden Sie diese typischen Fallstricke – mehr dazu auch in unserem <a href="/blog/typische-sanierungsfehler-vermeiden">Artikel über Sanierungsfehler</a>:</p>
 
 <ol>
   <li><strong>Keine Hohlraumprüfung:</strong> Ohne Endoskopie riskieren Sie verstopfte Bereiche oder Feuchtigkeitsprobleme</li>
@@ -1739,10 +1739,10 @@ const renovierungsTrends2026Post: BlogPost = {
 
 <h3>Die optimale Reihenfolge</h3>
 <ol>
-  <li><strong>Gebäudehülle zuerst:</strong> <a href="/blog/daemmung-der-schluessel-zu-niedrigen-heizkosten">Dämmung von Dach, Fassade und Kellerdecke</a></li>
-  <li><strong>Fenster und Türen:</strong> <a href="/blog/fenster-erneuern-dreifach-verglasung">3-fach-Verglasung</a> spart bis zu 20 % Heizenergie</li>
-  <li><strong>Heizungstausch:</strong> <a href="/blog/waermepumpe-vs-gas-vergleich-2024">Wärmepumpe statt Gasheizung</a> – nach verbesserter Gebäudehülle besonders effizient</li>
-  <li><strong>Photovoltaik:</strong> <a href="/blog/photovoltaik-anlagen-ratgeber-2024">Solaranlage für Eigenstrom</a></li>
+  <li><strong>Gebäudehülle zuerst:</strong> <a href="/blog/daemmung-heizkosten-sparen">Dämmung von Dach, Fassade und Kellerdecke</a></li>
+  <li><strong>Fenster und Türen:</strong> <a href="/blog/fenster-erneuern-3fach-verglasung">3-fach-Verglasung</a> spart bis zu 20 % Heizenergie</li>
+  <li><strong>Heizungstausch:</strong> <a href="/blog/waermepumpe-vs-gas-vergleich">Wärmepumpe statt Gasheizung</a> – nach verbesserter Gebäudehülle besonders effizient</li>
+  <li><strong>Photovoltaik:</strong> <a href="/blog/photovoltaik-2024-lohnt-sich-solaranlage">Solaranlage für Eigenstrom</a></li>
   <li><strong>Smart-Home-Integration:</strong> Intelligente Steuerung aller Systeme</li>
 </ol>
 
@@ -1777,7 +1777,7 @@ const renovierungsTrends2026Post: BlogPost = {
 
 <p><strong>Kosten und Förderung:</strong> Eine Luft-Wasser-Wärmepumpe kostet 2026 zwischen 12.000 und 22.000 € inkl. Installation. Die <a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/Energieeffizient-sanieren/" target="_blank" rel="noopener noreferrer">KfW-Förderung</a> deckt bis zu 70 % der Kosten (Grundförderung + Klimageschwindigkeitsbonus + Einkommensbonus).</p>
 
-<p>Einen ausführlichen Vergleich finden Sie in unserem <a href="/blog/waermepumpe-vs-gas-vergleich-2024">Ratgeber: Wärmepumpe vs. Gas</a>.</p>
+<p>Einen ausführlichen Vergleich finden Sie in unserem <a href="/blog/waermepumpe-vs-gas-vergleich">Ratgeber: Wärmepumpe vs. Gas</a>.</p>
 
 <h2 id="gebaeudeenergiegesetz">Trend 5: GEG 2026 – Neue Pflichten</h2>
 
@@ -1862,10 +1862,10 @@ const renovierungsTrends2026Post: BlogPost = {
 
 <p><strong>Weiterführende Ratgeber auf unserer Seite:</strong></p>
 <ul>
-  <li><a href="/blog/neue-beg-foerderung-2024">Neue BEG-Förderung: Bis zu 70 % Zuschuss</a></li>
+  <li><a href="/blog/foerdermittel-finanzierungsmodelle-sanierung">Fördermittel & Finanzierung: Zuschüsse, Kredite, Steuerbonus</a></li>
   <li><a href="/blog/heizung-modernisieren-energiekosten-sparen">Heizung modernisieren: Bis zu 40 % sparen</a></li>
-  <li><a href="/blog/photovoltaik-lohnt-sich-2024">Photovoltaik 2024: Lohnt sich eine Solaranlage noch?</a></li>
-  <li><a href="/blog/daemmstoffe-vergleich-mineralwolle-eps-holzfaser">Dämmstoffe im Vergleich</a></li>
+  <li><a href="/blog/photovoltaik-2024-lohnt-sich-solaranlage">Photovoltaik 2024: Lohnt sich eine Solaranlage noch?</a></li>
+  <li><a href="/blog/daemmung-heizkosten-sparen">Dämmstoffe im Vergleich</a></li>
 </ul>
 
 <p><em>Quellen: <a href="https://www.bmwk.de/" target="_blank" rel="noopener noreferrer">BMWK</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.fraunhofer.de/" target="_blank" rel="noopener noreferrer">Fraunhofer-Institut</a>, <a href="https://www.dena.de/" target="_blank" rel="noopener noreferrer">Deutsche Energie-Agentur (dena)</a>. Stand: März 2026.</em></p>`
@@ -2009,7 +2009,7 @@ const badezimmerRenovierungPost: BlogPost = {
 </ul>
 
 <h3>3. Richtige Oberflächentemperatur</h3>
-<p>Kalte Wandoberflächen begünstigen Kondensat. Eine <strong>Fußbodenheizung im Bad</strong> erhöht die Oberflächentemperatur und senkt das Schimmelrisiko erheblich. Lesen Sie auch unseren Ratgeber zur <a href="/blog/daemmung-der-schluessel-zu-niedrigen-heizkosten">Dämmung als Schlüssel zu niedrigen Heizkosten</a>.</p>
+<p>Kalte Wandoberflächen begünstigen Kondensat. Eine <strong>Fußbodenheizung im Bad</strong> erhöht die Oberflächentemperatur und senkt das Schimmelrisiko erheblich. Lesen Sie auch unseren Ratgeber zur <a href="/blog/daemmung-heizkosten-sparen">Dämmung als Schlüssel zu niedrigen Heizkosten</a>.</p>
 
 <h2 id="barrierefreier-umbau">Barrierefreier Umbau & Förderung</h2>
 
@@ -2127,9 +2127,9 @@ const badezimmerRenovierungPost: BlogPost = {
 <ul>
   <li><a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan: Die optimale Reihenfolge</a></li>
   <li><a href="/blog/renovierungstrends-2026">Renovierungstrends 2026</a></li>
-  <li><a href="/blog/foerdermittel-2025-zuschuesse">Fördermittel 2025: Diese Zuschüsse sollten Sie kennen</a></li>
-  <li><a href="/blog/typische-fehler-risiken-sanierungen">Typische Fehler bei Sanierungen vermeiden</a></li>
-  <li><a href="/blog/neue-beg-foerderung-2024">Neue BEG-Förderung: Bis zu 70 % Zuschuss</a></li>
+  <li><a href="/blog/foerdermittel-2025-zuschuss-sanierung">Fördermittel 2025: Diese Zuschüsse sollten Sie kennen</a></li>
+  <li><a href="/blog/typische-sanierungsfehler-vermeiden">Typische Fehler bei Sanierungen vermeiden</a></li>
+  <li><a href="/blog/foerdermittel-finanzierungsmodelle-sanierung">Fördermittel & Finanzierung: Zuschüsse, Kredite, Steuerbonus</a></li>
 </ul>
 
 <p><em>Quellen: <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.zvshk.de/" target="_blank" rel="noopener noreferrer">ZVSHK</a>, <a href="https://www.umweltbundesamt.de/" target="_blank" rel="noopener noreferrer">Umweltbundesamt</a>, <a href="https://www.din.de/" target="_blank" rel="noopener noreferrer">DIN</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>. Stand: März 2026.</em></p>`
