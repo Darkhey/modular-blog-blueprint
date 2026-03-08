@@ -28,6 +28,7 @@ import FensterTuerenPage from "./pages/FensterTuerenPage";
 import SmartHomePage from "./pages/SmartHomePage";
 import SmartHomeProduktePages from "./pages/SmartHomeProduktePages";
 import SanierungsCheckPage from "./pages/SanierungsCheckPage";
+import GlossarPage from "./pages/GlossarPage";
 import WissenswertesIndex from "./pages/wissenswertes/WissenswertesIndex";
 import WissenswertesLinks from "./pages/wissenswertes/WissenswertesLinks";
 import WissenswertesTools from "./pages/wissenswertes/WissenswertesTools";
@@ -93,6 +94,7 @@ function App() {
                   <Route path="/smart-home" element={<SmartHomePage />} />
                   <Route path="/smart-home-produkte" element={<SmartHomeProduktePages />} />
                   <Route path="/sanierungscheck" element={<SanierungsCheckPage />} />
+                  <Route path="/glossar" element={<GlossarPage />} />
                   
                   {/* Wissenswertes nested routes */}
                   <Route path="/wissenswertes" element={<WissenswertesIndex />} />
