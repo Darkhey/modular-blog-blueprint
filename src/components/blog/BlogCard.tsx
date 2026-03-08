@@ -2,18 +2,28 @@ import { Link } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { BlogPost } from '@/hooks/useBlogPosts';
 
+import heizungImg from '@/assets/blog-hero-heizung.jpg';
+import daemmungImg from '@/assets/blog-hero-daemmung.jpg';
+import solarImg from '@/assets/blog-hero-solar.jpg';
+import foerdermittelImg from '@/assets/blog-hero-foerdermittel.jpg';
+import einblasdaemmungImg from '@/assets/blog-hero-einblasdaemmung.jpg';
+import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
+
 const topicFallbackImages: Record<string, string> = {
-  'Heizung': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&h=400&fit=crop',
-  'Dämmung': 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop',
-  'Solar': 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=400&fit=crop',
+  'Heizung': heizungImg,
+  'Dämmung': daemmungImg,
+  'Solar': solarImg,
   'Fenster': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop',
-  'Fördermittel': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop',
+  'Fördermittel': foerdermittelImg,
+  'Einblasdämmung': einblasdaemmungImg,
+  'Sanierung': sanierungsfahrplanImg,
+  'Immobilienkauf': sanierungsfahrplanImg,
 };
 
 const getImage = (post: BlogPost) =>
   post.hero_image_url || post.cover_url ||
   Object.entries(topicFallbackImages).find(([key]) => post.topic?.includes(key))?.[1] ||
-  'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop';
+  sanierungsfahrplanImg;
 
 interface BlogCardProps {
   post: BlogPost;
