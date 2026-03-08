@@ -8,6 +8,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/ca
 import { BlogPost } from '@/hooks/useBlogPosts';
 import { BlogCategory } from '@/hooks/useBlogCategories';
 import QuickStats from '@/components/shared/QuickStats';
+import { useTrendingPosts } from '@/hooks/useTrendingPosts';
 
 interface BlogAndCategoriesSectionProps {
     posts?: BlogPost[];
@@ -18,7 +19,6 @@ interface BlogAndCategoriesSectionProps {
     isErrorCategories: boolean;
 }
 
-// Kategorie-spezifische Bilder
 const getCategoryImage = (categoryName: string): string => {
   const categoryImages: Record<string, string> = {
     'Heizung modernisieren': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop',
@@ -30,8 +30,45 @@ const getCategoryImage = (categoryName: string): string => {
     'Solarenergie': 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=300&fit=crop',
     'Fördermittel': 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop'
   };
-  
   return categoryImages[categoryName] || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop';
+};
+
+const TrendingSidebar = () => {
+  const { data: trending, isLoading } = useTrendingPosts(3);
+
+  const isNew = (date: string) => (Date.now() - new Date(date).getTime()) < 7 * 24 * 60 * 60 * 1000;
+
+  return (
+    <Card className="bg-gradient-to-br from-primary/5 to-accent/10 border-primary/20 shadow-md">
+      <CardHeader className="pb-4">
+        <CardTitle className="flex items-center text-lg font-semibold text-foreground">
+          <TrendingUp className="mr-2 h-5 w-5 text-primary" />
+          Trending Ratgeber
+        </CardTitle>
+      </CardHeader>
+      <div className="px-6 pb-6 space-y-3">
+        {isLoading ? (
+          Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-14 w-full rounded-lg" />)
+        ) : (
+          trending?.map((post) => (
+            <Link
+              key={post.id}
+              to={`/blog/${post.slug}`}
+              className="flex items-center justify-between p-3 bg-background/70 rounded-lg hover:bg-background transition-colors group border-l-4 border-primary/40 hover:border-primary"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-foreground group-hover:text-primary line-clamp-1">{post.title}</span>
+              </div>
+              {isNew(post.published_at) && (
+                <span className="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded flex-shrink-0 ml-2">NEU</span>
+              )}
+            </Link>
+          ))
+        )}
+      </div>
+    </Card>
+  );
 };
 
 const BlogAndCategoriesSection = ({
@@ -43,21 +80,20 @@ const BlogAndCategoriesSection = ({
     isErrorCategories,
 }: BlogAndCategoriesSectionProps) => {
     return (
-        <section className="py-12 bg-gray-50">
+        <section className="py-16 bg-secondary/30">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                     <div className="lg:col-span-3">
-                        {/* Blog Preview */}
-                        <h2 className="text-2xl font-semibold text-gray-900 mb-4 animate-fade-in">
+                        <h2 className="text-2xl font-bold text-foreground mb-6">
                             Neueste Artikel
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {isLoadingPosts ? (
                                 Array.from({ length: 3 }).map((_, index) => (
-                                    <Skeleton key={index} className="h-[340px] w-full rounded-lg" />
+                                    <Skeleton key={index} className="h-[380px] w-full rounded-2xl" />
                                 ))
                             ) : isErrorPosts ? (
-                                <p className="col-span-full text-red-500">Artikel konnten nicht geladen werden.</p>
+                                <p className="col-span-full text-destructive">Artikel konnten nicht geladen werden.</p>
                             ) : (
                                 posts?.map((post) => (
                                     <BlogCard key={post.id} post={post} />
@@ -65,33 +101,34 @@ const BlogAndCategoriesSection = ({
                             )}
                         </div>
 
-                        {/* Categories Section */}
+                        {/* Categories */}
                         <div className="mt-16">
-                            <h2 className="text-2xl font-semibold text-gray-900 mb-4 flex items-center animate-fade-in">
-                                <FolderKanban className="mr-3 h-7 w-7 text-green-600" />
+                            <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+                                <FolderKanban className="mr-3 h-7 w-7 text-primary" />
                                 Entdecken Sie unsere Themen
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {isLoadingCategories ? (
                                     Array.from({ length: 6 }).map((_, index) => (
-                                        <Skeleton key={index} className="h-[200px] w-full rounded-lg" />
+                                        <Skeleton key={index} className="h-[200px] w-full rounded-2xl" />
                                     ))
                                 ) : isErrorCategories ? (
-                                    <p className="col-span-full text-red-500">Kategorien konnten nicht geladen werden.</p>
+                                    <p className="col-span-full text-destructive">Kategorien konnten nicht geladen werden.</p>
                                 ) : (
                                     categories?.map((category, index) => (
-                                        <Link key={category.id} to={`/themen/${category.slug}`} className="block hover:no-underline group transition-transform duration-300 transform hover:scale-105 animate-fade-in" style={{ animationDelay: `${index * 100}ms`}}>
-                                            <Card className="hover:shadow-lg hover:border-green-500 transition-all duration-300 h-full flex flex-col overflow-hidden">
+                                        <Link key={category.id} to={`/themen/${category.slug}`} className="block hover:no-underline group animate-fade-in" style={{ animationDelay: `${index * 80}ms` }}>
+                                            <Card className="glass hover:shadow-glow hover:-translate-y-1 transition-all duration-300 h-full flex flex-col overflow-hidden rounded-2xl">
                                                 <div className="w-full h-32 overflow-hidden">
-                                                  <img 
-                                                    src={getCategoryImage(category.name)} 
-                                                    alt={category.name}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                                  />
+                                                    <img
+                                                        src={getCategoryImage(category.name)}
+                                                        alt={category.name}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                        loading="lazy"
+                                                    />
                                                 </div>
                                                 <CardHeader>
-                                                    <CardTitle className="flex items-center text-xl group-hover:text-green-600 transition-colors">
-                                                        <span className="w-3 h-3 rounded-full mr-3 flex-shrink-0" style={{ backgroundColor: category.color || '#9ca3af' }}></span>
+                                                    <CardTitle className="flex items-center text-lg group-hover:text-primary transition-colors">
+                                                        <span className="w-3 h-3 rounded-full mr-3 flex-shrink-0" style={{ backgroundColor: category.color || '#9ca3af' }} />
                                                         {category.name}
                                                     </CardTitle>
                                                     {category.description && (
@@ -106,104 +143,63 @@ const BlogAndCategoriesSection = ({
                         </div>
                     </div>
 
-                    {/* Enhanced Sidebar */}
+                    {/* Sidebar */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-6">
-                            {/* AdSense - Top Banner */}
-                            {/* Auto Ads are handled via AdSense dashboard */}
-
-                            {/* Quick Stats mit verbessertem Design */}
-                            <div className="transform hover:scale-105 transition-transform duration-200">
+                            <div className="transform hover:scale-[1.02] transition-transform duration-200">
                                 <QuickStats />
                             </div>
 
-                            {/* Trending Topics */}
-                            <Card className="bg-gradient-to-br from-green-50 to-blue-50 border-green-200 shadow-md hover:shadow-lg transition-shadow duration-300">
-                                <CardHeader className="pb-4">
-                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
-                                        <TrendingUp className="mr-2 h-5 w-5 text-green-600" />
-                                        Trending Ratgeber
-                                    </CardTitle>
-                                </CardHeader>
-                                <div className="px-6 pb-6 space-y-3">
-                                    <Link to="/blog/umzug-planen-muutto-app" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group border-l-4 border-green-500">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Umzug planen mit Muutto</span>
-                                        </div>
-                                        <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded">NEU</span>
-                                    </Link>
-                                    <Link to="/blog/heizung-modernisieren-ratgeber-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Heizung modernisieren</span>
-                                        </div>
-                                        <span className="text-xs text-green-600 font-semibold">bis 40%</span>
-                                    </Link>
-                                    <Link to="/blog/daemmstoffe-vergleich-2025" className="flex items-center justify-between p-3 bg-white/70 rounded-lg hover:bg-white transition-colors group">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
-                                            <span className="text-sm font-medium text-gray-700 group-hover:text-green-600">Dämmung optimieren</span>
-                                        </div>
-                                        <span className="text-xs text-green-600 font-semibold">bis 50%</span>
-                                    </Link>
-                                </div>
-                            </Card>
-
-                            {/* AdSense - Middle Banner */}
-                            {/* Auto Ads are handled via AdSense dashboard */}
+                            <TrendingSidebar />
 
                             {/* Quick Links */}
-                            <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300">
+                            <Card className="bg-card border-border shadow-md">
                                 <CardHeader className="pb-4">
-                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
-                                        <Bookmark className="mr-2 h-5 w-5 text-blue-600" />
+                                    <CardTitle className="flex items-center text-lg font-semibold text-foreground">
+                                        <Bookmark className="mr-2 h-5 w-5 text-primary" />
                                         Schnellzugriff
                                     </CardTitle>
                                 </CardHeader>
                                 <div className="px-6 pb-6 space-y-2">
-                                    <Link to="/heizkostenrechner" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                        <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                            <span className="text-blue-600 text-sm font-bold">💡</span>
+                                    <Link to="/heizkostenrechner" className="flex items-center p-3 rounded-lg hover:bg-secondary transition-colors group">
+                                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-sm">💡</span>
                                         </div>
-                                        <span className="text-sm text-gray-700 group-hover:text-blue-600 font-medium">Heizkostenrechner</span>
+                                        <span className="text-sm text-foreground group-hover:text-primary font-medium">Heizkostenrechner</span>
                                     </Link>
-                                    <Link to="/daemmungsrechner" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                        <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                            <span className="text-green-600 text-sm font-bold">🏠</span>
+                                    <Link to="/daemmungsrechner" className="flex items-center p-3 rounded-lg hover:bg-secondary transition-colors group">
+                                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-sm">🏠</span>
                                         </div>
-                                        <span className="text-sm text-gray-700 group-hover:text-green-600 font-medium">Dämmungsrechner</span>
+                                        <span className="text-sm text-foreground group-hover:text-primary font-medium">Dämmungsrechner</span>
                                     </Link>
-                                    <Link to="/foerdermittel" className="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors group">
-                                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                                            <span className="text-purple-600 text-sm font-bold">💰</span>
+                                    <Link to="/foerdermittel" className="flex items-center p-3 rounded-lg hover:bg-secondary transition-colors group">
+                                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
+                                            <span className="text-sm">💰</span>
                                         </div>
-                                        <span className="text-sm text-gray-700 group-hover:text-purple-600 font-medium">Fördermittel</span>
+                                        <span className="text-sm text-foreground group-hover:text-primary font-medium">Fördermittel</span>
                                     </Link>
                                 </div>
                             </Card>
 
                             {/* Newsletter Teaser */}
-                            <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200 shadow-md hover:shadow-lg transition-all duration-300">
+                            <Card className="bg-gradient-to-br from-primary/10 to-accent/10 border-primary/20 shadow-md">
                                 <CardHeader className="pb-4">
-                                    <CardTitle className="flex items-center text-lg font-semibold text-gray-800">
-                                        <Clock className="mr-2 h-5 w-5 text-indigo-600" />
+                                    <CardTitle className="flex items-center text-lg font-semibold text-foreground">
+                                        <Clock className="mr-2 h-5 w-5 text-primary" />
                                         Newsletter
                                     </CardTitle>
-                                    <CardDescription className="text-gray-600">
+                                    <CardDescription>
                                         Bleiben Sie über neue Ratgeber und Fördermöglichkeiten informiert
                                     </CardDescription>
                                 </CardHeader>
                                 <div className="px-6 pb-6">
-                                    <Link to="/blog" className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+                                    <Link to="/blog" className="inline-flex items-center px-4 py-2 gradient-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
                                         Jetzt anmelden
                                         <span className="ml-2">→</span>
                                     </Link>
                                 </div>
                             </Card>
-
-                            {/* AdSense - Bottom Banner */}
-                            {/* Auto Ads are handled via AdSense dashboard */}
                         </div>
                     </div>
                 </div>
