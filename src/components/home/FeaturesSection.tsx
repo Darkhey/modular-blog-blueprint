@@ -1,55 +1,66 @@
 
 import { Rocket, PiggyBank, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useInView } from '@/hooks/useInView';
 
-const FeaturesSection = () => (
-  <section className="py-12 bg-gray-50">
-    <div className="max-w-7xl mx-auto px-4">
-      <h2 className="text-3xl font-semibold text-gray-900 text-center mb-8 animate-fade-in">
-        Ihre Vorteile als Hausbesitzer
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Feature 1 */}
-        <Link to="/projektplaner" className="block transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <div className="bg-white p-6 rounded-lg shadow-sm border h-full">
-            <Rocket className="text-green-600 mb-4 w-8 h-8" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Starten Sie Ihr Projekt
-            </h3>
-            <p className="text-gray-600">
-              Egal ob Neubau oder Sanierung – wir begleiten Sie von der ersten Idee bis zur finalen Umsetzung.
-            </p>
-          </div>
-        </Link>
+const features = [
+  {
+    icon: Rocket,
+    title: 'Starten Sie Ihr Projekt',
+    description: 'Egal ob Neubau oder Sanierung – wir begleiten Sie von der ersten Idee bis zur finalen Umsetzung.',
+    to: '/projektplaner',
+    step: '01',
+  },
+  {
+    icon: PiggyBank,
+    title: 'Finanzen im Blick',
+    description: 'Maximieren Sie Ihr Budget durch clevere Planung und die richtigen Fördermittel.',
+    to: '/budgetplan',
+    step: '02',
+  },
+  {
+    icon: Lightbulb,
+    title: 'Wissen, das sich auszahlt',
+    description: 'Profitieren Sie von verständlichen Anleitungen und Experten-Tipps, um teure Fehler zu vermeiden.',
+    to: '/wissenswertes',
+    step: '03',
+  },
+];
 
-        {/* Feature 2 */}
-        <Link to="/budgetplan" className="block transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '400ms' }}>
-          <div className="bg-white p-6 rounded-lg shadow-sm border h-full">
-            <PiggyBank className="text-blue-600 mb-4 w-8 h-8" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Finanzen im Blick
-            </h3>
-            <p className="text-gray-600">
-              Maximieren Sie Ihr Budget durch clevere Planung und die richtigen Fördermittel.
-            </p>
-          </div>
-        </Link>
+const FeaturesSection = () => {
+  const { ref, isInView } = useInView();
 
-        {/* Feature 3 */}
-        <Link to="/wissenswertes" className="block transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fade-in" style={{ animationDelay: '600ms' }}>
-          <div className="bg-white p-6 rounded-lg shadow-sm border h-full">
-            <Lightbulb className="text-orange-600 mb-4 w-8 h-8" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              Wissen, das sich auszahlt
-            </h3>
-            <p className="text-gray-600">
-              Profitieren Sie von verständlichen Anleitungen und Experten-Tipps, um teure Fehler zu vermeiden.
-            </p>
-          </div>
-        </Link>
+  return (
+    <section ref={ref} className="py-16 bg-secondary/40">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-foreground text-center mb-12">
+          Ihre Vorteile als Hausbesitzer
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {features.map((f, i) => (
+            <Link
+              key={f.step}
+              to={f.to}
+              className={`group block transition-all duration-500 ${isInView ? 'animate-fade-in' : 'opacity-0'}`}
+              style={{ animationDelay: `${i * 150}ms` }}
+            >
+              <div className="relative glass rounded-2xl p-8 h-full hover:shadow-glow hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                {/* Step number */}
+                <span className="absolute top-4 right-4 text-5xl font-black text-primary/10 select-none">{f.step}</span>
+                <div className="w-14 h-14 gradient-primary rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300 shadow-glow">
+                  <f.icon className="text-primary-foreground w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  {f.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">{f.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FeaturesSection;
