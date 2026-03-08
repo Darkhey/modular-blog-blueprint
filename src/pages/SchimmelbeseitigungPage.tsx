@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-schimmelbeseitigung.jpg';
 import { Bug, Wind, Thermometer, ShieldCheck, ArrowRight, AlertTriangle, Droplets } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -69,7 +70,7 @@ const SchimmelbeseitigungPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Bug} title="Schimmelbeseitigung" subtitle="Ursachen erkennen, richtig entfernen und dauerhaft vorbeugen" />
+      <RatgeberHero icon={Bug} title="Schimmelbeseitigung" subtitle="Ursachen erkennen, richtig entfernen und dauerhaft vorbeugen" backgroundImage={heroImage} />
 
       {/* Health Warning */}
       <section className="py-8">

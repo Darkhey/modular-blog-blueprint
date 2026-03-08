@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-elektroinstallation.jpg';
 import { Plug, ShieldAlert, Wifi, Zap, ArrowRight, AlertTriangle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -73,7 +74,7 @@ const ElektroinstallationPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Plug} title="Elektroinstallation erneuern" subtitle="Sicherheit, Komfort und Zukunftsfähigkeit – wann eine Erneuerung nötig ist" />
+      <RatgeberHero icon={Plug} title="Elektroinstallation erneuern" subtitle="Sicherheit, Komfort und Zukunftsfähigkeit – wann eine Erneuerung nötig ist" backgroundImage={heroImage} />
 
       {/* Warning Signs */}
       <section className="py-12 md:py-16">
