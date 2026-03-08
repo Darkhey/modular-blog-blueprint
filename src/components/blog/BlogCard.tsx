@@ -11,6 +11,7 @@ import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
 import fensterImg from '@/assets/blog-hero-fenster.jpg';
 import smarthomeImg from '@/assets/blog-hero-smarthome.jpg';
 import waermepumpeImg from '@/assets/blog-hero-waermepumpe.jpg';
+import renovierungstrendsImg from '@/assets/blog-hero-renovierungstrends-2026.jpg';
 
 // Topic keywords → local images (priority order)
 const topicImageMap: [string, string][] = [
