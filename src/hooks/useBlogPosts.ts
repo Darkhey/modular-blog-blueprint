@@ -76,7 +76,7 @@ const convertMockPost = (mock: any): BlogPost => ({
   status: 'published',
 });
 
-const getMockFallbackPosts = (): BlogPost[] =>
+export const getMockFallbackPosts = (): BlogPost[] =>
   mockBlogPosts.map(convertMockPost);
 
 export const useBlogPosts = (topic?: string, limit?: number, tag?: string) => {
