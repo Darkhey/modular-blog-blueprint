@@ -121,6 +121,9 @@ const FoerdermittelPage = () => {
               <div>
                 <h3 className="font-semibold text-lg">Regionale Programme</h3>
                 <p className="text-gray-800 dark:text-gray-200">Zusätzlich gibt es oft Förderungen von Bundesländern und Kommunen. Eine Recherche lohnt sich!</p>
+                <Link to="/foerdermittel/regional" className="inline-flex items-center gap-1 text-green-700 font-semibold mt-2 hover:underline">
+                  → Zur interaktiven Förderkarte
+                </Link>
               </div>
             </CardContent>
           </Card>
