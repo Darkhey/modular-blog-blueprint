@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-barrierefreies-wohnen.jpg';
 import { Accessibility, DoorOpen, Bath, ChefHat, ArrowUp, ArrowRight, BadgeEuro } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -62,7 +63,7 @@ const BarrierefreiesWohnenPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Accessibility} title="Barrierefreies Wohnen" subtitle="Selbstständig leben in jedem Alter – Maßnahmen, Kosten und Fördermittel" />
+      <RatgeberHero icon={Accessibility} title="Barrierefreies Wohnen" subtitle="Selbstständig leben in jedem Alter – Maßnahmen, Kosten und Fördermittel" backgroundImage={heroImage} />
 
       {/* Maßnahmen-Übersicht */}
       <section className="py-12 md:py-16">

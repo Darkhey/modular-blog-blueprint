@@ -1,5 +1,6 @@
 
 import { Helmet } from 'react-helmet-async';
+import heroImage from '@/assets/blog-hero-badezimmer-sanierung.jpg';
 import { Bath, Droplets, Clock, Ruler, Wrench, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -63,7 +64,7 @@ const BadezimmerSanierungPage = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
-      <RatgeberHero icon={Bath} title="Badezimmer-Sanierung" subtitle="Kosten, Ablauf und Checkliste – alles für Ihre Traumbad-Planung" />
+      <RatgeberHero icon={Bath} title="Badezimmer-Sanierung" subtitle="Kosten, Ablauf und Checkliste – alles für Ihre Traumbad-Planung" backgroundImage={heroImage} />
 
       {/* Timeline */}
       <section className="py-12 md:py-16">
