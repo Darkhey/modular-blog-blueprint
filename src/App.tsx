@@ -94,6 +94,7 @@ function App() {
                   <Route path="/smart-home" element={<SmartHomePage />} />
                   <Route path="/smart-home-produkte" element={<SmartHomeProduktePages />} />
                   <Route path="/sanierungscheck" element={<SanierungsCheckPage />} />
+                  <Route path="/glossar" element={<GlossarPage />} />
                   
                   {/* Wissenswertes nested routes */}
                   <Route path="/wissenswertes" element={<WissenswertesIndex />} />

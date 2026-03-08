@@ -66,6 +66,14 @@ const Footer = () => {
                   Regionale Förderung
                 </Link>
               </li>
+              <li>
+                <Link 
+                  to="/glossar" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Glossar
+                </Link>
+              </li>
             </ul>
           </div>
 
