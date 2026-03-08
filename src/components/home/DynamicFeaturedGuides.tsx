@@ -4,17 +4,22 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useInView } from '@/hooks/useInView';
 import { ArrowRight } from 'lucide-react';
 
+import heizungImg from '@/assets/blog-hero-heizung.jpg';
+import daemmungImg from '@/assets/blog-hero-daemmung.jpg';
+import solarImg from '@/assets/blog-hero-solar.jpg';
+import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
+
 const topicFallbackImages: Record<string, string> = {
-  'Heizung': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&h=300&fit=crop',
-  'Dämmung': 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop',
-  'Solar': 'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&h=300&fit=crop',
+  'Heizung': heizungImg,
+  'Dämmung': daemmungImg,
+  'Solar': solarImg,
   'Fenster': 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop',
 };
 
 const getImage = (post: any) =>
   post.hero_image_url || post.cover_url ||
   Object.entries(topicFallbackImages).find(([key]) => post.topic?.includes(key))?.[1] ||
-  'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop';
+  sanierungsfahrplanImg;
 
 const DynamicFeaturedGuides = () => {
   const { data: posts, isLoading } = useFeaturedPosts(4);
