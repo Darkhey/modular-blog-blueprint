@@ -65,20 +65,18 @@ const FullTextSearch = () => {
     );
     const allResults = [...dbResults, ...mockMatches];
 
-    if (allResults.length > 0) {
-      const searchResults = allResults.map(post => ({
-        ...post,
-        relevance_score: calculateRelevanceScore(post, searchQuery),
-        highlight: generateHighlight(post, searchQuery)
-      })).sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0));
-      
-      setResults(searchResults);
-      
-      // Update search history
-      const newHistory = [searchQuery, ...searchHistory.filter(h => h !== searchQuery)].slice(0, 5);
-      setSearchHistory(newHistory);
-      localStorage.setItem('searchHistory', JSON.stringify(newHistory));
-    }
+    const searchResults = allResults.map(post => ({
+      ...post,
+      relevance_score: calculateRelevanceScore(post, searchQuery),
+      highlight: generateHighlight(post, searchQuery)
+    })).sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0));
+    
+    setResults(searchResults);
+    
+    // Update search history
+    const newHistory = [searchQuery, ...searchHistory.filter(h => h !== searchQuery)].slice(0, 5);
+    setSearchHistory(newHistory);
+    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
     
     setLoading(false);
   };
