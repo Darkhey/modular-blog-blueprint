@@ -2690,7 +2690,474 @@ const kernsanierungVsTeilsanierungPost: BlogPost = {
 <p><em>Quellen: <a href="https://www.kfw.de/" target="_blank" rel="noopener noreferrer">KfW</a>, <a href="https://www.bafa.de/" target="_blank" rel="noopener noreferrer">BAFA</a>, <a href="https://www.verbraucherzentrale.de/" target="_blank" rel="noopener noreferrer">Verbraucherzentrale</a>, <a href="https://www.dena.de/" target="_blank" rel="noopener noreferrer">dena</a>, <a href="https://www.bdh-industrie.de/" target="_blank" rel="noopener noreferrer">BDH</a>. Stand: März 2026.</em></p>`
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost];
+// ─── Neue Beiträge 2026 ───
+
+const dachausbauPost: BlogPost = {
+  id: '20',
+  title: 'Dachausbau 2026: Kosten, Genehmigung & Dämmung – der komplette Ratgeber',
+  excerpt: 'Vom ungenutzten Speicher zum Wohntraum: Was ein Dachausbau kostet, welche Genehmigungen Sie brauchen und wie Sie bis zu 20 % Förderung erhalten.',
+  content: `<h1>Dachausbau 2026: Kosten, Genehmigung & Dämmung</h1>
+
+<p>Ein Dachausbau schafft wertvollen Wohnraum, ohne die Grundstücksfläche zu vergrößern. Doch bevor Säge und Bohrer ansetzen, braucht es eine solide Planung. Dieser Ratgeber führt Sie durch alle Phasen – von der Baugenehmigung bis zur Förderung.</p>
+
+<h2 id="kosten">Was kostet ein Dachausbau?</h2>
+<p>Die Gesamtkosten hängen stark von Umfang und Region ab:</p>
+<ul>
+  <li><strong>Dachbodendämmung (begehbar):</strong> 2.000 – 5.000 €</li>
+  <li><strong>Zwischensparrendämmung:</strong> 5.000 – 12.000 €</li>
+  <li><strong>Dachfenster (pro Stück):</strong> 1.500 – 4.000 € inkl. Einbau</li>
+  <li><strong>Trockenbau + Elektrik:</strong> 8.000 – 15.000 €</li>
+  <li><strong>Komplett-Ausbau (50–80 m²):</strong> 30.000 – 70.000 € schlüsselfertig</li>
+</ul>
+<p>Tipp: Wer die Dachdämmung als BEG-Einzelmaßnahme beantragt, erhält 15 % Zuschuss (mit iSFP sogar 20 %).</p>
+
+<h2 id="genehmigung">Baugenehmigung – wann ist sie nötig?</h2>
+<p>In den meisten Bundesländern ist eine Baugenehmigung erforderlich, wenn sich die Nutzung ändert (Speicher → Wohnraum). Gauben und zusätzliche Dachfenster sind oft genehmigungspflichtig. Erkundigen Sie sich frühzeitig beim Bauamt – der Antrag dauert 4–8 Wochen.</p>
+
+<h2 id="daemmung">Die richtige Dämmung</h2>
+<p>Nach GEG 2025 gilt ein U-Wert von 0,24 W/(m²K). Das bedeutet ca. 16–20 cm Mineralwolle oder 12–16 cm PUR. Für KfW-Förderung sind oft strengere Werte (0,14) nötig. Drei Varianten:</p>
+<ol>
+  <li><strong>Zwischensparrendämmung:</strong> Standard, günstig, einfach nachzurüsten</li>
+  <li><strong>Aufsparrendämmung:</strong> Beste Wärmebrücken-Reduktion, aber Dach muss neu eingedeckt werden</li>
+  <li><strong>Untersparrendämmung:</strong> Ergänzung bei zu dünnen Sparren</li>
+</ol>
+
+<h2 id="zeitplan">Typischer Zeitplan</h2>
+<ol>
+  <li>Planung & Genehmigung: 4–8 Wochen</li>
+  <li>Rohbau & Dämmung: 2–4 Wochen</li>
+  <li>Haustechnik (Elektrik, Heizung): 1–2 Wochen</li>
+  <li>Innenausbau: 2–4 Wochen</li>
+</ol>
+
+<h2 id="foerderung">Förderung & Finanzierung</h2>
+<p>BAFA fördert die Dachdämmung mit 15 % (20 % mit iSFP). Der Steuerbonus (§ 35c EStG) erlaubt 20 % über 3 Jahre abzusetzen. KfW-Kredit 261/262 bietet günstige Zinsen bei Effizienzhaus-Standard. <a href="/foerderrechner">Zum Förderrechner →</a></p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Ein Dachausbau ist eine der lohnendsten Investitionen ins Eigenheim – mehr Wohnfläche, bessere Energiebilanz und Wertsteigerung. Mit guter Planung und Förderung bleibt das Budget überschaubar.</p>
+
+<p><em>Quellen: KfW, BAFA, Verbraucherzentrale. Stand: März 2026.</em></p>`,
+  topic: 'Sanierung',
+  topicColor: 'bg-amber-100 text-amber-800',
+  publishedAt: '2026-02-20',
+  readTime: 10,
+  slug: 'dachausbau-kosten-genehmigung-daemmung-2026',
+  seoTitle: 'Dachausbau 2026: Kosten, Genehmigung & Dämmung – Ratgeber',
+  seoDescription: 'Dachausbau komplett erklärt: Kosten von 2.000 bis 70.000 €, Baugenehmigung, Dämmvarianten und bis zu 20 % Förderung.',
+  keywords: ['Dachausbau', 'Dachausbau Kosten', 'Dachgeschoss ausbauen', 'Dachdämmung', 'Baugenehmigung Dachausbau'],
+  difficulty: 2,
+  savingsPotential: '15–25 % Heizkosten',
+  fundingAvailable: 'BAFA 15–20 %, Steuerbonus 20 %',
+  effortLevel: 'Hoch',
+  keyBenefits: ['Neue Wohnfläche ohne Anbau', 'Energiebilanz verbessern', 'Immobilienwert steigern', 'Förderung bis 20 %'],
+  tableOfContents: [
+    { id: 'kosten', title: 'Was kostet ein Dachausbau?' },
+    { id: 'genehmigung', title: 'Baugenehmigung' },
+    { id: 'daemmung', title: 'Die richtige Dämmung' },
+    { id: 'zeitplan', title: 'Typischer Zeitplan' },
+    { id: 'foerderung', title: 'Förderung & Finanzierung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const stromspeicherPost: BlogPost = {
+  id: '21',
+  title: 'Stromspeicher 2026: Lohnt sich eine Batterie für die PV-Anlage?',
+  excerpt: 'Stromspeicher erhöhen den Eigenverbrauch von Solarstrom auf bis zu 80 %. Was sie kosten, wann sie sich rechnen und welche Förderungen es gibt.',
+  content: `<h1>Stromspeicher 2026: Lohnt sich eine Batterie für die PV-Anlage?</h1>
+
+<p>Ein Stromspeicher macht Sie unabhängiger vom Stromnetz und erhöht den Eigenverbrauch Ihrer PV-Anlage von typischerweise 30 % auf bis zu 80 %. Doch die Investition muss sich rechnen.</p>
+
+<h2 id="kosten">Was kostet ein Stromspeicher?</h2>
+<ul>
+  <li><strong>5 kWh Speicher:</strong> 4.000 – 6.000 € (für Einfamilienhaus)</li>
+  <li><strong>10 kWh Speicher:</strong> 7.000 – 11.000 € (Standard für 5–10 kWp PV)</li>
+  <li><strong>15 kWh Speicher:</strong> 10.000 – 15.000 € (große Anlagen, E-Auto)</li>
+</ul>
+<p>Die Preise sind 2025/2026 um ca. 25 % gegenüber 2023 gefallen. LFP-Batterien (Lithium-Eisenphosphat) dominieren den Markt.</p>
+
+<h2 id="wirtschaftlichkeit">Wann rechnet sich der Speicher?</h2>
+<p>Die Amortisation hängt vom Strompreis, Eigenverbrauchsanteil und der Speichergröße ab:</p>
+<ul>
+  <li><strong>Strompreis 30 ct/kWh:</strong> Amortisation in 10–14 Jahren</li>
+  <li><strong>Strompreis 35 ct/kWh:</strong> Amortisation in 8–11 Jahren</li>
+  <li><strong>Mit E-Auto:</strong> Amortisation beschleunigt sich um 2–3 Jahre</li>
+</ul>
+<p>Faustregel: 1 kWh Speicherkapazität pro 1 kWp PV-Leistung. Bei 8 kWp also ein 8-kWh-Speicher.</p>
+
+<h2 id="technologie">Technologie-Vergleich</h2>
+<p><strong>LFP (Lithium-Eisenphosphat):</strong> Sicherer, langlebiger (6.000+ Zyklen), etwas schwerer. Marktführer 2026.</p>
+<p><strong>NMC (Nickel-Mangan-Cobalt):</strong> Kompakter, höhere Energiedichte, aber kürzere Lebensdauer (4.000 Zyklen).</p>
+<p><strong>Natrium-Ionen:</strong> Aufkommende Technologie, günstiger, aber noch geringe Verfügbarkeit.</p>
+
+<h2 id="foerderung">Förderung</h2>
+<p>Bundesweite Speicher-Förderung gibt es aktuell nicht. Viele Bundesländer und Kommunen fördern jedoch mit 500–2.000 € Zuschuss. Prüfen Sie Ihre <a href="/foerdermittel/regional">regionale Förderung</a>.</p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Stromspeicher lohnen sich 2026 bei hohem Eigenverbrauch und steigenden Strompreisen. Wer ein E-Auto besitzt oder plant, profitiert besonders. Mit fallenden Preisen wird die Wirtschaftlichkeit jedes Jahr besser.</p>
+
+<p><em>Quellen: BSW Solar, HTW Berlin, Verbraucherzentrale. Stand: März 2026.</em></p>`,
+  topic: 'Solarenergie',
+  topicColor: 'bg-yellow-100 text-yellow-800',
+  publishedAt: '2026-02-15',
+  readTime: 9,
+  slug: 'stromspeicher-2026-batterie-pv-anlage',
+  seoTitle: 'Stromspeicher 2026: Kosten, Wirtschaftlichkeit & Förderung',
+  seoDescription: 'Stromspeicher für PV-Anlagen: Kosten ab 4.000 €, Amortisation in 8–14 Jahren und regionale Förderprogramme im Überblick.',
+  keywords: ['Stromspeicher', 'Batteriespeicher', 'PV Speicher', 'Solarstrom speichern', 'Stromspeicher Kosten'],
+  difficulty: 2,
+  savingsPotential: 'Eigenverbrauch bis 80 %',
+  fundingAvailable: 'Regional 500–2.000 €',
+  effortLevel: 'Niedrig',
+  keyBenefits: ['Eigenverbrauch verdoppeln', 'Stromkosten senken', 'Unabhängigkeit steigern', 'E-Auto laden'],
+  tableOfContents: [
+    { id: 'kosten', title: 'Was kostet ein Stromspeicher?' },
+    { id: 'wirtschaftlichkeit', title: 'Wann rechnet sich der Speicher?' },
+    { id: 'technologie', title: 'Technologie-Vergleich' },
+    { id: 'foerderung', title: 'Förderung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const lueftungsanlagePost: BlogPost = {
+  id: '22',
+  title: 'Lüftungsanlage nachrüsten: Frische Luft ohne Energieverlust',
+  excerpt: 'Kontrollierte Wohnraumlüftung spart bis zu 30 % Heizenergie und verhindert Schimmel. Welche Systeme sich eignen und was der Einbau kostet.',
+  content: `<h1>Lüftungsanlage nachrüsten: Frische Luft ohne Energieverlust</h1>
+
+<p>Moderne gedämmte Häuser sind dicht – das spart Energie, kann aber zu Feuchteproblemen führen. Eine kontrollierte Wohnraumlüftung (KWL) löst dieses Dilemma: frische Luft bei minimalen Energieverlusten.</p>
+
+<h2 id="systeme">Welche Systeme gibt es?</h2>
+
+<h3>Zentrale Lüftungsanlage mit Wärmerückgewinnung</h3>
+<ul>
+  <li><strong>Wärmerückgewinnung:</strong> 80–95 % der Abwärme wird zurückgewonnen</li>
+  <li><strong>Kosten:</strong> 6.000 – 12.000 € inkl. Einbau</li>
+  <li><strong>Ideal bei:</strong> Neubau oder Kernsanierung</li>
+</ul>
+
+<h3>Dezentrale Lüftungsgeräte</h3>
+<ul>
+  <li><strong>Wärmerückgewinnung:</strong> 70–90 %</li>
+  <li><strong>Kosten:</strong> 800 – 1.500 € pro Gerät (2–4 Geräte pro Wohnung)</li>
+  <li><strong>Ideal bei:</strong> Nachrüstung ohne große Umbaumaßnahmen</li>
+</ul>
+
+<h3>Abluftanlage</h3>
+<ul>
+  <li><strong>Wärmerückgewinnung:</strong> Keine (Wärme geht verloren)</li>
+  <li><strong>Kosten:</strong> 2.000 – 4.000 €</li>
+  <li><strong>Ideal bei:</strong> Einfache Feuchteabfuhr in Bad und Küche</li>
+</ul>
+
+<h2 id="vorteile">Vorteile einer Lüftungsanlage</h2>
+<ol>
+  <li><strong>Energieeinsparung:</strong> Bis zu 30 % weniger Heizenergie durch Wärmerückgewinnung</li>
+  <li><strong>Schimmelprävention:</strong> Kontrollierter Feuchteabtransport</li>
+  <li><strong>Pollenfilter:</strong> Besonders wertvoll für Allergiker</li>
+  <li><strong>Lärmschutz:</strong> Fenster bleiben geschlossen, Straßenlärm draußen</li>
+</ol>
+
+<h2 id="nachruestung">Nachrüstung im Altbau</h2>
+<p>Dezentrale Geräte lassen sich in nahezu jedem Altbau nachrüsten – pro Gerät wird nur eine Kernbohrung (Ø 16–18 cm) benötigt. Zentrale Anlagen erfordern Lüftungskanäle, was bei Kernsanierungen oder Dachausbauten gut integrierbar ist.</p>
+
+<h2 id="foerderung">Förderung</h2>
+<p>Lüftungsanlagen mit Wärmerückgewinnung werden über BAFA als BEG-Einzelmaßnahme mit 15 % gefördert (20 % mit iSFP). <a href="/foerderrechner">Förderrechner nutzen →</a></p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Eine Lüftungsanlage ist die logische Ergänzung zu jeder Dämmmaßnahme. Dezentrale Geräte machen die Nachrüstung einfach und bezahlbar. Bei Neubau oder Kernsanierung ist eine zentrale Anlage die beste Wahl.</p>
+
+<p><em>Quellen: FGK, Verbraucherzentrale, BAFA. Stand: März 2026.</em></p>`,
+  topic: 'Energieeffizienz',
+  topicColor: 'bg-green-100 text-green-800',
+  publishedAt: '2026-01-28',
+  readTime: 8,
+  slug: 'lueftungsanlage-nachruesten-wohnraumlueftung',
+  seoTitle: 'Lüftungsanlage nachrüsten 2026: Systeme, Kosten & Förderung',
+  seoDescription: 'Lüftungsanlage nachrüsten: Dezentrale vs. zentrale Systeme, Kosten ab 800 € und BAFA-Förderung bis 20 %.',
+  keywords: ['Lüftungsanlage', 'KWL', 'Wohnraumlüftung', 'Wärmerückgewinnung', 'Lüftung nachrüsten'],
+  difficulty: 2,
+  savingsPotential: 'Bis zu 30 % Heizenergie',
+  fundingAvailable: 'BAFA 15–20 %',
+  effortLevel: 'Niedrig bis mittel',
+  keyBenefits: ['30 % Energieeinsparung', 'Schimmelschutz', 'Bessere Luftqualität', 'Pollenfilter für Allergiker'],
+  tableOfContents: [
+    { id: 'systeme', title: 'Welche Systeme gibt es?' },
+    { id: 'vorteile', title: 'Vorteile' },
+    { id: 'nachruestung', title: 'Nachrüstung im Altbau' },
+    { id: 'foerderung', title: 'Förderung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const geg2025Post: BlogPost = {
+  id: '23',
+  title: 'GEG 2025: Was Hausbesitzer jetzt wissen müssen',
+  excerpt: 'Das Gebäudeenergiegesetz 2025 bringt neue Pflichten für Heizungstausch und Dämmung. Alle Fristen, Ausnahmen und Handlungsempfehlungen.',
+  content: `<h1>GEG 2025: Was Hausbesitzer jetzt wissen müssen</h1>
+
+<p>Das Gebäudeenergiegesetz (GEG) regelt die energetischen Anforderungen an Gebäude in Deutschland. Mit den Anpassungen 2025 kommen neue Pflichten auf Hausbesitzer zu – besonders beim Heizungstausch.</p>
+
+<h2 id="ueberblick">Die wichtigsten Änderungen</h2>
+<ul>
+  <li><strong>65-%-Regel:</strong> Neue Heizungen müssen mindestens 65 % erneuerbare Energien nutzen</li>
+  <li><strong>Kommunale Wärmeplanung:</strong> Großstädte (>100.000 Einwohner) bis 30.06.2026, kleinere bis 30.06.2028</li>
+  <li><strong>Übergangsfristen:</strong> Bestehende Heizungen dürfen weiter betrieben und repariert werden</li>
+  <li><strong>Austauschpflicht:</strong> Öl-/Gasheizungen älter als 30 Jahre müssen ersetzt werden (Ausnahmen: Brennwert/Niedertemperatur)</li>
+</ul>
+
+<h2 id="heizungstausch">Heizungstausch – was gilt?</h2>
+<p>Die 65-%-Regel greift stufenweise:</p>
+<ol>
+  <li><strong>Neubau in Neubaugebieten:</strong> Sofort ab 2024</li>
+  <li><strong>Bestehende Gebäude:</strong> Nach Vorliegen der kommunalen Wärmeplanung</li>
+  <li><strong>Havarie-Fall:</strong> 5 Jahre Übergangsfrist bei Heizungsausfall</li>
+</ol>
+<p>Wichtig: Niemand muss eine funktionierende Heizung sofort austauschen. Erst bei Defekt oder nach Ablauf der kommunalen Wärmeplanung gelten die neuen Regeln.</p>
+
+<h2 id="optionen">Welche Heizungen erfüllen das GEG?</h2>
+<ul>
+  <li>✅ <strong>Wärmepumpe</strong> (Luft, Erde, Wasser)</li>
+  <li>✅ <strong>Fernwärme</strong> (wenn klimaneutral geplant)</li>
+  <li>✅ <strong>Pelletheizung / Biomasse</strong></li>
+  <li>✅ <strong>Hybridheizung</strong> (Wärmepumpe + Gas-Spitzenlast)</li>
+  <li>✅ <strong>Solarthermie</strong> (als Ergänzung)</li>
+  <li>⚠️ <strong>H2-ready Gasheizung</strong> (nur mit verbindlichem Wasserstoff-Fahrplan)</li>
+</ul>
+
+<h2 id="foerderung">Förderung nach GEG</h2>
+<p>Der Staat unterstützt den Umstieg mit bis zu 70 % Zuschuss:</p>
+<ul>
+  <li><strong>Grundförderung:</strong> 30 % für alle</li>
+  <li><strong>Einkommensbonus:</strong> +30 % bei Haushaltseinkommen ≤ 40.000 €</li>
+  <li><strong>Geschwindigkeitsbonus:</strong> +20 % bei Tausch bis 2028 (danach abschmelzend)</li>
+  <li><strong>Maximal:</strong> 70 % Zuschuss, Höchstbetrag 30.000 €</li>
+</ul>
+<p><a href="/foerderrechner">Individuelle Förderung berechnen →</a></p>
+
+<h2 id="handlungsempfehlung">Handlungsempfehlung</h2>
+<ol>
+  <li>Energieberatung (BAFA-gefördert mit 80 %) durchführen lassen</li>
+  <li>Kommunale Wärmeplanung abwarten oder proaktiv umsteigen</li>
+  <li>Förderantrag VOR Beauftragung stellen</li>
+  <li>Bei funktionierender Heizung: Ruhe bewahren, aber planen</li>
+</ol>
+
+<h2 id="fazit">Fazit</h2>
+<p>Das GEG 2025 ist kein Grund zur Panik. Die Übergangsfristen sind großzügig, die Förderungen attraktiv. Wer jetzt plant, profitiert von den höchsten Zuschüssen und vermeidet spätere Engpässe bei Handwerkern.</p>
+
+<p><em>Quellen: BMWK, dena, Verbraucherzentrale. Stand: März 2026.</em></p>`,
+  topic: 'Energieeffizienz',
+  topicColor: 'bg-green-100 text-green-800',
+  publishedAt: '2026-01-10',
+  readTime: 11,
+  slug: 'geg-2025-gebaeudeenergiegesetz-hausbesitzer',
+  seoTitle: 'GEG 2025: Neue Pflichten für Hausbesitzer – Heizungstausch & Fristen',
+  seoDescription: 'GEG 2025 erklärt: 65-%-Regel, Heizungstausch-Pflicht, Übergangsfristen und bis zu 70 % Förderung für Hausbesitzer.',
+  keywords: ['GEG 2025', 'Gebäudeenergiegesetz', 'Heizungstausch Pflicht', '65 Prozent erneuerbare Energien', 'GEG Fristen'],
+  difficulty: 1,
+  savingsPotential: 'Bis zu 40 % Heizkosten',
+  fundingAvailable: 'Bis zu 70 % Zuschuss',
+  effortLevel: 'Variabel',
+  keyBenefits: ['Rechtssicherheit', 'Bis zu 70 % Förderung', 'Zukunftssichere Heizung', 'Wertsteigerung der Immobilie'],
+  tableOfContents: [
+    { id: 'ueberblick', title: 'Die wichtigsten Änderungen' },
+    { id: 'heizungstausch', title: 'Heizungstausch' },
+    { id: 'optionen', title: 'Welche Heizungen erfüllen das GEG?' },
+    { id: 'foerderung', title: 'Förderung nach GEG' },
+    { id: 'handlungsempfehlung', title: 'Handlungsempfehlung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const kellersanierungPost: BlogPost = {
+  id: '24',
+  title: 'Kellersanierung: Feuchte Wände trockenlegen & Keller ausbauen',
+  excerpt: 'Ein feuchter Keller schadet der Bausubstanz. Erfahren Sie, welche Abdichtungsmethoden es gibt, was sie kosten und wann sich ein Ausbau lohnt.',
+  content: `<h1>Kellersanierung: Feuchte Wände trockenlegen & Keller ausbauen</h1>
+
+<p>Feuchte Keller sind keine Seltenheit – besonders in Altbauten fehlt oft eine wirksame Abdichtung. Wer rechtzeitig handelt, verhindert teure Folgeschäden und gewinnt nutzbaren Wohnraum.</p>
+
+<h2 id="ursachen">Ursachen für feuchte Keller</h2>
+<ul>
+  <li><strong>Aufsteigende Feuchte:</strong> Kapillarwirkung im Mauerwerk zieht Wasser nach oben</li>
+  <li><strong>Drückendes Wasser:</strong> Grundwasser drückt gegen die Kellerwände</li>
+  <li><strong>Sickerwasser:</strong> Regenwasser versickert entlang der Kellerwand</li>
+  <li><strong>Kondensat:</strong> Warme Luft trifft auf kalte Kellerwände</li>
+</ul>
+<p>Eine professionelle Analyse ist der erste Schritt. Ohne korrekte Diagnose ist jede Maßnahme Glücksspiel.</p>
+
+<h2 id="abdichtung">Abdichtungsmethoden</h2>
+<h3>Außenabdichtung (Goldstandard)</h3>
+<p>Kosten: 15.000 – 30.000 €. Erdreich wird aufgegraben, die Wand mit Bitumen oder Kunststoffbahnen abgedichtet. Dauerhafteste Lösung, aber aufwändig.</p>
+
+<h3>Innenabdichtung</h3>
+<p>Kosten: 3.000 – 8.000 €. Injektionsverfahren oder Dichtungsschlämme. Schneller und günstiger, aber die Feuchtigkeit bleibt im Mauerwerk.</p>
+
+<h3>Drainage</h3>
+<p>Kosten: 5.000 – 12.000 €. Drainagerohre leiten Sickerwasser ab. Sinnvoll in Kombination mit Außenabdichtung.</p>
+
+<h2 id="daemmung">Kellerdämmung</h2>
+<ul>
+  <li><strong>Kellerdecke (von unten):</strong> 2.000 – 5.000 € – einfachste Maßnahme, größte Wirkung</li>
+  <li><strong>Perimeterdämmung:</strong> 8.000 – 18.000 € – bei Außenabdichtung gleich miterledigen</li>
+</ul>
+<p>Die Kellerdeckendämmung ist eine der wirtschaftlichsten Einzelmaßnahmen überhaupt. <a href="/daemmungsrechner">Einsparung berechnen →</a></p>
+
+<h2 id="ausbau">Keller zum Wohnraum ausbauen</h2>
+<p>Voraussetzungen: Raumhöhe ≥ 2,30 m, Fenster (Fluchtwege), Lüftungskonzept, Baugenehmigung bei Nutzungsänderung. Kosten: 20.000 – 50.000 € für einen vollwertigen Wohnraum.</p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Kellersanierung schützt die Bausubstanz und schafft Potenzial für mehr Wohnraum. Die Kellerdeckendämmung ist ein Quick-Win; bei Feuchtigkeitsproblemen führt kein Weg an einer professionellen Abdichtung vorbei.</p>
+
+<p><em>Quellen: Verbraucherzentrale, WTA, BAFA. Stand: März 2026.</em></p>`,
+  topic: 'Sanierung',
+  topicColor: 'bg-amber-100 text-amber-800',
+  publishedAt: '2026-02-05',
+  readTime: 9,
+  slug: 'kellersanierung-abdichtung-ausbau-ratgeber',
+  seoTitle: 'Kellersanierung 2026: Abdichtung, Dämmung & Ausbau – Ratgeber',
+  seoDescription: 'Kellersanierung komplett erklärt: Abdichtungsmethoden, Kosten und wann sich ein Kellerausbau lohnt.',
+  keywords: ['Kellersanierung', 'feuchter Keller', 'Kellerabdichtung', 'Keller ausbauen', 'Kellerdämmung'],
+  difficulty: 2,
+  savingsPotential: '10–20 % Heizkosten (Dämmung)',
+  fundingAvailable: 'BAFA 15–20 % (Dämmung)',
+  effortLevel: 'Mittel bis hoch',
+  keyBenefits: ['Bausubstanz schützen', 'Nutzfläche gewinnen', 'Heizkosten senken', 'Schimmel verhindern'],
+  tableOfContents: [
+    { id: 'ursachen', title: 'Ursachen für feuchte Keller' },
+    { id: 'abdichtung', title: 'Abdichtungsmethoden' },
+    { id: 'daemmung', title: 'Kellerdämmung' },
+    { id: 'ausbau', title: 'Keller zum Wohnraum' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const fassadensanierungPost: BlogPost = {
+  id: '25',
+  title: 'Fassadensanierung 2026: Putz, Dämmung & Anstrich – der große Ratgeber',
+  excerpt: 'Die Fassade ist die Visitenkarte Ihres Hauses. Was eine Sanierung kostet, wann WDVS sinnvoll ist und welche Förderungen es gibt.',
+  content: `<h1>Fassadensanierung 2026: Putz, Dämmung & Anstrich</h1>
+
+<p>Risse im Putz, abblätternde Farbe oder kalte Wände – eine Fassadensanierung verbessert Optik, Energiebilanz und Werterhalt Ihres Hauses in einem Zug.</p>
+
+<h2 id="wann">Wann muss die Fassade saniert werden?</h2>
+<ul>
+  <li><strong>Risse:</strong> Haarrisse (< 0,2 mm) sind meist harmlos, größere Risse erfordern Analyse</li>
+  <li><strong>Abplatzungen:</strong> Putz löst sich → Feuchtigkeit dringt ein</li>
+  <li><strong>Algenbefall:</strong> Grünliche Verfärbungen, besonders an Nordseiten</li>
+  <li><strong>Hoher Energieverbrauch:</strong> Ungedämmte Fassaden verlieren 20–25 % der Heizwärme</li>
+</ul>
+
+<h2 id="kosten">Kosten im Überblick</h2>
+<ul>
+  <li><strong>Fassadenanstrich:</strong> 15 – 30 €/m² (mit Gerüst)</li>
+  <li><strong>Putzausbesserung:</strong> 25 – 50 €/m²</li>
+  <li><strong>WDVS (Wärmedämmverbundsystem):</strong> 100 – 200 €/m² (EPS/Mineralwolle)</li>
+  <li><strong>Vorhangfassade:</strong> 150 – 300 €/m² (hinterlüftet)</li>
+  <li><strong>Komplett (Einfamilienhaus, 150 m²):</strong> 20.000 – 40.000 €</li>
+</ul>
+
+<h2 id="daemmung">Fassadendämmung – WDVS oder Vorhangfassade?</h2>
+<p><strong>WDVS:</strong> Günstiger, bewährt, große Materialauswahl. Nachteil: Nicht rückbaubar, anfällig für Algen bei schlechter Ausführung.</p>
+<p><strong>Vorhangfassade:</strong> Langlebiger, hinterlüftet (kein Feuchteproblem), rückbaubar. Nachteil: Teurer, höherer Planungsaufwand.</p>
+<p>Beide Varianten erreichen U-Werte von 0,20–0,24 W/(m²K) und erfüllen damit die GEG-Anforderungen.</p>
+
+<h2 id="foerderung">Förderung</h2>
+<p>Die Fassadendämmung wird als BEG-Einzelmaßnahme gefördert:</p>
+<ul>
+  <li><strong>BAFA:</strong> 15 % Zuschuss (20 % mit iSFP)</li>
+  <li><strong>Steuerbonus:</strong> 20 % über 3 Jahre (§ 35c EStG)</li>
+  <li><strong>KfW:</strong> Ergänzungskredit 358/359 mit Zinsvorteil</li>
+</ul>
+<p><a href="/foerderrechner">Jetzt Förderung berechnen →</a></p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Eine Fassadensanierung mit Dämmung ist eine der wirkungsvollsten Maßnahmen zur Energieeinsparung. In Kombination mit Fenster- und Dachdämmung erreichen Sie mühelos KfW-Effizienzhaus-Standards.</p>
+
+<p><em>Quellen: dena, Verbraucherzentrale, FV WDVS. Stand: März 2026.</em></p>`,
+  topic: 'Dämmung',
+  topicColor: 'bg-blue-100 text-blue-800',
+  publishedAt: '2026-03-01',
+  readTime: 10,
+  slug: 'fassadensanierung-putz-daemmung-anstrich-2026',
+  seoTitle: 'Fassadensanierung 2026: Kosten, WDVS & Förderung – Ratgeber',
+  seoDescription: 'Fassadensanierung komplett erklärt: Kosten ab 15 €/m², WDVS vs. Vorhangfassade und bis zu 20 % BAFA-Förderung.',
+  keywords: ['Fassadensanierung', 'WDVS', 'Fassadendämmung', 'Fassade Kosten', 'Vorhangfassade'],
+  difficulty: 2,
+  savingsPotential: '20–25 % Heizkosten',
+  fundingAvailable: 'BAFA 15–20 %, Steuerbonus 20 %',
+  effortLevel: 'Hoch',
+  keyBenefits: ['20–25 % Heizkosten sparen', 'Optik aufwerten', 'Bausubstanz schützen', 'Immobilienwert steigern'],
+  tableOfContents: [
+    { id: 'wann', title: 'Wann sanieren?' },
+    { id: 'kosten', title: 'Kosten im Überblick' },
+    { id: 'daemmung', title: 'WDVS oder Vorhangfassade?' },
+    { id: 'foerderung', title: 'Förderung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const wasseraufbereitungPost: BlogPost = {
+  id: '26',
+  title: 'Regenwassernutzung & Grauwasser: So senken Sie Ihren Wasserverbrauch',
+  excerpt: 'Regenwassernutzung spart bis zu 50 % Trinkwasser. Kosten, Technik und Genehmigungen für Eigenheimbesitzer erklärt.',
+  content: `<h1>Regenwassernutzung & Grauwasser: Wasserverbrauch senken</h1>
+
+<p>Trinkwasser wird teurer, Sommer trockener. Regenwassernutzung und Grauwasserrecycling sind nachhaltige Lösungen, die den Wasserverbrauch um bis zu 50 % reduzieren.</p>
+
+<h2 id="regenwasser">Regenwassernutzung</h2>
+<h3>Wie funktioniert es?</h3>
+<p>Regenwasser wird vom Dach über Filter in einen Erdtank geleitet und für Toilettenspülung, Waschmaschine und Gartenbewässerung genutzt. Ein Hauswasserwerk verteilt das Wasser im Haus.</p>
+
+<h3>Kosten</h3>
+<ul>
+  <li><strong>Erdtank (3.000–5.000 Liter):</strong> 2.000 – 4.000 €</li>
+  <li><strong>Filter, Pumpe, Steuerung:</strong> 1.500 – 3.000 €</li>
+  <li><strong>Leitungssystem (Dual):</strong> 1.000 – 2.500 €</li>
+  <li><strong>Gesamt:</strong> 4.500 – 9.500 €</li>
+</ul>
+<p>Amortisation: Bei einem 4-Personen-Haushalt (Wasserpreis ~5 €/m³) sparen Sie ca. 300–500 €/Jahr. Amortisation in 12–20 Jahren.</p>
+
+<h3>Rechtliches</h3>
+<p>Die Nutzung ist in Deutschland erlaubt, muss aber dem Wasserversorger gemeldet werden. Trinkwasser- und Regenwasserleitungen müssen strikt getrennt sein (DIN 1988). In einigen Kommunen gibt es Zuschüsse oder reduzierte Abwassergebühren.</p>
+
+<h2 id="grauwasser">Grauwasser-Recycling</h2>
+<p>Grauwasser (aus Dusche und Waschbecken) wird gefiltert und für Toilettenspülung wiederverwendet. Spart weitere 15–20 % Trinkwasser. Kosten: 5.000–10.000 € für eine Anlage. Lohnt sich vor allem in Mehrfamilienhäusern.</p>
+
+<h2 id="garten">Gartenbewässerung</h2>
+<p>Die einfachste Form der Regenwassernutzung: Regentonnen (50–500 Liter, ab 30 €) oder unterirdische Tanks für automatische Bewässerungssysteme. Kein Leitungsnetz nötig, keine Genehmigung erforderlich.</p>
+
+<h2 id="foerderung">Förderung</h2>
+<p>Einige Kommunen fördern Regenwassernutzung mit 500–2.000 € Zuschuss oder reduzierten Abwassergebühren. Prüfen Sie Ihre <a href="/foerdermittel/regional">regionale Förderung</a>.</p>
+
+<h2 id="fazit">Fazit</h2>
+<p>Regenwassernutzung ist ökologisch sinnvoll und wird langfristig wirtschaftlich. Für den Garten lohnt es sich sofort, für die Hausnutzung bei Neubau oder Kernsanierung.</p>
+
+<p><em>Quellen: fbr (Fachvereinigung Betriebs- und Regenwassernutzung), UBA. Stand: März 2026.</em></p>`,
+  topic: 'Nachhaltigkeit',
+  topicColor: 'bg-teal-100 text-teal-800',
+  publishedAt: '2026-02-28',
+  readTime: 8,
+  slug: 'regenwassernutzung-grauwasser-wasserverbrauch-senken',
+  seoTitle: 'Regenwassernutzung 2026: Kosten, Technik & Förderung',
+  seoDescription: 'Regenwassernutzung für Eigenheimbesitzer: Kosten ab 4.500 €, bis zu 50 % Trinkwasser sparen und kommunale Förderungen.',
+  keywords: ['Regenwassernutzung', 'Grauwasser', 'Wasserverbrauch senken', 'Zisterne', 'Regenwasser Haus'],
+  difficulty: 2,
+  savingsPotential: 'Bis zu 50 % Trinkwasser',
+  fundingAvailable: 'Kommunal 500–2.000 €',
+  effortLevel: 'Mittel',
+  keyBenefits: ['50 % Trinkwasser sparen', 'Abwassergebühren senken', 'Gartenbewässerung sichern', 'Nachhaltig leben'],
+  tableOfContents: [
+    { id: 'regenwasser', title: 'Regenwassernutzung' },
+    { id: 'grauwasser', title: 'Grauwasser-Recycling' },
+    { id: 'garten', title: 'Gartenbewässerung' },
+    { id: 'foerderung', title: 'Förderung' },
+    { id: 'fazit', title: 'Fazit' },
+  ],
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost, dachausbauPost, stromspeicherPost, lueftungsanlagePost, geg2025Post, kellersanierungPost, fassadensanierungPost, wasseraufbereitungPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,
