@@ -50,7 +50,7 @@ const FeaturedArticleHero = () => {
                     <Clock className="w-4 h-4" /> 15 Min. Lesezeit
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <TrendingUp className="w-4 h-4 text-green-500" /> Bis zu 70 % Einsparung
+                    <TrendingUp className="w-4 h-4 text-primary" /> Bis zu 70 % Einsparung
                   </span>
                 </div>
 
