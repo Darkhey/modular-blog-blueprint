@@ -1,6 +1,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { mockBlogPosts } from '@/data/mockBlogPosts';
 
 export interface BlogPost {
   id: string;
