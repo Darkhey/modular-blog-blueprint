@@ -55,8 +55,18 @@ const FullTextSearch = () => {
       .order('published_at', { ascending: false })
       .limit(20);
 
-    if (!error && data) {
-      const searchResults = data.map(post => ({
+    // Merge Supabase results with mock post matches
+    const dbResults = (!error && data) ? data : [];
+    const mockPosts = getMockFallbackPosts();
+    const lq = searchQuery.toLowerCase();
+    const mockMatches = mockPosts.filter(p =>
+      !dbResults.some((d: any) => d.slug === p.slug) &&
+      (p.title.toLowerCase().includes(lq) || p.excerpt.toLowerCase().includes(lq) || p.content.toLowerCase().includes(lq) || (p.keywords || []).some((k: string) => k.toLowerCase().includes(lq)))
+    );
+    const allResults = [...dbResults, ...mockMatches];
+
+    if (allResults.length > 0) {
+      const searchResults = allResults.map(post => ({
         ...post,
         relevance_score: calculateRelevanceScore(post, searchQuery),
         highlight: generateHighlight(post, searchQuery)
