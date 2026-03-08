@@ -100,6 +100,7 @@ serve(async (req) => {
       { title: "Renovierungstrends 2026", slug: "renovierungstrends-2026", topic: "Sanierung planen", excerpt: "KI-Energiemanagement, modulare Sanierung, neue Förderprogramme." },
       { title: "Badezimmer renovieren & Feuchträume sanieren", slug: "badezimmer-renovierung-feuchtraeume-2026", topic: "Sanierung planen", excerpt: "Abdichtung, barrierefreie Dusche, Schimmelschutz und KfW-Förderung." },
       { title: "Wärmepumpe im Altbau 2026: Funktioniert das wirklich?", slug: "waermepumpe-altbau-2026-ratgeber", topic: "Heizung", excerpt: "Praxistipps, Kostenbeispiele und Förderungen für Wärmepumpen im Bestandsgebäude." },
+      { title: "Kernsanierung vs. Teilsanierung 2026: Was lohnt sich wann?", slug: "kernsanierung-vs-teilsanierung-2026", topic: "Sanierung planen", excerpt: "Entscheidungshilfe mit Kostenvergleich, Fördermöglichkeiten und Praxisbeispielen." },
     ];
 
     // Merge, avoid duplicates
