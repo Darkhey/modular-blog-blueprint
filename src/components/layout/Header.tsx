@@ -92,6 +92,11 @@ const Header = () => {
   const toolsItems = [
     { title: "Smart Home Produkte", to: "/smart-home-produkte", description: "Produktvergleich: Thermostate, Sensoren & Steuerungen" },
     { title: "Sanierungscheck", to: "/sanierungscheck", description: "In 6 Schritten zur persönlichen Sanierungsempfehlung" },
+    { title: "Badezimmer-Sanierung", to: "/badezimmer-sanierung", description: "Kosten, Ablauf & Checkliste für Ihre Badsanierung" },
+    { title: "Barrierefreies Wohnen", to: "/barrierefreies-wohnen", description: "Maßnahmen, Kosten & KfW-Förderung" },
+    { title: "Elektroinstallation", to: "/elektroinstallation", description: "Kosten, Sicherheit & Smart-Home-Vorbereitung" },
+    { title: "Schimmelbeseitigung", to: "/schimmelbeseitigung", description: "Ursachen, Kosten & Prävention" },
+    { title: "Sanierungschecklisten", to: "/sanierungschecklisten", description: "Interaktive Checklisten für jede Sanierungsphase" },
   ];
 
   const wissenswertesItems = [
