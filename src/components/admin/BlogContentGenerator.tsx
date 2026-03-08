@@ -8,6 +8,7 @@ import { useBlogCategories } from "@/hooks/useBlogCategories";
 import BlogContentGeneratorForm from "./BlogContentGeneratorForm";
 import BlogContentGeneratorActions from "./BlogContentGeneratorActions";
 import BlogContentGeneratorInfo from "./BlogContentGeneratorInfo";
+import AutoPilotStatus from "./AutoPilotStatus";
 
 interface BlogContentGeneratorProps {
   onArticleCreated: () => void;
