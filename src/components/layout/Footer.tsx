@@ -82,6 +82,14 @@ const Footer = () => {
                   Kostenrechner
                 </Link>
               </li>
+              <li>
+                <Link 
+                  to="/referenzen" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Referenzen
+                </Link>
+              </li>
             </ul>
           </div>
 
