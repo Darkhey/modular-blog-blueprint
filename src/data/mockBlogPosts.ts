@@ -960,8 +960,278 @@ Hinweis: Einige Links sind Affiliate-Links. Wenn du darüber kaufst, erhalte ich
   ]
 };
 
-export const mockBlogPosts: BlogPost[] = baseMockBlogPosts.some(
-  post => post.slug === sanierungsFehlerPost.slug
-)
-  ? baseMockBlogPosts
-  : [...baseMockBlogPosts, sanierungsFehlerPost];
+const sanierungsfahrplanPost: BlogPost = {
+  id: 'sanierungsfahrplan-2025',
+  title: 'Der optimale Sanierungsfahrplan 2025: In 5 Schritten zum energieeffizienten Haus',
+  excerpt: 'Welche Sanierungsmaßnahme zuerst? Die richtige Reihenfolge spart bis zu 30 % Kosten. Unser Fahrplan zeigt den wirtschaftlich optimalen Weg – von der Gebäudehülle bis zur Heiztechnik.',
+  content: `<h1>Der optimale Sanierungsfahrplan 2025: In 5 Schritten zum energieeffizienten Haus</h1>
+
+<p>Wer sein Haus energetisch sanieren möchte, steht vor einer entscheidenden Frage: <strong>Womit anfangen?</strong> Dach, Fassade, Fenster, Heizung oder doch gleich eine Solaranlage? Die Reihenfolge entscheidet nicht nur über die Kosten, sondern auch über die Effektivität jeder einzelnen Maßnahme. In diesem Artikel zeigen wir Ihnen den wissenschaftlich fundierten, wirtschaftlich optimalen Sanierungsfahrplan – mit konkreten Zahlen, Querverweisen zu unseren Rechnern und externen Quellen.</p>
+
+<h2 id="warum-reihenfolge">Warum die Reihenfolge entscheidend ist</h2>
+
+<p>Ein häufiger Fehler: Hauseigentümer installieren zuerst eine neue Heizung und dämmen erst danach. Das Ergebnis? Die Heizung ist überdimensioniert, arbeitet ineffizient und kostet mehr als nötig. Die <a href="https://www.dena.de/themen-projekte/energieeffizienz/gebaeude/" target="_blank" rel="noopener">Deutsche Energie-Agentur (dena)</a> bestätigt: <strong>Erst die Hülle, dann die Technik</strong> – dieses Prinzip spart bis zu 30 % der Gesamtkosten.</p>
+
+<p>Lesen Sie dazu auch unseren Artikel über <a href="/blog/typische-sanierungsfehler-vermeiden">typische Sanierungsfehler und wie Sie diese vermeiden</a>.</p>
+
+<h3>Der Domino-Effekt der richtigen Reihenfolge</h3>
+<ul>
+  <li>Eine gut gedämmte Hülle <strong>senkt den Wärmebedarf um 40–60 %</strong></li>
+  <li>Dadurch kann die neue Heizung <strong>kleiner und günstiger</strong> dimensioniert werden</li>
+  <li>Eine Wärmepumpe arbeitet bei niedrigem Wärmebedarf <strong>deutlich effizienter</strong> (höhere JAZ)</li>
+  <li>Die Solaranlage deckt einen größeren Anteil des reduzierten Restbedarfs</li>
+</ul>
+
+<h2 id="schritt-1-analyse">Schritt 1: Energieberatung und Ist-Analyse (Monat 1)</h2>
+
+<p>Bevor Sie eine einzige Maßnahme planen, brauchen Sie eine <strong>qualifizierte Energieberatung</strong>. Der Energieberater erstellt einen individuellen Sanierungsfahrplan (iSFP), der:</p>
+
+<ul>
+  <li>Den Ist-Zustand Ihres Gebäudes dokumentiert (Thermografie, Blower-Door-Test)</li>
+  <li>Die wirtschaftlich sinnvollste Reihenfolge der Maßnahmen festlegt</li>
+  <li>Die verfügbaren <a href="/foerdermittel">Fördermittel</a> identifiziert</li>
+  <li>Einen <strong>zusätzlichen iSFP-Bonus von 5 %</strong> auf alle Einzelmaßnahmen sichert</li>
+</ul>
+
+<p><strong>Kosten:</strong> 800–1.500 € für Ein-/Zweifamilienhäuser<br>
+<strong>Förderung:</strong> 80 % durch BAFA (max. 1.300 €) – Sie zahlen also oft nur 200–300 €<br>
+<strong>Quelle:</strong> <a href="https://www.bafa.de/DE/Energie/Energieberatung/energieberatung_node.html" target="_blank" rel="noopener">BAFA – Energieberatung für Wohngebäude</a></p>
+
+<p>Nutzen Sie unseren <a href="/rechner-vergleich">Sanierungsrechner-Vergleich</a>, um vorab eine erste Einschätzung zu bekommen, welche Maßnahmen bei Ihrem Gebäude das größte Sparpotenzial bieten.</p>
+
+<h2 id="schritt-2-gebaeudehuelle">Schritt 2: Gebäudehülle optimieren (Monat 2–6)</h2>
+
+<p>Die Gebäudehülle ist das Fundament jeder erfolgreichen Sanierung. Hier sollten Sie in dieser Reihenfolge vorgehen:</p>
+
+<h3>2a) Dach / Oberste Geschossdecke</h3>
+<p>Über ein ungedämmtes Dach gehen <strong>25–30 % der Heizwärme</strong> verloren. Die Dämmung der obersten Geschossdecke ist die <strong>wirtschaftlichste Einzelmaßnahme</strong> überhaupt:</p>
+<ul>
+  <li><strong>Kosten:</strong> 15–60 €/m² (je nach Aufbau)</li>
+  <li><strong>Einsparung:</strong> 15–20 % der Heizkosten</li>
+  <li><strong>Amortisation:</strong> 2–5 Jahre</li>
+  <li><strong>Förderung:</strong> 15 % + 5 % iSFP-Bonus = <strong>20 % Zuschuss</strong></li>
+</ul>
+
+<h3>2b) Außenwände dämmen</h3>
+<p>Die Fassade hat die größte Oberfläche und damit das höchste absolute Einsparpotenzial. Berechnen Sie mit unserem <a href="/daemmungsrechner">Dämmungsrechner</a> genau, welches System sich für Ihre Fassade lohnt.</p>
+<ul>
+  <li><strong>WDVS (EPS/Mineralwolle):</strong> 120–180 €/m², Einsparung 20–25 %</li>
+  <li><strong>Einblasdämmung:</strong> 15–50 €/m² (bei zweischaligem Mauerwerk)</li>
+  <li><strong>Förderung:</strong> 15 % + 5 % iSFP = <strong>20 % Zuschuss</strong> (max. 30.000 €)</li>
+</ul>
+<p>Detailinfos zu allen Dämmstoffen finden Sie in unserem <a href="/blog/daemmung-heizkosten-sparen">Dämmungs-Ratgeber</a>.</p>
+
+<h3>2c) Fenster und Türen erneuern</h3>
+<p>Neue Fenster mit 3-fach-Verglasung (U-Wert ≤ 0,95 W/m²K) reduzieren Wärmeverluste um bis zu 50 % gegenüber alten Einfachverglasungen. <strong>Wichtig:</strong> Fenster immer zusammen mit oder nach der Fassadendämmung tauschen, um Wärmebrücken zu vermeiden.</p>
+<ul>
+  <li><strong>Kosten:</strong> 500–1.200 € pro Fenster (inkl. Einbau)</li>
+  <li><strong>Einsparung:</strong> 10–15 % der Heizkosten</li>
+  <li><strong>Förderung:</strong> 15 % + 5 % iSFP = <strong>20 % Zuschuss</strong></li>
+</ul>
+<p>Mehr Details dazu auf unserer Themenseite <a href="/fenster-tueren">Fenster & Türen</a> und im <a href="/blog/fenster-erneuern-3fach-verglasung">Ratgeber 3-fach Verglasung</a>.</p>
+
+<h3>2d) Kellerdecke dämmen</h3>
+<p>Die günstigste Maßnahme mit schnellster Amortisation – oft in Eigenleistung möglich.</p>
+<ul>
+  <li><strong>Kosten:</strong> 25–45 €/m²</li>
+  <li><strong>Einsparung:</strong> 5–10 % der Heizkosten</li>
+  <li><strong>Amortisation:</strong> 2–4 Jahre</li>
+</ul>
+<p>Schritt-für-Schritt-Anleitung in unserem Artikel: <a href="/blog/kellerdecke-daemmen-anleitung">Kellerdecke dämmen – Anleitung</a>.</p>
+
+<h2 id="schritt-3-heizung">Schritt 3: Heiztechnik modernisieren (Monat 6–9)</h2>
+
+<p><strong>Erst jetzt</strong>, nach der Optimierung der Gebäudehülle, kommt die Heizung an die Reihe. Durch den reduzierten Wärmebedarf können Sie jetzt eine <strong>kleinere, effizientere Anlage</strong> wählen.</p>
+
+<h3>Die beste Option 2025: Wärmepumpe</h3>
+<p>In einem gut gedämmten Bestandsgebäude erreicht eine Luft-Wasser-Wärmepumpe eine <strong>Jahresarbeitszahl von 3,5–4,5</strong>. Das bedeutet: Aus 1 kWh Strom werden 3,5–4,5 kWh Wärme.</p>
+
+<table>
+  <thead><tr><th>Heizsystem</th><th>Investition</th><th>Förderung (max.)</th><th>Betriebskosten/Jahr</th></tr></thead>
+  <tbody>
+    <tr><td>Wärmepumpe (Luft-Wasser)</td><td>15.000–25.000 €</td><td>bis 70 %</td><td>600–1.200 €</td></tr>
+    <tr><td>Gas-Brennwert + Solar</td><td>10.000–18.000 €</td><td>bis 30 %</td><td>1.200–2.000 €</td></tr>
+    <tr><td>Pelletheizung</td><td>18.000–30.000 €</td><td>bis 35 %</td><td>800–1.500 €</td></tr>
+  </tbody>
+</table>
+
+<p>Vergleichen Sie die Systeme detailliert mit unserem <a href="/heizkostenrechner">Heizkostenrechner</a> oder lesen Sie den <a href="/blog/waermepumpe-vs-gas-vergleich">Vergleich Wärmepumpe vs. Gas</a>.</p>
+
+<p><strong>Quellen zur Förderung:</strong></p>
+<ul>
+  <li><a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/effiziente_gebaeude_node.html" target="_blank" rel="noopener">BAFA – Bundesförderung effiziente Gebäude (BEG)</a></li>
+  <li><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/Energieeffizient-sanieren/" target="_blank" rel="noopener">KfW – Energieeffizient Sanieren</a></li>
+</ul>
+<p>Einen vollständigen Überblick über alle Programme finden Sie auf unserer <a href="/foerdermittel">Fördermittel-Seite</a> und im <a href="/blog/foerdermittel-finanzierungsmodelle-sanierung">Finanzierungsratgeber</a>.</p>
+
+<h2 id="schritt-4-solar">Schritt 4: Solaranlage installieren (Monat 9–12)</h2>
+
+<p>Mit einer PV-Anlage produzieren Sie Ihren eigenen Strom – ideal als Ergänzung zur Wärmepumpe. In einem sanierten Haus mit Wärmepumpe kann die Solaranlage <strong>30–50 % des Heizstroms</strong> selbst erzeugen.</p>
+
+<h3>Warum Solar erst nach der Heizung?</h3>
+<ul>
+  <li>Sie kennen den tatsächlichen Stromverbrauch (inkl. Wärmepumpe)</li>
+  <li>Die Anlage kann optimal auf den realen Bedarf dimensioniert werden</li>
+  <li>Eigenverbrauchsquote ist höher → schnellere Amortisation</li>
+</ul>
+
+<h3>Typische Konfiguration für saniertes EFH</h3>
+<ul>
+  <li><strong>Anlagengröße:</strong> 8–12 kWp</li>
+  <li><strong>Jahresertrag:</strong> 8.000–11.000 kWh</li>
+  <li><strong>Investition:</strong> 12.000–18.000 € (ohne Speicher)</li>
+  <li><strong>Amortisation:</strong> 8–12 Jahre</li>
+  <li><strong>20-Jahres-Gewinn:</strong> 15.000–25.000 €</li>
+</ul>
+
+<p>Berechnen Sie Ihr individuelles Solar-Potenzial mit unserem <a href="/solarenergie#rechner">professionellen Solar-Rechner</a>. Dort erhalten Sie eine detaillierte 20-Jahres-Prognose inklusive Speicher- und E-Auto-Optionen.</p>
+
+<p>Lesen Sie dazu auch: <a href="/blog/photovoltaik-2024-lohnt-sich-solaranlage">Lohnt sich Photovoltaik 2024?</a> und <a href="/blog/balkonkraftwerk-2025-mini-pv">Balkonkraftwerk als Einstieg</a>.</p>
+
+<h2 id="schritt-5-smart-home">Schritt 5: Smart-Home-Optimierung (laufend)</h2>
+
+<p>Intelligente Steuerungstechnik ist das „Feintuning" nach der Hardware-Sanierung. Smarte Thermostate, Energiemanagementsysteme und Wettersteuerungen können <strong>zusätzlich 10–25 % Energie einsparen</strong>.</p>
+
+<h3>Die wichtigsten Smart-Home-Komponenten</h3>
+<ul>
+  <li><strong>Smarte Thermostate:</strong> 200–400 € für 6 Räume, 10–15 % Ersparnis. Lesen Sie unseren <a href="/blog/smart-home-heizung-thermostate-test">Thermostat-Test</a>.</li>
+  <li><strong>Energiemanagementsystem:</strong> 1.500–2.000 €, optimiert Eigenverbrauch der PV-Anlage</li>
+  <li><strong>Wettergesteuerte Heizungsregelung:</strong> 300–500 €, vorausschauendes Heizen</li>
+</ul>
+
+<p>Mehr dazu auf unserer Themenseite <a href="/smart-home">Smart Home & Energiemanagement</a>.</p>
+
+<h2 id="kosten-gesamtbild">Das Gesamtbild: Kosten und Ersparnisse</h2>
+
+<p>Für ein typisches Einfamilienhaus (Baujahr 1980, 150 m²) ergibt sich bei vollständiger Sanierung folgendes Bild:</p>
+
+<table>
+  <thead><tr><th>Maßnahme</th><th>Investition</th><th>Förderung (20 %)</th><th>Eigenanteil</th><th>Ersparnis/Jahr</th></tr></thead>
+  <tbody>
+    <tr><td>Dach + Geschossdecke</td><td>8.000 €</td><td>1.600 €</td><td>6.400 €</td><td>450 €</td></tr>
+    <tr><td>Fassadendämmung</td><td>22.000 €</td><td>4.400 €</td><td>17.600 €</td><td>700 €</td></tr>
+    <tr><td>Fenster (12 Stück)</td><td>12.000 €</td><td>2.400 €</td><td>9.600 €</td><td>350 €</td></tr>
+    <tr><td>Kellerdecke</td><td>3.500 €</td><td>700 €</td><td>2.800 €</td><td>200 €</td></tr>
+    <tr><td>Wärmepumpe</td><td>22.000 €</td><td>15.400 €</td><td>6.600 €</td><td>1.800 €</td></tr>
+    <tr><td>PV-Anlage (10 kWp)</td><td>14.000 €</td><td>–</td><td>14.000 €</td><td>1.200 €</td></tr>
+    <tr><td>Smart Home</td><td>2.000 €</td><td>–</td><td>2.000 €</td><td>300 €</td></tr>
+    <tr><td><strong>Gesamt</strong></td><td><strong>83.500 €</strong></td><td><strong>24.500 €</strong></td><td><strong>59.000 €</strong></td><td><strong>5.000 €</strong></td></tr>
+  </tbody>
+</table>
+
+<p><strong>Amortisation des Eigenanteils:</strong> ca. 12 Jahre<br>
+<strong>20-Jahres-Gewinn:</strong> ca. 41.000 € (nach Abzug aller Kosten)<br>
+<strong>CO₂-Einsparung:</strong> ca. 5–6 Tonnen pro Jahr</p>
+
+<p>Vergleichen Sie die einzelnen Maßnahmen direkt nebeneinander in unserem <a href="/rechner-vergleich">Rechner-Vergleich</a>.</p>
+
+<h2 id="foerderungen-kombinieren">Fördermittel intelligent kombinieren</h2>
+
+<p>Die Kunst liegt in der <strong>optimalen Kombination</strong> verschiedener Fördertöpfe:</p>
+
+<ol>
+  <li><strong>iSFP erstellen lassen</strong> (80 % gefördert) → sichert 5 % Bonus auf alle Maßnahmen</li>
+  <li><strong>BAFA-Einzelmaßnahmen</strong> für Hülle (15 % + 5 % iSFP) und Heizung (bis 70 %)</li>
+  <li><strong>KfW-Kredit 261</strong> für besonders große Maßnahmen (bis 150.000 € zu Minizinsen)</li>
+  <li><strong>Steuerbonus</strong> (§ 35c EStG) als Alternative zu BAFA für Hüllenmaßnahmen</li>
+  <li><strong>Kommunale Förderungen</strong> zusätzlich prüfen – viele Städte bieten Zuschüsse</li>
+</ol>
+
+<p><strong>Wichtig:</strong> Förderanträge <strong>immer vor Vertragsabschluss</strong> stellen! Details dazu in unserem <a href="/blog/foerdermittel-2025-zuschuss-sanierung">Fördermittel-Überblick 2025</a>.</p>
+
+<h2 id="zeitplan">Realistischer Zeitplan</h2>
+
+<p>Eine vollständige energetische Sanierung dauert in der Regel <strong>12–18 Monate</strong>. So können Sie die Phasen realistisch planen:</p>
+
+<ul>
+  <li><strong>Monat 1–2:</strong> Energieberatung, iSFP erstellen, Förderanträge vorbereiten</li>
+  <li><strong>Monat 2–3:</strong> Angebote einholen (min. 3 pro Gewerk), Förderanträge stellen</li>
+  <li><strong>Monat 3–4:</strong> Förderzusagen abwarten, Aufträge vergeben</li>
+  <li><strong>Monat 4–8:</strong> Dach, Fassade, Fenster, Keller (parallel möglich)</li>
+  <li><strong>Monat 8–10:</strong> Heizungstausch</li>
+  <li><strong>Monat 10–12:</strong> PV-Anlage, Smart Home, Feinabstimmung</li>
+</ul>
+
+<p>Nutzen Sie unseren <a href="/projektplaner">Projektplaner</a> für die detaillierte Terminplanung und den <a href="/budgetplan">Budgetplaner</a> für die Kostenkontrolle.</p>
+
+<h2 id="fazit">Fazit: Die richtige Reihenfolge ist der Schlüssel</h2>
+
+<p>Ein durchdachter Sanierungsfahrplan spart Ihnen <strong>Tausende Euro</strong> und vermeidet typische Fehler. Die Kernregeln:</p>
+
+<ol>
+  <li><strong>Erst planen</strong> (Energieberatung + iSFP)</li>
+  <li><strong>Dann die Hülle</strong> (Dach → Wände → Fenster → Keller)</li>
+  <li><strong>Dann die Technik</strong> (Heizung passend zum reduzierten Bedarf)</li>
+  <li><strong>Dann Solar</strong> (dimensioniert auf realen Verbrauch)</li>
+  <li><strong>Dann optimieren</strong> (Smart Home als Feintuning)</li>
+</ol>
+
+<p>Starten Sie jetzt mit dem ersten Schritt und nutzen Sie unsere kostenlosen Tools:</p>
+<ul>
+  <li>🔥 <a href="/heizkostenrechner">Heizkostenrechner</a> – Sparpotenzial bei Heizungstausch</li>
+  <li>🏠 <a href="/daemmungsrechner">Dämmungsrechner</a> – Optimale Dämmstärke berechnen</li>
+  <li>☀️ <a href="/solarenergie#rechner">Solar-Rechner</a> – PV-Anlage planen</li>
+  <li>⚖️ <a href="/rechner-vergleich">Maßnahmen-Vergleich</a> – Alle Optionen nebeneinander</li>
+  <li>📋 <a href="/projektplaner">Projektplaner</a> – Sanierung terminlich planen</li>
+</ul>
+
+<p><strong>Weiterführende Quellen:</strong></p>
+<ul>
+  <li><a href="https://www.dena.de/themen-projekte/energieeffizienz/gebaeude/" target="_blank" rel="noopener">dena – Energieeffiziente Gebäude</a></li>
+  <li><a href="https://www.verbraucherzentrale.de/wissen/energie/energetische-sanierung" target="_blank" rel="noopener">Verbraucherzentrale – Energetische Sanierung</a></li>
+  <li><a href="https://www.co2online.de/modernisieren-und-bauen/" target="_blank" rel="noopener">co2online – Modernisieren und Bauen</a></li>
+  <li><a href="https://www.bmwk.de/Redaktion/DE/Dossier/energieeffizienz-im-gebaeudebereich.html" target="_blank" rel="noopener">BMWK – Energieeffizienz im Gebäudebereich</a></li>
+</ul>`,
+  topic: 'Sanierung planen',
+  topicColor: '#16a34a',
+  publishedAt: '2025-03-05',
+  readTime: 15,
+  slug: 'sanierungsfahrplan-2025-optimale-reihenfolge',
+  seoTitle: 'Sanierungsfahrplan 2025: Optimale Reihenfolge für maximale Einsparung',
+  seoDescription: 'Der optimale Sanierungsfahrplan: In 5 Schritten zum energieeffizienten Haus. Richtige Reihenfolge spart bis zu 30 % – mit konkreten Kosten, Förderungen und Zeitplan.',
+  keywords: ['Sanierungsfahrplan', 'Sanierung Reihenfolge', 'energetische Sanierung planen', 'Gebäudesanierung 2025', 'iSFP', 'Fördermittel kombinieren'],
+  difficulty: 2,
+  savingsPotential: 'Bis zu 70 % Energiekosten',
+  paybackTime: '10–14 Jahre (Gesamtpaket)',
+  fundingAvailable: 'Ja, bis zu 70 % je Maßnahme',
+  effortLevel: 'Hoch (12–18 Monate)',
+  keyBenefits: [
+    'Bis zu 30 % Kostenvorteil durch richtige Reihenfolge',
+    'Optimal dimensionierte Heiztechnik',
+    'Maximale Fördermittelausschöpfung',
+    'CO₂-Einsparung von 5–6 Tonnen/Jahr',
+    'Wertsteigerung der Immobilie um 10–20 %',
+    'Unabhängigkeit von steigenden Energiepreisen'
+  ],
+  importantNotice: 'Erstellen Sie immer zuerst einen individuellen Sanierungsfahrplan (iSFP). Dieser sichert Ihnen einen 5 %-Bonus auf alle Einzelmaßnahmen und wird zu 80 % vom Staat gefördert.',
+  tableOfContents: [
+    { id: 'warum-reihenfolge', title: 'Warum die Reihenfolge entscheidet' },
+    { id: 'schritt-1-analyse', title: 'Schritt 1: Energieberatung' },
+    { id: 'schritt-2-gebaeudehuelle', title: 'Schritt 2: Gebäudehülle' },
+    { id: 'schritt-3-heizung', title: 'Schritt 3: Heiztechnik' },
+    { id: 'schritt-4-solar', title: 'Schritt 4: Solaranlage' },
+    { id: 'schritt-5-smart-home', title: 'Schritt 5: Smart Home' },
+    { id: 'kosten-gesamtbild', title: 'Kosten-Gesamtbild' },
+    { id: 'foerderungen-kombinieren', title: 'Fördermittel kombinieren' },
+    { id: 'zeitplan', title: 'Realistischer Zeitplan' },
+    { id: 'fazit', title: 'Fazit' }
+  ],
+  costs: [
+    { item: 'Dach + Geschossdecke', costPerSqm: '15–60 €', totalCost: '5.000–10.000 €', funding: '20 % (BAFA + iSFP)' },
+    { item: 'Fassadendämmung (WDVS)', costPerSqm: '120–180 €', totalCost: '18.000–27.000 €', funding: '20 % (BAFA + iSFP)' },
+    { item: 'Fenster 3-fach', costPerSqm: '500–1.200 €/Stk.', totalCost: '6.000–14.000 €', funding: '20 % (BAFA + iSFP)' },
+    { item: 'Kellerdeckendämmung', costPerSqm: '25–45 €', totalCost: '2.500–4.500 €', funding: '20 % (BAFA + iSFP)' },
+    { item: 'Wärmepumpe', costPerSqm: '–', totalCost: '15.000–25.000 €', funding: 'Bis zu 70 % (BAFA)' },
+    { item: 'PV-Anlage 10 kWp', costPerSqm: '–', totalCost: '12.000–18.000 €', funding: 'KfW-Kredit' },
+    { item: 'Smart Home', costPerSqm: '–', totalCost: '1.500–3.000 €', funding: '–' }
+  ]
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost];
+
+export const mockBlogPosts: BlogPost[] = [
+  ...baseMockBlogPosts,
+  ...allAdditionalPosts.filter(
+    post => !baseMockBlogPosts.some(bp => bp.slug === post.slug)
+  )
+];
