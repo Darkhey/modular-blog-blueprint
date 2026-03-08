@@ -50,6 +50,7 @@ import { useAdsenseLoader } from "@/hooks/useAdsenseLoader";
 import { useAdblockDetector } from "@/hooks/useAdblockDetector";
 import AdblockPopup from "@/components/ui/AdblockPopup";
 import StickyBannerAd from "@/components/ads/StickyBannerAd";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -115,6 +116,7 @@ function App() {
                 </Suspense>
               </main>
               <Footer />
+              <ChatWidget />
               <StickyBannerAd position="bottom" />
               <CookieConsent />
             </div>

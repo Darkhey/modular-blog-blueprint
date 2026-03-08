@@ -6,3 +6,6 @@ verify_jwt = false
 
 [functions.generate-blog-content]
 verify_jwt = false
+
+[functions.chat-assistant]
+verify_jwt = false
