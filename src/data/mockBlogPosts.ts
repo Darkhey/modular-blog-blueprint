@@ -1227,7 +1227,234 @@ const sanierungsfahrplanPost: BlogPost = {
   ]
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost];
+const altbauKaufenPost: BlogPost = {
+  id: 'altbau-kaufen-2025',
+  title: 'Altbau kaufen und sanieren 2025: Der ultimative Käufer-Ratgeber',
+  excerpt: 'Was Sie vor dem Kauf eines Altbaus wirklich wissen müssen – von der Bausubstanz-Prüfung über versteckte Kosten bis zur optimalen Sanierungsstrategie mit Fördermitteln.',
+  content: `
+<p>Ein Altbau mit Charme, hohen Decken und gewachsenem Garten – der Traum vieler Hauskäufer. Doch hinter der schönen Fassade lauern oft <strong>energetische Schwachstellen</strong>, die ohne Vorbereitung zur Kostenfalle werden. Dieser Ratgeber zeigt Ihnen, worauf Sie achten müssen und wie Sie Ihren Altbau-Kauf zum wirtschaftlichen Erfolg machen.</p>
+
+<h2 id="vor-dem-kauf">Vor dem Kauf: Die wichtigsten Prüfpunkte</h2>
+
+<p>Bevor Sie einen Kaufvertrag unterschreiben, sollten Sie den <strong>energetischen Zustand</strong> des Gebäudes systematisch bewerten. Ein <a href="/wissenswertes/experten">unabhängiger Energieberater</a> ist dabei unverzichtbar – die Beratung wird mit bis zu 80 % gefördert.</p>
+
+<h3>Checkliste Bausubstanz</h3>
+<ul>
+  <li><strong>Dach:</strong> Zustand der Eindeckung, vorhandene Dämmung, Zustand der Holzkonstruktion</li>
+  <li><strong>Fassade:</strong> Risse, Feuchtigkeit, vorhandenes WDVS oder Kerndämmung</li>
+  <li><strong>Fenster:</strong> Verglasung (Einzel-, Doppel-, Dreifach?), Dichtungen, Rahmen-Material</li>
+  <li><strong>Keller:</strong> Feuchtigkeit, Abdichtung, Kellerdecken-Dämmung</li>
+  <li><strong>Heizung:</strong> Alter, Brennstoff, Effizienz, Wartungszustand</li>
+  <li><strong>Elektrik:</strong> Alter der Leitungen, FI-Schutzschalter vorhanden?</li>
+  <li><strong>Rohrleitungen:</strong> Material (Blei?), Zustand, Isolierung</li>
+</ul>
+
+<p>Tipp: Nutzen Sie unseren <a href="/energie-check">Energie-Check</a>, um eine erste Einschätzung des energetischen Zustands zu bekommen.</p>
+
+<h2 id="energieausweis-lesen">Den Energieausweis richtig lesen</h2>
+
+<p>Seit 2014 ist der <strong>Energieausweis bei Verkauf Pflicht</strong>. Aber was sagen die Zahlen wirklich aus?</p>
+
+<table>
+  <thead><tr><th>Effizienzklasse</th><th>kWh/m²·a</th><th>Bewertung</th><th>Typische Sanierungskosten</th></tr></thead>
+  <tbody>
+    <tr><td>A+/A</td><td>&lt; 50</td><td>Sehr gut – kaum Handlungsbedarf</td><td>0–5.000 €</td></tr>
+    <tr><td>B</td><td>50–75</td><td>Gut – Einzelmaßnahmen sinnvoll</td><td>5.000–15.000 €</td></tr>
+    <tr><td>C</td><td>75–100</td><td>Mittel – mehrere Maßnahmen empfohlen</td><td>15.000–35.000 €</td></tr>
+    <tr><td>D</td><td>100–130</td><td>Unterdurchschnittlich</td><td>30.000–55.000 €</td></tr>
+    <tr><td>E/F</td><td>130–200</td><td>Schlecht – umfassende Sanierung nötig</td><td>50.000–90.000 €</td></tr>
+    <tr><td>G/H</td><td>&gt; 200</td><td>Sehr schlecht – Kernsanierung</td><td>80.000–150.000+ €</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Wichtig:</strong> Der Energieausweis gibt nur einen groben Überblick. Für eine belastbare Einschätzung benötigen Sie einen <strong>Bedarfsausweis</strong> (nicht nur den günstigeren Verbrauchsausweis).</p>
+
+<h2 id="versteckte-kosten">Versteckte Kosten, die Käufer übersehen</h2>
+
+<p>Die häufigsten Kostenfallen beim Altbau-Kauf:</p>
+
+<ol>
+  <li><strong>Asbest in Dach- und Fassadenplatten</strong> (Eternit) – Entsorgung kostet 30–50 €/m², Gesamtkosten schnell 10.000+ €</li>
+  <li><strong>Feuchte Keller</strong> ohne Horizontalsperre – Abdichtung von außen: 500–1.000 €/lfm</li>
+  <li><strong>Bleirohre</strong> (in Häusern vor 1970) – Komplett-Austausch: 3.000–8.000 €</li>
+  <li><strong>Veraltete Elektrik</strong> ohne FI-Schutzschalter – Nachrüstung: 3.000–12.000 €</li>
+  <li><strong>Sanierungspflichten nach GEG</strong> – Heizungstausch-Pflicht bei bestimmten Altanlagen</li>
+</ol>
+
+<p>Lesen Sie auch unseren Artikel über <a href="/blog/haeufige-sanierungsfehler-vermeiden">häufige Sanierungsfehler</a>, um typische Fallstricke zu vermeiden.</p>
+
+<h2 id="sanierungskosten-kalkulieren">Sanierungskosten realistisch kalkulieren</h2>
+
+<p>Nutzen Sie unsere Rechner für eine fundierte Kalkulation:</p>
+
+<ul>
+  <li>🔥 <a href="/heizkostenrechner">Heizkostenrechner</a> – Was kostet ein neues Heizsystem?</li>
+  <li>🏠 <a href="/daemmungsrechner">Dämmungsrechner</a> – Welche Dämmung lohnt sich bei welchem Baujahr?</li>
+  <li>☀️ <a href="/solarenergie#rechner">Solar-Rechner</a> – Lohnt sich eine PV-Anlage auf dem Altbau-Dach?</li>
+  <li>⚖️ <a href="/rechner-vergleich">Maßnahmen-Vergleich</a> – Alle Optionen nebeneinander vergleichen</li>
+</ul>
+
+<h3>Faustformel für die Gesamtkosten</h3>
+
+<p>Als grobe Orientierung für <strong>Einfamilienhäuser (100–150 m²)</strong>:</p>
+
+<table>
+  <thead><tr><th>Baujahr</th><th>Typischer Zustand</th><th>Sanierungskosten (ohne Förderung)</th><th>Mit Förderung</th></tr></thead>
+  <tbody>
+    <tr><td>Vor 1960</td><td>Kernsanierung nötig</td><td>80.000–150.000 €</td><td>50.000–100.000 €</td></tr>
+    <tr><td>1960–1978</td><td>Umfassende Sanierung</td><td>50.000–90.000 €</td><td>30.000–60.000 €</td></tr>
+    <tr><td>1978–1995</td><td>Teilsanierung</td><td>30.000–60.000 €</td><td>20.000–40.000 €</td></tr>
+    <tr><td>1995–2010</td><td>Einzelmaßnahmen</td><td>10.000–35.000 €</td><td>7.000–25.000 €</td></tr>
+    <tr><td>Nach 2010</td><td>Wenig Bedarf</td><td>5.000–15.000 €</td><td>3.000–10.000 €</td></tr>
+  </tbody>
+</table>
+
+<p>Planen Sie Ihre Sanierungskosten detailliert mit unserem <a href="/budgetplan">Budget-Planer</a>.</p>
+
+<h2 id="kaufpreis-verhandeln">Kaufpreis intelligent verhandeln</h2>
+
+<p>Der energetische Zustand ist ein <strong>starkes Verhandlungsargument</strong>. So nutzen Sie es:</p>
+
+<ol>
+  <li><strong>Energieausweis analysieren</strong> – Schlechte Klasse = niedrigerer Preis gerechtfertigt</li>
+  <li><strong>Sanierungskosten beziffern</strong> – Konkrete Kostenaufstellung vom Energieberater</li>
+  <li><strong>GEG-Pflichten betonen</strong> – Käufer muss innerhalb von 2 Jahren bestimmte Maßnahmen umsetzen</li>
+  <li><strong>Vergleichspreise heranziehen</strong> – Sanierte Häuser in der Nachbarschaft als Benchmark</li>
+  <li><strong>Fördermittel NICHT vom Preis abziehen</strong> – Die Förderung steht dem Käufer zu, nicht dem Verkäufer</li>
+</ol>
+
+<p><strong>Praxis-Beispiel:</strong> Ein Haus mit Energieklasse G (Verbrauch 250 kWh/m²·a) hat bei 120 m² Mehrkosten von ca. <strong>2.400 €/Jahr</strong> gegenüber Klasse B. Über 20 Jahre sind das 48.000 € – ein starkes Argument für einen niedrigeren Kaufpreis.</p>
+
+<h2 id="sanierungsfahrplan">Die richtige Sanierungsstrategie nach dem Kauf</h2>
+
+<p>Nach dem Kauf ist die <strong>richtige Reihenfolge</strong> der Maßnahmen entscheidend. Details dazu finden Sie in unserem umfassenden <a href="/blog/sanierungsfahrplan-2025-optimale-reihenfolge">Sanierungsfahrplan 2025</a>. Hier die Kurzversion:</p>
+
+<ol>
+  <li><strong>Sofort:</strong> Energieberatung + individuellen Sanierungsfahrplan (iSFP) erstellen lassen</li>
+  <li><strong>Monat 1–3:</strong> Förderanträge stellen, Handwerker suchen</li>
+  <li><strong>Monat 3–6:</strong> Gebäudehülle sanieren (Dach → Fassade → Fenster)</li>
+  <li><strong>Monat 6–9:</strong> Heizungstausch (passend zum reduzierten Bedarf)</li>
+  <li><strong>Monat 9–12:</strong> PV-Anlage, Smart Home, Feinschliff</li>
+</ol>
+
+<p>Vergleichen Sie alle Maßnahmen direkt in unserem <a href="/rechner-vergleich">Rechner-Vergleich</a> und nutzen Sie den <a href="/projektplaner">Projektplaner</a> für Ihre Terminplanung.</p>
+
+<h2 id="foerderung-altbau">Fördermittel speziell für Altbau-Käufer</h2>
+
+<p>Als Altbau-Käufer haben Sie Zugang zu besonders attraktiven Förderprogrammen:</p>
+
+<ul>
+  <li><strong>BAFA-Einzelmaßnahmen:</strong> 15–20 % Zuschuss für Dämmung, Fenster, Heizung</li>
+  <li><strong>iSFP-Bonus:</strong> Zusätzlich 5 % bei Vorlage eines individuellen Sanierungsfahrplans</li>
+  <li><strong>Heizungstausch:</strong> Bis zu 70 % Zuschuss (Grundförderung + Geschwindigkeitsbonus + Einkommensbonus)</li>
+  <li><strong>KfW-Kredit 261:</strong> Bis zu 150.000 € zinsgünstig für Komplettsanierung zum Effizienzhaus</li>
+  <li><strong>Wohn-Riester:</strong> Für selbstgenutzte Immobilien einsetzbar</li>
+  <li><strong>Kommunale Programme:</strong> Viele Städte bieten zusätzliche Zuschüsse</li>
+</ul>
+
+<p>Alle Details finden Sie auf unserer <a href="/foerdermittel">Fördermittel-Übersichtsseite</a> und im <a href="/blog/foerdermittel-2025-zuschuss-sanierung">Fördermittel-Artikel 2025</a>.</p>
+
+<h2 id="geg-pflichten">GEG-Pflichten für Altbau-Käufer (Stand 2025)</h2>
+
+<p>Das Gebäudeenergiegesetz (GEG) verpflichtet Käufer zu bestimmten Maßnahmen innerhalb von <strong>2 Jahren nach Eigentumsübergang</strong>:</p>
+
+<ul>
+  <li><strong>Oberste Geschossdecke dämmen</strong> (wenn nicht begehbar und U-Wert > 0,24 W/m²K)</li>
+  <li><strong>Heizkessel älter als 30 Jahre austauschen</strong> (Standard-/Konstanttemperaturkessel)</li>
+  <li><strong>Freiliegende Heizungs- und Warmwasserleitungen</strong> in unbeheizten Räumen dämmen</li>
+  <li><strong>Ab 2026/2028:</strong> Pflicht zu erneuerbaren Energien beim Heizungstausch (je nach Kommune)</li>
+</ul>
+
+<p><strong>Achtung:</strong> Diese Pflichten gelten NICHT für Eigentümer, die seit vor 2002 im Haus wohnen – aber für jeden neuen Käufer! Kalkulieren Sie diese Kosten unbedingt in Ihren Kaufpreis ein.</p>
+
+<h2 id="wertsteigerung">Wertsteigerung durch energetische Sanierung</h2>
+
+<p>Eine energetische Sanierung ist nicht nur gut fürs Klima und den Geldbeutel – sie steigert auch den <strong>Immobilienwert erheblich</strong>:</p>
+
+<table>
+  <thead><tr><th>Maßnahme</th><th>Investition</th><th>Wertsteigerung</th><th>ROI</th></tr></thead>
+  <tbody>
+    <tr><td>Fassadendämmung</td><td>20.000–30.000 €</td><td>+15.000–25.000 €</td><td>50–85 %</td></tr>
+    <tr><td>Neue Fenster</td><td>8.000–15.000 €</td><td>+6.000–12.000 €</td><td>75–80 %</td></tr>
+    <tr><td>Wärmepumpe</td><td>15.000–25.000 €</td><td>+10.000–20.000 €</td><td>65–80 %</td></tr>
+    <tr><td>PV-Anlage</td><td>12.000–18.000 €</td><td>+8.000–15.000 €</td><td>65–85 %</td></tr>
+    <tr><td>Komplettsanierung</td><td>60.000–100.000 €</td><td>+40.000–80.000 €</td><td>65–80 %</td></tr>
+  </tbody>
+</table>
+
+<p>Berechnen Sie Ihren individuellen Return on Investment mit unserem <a href="/roi-rechner">ROI-Rechner</a>.</p>
+
+<h2 id="fazit">Fazit: Altbau-Kauf als Chance</h2>
+
+<p>Ein Altbau-Kauf mit anschließender Sanierung kann sich <strong>wirtschaftlich lohnen</strong>, wenn Sie strategisch vorgehen:</p>
+
+<ol>
+  <li>✅ <strong>Vor dem Kauf:</strong> Energieberater einschalten, Substanz prüfen, Kosten kalkulieren</li>
+  <li>✅ <strong>Beim Kauf:</strong> Sanierungskosten als Verhandlungsargument nutzen</li>
+  <li>✅ <strong>Nach dem Kauf:</strong> iSFP erstellen, Förderungen sichern, in richtiger Reihenfolge sanieren</li>
+  <li>✅ <strong>Langfristig:</strong> Energiekosten senken, Wert steigern, Klimaschutz beitragen</li>
+</ol>
+
+<p>Starten Sie jetzt mit der Planung:</p>
+<ul>
+  <li>📊 <a href="/rechner-vergleich">Alle Rechner im Vergleich</a> – Maßnahmen nebeneinander bewerten</li>
+  <li>📋 <a href="/projektplaner">Projektplaner</a> – Sanierung Schritt für Schritt planen</li>
+  <li>💰 <a href="/budgetplan">Budget-Planer</a> – Kosten und Förderungen kalkulieren</li>
+  <li>🏠 <a href="/wissenswertes/downloads">Checklisten herunterladen</a> – Vor, während und nach der Sanierung</li>
+</ul>
+
+<p><strong>Weiterführende Quellen:</strong></p>
+<ul>
+  <li><a href="https://www.verbraucherzentrale.de/wissen/energie/energetische-sanierung/altbau-kaufen-und-sanieren-das-muessen-sie-wissen-48900" target="_blank" rel="noopener">Verbraucherzentrale – Altbau kaufen und sanieren</a></li>
+  <li><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/" target="_blank" rel="noopener">KfW – Förderung für bestehende Immobilien</a></li>
+  <li><a href="https://www.bafa.de/DE/Energie/Effiziente_Gebaeude/effiziente_gebaeude_node.html" target="_blank" rel="noopener">BAFA – Bundesförderung für effiziente Gebäude</a></li>
+  <li><a href="https://www.gesetze-im-internet.de/geg/" target="_blank" rel="noopener">GEG Volltext – Gebäudeenergiegesetz</a></li>
+</ul>`,
+  topic: 'Immobilienkauf',
+  topicColor: '#7c3aed',
+  publishedAt: '2025-03-08',
+  readTime: 14,
+  slug: 'altbau-kaufen-sanieren-2025-ratgeber',
+  seoTitle: 'Altbau kaufen & sanieren 2025: Ratgeber mit Kosten, Förderungen & Checkliste',
+  seoDescription: 'Altbau kaufen und sanieren: Worauf Käufer achten müssen – Bausubstanz prüfen, Kosten kalkulieren, Fördermittel sichern. Der ultimative Käufer-Ratgeber 2025.',
+  keywords: ['Altbau kaufen', 'Altbau sanieren', 'Hauskauf Sanierung', 'Energieausweis', 'GEG Pflichten Käufer', 'Altbau Förderung 2025'],
+  difficulty: 2,
+  savingsPotential: '2.000–5.000 €/Jahr nach Sanierung',
+  paybackTime: '10–15 Jahre',
+  fundingAvailable: 'Ja, bis 70 % je Maßnahme',
+  effortLevel: 'Hoch (6–18 Monate)',
+  keyBenefits: [
+    'Kaufpreis durch Sanierungskosten verhandelbar',
+    'Bis zu 70 % Förderung für Heizungstausch',
+    'Wertsteigerung 40–80 % der Investition',
+    'Energiekosten um 60–80 % reduzierbar',
+    'Alle Rechner & Tools kostenlos nutzbar',
+    'GEG-Pflichten rechtzeitig erfüllen'
+  ],
+  importantNotice: 'Lassen Sie vor dem Kauf immer einen unabhängigen Energieberater die Substanz prüfen. Die Beratung wird mit bis zu 80 % gefördert und kann Ihnen Zehntausende Euro an unerwarteten Kosten ersparen.',
+  tableOfContents: [
+    { id: 'vor-dem-kauf', title: 'Prüfpunkte vor dem Kauf' },
+    { id: 'energieausweis-lesen', title: 'Energieausweis richtig lesen' },
+    { id: 'versteckte-kosten', title: 'Versteckte Kosten' },
+    { id: 'sanierungskosten-kalkulieren', title: 'Sanierungskosten kalkulieren' },
+    { id: 'kaufpreis-verhandeln', title: 'Kaufpreis verhandeln' },
+    { id: 'sanierungsfahrplan', title: 'Sanierungsstrategie nach dem Kauf' },
+    { id: 'foerderung-altbau', title: 'Fördermittel für Altbau-Käufer' },
+    { id: 'geg-pflichten', title: 'GEG-Pflichten' },
+    { id: 'wertsteigerung', title: 'Wertsteigerung durch Sanierung' },
+    { id: 'fazit', title: 'Fazit' }
+  ],
+  costs: [
+    { item: 'Energieberatung (iSFP)', costPerSqm: '–', totalCost: '300–500 € (nach Förderung)', funding: '80 % BAFA' },
+    { item: 'Dachdämmung', costPerSqm: '40–80 €', totalCost: '5.000–12.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Fassadendämmung', costPerSqm: '120–180 €', totalCost: '20.000–30.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Fenster (3-fach)', costPerSqm: '500–1.200 €/Stk.', totalCost: '8.000–15.000 €', funding: '20 % BAFA + iSFP' },
+    { item: 'Wärmepumpe', costPerSqm: '–', totalCost: '15.000–25.000 €', funding: 'Bis 70 % BAFA' },
+    { item: 'PV-Anlage (10 kWp)', costPerSqm: '–', totalCost: '12.000–18.000 €', funding: 'KfW-Kredit' }
+  ]
+};
+
+const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,
