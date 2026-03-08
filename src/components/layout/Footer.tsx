@@ -50,6 +50,14 @@ const Footer = () => {
                   Smart Home Produkte
                 </Link>
               </li>
+              <li>
+                <Link 
+                  to="/sanierungscheck" 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Sanierungscheck
+                </Link>
+              </li>
             </ul>
           </div>
 

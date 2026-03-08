@@ -91,6 +91,7 @@ const Header = () => {
 
   const toolsItems = [
     { title: "Smart Home Produkte", to: "/smart-home-produkte", description: "Produktvergleich: Thermostate, Sensoren & Steuerungen" },
+    { title: "Sanierungscheck", to: "/sanierungscheck", description: "In 6 Schritten zur persönlichen Sanierungsempfehlung" },
   ];
 
   const wissenswertesItems = [
