@@ -96,6 +96,9 @@ const Header = () => {
     { title: "Barrierefreies Wohnen", to: "/barrierefreies-wohnen", description: "Maßnahmen, Kosten & KfW-Förderung" },
     { title: "Elektroinstallation", to: "/elektroinstallation", description: "Kosten, Sicherheit & Smart-Home-Vorbereitung" },
     { title: "Schimmelbeseitigung", to: "/schimmelbeseitigung", description: "Ursachen, Kosten & Prävention" },
+    { title: "Kellersanierung", to: "/kellersanierung", description: "Abdichtung, Dämmung & Ausbau" },
+    { title: "Dachausbau", to: "/dachausbau", description: "Kosten, Genehmigung & Dämmung" },
+    { title: "Gartengestaltung", to: "/gartengestaltung", description: "Planung, Kosten & Ideen" },
     { title: "Sanierungschecklisten", to: "/sanierungschecklisten", description: "Interaktive Checklisten für jede Sanierungsphase" },
   ];
 
