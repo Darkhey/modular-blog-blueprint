@@ -147,9 +147,11 @@ export const useBlogPost = (slug: string) => {
         .eq('slug', slug)
         .single();
 
-      if (error) {
-        console.error('Error fetching blog post:', error);
-        throw error;
+      if (error || !data) {
+        // Fallback to mock data
+        const mockPost = getMockFallbackPosts().find(p => p.slug === slug);
+        if (mockPost) return mockPost;
+        throw error || new Error('Post not found');
       }
 
       return data as BlogPost;
