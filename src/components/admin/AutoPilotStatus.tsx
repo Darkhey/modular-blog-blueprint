@@ -60,7 +60,7 @@ const AutoPilotStatus = () => {
           <Bot className="h-5 w-5 text-primary" />
           Auto-Pilot
           <Badge variant="outline" className="ml-auto text-xs">
-            Täglich 07:00 UTC
+            Täglich 07:00 & 17:00 UTC
           </Badge>
         </CardTitle>
       </CardHeader>
