@@ -11,6 +11,7 @@ import CalculatorSection from '@/components/heizung-modernisieren/CalculatorSect
 import ProcessTimelineSection from '@/components/heizung-modernisieren/ProcessTimelineSection';
 import HeizungFAQSection from '@/components/heizung-modernisieren/HeizungFAQSection';
 import HeizungCTASection from '@/components/heizung-modernisieren/HeizungCTASection';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const HeizungModernisierenPage = () => {
   return (
