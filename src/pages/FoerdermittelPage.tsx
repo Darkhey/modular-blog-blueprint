@@ -5,6 +5,7 @@ import TimelineSection from '@/components/foerdermittel/TimelineSection';
 import HighlightedTip from '@/components/foerdermittel/HighlightedTip';
 import NetBenefitExample from '@/components/foerdermittel/NetBenefitExample';
 import FoerdermittelChecker from '@/components/foerdermittel/FoerdermittelChecker';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
@@ -127,6 +128,8 @@ const FoerdermittelPage = () => {
               </div>
             </CardContent>
           </Card>
+
+          <EnergyAdvisorSearch />
         </div>
       </main>
     </div>
