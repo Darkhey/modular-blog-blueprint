@@ -32,6 +32,7 @@ const DaemmungIsolierungPage = () => {
           <DaemmungFundingSection />
           <DaemmungTipsSection />
           <DaemmungFAQSection />
+          <EnergyAdvisorSearch />
           <DaemmungCTASection />
         </div>
       </div>

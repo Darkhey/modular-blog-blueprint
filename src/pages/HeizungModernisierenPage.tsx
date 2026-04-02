@@ -41,6 +41,7 @@ const HeizungModernisierenPage = () => {
           <CalculatorSection />
           <ProcessTimelineSection />
           <HeizungFAQSection />
+          <EnergyAdvisorSearch />
           <HeizungCTASection />
         </div>
       </div>

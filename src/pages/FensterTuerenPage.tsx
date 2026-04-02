@@ -19,6 +19,8 @@ const FensterTuerenPage = () => {
           
           {/* Weiterführende Blogartikel */}
           <TaggedBlogPostsGrid tag="Fenster" title="Weitere spannende Artikel zu Fenster & Türen:" />
+          
+          <EnergyAdvisorSearch />
         </div>
       </main>
     </div>
