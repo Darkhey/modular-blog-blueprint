@@ -10,6 +10,7 @@ import DaemmungFundingSection from '@/components/daemmung/DaemmungFundingSection
 import DaemmungTipsSection from '@/components/daemmung/DaemmungTipsSection';
 import DaemmungFAQSection from '@/components/daemmung/DaemmungFAQSection';
 import DaemmungCTASection from '@/components/daemmung/DaemmungCTASection';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const DaemmungIsolierungPage = () => {
   return (
