@@ -4,6 +4,7 @@ import TaggedBlogPostsGrid from '@/components/blog/TaggedBlogPostsGrid';
 import FensterTuerenHero from '@/components/fenster-tueren/FensterTuerenHero';
 import FensterTuerenContent from '@/components/fenster-tueren/FensterTuerenContent';
 import FensterTuerenChecklist from '@/components/fenster-tueren/FensterTuerenChecklist';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const FensterTuerenPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'fenster');
