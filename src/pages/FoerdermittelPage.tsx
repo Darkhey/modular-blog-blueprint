@@ -128,6 +128,8 @@ const FoerdermittelPage = () => {
               </div>
             </CardContent>
           </Card>
+
+          <EnergyAdvisorSearch />
         </div>
       </main>
     </div>

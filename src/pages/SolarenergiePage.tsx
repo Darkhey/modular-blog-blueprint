@@ -230,6 +230,8 @@ const SolarenergiePage = () => {
               </CardContent>
             </Card>
           </section>
+
+          <EnergyAdvisorSearch />
         </div>
       </main>
     </div>
