@@ -13,6 +13,7 @@ import CalculatorsSection from '@/components/home/CalculatorsSection';
 import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import DynamicFeaturedGuides from '@/components/home/DynamicFeaturedGuides';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const Index = () => {
   const { data: posts, isLoading: isLoadingPosts, isError: isErrorPosts } = useBlogPosts(undefined, 3);
