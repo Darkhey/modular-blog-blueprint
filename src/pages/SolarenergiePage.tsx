@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import { Helmet } from 'react-helmet-async';
+import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
