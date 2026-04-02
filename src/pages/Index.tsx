@@ -40,6 +40,7 @@ const Index = () => {
           isErrorCategories={isErrorCategories}
         />
         <DynamicFeaturedGuides />
+        <EnergyAdvisorSearch />
         <NewsletterSection />
       </main>
     </div>
