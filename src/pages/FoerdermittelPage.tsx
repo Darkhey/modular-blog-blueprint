@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { siteConfig } from '@/config/site.config';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
@@ -10,8 +11,28 @@ import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Fördermittel 2025 – Bis zu 70% Zuschuss',
+    description: 'Alle Förderprogramme 2025: BAFA, KfW und regionale Zuschüsse für Sanierung, Heizung und Dämmung.',
+    url: 'https://sanieren-sparen.de/foerdermittel',
+    inLanguage: 'de-DE',
+    isPartOf: { '@type': 'WebSite', name: 'Sanieren & Sparen', url: 'https://sanieren-sparen.de' },
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 to-green-50 dark:from-gray-900 dark:to-gray-800">
+      <Helmet>
+        <title>Fördermittel 2025 – Bis zu 70% Zuschuss</title>
+        <meta name="description" content="BAFA, KfW & regionale Förderung 2025 für Sanierung, Heizung und Dämmung – kombinieren und bis zu 25.000 € sparen." />
+        <link rel="canonical" href="https://sanieren-sparen.de/foerdermittel" />
+        <meta property="og:title" content="Fördermittel 2025 – Bis zu 70% Zuschuss" />
+        <meta property="og:description" content="BAFA, KfW & regionale Förderprogramme im Überblick – mit Beispielrechnung." />
+        <meta property="og:url" content="https://sanieren-sparen.de/foerdermittel" />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
       <main className="pb-12">
         <div className="container max-w-4xl mx-auto px-4">
           {/* Einleitung */}
