@@ -1,0 +1,43 @@
+# Sanieren & Sparen
+
+> Deutscher Ratgeber für energieeffiziente Haussanierung: Heizung, Dämmung, Fenster, Solar, Smart Home und Fördermittel – mit Rechnern, Checklisten und tagesaktuellen Blogartikeln.
+
+Sanieren & Sparen ist eine unabhängige Plattform für Hausbesitzer in Deutschland. Wir erklären Sanierungsmaßnahmen praxisnah, vergleichen Technologien, listen alle Bundes- und Landesförderungen (BAFA, KfW, regional) und stellen kostenlose Online-Rechner für Kosten, Amortisation und Einsparung bereit. Inhalte werden täglich um aktuelle Themen ergänzt.
+
+## Themenseiten
+
+- [Heizung modernisieren](/heizung-modernisieren): Wärmepumpe, Gas-Brennwert, Smart Thermostate, BAFA-Förderung bis 70 %.
+- [Dämmung & Isolierung](/daemmung-isolierung): WDVS, Dach-, Keller- und Innendämmung, Materialvergleich, KfW-Förderung.
+- [Fenster & Türen](/fenster-tueren): 3-fach-Verglasung, U-Werte, Kosten und Fenstertausch-Förderung.
+- [Solarenergie](/solarenergie): Photovoltaik, Solarthermie, Eigenverbrauch, Speicher und Förderung.
+- [Smart Home](/smart-home): Intelligente Heizungs-, Licht- und Energiesteuerung.
+- [Fördermittel](/foerdermittel): BAFA, KfW, regionale Programme, Beispielrechnungen.
+- [Regionale Förderkarte](/foerdermittel/regional): Bundesländer-spezifische Zuschüsse.
+- [Sanierungs-Check](/sanierungscheck): Geführter Wizard mit Priorisierung und Förderprognose.
+- [Sanierungs-Checklisten](/sanierungschecklisten): Phasen-Checklisten von Planung bis Abnahme.
+- [Glossar](/glossar): Fachbegriffe rund um die energetische Sanierung.
+
+## Rechner
+
+- [Kostenrechner](/kostenrechner): Gesamtkosten mehrerer Gewerke inkl. Förderabzug.
+- [Heizkostenrechner](/heizkostenrechner): Heizkosten und Einsparpotenzial.
+- [Dämmungsrechner](/daemmungsrechner): Materialvergleich und Amortisation.
+- [Förderrechner](/foerderrechner): Maximale Zuschüsse ermitteln.
+- [ROI-Rechner](/roi-rechner): Wirtschaftlichkeit einzelner Maßnahmen.
+- [Rechner-Vergleich](/rechner-vergleich): Heizung, Dämmung und Solar nebeneinander.
+- [Energie-Check](/energie-check): Schnellbewertung des Gebäudezustands.
+
+## Wissensdatenbank
+
+- [Blog](/blog): Tagesaktuelle Artikel zu Sanierungstrends, Materialien und Förderung.
+- [Wissenswertes](/wissenswertes): Übersicht über Tools, Downloads, Videos, Community und Experten.
+- [Downloads](/wissenswertes/downloads): Checklisten, Vorlagen und Förderübersichten als PDF/Excel.
+- [Videos](/wissenswertes/videos): Erklärvideos nach Kategorien.
+- [Experten finden](/wissenswertes/experten): Energieberater-Suche.
+- [Referenzen](/referenzen): Vorher-/Nachher-Beispiele realer Sanierungsprojekte.
+
+## Optional
+
+- [Kontakt](/kontakt)
+- [Impressum](/impressum)
+- [Datenschutz](/datenschutz)

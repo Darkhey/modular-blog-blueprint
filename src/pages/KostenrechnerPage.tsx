@@ -35,7 +35,7 @@ const KostenrechnerPage = () => {
     description: 'Berechnen Sie die Gesamtkosten Ihrer Sanierung mit Förderabzug. Wählen Sie mehrere Gewerke und erhalten Sie eine detaillierte Kostenschätzung.',
     applicationCategory: 'FinanceApplication',
     operatingSystem: 'All',
-    url: 'https://energieberater-direkt.de/kostenrechner',
+    url: 'https://sanieren-sparen.de/kostenrechner',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
   };
 
@@ -65,8 +65,13 @@ const KostenrechnerPage = () => {
   return (
     <>
       <Helmet>
-        <title>Kosten-Vergleichsrechner – Sanierungskosten berechnen | Sanieren & Sparen</title>
+        <title>Sanierungskosten berechnen – Kostenrechner</title>
         <meta name="description" content="Berechnen Sie die Gesamtkosten Ihrer Sanierung inkl. Förderabzug. Wählen Sie Gewerke wie Dämmung, Heizung, Solar und erhalten Sie eine detaillierte Schätzung." />
+        <link rel="canonical" href="https://sanieren-sparen.de/kostenrechner" />
+        <meta property="og:title" content="Sanierungskosten berechnen – Kostenrechner" />
+        <meta property="og:description" content="Mehrere Gewerke kombinieren und Gesamtkosten inkl. Förderung ermitteln." />
+        <meta property="og:url" content="https://sanieren-sparen.de/kostenrechner" />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

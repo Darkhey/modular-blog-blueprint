@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import TopicFilter from '@/components/blog/TopicFilter';
 import { siteConfig } from '@/config/site.config';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
@@ -35,6 +36,15 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        <title>Sanierungs-Blog – Aktuelle Tipps & Förderinfos</title>
+        <meta name="description" content="Tagesaktuelle Artikel zu energetischer Sanierung: Heizung, Dämmung, Solar, Smart Home und Fördermittel. Praxisnah recherchiert." />
+        <link rel="canonical" href="https://sanieren-sparen.de/blog" />
+        <meta property="og:title" content="Sanierungs-Blog – Aktuelle Tipps & Förderinfos" />
+        <meta property="og:description" content="Tagesaktuelle Artikel zu Heizung, Dämmung, Solar, Smart Home und Fördermitteln." />
+        <meta property="og:url" content="https://sanieren-sparen.de/blog" />
+        <meta property="og:type" content="website" />
+      </Helmet>
       
       <div className="container max-w-7xl mx-auto px-4 py-8">
         <BlogHero />
