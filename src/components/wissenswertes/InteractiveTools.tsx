@@ -1,99 +1,67 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Calculator, PlaneTakeoff, Zap, TrendingUp, Calendar, MapPin } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { ArrowRight, Calculator } from 'lucide-react';
+import { calculatorsCatalog, calculatorCategories } from '@/data/calculatorsCatalog';
 
 const InteractiveTools = () => {
-  const tools = [
-    {
-      title: "Sanierungsplaner",
-      description: "Schritt-für-Schritt Planung Ihres Renovierungsprojekts",
-      icon: PlaneTakeoff,
-      comingSoon: false,
-      path: "/projektplaner"
-    },
-    {
-      title: "Förderrechner",
-      description: "Berechnen Sie alle verfügbaren Fördermittel für Ihr Projekt",
-      icon: Calculator,
-      comingSoon: false,
-      path: "/foerderrechner"
-    },
-    {
-      title: "Energie-Check",
-      description: "Schnelle Bewertung Ihres Sanierungsbedarfs",
-      icon: Zap,
-      comingSoon: false,
-      path: "/energie-check"
-    },
-    {
-      title: "ROI-Rechner",
-      description: "Amortisationszeiten für verschiedene Sanierungsmaßnahmen",
-      icon: TrendingUp,
-      comingSoon: false,
-      path: "/roi-rechner"
-    },
-    {
-      title: "Jahresplaner",
-      description: "Optimale Zeitpunkte für verschiedene Sanierungsarbeiten",
-      icon: Calendar,
-      comingSoon: true,
-      path: "/jahresplaner"
-    },
-    {
-      title: "Regionale Infos",
-      description: "Förderprogramme und Bestimmungen in Ihrer Region",
-      icon: MapPin,
-      comingSoon: true,
-      path: "/regional"
-    }
-  ];
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-foreground mb-4">Interaktive Tools</h2>
+        <div className="inline-flex items-center gap-2 mb-3">
+          <Calculator className="w-7 h-7 text-primary" />
+          <h2 className="text-3xl font-bold text-foreground">Interaktive Rechner & Tools</h2>
+        </div>
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Professionelle Planungs- und Berechnungstools für Ihr Sanierungsprojekt
+          {calculatorsCatalog.length} Rechner und Planungstools – kostenlos, ohne Anmeldung,
+          DSGVO-konform.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
-          <Card key={tool.path} className="hover:shadow-lg transition-shadow relative">
-            {tool.comingSoon && (
-              <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full">
-                Bald verfügbar
-              </div>
-            )}
-            <CardHeader>
-              <div className="flex items-center space-x-3">
-                <div className="p-3 bg-primary/10 rounded-lg" aria-hidden="true">
-                  <tool.icon className="h-8 w-8 text-primary" aria-hidden="true" />
-                </div>
-                <div>
-                  <CardTitle className="text-xl">{tool.title}</CardTitle>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <CardDescription className="mb-4 text-base">
-                {tool.description}
-              </CardDescription>
-              <Button
-                className="w-full"
-                variant={tool.comingSoon ? "outline" : "default"}
-                disabled={tool.comingSoon}
-                asChild={!tool.comingSoon}
-              >
-                {tool.comingSoon
-                  ? "Bald verfügbar"
-                  : <Link to={tool.path} aria-label={`Tool starten: ${tool.title}`}>Tool starten</Link>}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {calculatorCategories.map((cat) => {
+        const items = calculatorsCatalog.filter((c) => c.category === cat.id);
+        if (items.length === 0) return null;
+        return (
+          <section key={cat.id}>
+            <div className="mb-3">
+              <h3 className="text-xl font-bold text-foreground">{cat.label}</h3>
+              <p className="text-sm text-muted-foreground">{cat.description}</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {items.map((entry) => {
+                const Icon = entry.icon;
+                return (
+                  <Card
+                    key={entry.id}
+                    className="group glass border-border hover:shadow-glow hover:-translate-y-0.5 transition-all overflow-hidden"
+                  >
+                    <Link to={entry.route} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+                      <div className={`h-1 bg-gradient-to-r ${entry.gradient}`} />
+                      <CardContent className="p-5">
+                        <div className="flex items-start justify-between mb-3">
+                          <div
+                            className={`w-10 h-10 rounded-lg bg-gradient-to-br ${entry.gradient} flex items-center justify-center shadow-sm`}
+                          >
+                            <Icon className="w-5 h-5 text-white" />
+                          </div>
+                          <Badge variant="secondary" className="text-xs">{entry.badge}</Badge>
+                        </div>
+                        <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                          {entry.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{entry.description}</p>
+                        <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
+                          Tool öffnen <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </CardContent>
+                    </Link>
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })}
     </div>
   );
 };
