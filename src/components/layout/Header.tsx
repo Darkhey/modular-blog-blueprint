@@ -244,6 +244,51 @@ const Header = () => {
                             </ul>
                           </NavigationMenuContent>
                         </>
+                      ) : item.name === 'Rechner' ? (
+                        <>
+                          <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <div className="w-[680px] p-4">
+                              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                                {calculatorCategories.map((cat) => {
+                                  const items = calculatorsCatalog.filter((c) => c.category === cat.id);
+                                  if (items.length === 0) return null;
+                                  return (
+                                    <div key={cat.id}>
+                                      <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-2">
+                                        {cat.label}
+                                      </p>
+                                      <ul className="space-y-1">
+                                        {items.map((c) => (
+                                          <li key={c.id}>
+                                            <NavigationMenuLink asChild>
+                                              <Link
+                                                to={c.route}
+                                                className="block rounded-md px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                                              >
+                                                <span className="font-medium">{c.title}</span>
+                                              </Link>
+                                            </NavigationMenuLink>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              <div className="mt-4 pt-3 border-t">
+                                <NavigationMenuLink asChild>
+                                  <Link
+                                    to="/rechner"
+                                    className="inline-flex items-center text-sm font-semibold text-primary hover:underline"
+                                  >
+                                    → Zum Rechner-Hub mit allen Tools
+                                  </Link>
+                                </NavigationMenuLink>
+                              </div>
+                            </div>
+                          </NavigationMenuContent>
+                        </>
                       ) : (
                         <NavigationMenuLink asChild>
                           <Link to={item.href} className={navigationMenuTriggerStyle()}>{item.name}</Link>
