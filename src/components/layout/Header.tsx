@@ -3,6 +3,7 @@ import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef }
 import { Link } from 'react-router-dom';
 import { Zap, Menu } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import { calculatorsCatalog, calculatorCategories } from '@/data/calculatorsCatalog';
 import { supabase } from '@/integrations/supabase/client';
 import { Session } from '@supabase/supabase-js';
 import {
@@ -173,6 +174,22 @@ const Header = () => {
                               <Link to={wissenswertesItem.to} className="text-sm">{wissenswertesItem.title}</Link>
                             </SheetClose>
                           ))}
+                        </div>
+                      </div>
+                    ) : item.name === 'Rechner' ? (
+                      <div key={item.name} className="space-y-2">
+                        <SheetClose asChild>
+                          <Link to="/rechner" className="font-semibold text-lg">Rechner & Tools</Link>
+                        </SheetClose>
+                        <div className="ml-2 flex flex-col space-y-1">
+                          {calculatorsCatalog.slice(0, 8).map((calc) => (
+                            <SheetClose asChild key={calc.id}>
+                              <Link to={calc.route} className="text-sm">{calc.title}</Link>
+                            </SheetClose>
+                          ))}
+                          <SheetClose asChild>
+                            <Link to="/rechner" className="text-sm font-medium text-primary">Alle Rechner →</Link>
+                          </SheetClose>
                         </div>
                       </div>
                     ) : (
