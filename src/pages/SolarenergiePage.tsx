@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import { Helmet } from 'react-helmet-async';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
@@ -231,6 +232,7 @@ const SolarenergiePage = () => {
             </Card>
           </section>
 
+          <RelatedCalculators topics={['solar', 'photovoltaik', 'pv', 'batterie', 'wallbox']} excludeIds={['solarrechner']} />
           <EnergyAdvisorSearch />
         </div>
       </main>

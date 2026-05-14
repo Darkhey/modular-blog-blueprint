@@ -11,6 +11,7 @@ import DaemmungTipsSection from '@/components/daemmung/DaemmungTipsSection';
 import DaemmungFAQSection from '@/components/daemmung/DaemmungFAQSection';
 import DaemmungCTASection from '@/components/daemmung/DaemmungCTASection';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
 
 const DaemmungIsolierungPage = () => {
   return (
@@ -32,6 +33,7 @@ const DaemmungIsolierungPage = () => {
           <DaemmungFundingSection />
           <DaemmungTipsSection />
           <DaemmungFAQSection />
+          <RelatedCalculators topics={['daemmung', 'fassade', 'dach', 'u-wert']} excludeIds={['daemmungsrechner']} />
           <EnergyAdvisorSearch />
           <DaemmungCTASection />
         </div>
