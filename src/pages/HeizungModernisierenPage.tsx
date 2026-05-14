@@ -12,6 +12,7 @@ import ProcessTimelineSection from '@/components/heizung-modernisieren/ProcessTi
 import HeizungFAQSection from '@/components/heizung-modernisieren/HeizungFAQSection';
 import HeizungCTASection from '@/components/heizung-modernisieren/HeizungCTASection';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
 
 const HeizungModernisierenPage = () => {
   return (
@@ -57,6 +58,7 @@ const HeizungModernisierenPage = () => {
           <CalculatorSection />
           <ProcessTimelineSection />
           <HeizungFAQSection />
+          <RelatedCalculators topics={['heizung', 'waermepumpe', 'modernisierung', 'gas']} excludeIds={['heizkostenrechner']} />
           <EnergyAdvisorSearch />
           <HeizungCTASection />
         </div>

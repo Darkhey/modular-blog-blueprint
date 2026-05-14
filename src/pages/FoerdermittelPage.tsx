@@ -7,6 +7,7 @@ import HighlightedTip from '@/components/foerdermittel/HighlightedTip';
 import NetBenefitExample from '@/components/foerdermittel/NetBenefitExample';
 import FoerdermittelChecker from '@/components/foerdermittel/FoerdermittelChecker';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
 
 const FoerdermittelPage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'foerderung');
@@ -150,6 +151,7 @@ const FoerdermittelPage = () => {
             </CardContent>
           </Card>
 
+          <RelatedCalculators topics={['foerderung', 'bafa', 'kfw', 'zuschuss']} excludeIds={['foerderrechner']} />
           <EnergyAdvisorSearch />
         </div>
       </main>

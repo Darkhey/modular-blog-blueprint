@@ -4,12 +4,11 @@ import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
 import MuuttoBanner from '@/components/home/MuuttoBanner';
 import FeaturedArticleHero from '@/components/home/FeaturedArticleHero';
-import FeaturedCalculatorsCarousel from '@/components/home/FeaturedCalculatorsCarousel';
+import CalculatorsBentoSection from '@/components/home/CalculatorsBentoSection';
 import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
 import FeaturesSection from '@/components/home/FeaturesSection';
 import ImageCarouselSection from '@/components/home/ImageCarouselSection';
 import StatsSection from '@/components/home/StatsSection';
-import CalculatorsSection from '@/components/home/CalculatorsSection';
 import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import DynamicFeaturedGuides from '@/components/home/DynamicFeaturedGuides';
@@ -25,12 +24,11 @@ const Index = () => {
         <HeroSection />
         <FeaturedArticleHero />
         <MuuttoBanner />
-        <FeaturedCalculatorsCarousel />
+        <CalculatorsBentoSection />
         <FeaturedExpertSection />
         <FeaturesSection />
         <ImageCarouselSection />
         <StatsSection />
-        <CalculatorsSection />
         <BlogAndCategoriesSection
           posts={posts}
           isLoadingPosts={isLoadingPosts}

@@ -16,11 +16,11 @@ const CalculatorStructuredData = ({ calculatorType, title, description }: Calcul
     "applicationSubCategory": "Calculator",
     "operatingSystem": "All",
     "permissions": "browserPermissions",
-    "url": `https://energieberater-direkt.de/${calculatorType === 'heating' ? 'heizung-modernisieren' : calculatorType === 'insulation' ? 'daemmungsrechner' : 'solarenergie'}`,
+    "url": `https://sanieren-sparen.de/${calculatorType === 'heating' ? 'heizung-modernisieren' : calculatorType === 'insulation' ? 'daemmungsrechner' : 'solarenergie'}`,
     "provider": {
       "@type": "Organization",
-      "name": "Energieberater Direkt",
-      "url": "https://energieberater-direkt.de"
+      "name": "Sanieren & Sparen",
+      "url": "https://sanieren-sparen.de"
     },
     "offers": {
       "@type": "Offer",

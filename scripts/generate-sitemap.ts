@@ -16,6 +16,7 @@ interface Entry {
 
 const staticRoutes: Entry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/rechner", changefreq: "weekly", priority: "0.9" },
   { path: "/blog", changefreq: "daily", priority: "0.9" },
   { path: "/foerdermittel", changefreq: "weekly", priority: "0.9" },
   { path: "/foerdermittel/regional", changefreq: "monthly", priority: "0.7" },

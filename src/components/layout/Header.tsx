@@ -3,6 +3,7 @@ import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef }
 import { Link } from 'react-router-dom';
 import { Zap, Menu } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import { calculatorsCatalog, calculatorCategories } from '@/data/calculatorsCatalog';
 import { supabase } from '@/integrations/supabase/client';
 import { Session } from '@supabase/supabase-js';
 import {
@@ -175,6 +176,22 @@ const Header = () => {
                           ))}
                         </div>
                       </div>
+                    ) : item.name === 'Rechner' ? (
+                      <div key={item.name} className="space-y-2">
+                        <SheetClose asChild>
+                          <Link to="/rechner" className="font-semibold text-lg">Rechner & Tools</Link>
+                        </SheetClose>
+                        <div className="ml-2 flex flex-col space-y-1">
+                          {calculatorsCatalog.slice(0, 8).map((calc) => (
+                            <SheetClose asChild key={calc.id}>
+                              <Link to={calc.route} className="text-sm">{calc.title}</Link>
+                            </SheetClose>
+                          ))}
+                          <SheetClose asChild>
+                            <Link to="/rechner" className="text-sm font-medium text-primary">Alle Rechner →</Link>
+                          </SheetClose>
+                        </div>
+                      </div>
                     ) : (
                       <SheetClose asChild key={item.name}>
                         <Link to={item.href} className="font-semibold text-lg">{item.name}</Link>
@@ -225,6 +242,51 @@ const Header = () => {
                                 <ListItem key={w.to} to={w.to} title={w.title}>{w.description}</ListItem>
                               ))}
                             </ul>
+                          </NavigationMenuContent>
+                        </>
+                      ) : item.name === 'Rechner' ? (
+                        <>
+                          <NavigationMenuTrigger>{item.name}</NavigationMenuTrigger>
+                          <NavigationMenuContent>
+                            <div className="w-[680px] p-4">
+                              <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                                {calculatorCategories.map((cat) => {
+                                  const items = calculatorsCatalog.filter((c) => c.category === cat.id);
+                                  if (items.length === 0) return null;
+                                  return (
+                                    <div key={cat.id}>
+                                      <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-2">
+                                        {cat.label}
+                                      </p>
+                                      <ul className="space-y-1">
+                                        {items.map((c) => (
+                                          <li key={c.id}>
+                                            <NavigationMenuLink asChild>
+                                              <Link
+                                                to={c.route}
+                                                className="block rounded-md px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground transition-colors"
+                                              >
+                                                <span className="font-medium">{c.title}</span>
+                                              </Link>
+                                            </NavigationMenuLink>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                              <div className="mt-4 pt-3 border-t">
+                                <NavigationMenuLink asChild>
+                                  <Link
+                                    to="/rechner"
+                                    className="inline-flex items-center text-sm font-semibold text-primary hover:underline"
+                                  >
+                                    → Zum Rechner-Hub mit allen Tools
+                                  </Link>
+                                </NavigationMenuLink>
+                              </div>
+                            </div>
                           </NavigationMenuContent>
                         </>
                       ) : (

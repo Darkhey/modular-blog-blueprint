@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Mail, Instagram, Facebook } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
+import { calculatorsCatalog } from '@/data/calculatorsCatalog';
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
       {/* Auto Ads are handled via AdSense dashboard - no manual banner code needed */}
 
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand Column */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
@@ -96,6 +97,25 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/gartengestaltung" className="text-gray-400 hover:text-white transition-colors">Gartengestaltung</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Calculators */}
+          <div>
+            <h4 className="font-semibold mb-4">Rechner & Tools</h4>
+            <ul className="space-y-2">
+              {calculatorsCatalog.slice(0, 7).map((c) => (
+                <li key={c.id}>
+                  <Link to={c.route} className="text-gray-400 hover:text-white transition-colors">
+                    {c.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/rechner" className="text-white font-medium hover:text-primary transition-colors">
+                  Alle Rechner →
+                </Link>
               </li>
             </ul>
           </div>
