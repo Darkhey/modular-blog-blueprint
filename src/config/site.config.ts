@@ -154,6 +154,7 @@ export const siteConfig = {
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
     { name: "Themen", href: "/themen", isDropdown: true },
+    { name: "Rechner", href: "/rechner" },
     { name: "Wissenswertes", href: "/wissenswertes" },
   ],
   
