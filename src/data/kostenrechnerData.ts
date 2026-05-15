@@ -69,6 +69,8 @@ export const gewerke: Gewerk[] = [
     minValue: 1,
     maxValue: 40,
     step: 1,
+    tooltip: '3-fach Verglasung Standard 2025, Preis je Fenster inkl. Demontage, Einbau & Entsorgung. BAFA 15 % + 5 % iSFP. Haustüren ähnlich.',
+    mengeHelp: 'Anzahl auszutauschender Fenster und Außentüren. Dachfenster zählen mit.',
   },
   {
     id: 'heizung',
@@ -85,6 +87,8 @@ export const gewerke: Gewerk[] = [
     minValue: 50,
     maxValue: 400,
     step: 10,
+    tooltip: 'Pauschale auf Wohnfläche, da Wärmepumpe/Pellet stark variieren (15.000–45.000 €). KfW 458: Sockel 30 % + bis zu 40 % Boni (Klimageschwindigkeit, Einkommen), Deckel 70.000 € förderfähige Kosten.',
+    mengeHelp: 'Beheizte Wohnfläche in m². Steht im Energieausweis oder Mietvertrag.',
   },
   {
     id: 'solar',
@@ -101,6 +105,8 @@ export const gewerke: Gewerk[] = [
     minValue: 3,
     maxValue: 30,
     step: 1,
+    tooltip: 'Keine Direktförderung mehr; Wirtschaftlichkeit über 0 % MwSt., Einspeisevergütung (~8 ct/kWh) und Eigenverbrauch. Speicher und Wallbox separat im Solar-Rechner.',
+    mengeHelp: 'Faustregel: 1 kWp ≈ 5 m² Modulfläche und ~1.000 kWh Ertrag/Jahr.',
   },
   {
     id: 'kellerdecke',
@@ -117,5 +123,7 @@ export const gewerke: Gewerk[] = [
     minValue: 20,
     maxValue: 200,
     step: 10,
+    tooltip: 'Günstigste Dämmmaßnahme mit kurzer Amortisation (5–10 Jahre). BAFA 15 % + 5 % iSFP, Deckel 60.000 €/WE.',
+    mengeHelp: 'Grundfläche des beheizten Erdgeschosses ≈ Kellerdeckenfläche.',
   },
 ];
