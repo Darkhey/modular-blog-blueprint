@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 
 interface CalculatorStructuredDataProps {
-  calculatorType: 'heating' | 'insulation' | 'solar';
+  calculatorType: 'heating' | 'insulation' | 'solar' | 'foerder' | 'roi' | 'energie-check' | 'kosten' | 'vergleich' | 'sanierungscheck';
   title: string;
   description: string;
+  path?: string;
+  faq?: { question: string; answer: string }[];
 }
 
 const CalculatorStructuredData = ({ calculatorType, title, description }: CalculatorStructuredDataProps) => {

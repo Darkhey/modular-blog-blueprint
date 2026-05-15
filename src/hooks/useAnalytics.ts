@@ -57,12 +57,26 @@ export const useAnalytics = () => {
     });
   };
 
+  const trackCalculatorEvent = (
+    action: 'started' | 'completed' | 'shared' | 'pdf_exported',
+    calculatorId: string,
+    parameters?: Record<string, any>
+  ) => {
+    trackEvent(`calc_${action}`, {
+      event_category: 'calculator',
+      event_label: calculatorId,
+      calculator_id: calculatorId,
+      ...parameters,
+    });
+  };
+
   return {
     trackEvent,
     trackPageView,
     trackOutboundLink,
     trackDownload,
     trackNewsletterSignup,
-    trackCalculatorUsage
+    trackCalculatorUsage,
+    trackCalculatorEvent,
   };
 };
