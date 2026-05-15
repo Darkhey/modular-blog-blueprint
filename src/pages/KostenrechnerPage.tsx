@@ -187,7 +187,10 @@ const KostenrechnerPage = () => {
           {/* Detail-Eingaben */}
           {selectedCount > 0 && (
             <section>
-              <h2 className="text-xl font-bold mb-4 text-foreground">2. Mengen & Flächen angeben</h2>
+              <h2 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+                2. Mengen & Flächen angeben
+                <InfoTip content="Schieben Sie den Regler oder geben Sie die Menge direkt ein. Pro Gewerk finden Sie unter dem Slider eine Live-Kostenspanne." />
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {gewerke
                   .filter((g) => inputs[g.id].selected)
