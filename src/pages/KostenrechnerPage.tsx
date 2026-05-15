@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Calculator, Zap, Home, Flame, Sun, DoorOpen, Layers, TriangleAlert, ArrowRight } from 'lucide-react';
+import { Calculator, Zap, Home, Flame, Sun, DoorOpen, Layers, TriangleAlert, ArrowRight, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,11 +8,56 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
+
+const InfoTip = ({ content }: { content: React.ReactNode }) => (
+  <>
+    {/* Desktop hover tooltip */}
+    <span className="hidden md:inline-flex">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            aria-label="Erläuterung anzeigen"
+            className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Info className="w-3.5 h-3.5" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+          {content}
+        </TooltipContent>
+      </Tooltip>
+    </span>
+    {/* Mobile click popover */}
+    <span className="inline-flex md:hidden">
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            aria-label="Erläuterung anzeigen"
+            className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Info className="w-4 h-4" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent side="top" className="max-w-[260px] text-xs leading-relaxed">
+          {content}
+        </PopoverContent>
+      </Popover>
+    </span>
+  </>
+);
+
 
 const iconMap: Record<string, React.ReactNode> = {
   Home: <Home className="w-6 h-6" />,
