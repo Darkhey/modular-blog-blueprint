@@ -33,6 +33,8 @@ export const gewerke: Gewerk[] = [
     minValue: 20,
     maxValue: 400,
     step: 10,
+    tooltip: 'WDVS 120–180 €/m², vorgehängte hinterlüftete Fassade 200–250 €/m². BAFA-Förderung Einzelmaßnahme 15 % + 5 % iSFP-Bonus, Deckel 60.000 €/Wohneinheit.',
+    mengeHelp: 'Außenwandfläche minus Fenster/Türen. Faustregel: Wohnfläche × 1,2.',
   },
   {
     id: 'dachdaemmung',
