@@ -339,12 +339,16 @@ const KostenrechnerPage = () => {
               {/* Chart */}
               {chartData && chartData.length > 0 && (
                 <Card className="border-border p-4">
-                  <h3 className="font-semibold mb-4 text-foreground">Kostenverteilung pro Gewerk</h3>
+                  <h3 className="font-semibold mb-1 text-foreground flex items-center gap-2">
+                    Kostenverteilung pro Gewerk
+                    <InfoTip content="Pro Gewerk sehen Sie drei Balken: graue Bruttokosten, grüne Förderung und farbige Nettokosten (Ihr Eigenanteil)." />
+                  </h3>
+                  <p className="text-xs text-muted-foreground mb-4">Balken zeigen Brutto, Förderung und Netto im direkten Vergleich.</p>
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
                       <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                       <YAxis tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
-                      <Tooltip formatter={(value: number) => `${fmt(value)} €`} />
+                      <ChartTooltip formatter={(value: number) => [`${fmt(value)} €`, '']} />
                       <Legend />
                       <Bar dataKey="Bruttokosten" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="Förderung" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
