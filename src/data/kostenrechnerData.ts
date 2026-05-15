@@ -13,6 +13,8 @@ export interface Gewerk {
   minValue: number;
   maxValue: number;
   step: number;
+  tooltip?: string;
+  mengeHelp?: string;
 }
 
 export const gewerke: Gewerk[] = [

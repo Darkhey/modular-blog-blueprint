@@ -1,95 +1,40 @@
-# Gesamt-Verbesserungs-Roadmap für sanieren-sparen.de
+# Tooltips & Erläuterungen für den Kostenrechner
 
-Nach Stufe 1+2 der Rechner-Optimierung sind die größten verbleibenden Hebel: **Conversion**, **SEO-Tiefe**, **Performance**, **Personalisierung** und **Vertrauen/Monetarisierung**. Vorschlag in 4 Stufen, sortiert nach Wirkung/Aufwand.
+Ziel: Nutzer verstehen sofort, was Begriffe wie "Bruttokosten", "Förderabzug", "Eigenanteil" bedeuten und woher die Zahlen pro Gewerk kommen — ohne die Seite zu verlassen.
 
----
+## Umfang (rein UI/Inhalt, keine Logik-Änderungen)
 
-## Stufe A — Konsolidierung & Politur (schneller Win)
+Datei: `src/pages/KostenrechnerPage.tsx` — Tooltip-Icons (`Info` aus lucide) neben den erklärungsbedürftigen Stellen, Inhalte über `Tooltip` (Desktop) und `Popover` (Touch/Mobile).
 
-**A1 Rechner-Stufe 3 abschließen**
-- Einheitliche `CalculatorHero`-Komponente für alle 12 Rechner (heute 3 abweichende Varianten).
-- `CalculatorStructuredData` korrigieren (`energieberater-direkt.de` → `sanieren-sparen.de`) + auf alle Rechner anwenden, FAQ-Schema pro Rechner.
-- `useAnalytics` Events: `calc_started`, `calc_completed`, `calc_shared`, `calc_pdf_exported`.
-- localStorage-Persistenz + Share-Link mit URL-Params für Heizkosten-, Solar-, Dämm-Rechner.
+Datei: `src/data/kostenrechnerData.ts` — pro Gewerk ein neues Feld `tooltip` (kurze Erklärung zu Kostenspanne & Förderbasis), z. B.:
+- Fassadendämmung: "WDVS 120–180 €/m², vorgehängte hinterlüftete Fassade 200–250 €/m². BAFA-Förderung 15 % + 5 % iSFP-Bonus."
+- Heizung: "Pauschale auf Wohnfläche, da Wärmepumpe/Pellet stark variieren. KfW 458 bis zu 70 % (Sockel 30 % + Boni)."
+- Solar: "Keine Direktförderung; Wirtschaftlichkeit über Einspeisevergütung & Eigenverbrauch — siehe Solar-Rechner."
+- analog Dach, Fenster, Kellerdecke
 
-**A2 Home-Seite entrümpeln**
-- `FeaturedCalculatorsCarousel` & alte `CalculatorsSection` entfernen (durch Bento ersetzt, aber Dateien existieren noch).
-- Reihenfolge optimieren: Hero → Bento → Stats → Featured Article → Guides → Newsletter (kürzerer Scroll bis Conversion).
+## Stellen mit Info-Tooltip
 
-**A3 Header/Mega-Menü Politur**
-- Mobile-Variante des Rechner-Mega-Menüs prüfen (390px Viewport).
-- Aktiver Zustand markieren, Keyboard-Navigation testen.
+1. Sektion "1. Gewerke auswählen" — Überschrift bekommt einen Info-Hinweis ("Mehrfachauswahl möglich, Werte werden im nächsten Schritt verfeinert.")
+2. Pro Gewerk-Karte — kleines Info-Icon neben dem Label zeigt die `tooltip`-Erklärung (Kostenspanne, Förderbasis, Quelle).
+3. Förderungs-Badge ("20 % Förderung") — Tooltip: "Geschätzter BAFA/KfW-Satz auf förderfähige Kosten, gedeckelt bei {foerderungMax} €/Wohneinheit."
+4. Kostenspanne-Badge ("120–250 €/m²") — Tooltip: "Marktübliche Spanne 2025 inkl. Material & Montage, ohne Gerüst/Sonderbauten."
+5. Sektion "2. Mengen & Flächen" — Slider-Label bekommt Tooltip mit Mess-Hilfe (z. B. "Fassadenfläche = Außenwandfläche minus Fenster/Türen").
+6. Ergebnis-Karten — drei Info-Icons:
+   - **Bruttokosten (Ø)**: "Mittelwert aus Min/Max-Spanne aller gewählten Gewerke, vor Förderung."
+   - **Förderabzug**: "Summe der geschätzten Zuschüsse (BAFA/KfW). Tatsächliche Höhe nach Energieberater-Antrag."
+   - **Eigenanteil**: "Bruttokosten minus Förderung — der Betrag, den Sie selbst tragen oder finanzieren."
+7. Tabellenkopf — Tooltips auf "Förderung" und "Eigenanteil" (gleiche Kurztexte wie 6).
+8. Chart — kleiner Hinweis unter dem Titel: "Balken zeigen pro Gewerk Brutto, Förderung und Netto im direkten Vergleich."
+9. Footnote bleibt, wird aber durch einen prominenteren "Wie wird gerechnet?"-Collapsible (Accordion) am Seitenende ergänzt mit Formel `Eigenanteil = Menge × Ø-Preis − min(Förderquote × Kosten, Deckel)`.
 
----
+## Technische Umsetzung
 
-## Stufe B — SEO-Tiefe & Auffindbarkeit
+- `TooltipProvider` umschließt die Seite (sofern noch nicht via Layout vorhanden — kurz prüfen, sonst lokal hinzufügen).
+- Komponente `<InfoTip content="…" />` als kleines internes Hilfs-JSX in derselben Datei (Info-Icon `w-3.5 h-3.5 text-muted-foreground`, on Touch über `Popover`-Fallback). Hält den Diff klein und vermeidet eine neue Datei.
+- A11y: `aria-label="Erläuterung anzeigen"`, fokussierbar via Tab.
+- Keine Änderungen an `useKostenrechner`, Berechnung oder Datenstruktur außer optionalem `tooltip?: string` auf `Gewerk`.
 
-**B1 Programmatic SEO: Bundesland × Maßnahme**
-- 16 Bundesländer × 5 Maßnahmen = 80 Landingpages `/foerderung/{bundesland}/{massnahme}` aus `regionalFoerderung.ts` generiert.
-- Jede mit lokalem Förderbetrag, Beispielrechnung, Förderrechner-CTA.
+## Out of scope
 
-**B2 Glossar → Hub-Verlinkung**
-- Inline-Tooltips auf Themenseiten („U-Wert", „BAFA", „iSFP") → `/glossar#term`.
-- `DefinedTerm` JSON-LD bereits da, aber inkommende Links fehlen.
-
-**B3 Blog-Cluster-Strategie**
-- Themen-Hub-Seiten (Heizung, Dämmung, Solar) als „Pillar" mit Listing aller passenden Blogartikel + Rechner + Förderung. Heute sind die Themenseiten reine Marketing-LPs ohne Blog-Cluster.
-- Internal-Link-Audit: Orphan-Pages identifizieren.
-
-**B4 Sitemap & robots**
-- `sitemap.xml` dynamisch aus Supabase blog_posts + statischer Liste (heute manuell, veraltet schnell).
-- Bilder-Sitemap für AI-generierte Assets.
-
----
-
-## Stufe C — Conversion & Lead-Generierung
-
-**C1 Rechner-Ergebnis → Lead**
-- Nach Berechnung: „Ergebnis per E-Mail erhalten" + „Fachmann in Ihrer Region anfragen" (E-Mail via Resend, Lead in Supabase).
-- Aktuell endet jeder Rechner ohne Lead-Capture.
-
-**C2 Multi-Step-Lead-Funnel**
-- `/sanierungscheck` heute Self-Service. Zusätzlich: Optional am Ende Kontaktformular → Energieberater-Match aus `EnergyAdvisorSearch`.
-
-**C3 Vertrauens-Layer**
-- Testimonials/Bewertungen-Sektion mit `Review` JSON-LD.
-- „Stand: Mai 2026" Timestamp + Autor auf jeder Rechner-/Förder-Seite (E-E-A-T).
-
-**C4 Newsletter-Reaktivierung**
-- Inhalt-spezifische Lead-Magnete: PDF „Förderung 2026 Komplettübersicht" als Opt-in im Förderrechner.
-
----
-
-## Stufe D — Performance, A11y, Personalisierung
-
-**D1 Performance**
-- Bilder: AVIF/WebP + `loading="lazy"` + explizite width/height (CLS).
-- `recharts` per Code-Splitting nur in ROI-Rechner laden.
-- Lighthouse-Audit-Pass (Ziel: 90+ mobile).
-
-**D2 Accessibility**
-- Audit aller Rechner-Forms: Label-Bindung, ARIA-Live für Ergebnisse, Fokus-Reihenfolge.
-- Kontrast-Check Glassmorphism in Light-Mode.
-
-**D3 Personalisierung leichtgewichtig**
-- Cookie-Profil „Hauseigentümer / Vermieter / Planer" → angepasste CTAs + Empfehlungen.
-- „Zuletzt benutzte Rechner" im Header-Mega-Menü.
-
-**D4 Chat-Bot → Action**
-- Heute reiner Q&A-Bot. Erweitern: bei Frage „Was kostet Wärmepumpe?" direkter Deep-Link mit vorausgefüllten Rechner-Params.
-
----
-
-## Reihenfolge & Empfehlung
-
-```text
-A (1–2 Tage) → B1+B3 (3–4 Tage) → C1+C3 (2–3 Tage) → D1+D2 (2 Tage)
-```
-
-**Empfehlung zu starten:** Stufe A komplett (rundet die Rechner-Arbeit ab und entfernt toten Code), dann **C1 (Lead-Capture in Rechnern)** als größter Business-Hebel, dann **B1 (Programmatic SEO Bundesland-Pages)** für organischen Traffic.
-
-## Offene Fragen
-
-1. Ist **Lead-Generierung mit E-Mail-Versand** (Resend, Supabase-Tabelle `leads`) gewünscht, oder bleibt die Seite rein informativ/AdSense-basiert?
-2. Sollen die **80 Bundesland-Förder-Pages** statisch im Build oder dynamisch aus Supabase kommen?
-3. Priorität: **mehr Traffic** (Stufe B) oder **mehr Conversion aus bestehendem Traffic** (Stufe C) zuerst?
+- Keine neuen Berechnungen, keine neuen Eingabefelder, keine Designüberarbeitung der Cards.
+- Keine Änderungen an PDF-Export oder Share-Link.
