@@ -255,20 +255,29 @@ const KostenrechnerPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="border-border">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-muted-foreground mb-1">Bruttokosten (Ø)</p>
+                    <p className="text-sm text-muted-foreground mb-1 inline-flex items-center gap-1 justify-center">
+                      Bruttokosten (Ø)
+                      <InfoTip content="Mittelwert aus Min/Max-Spanne aller gewählten Gewerke, vor Förderung. Min/Max darunter zeigt die Bandbreite je nach Ausführung." />
+                    </p>
                     <p className="text-2xl font-bold text-foreground">{fmt(results.totalBruttoAvg)} €</p>
                     <p className="text-xs text-muted-foreground">{fmt(results.totalBruttoMin)} – {fmt(results.totalBruttoMax)} €</p>
                   </CardContent>
                 </Card>
                 <Card className="border-emerald-300 bg-emerald-50 dark:bg-emerald-950/30">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-emerald-700 dark:text-emerald-400 mb-1">Förderabzug</p>
+                    <p className="text-sm text-emerald-700 dark:text-emerald-400 mb-1 inline-flex items-center gap-1 justify-center">
+                      Förderabzug
+                      <InfoTip content="Summe der geschätzten BAFA/KfW-Zuschüsse über alle Gewerke. Tatsächliche Höhe wird im Antragsverfahren mit Energieberater (iSFP) festgelegt." />
+                    </p>
                     <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">– {fmt(results.totalFoerderung)} €</p>
                   </CardContent>
                 </Card>
                 <Card className="border-primary bg-primary/5">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-primary mb-1">Eigenanteil (Ø)</p>
+                    <p className="text-sm text-primary mb-1 inline-flex items-center gap-1 justify-center">
+                      Eigenanteil (Ø)
+                      <InfoTip content="Bruttokosten minus Förderung — der Betrag, den Sie selbst tragen oder finanzieren müssen." />
+                    </p>
                     <p className="text-2xl font-bold text-primary">{fmt(results.totalNettoAvg)} €</p>
                     <p className="text-xs text-muted-foreground">{fmt(results.totalNettoMin)} – {fmt(results.totalNettoMax)} €</p>
                   </CardContent>
