@@ -292,8 +292,18 @@ const KostenrechnerPage = () => {
                       <TableHead>Gewerk</TableHead>
                       <TableHead className="text-right">Menge</TableHead>
                       <TableHead className="text-right">Kosten (Ø)</TableHead>
-                      <TableHead className="text-right">Förderung</TableHead>
-                      <TableHead className="text-right">Eigenanteil</TableHead>
+                      <TableHead className="text-right">
+                        <span className="inline-flex items-center gap-1 justify-end">
+                          Förderung
+                          <InfoTip content="Geschätzter BAFA/KfW-Zuschuss für dieses Gewerk, gedeckelt am gesetzlichen Höchstbetrag pro Wohneinheit." />
+                        </span>
+                      </TableHead>
+                      <TableHead className="text-right">
+                        <span className="inline-flex items-center gap-1 justify-end">
+                          Eigenanteil
+                          <InfoTip content="Kosten minus Förderung — Ihr verbleibender Finanzierungsbedarf für dieses Gewerk." />
+                        </span>
+                      </TableHead>
                       <TableHead className="text-right">Detail</TableHead>
                     </TableRow>
                   </TableHeader>
