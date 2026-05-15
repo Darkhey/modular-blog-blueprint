@@ -137,7 +137,10 @@ const KostenrechnerPage = () => {
         <div className="max-w-5xl mx-auto px-4 py-10 space-y-10">
           {/* Gewerk-Auswahl */}
           <section>
-            <h2 className="text-xl font-bold mb-4 text-foreground">1. Gewerke auswählen</h2>
+            <h2 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              1. Gewerke auswählen
+              <InfoTip content="Mehrfachauswahl möglich. Im nächsten Schritt verfeinern Sie die Mengen pro Gewerk. Sie können jederzeit Gewerke hinzufügen oder entfernen." />
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {gewerke.map((g) => {
                 const checked = inputs[g.id].selected;
