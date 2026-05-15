@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { Calculator, Zap, Home, Flame, Sun, DoorOpen, Layers, TriangleAlert, ArrowRight } from 'lucide-react';
+import { Calculator, Zap, Home, Flame, Sun, DoorOpen, Layers, TriangleAlert, ArrowRight, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,11 +8,56 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
+
+const InfoTip = ({ content }: { content: React.ReactNode }) => (
+  <>
+    {/* Desktop hover tooltip */}
+    <span className="hidden md:inline-flex">
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            type="button"
+            aria-label="Erläuterung anzeigen"
+            className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Info className="w-3.5 h-3.5" />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="max-w-xs text-xs leading-relaxed">
+          {content}
+        </TooltipContent>
+      </Tooltip>
+    </span>
+    {/* Mobile click popover */}
+    <span className="inline-flex md:hidden">
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            aria-label="Erläuterung anzeigen"
+            className="inline-flex items-center justify-center text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Info className="w-4 h-4" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent side="top" className="max-w-[260px] text-xs leading-relaxed">
+          {content}
+        </PopoverContent>
+      </Popover>
+    </span>
+  </>
+);
+
 
 const iconMap: Record<string, React.ReactNode> = {
   Home: <Home className="w-6 h-6" />,
@@ -92,7 +137,10 @@ const KostenrechnerPage = () => {
         <div className="max-w-5xl mx-auto px-4 py-10 space-y-10">
           {/* Gewerk-Auswahl */}
           <section>
-            <h2 className="text-xl font-bold mb-4 text-foreground">1. Gewerke auswählen</h2>
+            <h2 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+              1. Gewerke auswählen
+              <InfoTip content="Mehrfachauswahl möglich. Im nächsten Schritt verfeinern Sie die Mengen pro Gewerk. Sie können jederzeit Gewerke hinzufügen oder entfernen." />
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {gewerke.map((g) => {
                 const checked = inputs[g.id].selected;
@@ -113,15 +161,18 @@ const KostenrechnerPage = () => {
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-primary">{iconMap[g.icon]}</span>
                           <span className="font-semibold text-foreground">{g.label}</span>
+                          {g.tooltip && <InfoTip content={g.tooltip} />}
                         </div>
                         <p className="text-sm text-muted-foreground">{g.description}</p>
-                        <div className="flex gap-2 mt-2">
-                          <Badge variant="secondary" className="text-xs">
+                        <div className="flex gap-2 mt-2 flex-wrap items-center">
+                          <Badge variant="secondary" className="text-xs inline-flex items-center gap-1">
                             {g.costPerUnit.min}–{g.costPerUnit.max} €/{g.unit}
+                            <InfoTip content={`Marktübliche Spanne 2025 inkl. Material & Montage. Untergrenze = einfache Ausführung, Obergrenze = Premium / aufwendige Bestandsanpassung. Ohne Gerüst und Sonderbauten.`} />
                           </Badge>
                           {g.foerderungPercent > 0 && (
-                            <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300">
+                            <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
                               {g.foerderungPercent}% Förderung
+                              <InfoTip content={`Geschätzter BAFA/KfW-Zuschuss auf förderfähige Kosten, gedeckelt bei ${g.foerderungMax.toLocaleString('de-DE')} € pro Wohneinheit. Nur mit Energieberater (iSFP) und vor Auftragsvergabe beantragt.`} />
                             </Badge>
                           )}
                         </div>
@@ -136,7 +187,10 @@ const KostenrechnerPage = () => {
           {/* Detail-Eingaben */}
           {selectedCount > 0 && (
             <section>
-              <h2 className="text-xl font-bold mb-4 text-foreground">2. Mengen & Flächen angeben</h2>
+              <h2 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+                2. Mengen & Flächen angeben
+                <InfoTip content="Schieben Sie den Regler oder geben Sie die Menge direkt ein. Pro Gewerk finden Sie unter dem Slider eine Live-Kostenspanne." />
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {gewerke
                   .filter((g) => inputs[g.id].selected)
@@ -146,6 +200,7 @@ const KostenrechnerPage = () => {
                         <CardTitle className="text-base flex items-center gap-2">
                           <span className="text-primary">{iconMap[g.icon]}</span>
                           {g.label}
+                          {g.mengeHelp && <InfoTip content={g.mengeHelp} />}
                         </CardTitle>
                         <CardDescription>{g.unitLabel}</CardDescription>
                       </CardHeader>
@@ -200,20 +255,29 @@ const KostenrechnerPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Card className="border-border">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-muted-foreground mb-1">Bruttokosten (Ø)</p>
+                    <p className="text-sm text-muted-foreground mb-1 inline-flex items-center gap-1 justify-center">
+                      Bruttokosten (Ø)
+                      <InfoTip content="Mittelwert aus Min/Max-Spanne aller gewählten Gewerke, vor Förderung. Min/Max darunter zeigt die Bandbreite je nach Ausführung." />
+                    </p>
                     <p className="text-2xl font-bold text-foreground">{fmt(results.totalBruttoAvg)} €</p>
                     <p className="text-xs text-muted-foreground">{fmt(results.totalBruttoMin)} – {fmt(results.totalBruttoMax)} €</p>
                   </CardContent>
                 </Card>
                 <Card className="border-emerald-300 bg-emerald-50 dark:bg-emerald-950/30">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-emerald-700 dark:text-emerald-400 mb-1">Förderabzug</p>
+                    <p className="text-sm text-emerald-700 dark:text-emerald-400 mb-1 inline-flex items-center gap-1 justify-center">
+                      Förderabzug
+                      <InfoTip content="Summe der geschätzten BAFA/KfW-Zuschüsse über alle Gewerke. Tatsächliche Höhe wird im Antragsverfahren mit Energieberater (iSFP) festgelegt." />
+                    </p>
                     <p className="text-2xl font-bold text-emerald-700 dark:text-emerald-400">– {fmt(results.totalFoerderung)} €</p>
                   </CardContent>
                 </Card>
                 <Card className="border-primary bg-primary/5">
                   <CardContent className="p-5 text-center">
-                    <p className="text-sm text-primary mb-1">Eigenanteil (Ø)</p>
+                    <p className="text-sm text-primary mb-1 inline-flex items-center gap-1 justify-center">
+                      Eigenanteil (Ø)
+                      <InfoTip content="Bruttokosten minus Förderung — der Betrag, den Sie selbst tragen oder finanzieren müssen." />
+                    </p>
                     <p className="text-2xl font-bold text-primary">{fmt(results.totalNettoAvg)} €</p>
                     <p className="text-xs text-muted-foreground">{fmt(results.totalNettoMin)} – {fmt(results.totalNettoMax)} €</p>
                   </CardContent>
@@ -228,8 +292,18 @@ const KostenrechnerPage = () => {
                       <TableHead>Gewerk</TableHead>
                       <TableHead className="text-right">Menge</TableHead>
                       <TableHead className="text-right">Kosten (Ø)</TableHead>
-                      <TableHead className="text-right">Förderung</TableHead>
-                      <TableHead className="text-right">Eigenanteil</TableHead>
+                      <TableHead className="text-right">
+                        <span className="inline-flex items-center gap-1 justify-end">
+                          Förderung
+                          <InfoTip content="Geschätzter BAFA/KfW-Zuschuss für dieses Gewerk, gedeckelt am gesetzlichen Höchstbetrag pro Wohneinheit." />
+                        </span>
+                      </TableHead>
+                      <TableHead className="text-right">
+                        <span className="inline-flex items-center gap-1 justify-end">
+                          Eigenanteil
+                          <InfoTip content="Kosten minus Förderung — Ihr verbleibender Finanzierungsbedarf für dieses Gewerk." />
+                        </span>
+                      </TableHead>
                       <TableHead className="text-right">Detail</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -265,12 +339,16 @@ const KostenrechnerPage = () => {
               {/* Chart */}
               {chartData && chartData.length > 0 && (
                 <Card className="border-border p-4">
-                  <h3 className="font-semibold mb-4 text-foreground">Kostenverteilung pro Gewerk</h3>
+                  <h3 className="font-semibold mb-1 text-foreground flex items-center gap-2">
+                    Kostenverteilung pro Gewerk
+                    <InfoTip content="Pro Gewerk sehen Sie drei Balken: graue Bruttokosten, grüne Förderung und farbige Nettokosten (Ihr Eigenanteil)." />
+                  </h3>
+                  <p className="text-xs text-muted-foreground mb-4">Balken zeigen Brutto, Förderung und Netto im direkten Vergleich.</p>
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={chartData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
                       <XAxis dataKey="name" tick={{ fontSize: 12 }} />
                       <YAxis tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
-                      <Tooltip formatter={(value: number) => `${fmt(value)} €`} />
+                      <ChartTooltip formatter={(value: number) => [`${fmt(value)} €`, '']} />
                       <Legend />
                       <Bar dataKey="Bruttokosten" fill="hsl(var(--muted-foreground))" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="Förderung" fill="hsl(142, 71%, 45%)" radius={[4, 4, 0, 0]} />
@@ -293,6 +371,38 @@ const KostenrechnerPage = () => {
               </p>
             </section>
           )}
+
+          {/* Methodik */}
+          <Accordion type="single" collapsible className="border border-border rounded-lg bg-card">
+            <AccordionItem value="methodik" className="border-0">
+              <AccordionTrigger className="px-4 hover:no-underline">
+                <span className="flex items-center gap-2 text-sm font-semibold">
+                  <Info className="w-4 h-4 text-primary" />
+                  Wie wird gerechnet?
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-sm text-muted-foreground space-y-3">
+                <p>
+                  Pro Gewerk gilt die Formel:
+                </p>
+                <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
+Bruttokosten = Menge × Ø-Preis (Mittel aus Min/Max)
+Förderung    = min(Förderquote × Bruttokosten, Deckel)
+Eigenanteil  = Bruttokosten − Förderung
+                </pre>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Ø-Preis:</strong> Mittelwert der marktüblichen Preisspanne 2025 (Material + Montage).</li>
+                  <li><strong>Förderquote:</strong> BAFA-Sätze (Einzelmaßnahmen Hülle 15 % + 5 % iSFP) bzw. KfW 458 Heizung (30 % Sockel, bis 70 % mit Boni).</li>
+                  <li><strong>Deckel:</strong> 60.000 €/Wohneinheit (Hülle, Fenster, Anlagentechnik), 70.000 € (Heizung), Solar ohne Direktzuschuss.</li>
+                  <li>Mehrere Gewerke werden additiv summiert; Deckelung erfolgt pro Gewerk.</li>
+                  <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/regionale-foerderung" className="text-primary underline">regionale Förderkarte</Link>.</li>
+                </ul>
+                <p className="text-xs">
+                  Stand: 2025. Verbindliche Kostenangebote nur durch zertifizierte Energieberater und Fachbetriebe.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
         </div>
