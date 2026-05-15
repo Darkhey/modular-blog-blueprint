@@ -200,6 +200,7 @@ const KostenrechnerPage = () => {
                         <CardTitle className="text-base flex items-center gap-2">
                           <span className="text-primary">{iconMap[g.icon]}</span>
                           {g.label}
+                          {g.mengeHelp && <InfoTip content={g.mengeHelp} />}
                         </CardTitle>
                         <CardDescription>{g.unitLabel}</CardDescription>
                       </CardHeader>
