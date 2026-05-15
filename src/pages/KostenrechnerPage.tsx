@@ -161,15 +161,18 @@ const KostenrechnerPage = () => {
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-primary">{iconMap[g.icon]}</span>
                           <span className="font-semibold text-foreground">{g.label}</span>
+                          {g.tooltip && <InfoTip content={g.tooltip} />}
                         </div>
                         <p className="text-sm text-muted-foreground">{g.description}</p>
-                        <div className="flex gap-2 mt-2">
-                          <Badge variant="secondary" className="text-xs">
+                        <div className="flex gap-2 mt-2 flex-wrap items-center">
+                          <Badge variant="secondary" className="text-xs inline-flex items-center gap-1">
                             {g.costPerUnit.min}–{g.costPerUnit.max} €/{g.unit}
+                            <InfoTip content={`Marktübliche Spanne 2025 inkl. Material & Montage. Untergrenze = einfache Ausführung, Obergrenze = Premium / aufwendige Bestandsanpassung. Ohne Gerüst und Sonderbauten.`} />
                           </Badge>
                           {g.foerderungPercent > 0 && (
-                            <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300">
+                            <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
                               {g.foerderungPercent}% Förderung
+                              <InfoTip content={`Geschätzter BAFA/KfW-Zuschuss auf förderfähige Kosten, gedeckelt bei ${g.foerderungMax.toLocaleString('de-DE')} € pro Wohneinheit. Nur mit Energieberater (iSFP) und vor Auftragsvergabe beantragt.`} />
                             </Badge>
                           )}
                         </div>
