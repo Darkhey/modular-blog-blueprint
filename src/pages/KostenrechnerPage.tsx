@@ -372,6 +372,38 @@ const KostenrechnerPage = () => {
             </section>
           )}
 
+          {/* Methodik */}
+          <Accordion type="single" collapsible className="border border-border rounded-lg bg-card">
+            <AccordionItem value="methodik" className="border-0">
+              <AccordionTrigger className="px-4 hover:no-underline">
+                <span className="flex items-center gap-2 text-sm font-semibold">
+                  <Info className="w-4 h-4 text-primary" />
+                  Wie wird gerechnet?
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-sm text-muted-foreground space-y-3">
+                <p>
+                  Pro Gewerk gilt die Formel:
+                </p>
+                <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
+Bruttokosten = Menge × Ø-Preis (Mittel aus Min/Max)
+Förderung    = min(Förderquote × Bruttokosten, Deckel)
+Eigenanteil  = Bruttokosten − Förderung
+                </pre>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Ø-Preis:</strong> Mittelwert der marktüblichen Preisspanne 2025 (Material + Montage).</li>
+                  <li><strong>Förderquote:</strong> BAFA-Sätze (Einzelmaßnahmen Hülle 15 % + 5 % iSFP) bzw. KfW 458 Heizung (30 % Sockel, bis 70 % mit Boni).</li>
+                  <li><strong>Deckel:</strong> 60.000 €/Wohneinheit (Hülle, Fenster, Anlagentechnik), 70.000 € (Heizung), Solar ohne Direktzuschuss.</li>
+                  <li>Mehrere Gewerke werden additiv summiert; Deckelung erfolgt pro Gewerk.</li>
+                  <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/regionale-foerderung" className="text-primary underline">regionale Förderkarte</Link>.</li>
+                </ul>
+                <p className="text-xs">
+                  Stand: 2025. Verbindliche Kostenangebote nur durch zertifizierte Energieberater und Fachbetriebe.
+                </p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
         </div>
       </div>
