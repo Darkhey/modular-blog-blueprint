@@ -51,6 +51,8 @@ export const gewerke: Gewerk[] = [
     minValue: 20,
     maxValue: 300,
     step: 10,
+    tooltip: 'Aufsparrendämmung 150–200 €/m², Zwischen-/Untersparren günstiger (80–130 €/m²). BAFA-Förderung 15 % + 5 % iSFP, Deckel 60.000 €/WE.',
+    mengeHelp: 'Geneigte Dachfläche (nicht Grundfläche). Bei Steildach ≈ Grundfläche × 1,3.',
   },
   {
     id: 'fenster',
