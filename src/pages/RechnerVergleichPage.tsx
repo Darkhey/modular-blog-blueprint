@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CalculatorHero from '@/components/calculators/CalculatorHero';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';

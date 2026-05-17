@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import CalculatorHero from '@/components/calculators/CalculatorHero';
 import { Link } from 'react-router-dom';
 import { Calculator, Zap, Home, Flame, Sun, DoorOpen, Layers, TriangleAlert, ArrowRight, Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
