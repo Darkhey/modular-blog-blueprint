@@ -78,7 +78,12 @@ const BlogPost = () => {
                   </div>
                 </div>
               </article>
-              
+
+              <RelatedCalculators
+                topics={deriveTopics(post.topic, post.keywords, post.title)}
+                className="mt-8 rounded-xl"
+              />
+
               {/* Comment System */}
               <div className="mt-8">
                 <CommentSystem postId={post.id} postSlug={post.slug} />
