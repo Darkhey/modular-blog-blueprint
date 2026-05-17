@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, RotateCcw, CheckCircle2, ExternalLink, Calculator } from "lucide-react";
+import { ArrowLeft, ArrowRight, RotateCcw, CheckCircle2, ExternalLink, Calculator, ClipboardList } from "lucide-react";
+import CalculatorHero from "@/components/calculators/CalculatorHero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
