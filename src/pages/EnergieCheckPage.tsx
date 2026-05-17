@@ -123,16 +123,19 @@ const EnergieCheckPage = () => {
         <meta name="description" content="12 Fragen, ein Score von 0–100 und konkrete Empfehlungen für deine nächsten Sanierungs-Schritte." />
         <link rel="canonical" href="https://sanieren-sparen.de/energie-check" />
       </Helmet>
+      <CalculatorHero
+        icon={Zap}
+        title="Energie-Check für dein Zuhause"
+        subtitle="Beantworte 12 Fragen und erhalte einen Score von 0–100 plus konkrete nächste Schritte."
+        gradient="from-yellow-500 to-amber-500"
+        breadcrumbs={[
+          { label: 'Rechner', to: '/rechner' },
+          { label: 'Energie-Check' },
+        ]}
+      />
       <main>
         <div className="container max-w-4xl mx-auto px-4 py-8">
-          <BreadcrumbNavigation
-            items={[{ label: 'Rechner', href: '/rechner' }, { label: 'Energie-Check' }]}
-            className="mb-6"
-          />
           <div className="mb-6">
-            <Badge className="mb-3">Quick-Check · 2 Min.</Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Energie-Check für dein Zuhause</h1>
-            <p className="text-muted-foreground text-lg">Beantworte 12 Fragen und erhalte einen Score von 0–100 plus konkrete nächste Schritte.</p>
             <div className="mt-4">
               <div className="flex justify-between text-xs text-muted-foreground mb-1">
                 <span>Fortschritt</span><span>{Object.keys(answers).length} / {FRAGEN.length}</span>

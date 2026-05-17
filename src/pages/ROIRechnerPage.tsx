@@ -79,19 +79,18 @@ const ROIRechnerPage = () => {
         <meta name="description" content="Berechne, wann sich deine Sanierung rechnet: Amortisationszeit, Cashflow über 20 Jahre, IRR und CO₂-Ersparnis." />
         <link rel="canonical" href="https://sanieren-sparen.de/roi-rechner" />
       </Helmet>
+      <CalculatorHero
+        icon={TrendingUp}
+        title="Wann rechnet sich deine Sanierung?"
+        subtitle="Cashflow, Amortisation, IRR und CO₂-Ersparnis – mit Energiepreis-Steigerung und Wartungskosten."
+        gradient="from-fuchsia-500 to-pink-500"
+        breadcrumbs={[
+          { label: 'Rechner', to: '/rechner' },
+          { label: 'Amortisations-Rechner' },
+        ]}
+      />
       <main>
         <div className="container max-w-5xl mx-auto px-4 py-8">
-          <BreadcrumbNavigation
-            items={[{ label: 'Rechner', href: '/rechner' }, { label: 'Amortisations-Rechner' }]}
-            className="mb-6"
-          />
-          <div className="mb-8">
-            <Badge className="mb-3">20-Jahres-Prognose</Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Wann rechnet sich deine Sanierung?</h1>
-            <p className="text-muted-foreground text-lg">
-              Cashflow, Amortisation, IRR und CO₂-Ersparnis – mit Energiepreis-Steigerung und Wartungskosten.
-            </p>
-          </div>
 
           <div className="grid lg:grid-cols-[380px_1fr] gap-6">
             <Card>

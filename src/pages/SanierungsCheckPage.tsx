@@ -58,21 +58,16 @@ const SanierungsCheckPage = () => {
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-secondary/50 to-background">
-        {/* Hero */}
-        <section className="py-12 md:py-16 text-center px-4">
-          <div className="max-w-3xl mx-auto">
-            <Badge variant="secondary" className="mb-4 text-sm px-4 py-1">
-              🏠 Kostenloser Sanierungscheck
-            </Badge>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-              Welche Sanierung lohnt sich für Ihr Haus?
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Beantworten Sie 6 kurze Fragen und erhalten Sie eine personalisierte
-              Empfehlung mit Kosten, Förderung und Einsparpotenzial.
-            </p>
-          </div>
-        </section>
+        <CalculatorHero
+          icon={ClipboardList}
+          title="Welche Sanierung lohnt sich für Ihr Haus?"
+          subtitle="Beantworten Sie 6 kurze Fragen und erhalten Sie eine personalisierte Empfehlung mit Kosten, Förderung und Einsparpotenzial."
+          gradient="from-teal-500 to-emerald-500"
+          breadcrumbs={[
+            { label: 'Rechner', to: '/rechner' },
+            { label: 'Sanierungscheck' },
+          ]}
+        />
 
         <div className="max-w-3xl mx-auto px-4 pb-16">
           {/* Progress */}
