@@ -93,7 +93,7 @@ const ShareResults = ({ calculatorType, results, inputs, className = '' }: Share
   };
 
   const downloadQr = () => {
-    const svg = document.getElementById('share-qr-svg') as SVGSVGElement | null;
+    const svg = document.getElementById('share-qr-svg') as unknown as SVGSVGElement | null;
     if (!svg) return;
     const svgData = new XMLSerializer().serializeToString(svg);
     const canvas = document.createElement('canvas');
