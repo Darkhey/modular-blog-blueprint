@@ -105,22 +105,18 @@ const FoerderrechnerPage = () => {
         <meta name="description" content="Berechne BAFA-Zuschuss, KfW-Förderung, iSFP-Bonus und regionale Programme für deine Sanierung – aktuell für 2026." />
         <link rel="canonical" href="https://sanieren-sparen.de/foerderrechner" />
       </Helmet>
+      <CalculatorHero
+        icon={Euro}
+        title="Förderrechner: BAFA, KfW & Boni kombinieren"
+        subtitle="Schätze deinen Zuschuss aus Bundes- und Landesprogrammen in unter einer Minute. Werte sind Richtwerte gemäß BEG-EM und können je nach Antrag abweichen."
+        gradient="from-emerald-600 to-green-500"
+        breadcrumbs={[
+          { label: 'Rechner', to: '/rechner' },
+          { label: 'Förderrechner' },
+        ]}
+      />
       <main>
         <div className="container max-w-4xl mx-auto px-4 py-8">
-          <BreadcrumbNavigation
-            items={[
-              { label: 'Rechner', href: '/rechner' },
-              { label: 'Förderrechner' },
-            ]}
-            className="mb-6"
-          />
-          <div className="mb-8">
-            <Badge className="mb-3">BEG 2026</Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Förderrechner: BAFA, KfW & Boni kombinieren</h1>
-            <p className="text-muted-foreground text-lg">
-              Schätze deinen Zuschuss aus Bundes- und Landesprogrammen in unter einer Minute. Werte sind Richtwerte gemäß BEG-EM und können je nach Antrag abweichen.
-            </p>
-          </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <Card>

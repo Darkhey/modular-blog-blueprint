@@ -121,18 +121,16 @@ const KostenrechnerPage = () => {
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
-        {/* Hero */}
-        <section className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-12">
-          <div className="max-w-5xl mx-auto px-4 text-center">
-            <div className="flex justify-center mb-4">
-              <Calculator className="w-12 h-12" />
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-3">Kosten-Vergleichsrechner</h1>
-            <p className="text-lg text-emerald-100 max-w-2xl mx-auto">
-              Wählen Sie Ihre Sanierungsmaßnahmen, geben Sie Flächen ein und erhalten Sie eine Gesamtkostenschätzung mit automatischem Förderabzug.
-            </p>
-          </div>
-        </section>
+      <CalculatorHero
+        icon={Calculator}
+        title="Kosten-Vergleichsrechner"
+        subtitle="Wählen Sie Ihre Sanierungsmaßnahmen, geben Sie Flächen ein und erhalten Sie eine Gesamtkostenschätzung mit automatischem Förderabzug."
+        gradient="from-emerald-500 to-teal-500"
+        breadcrumbs={[
+          { label: 'Rechner', to: '/rechner' },
+          { label: 'Kostenrechner' },
+        ]}
+      />
 
         <div className="max-w-5xl mx-auto px-4 py-10 space-y-10">
           {/* Gewerk-Auswahl */}
