@@ -9,7 +9,7 @@ import ModernizationPlanSection from './modernization/ModernizationPlanSection';
 import ExpertSettings from './modernization/ExpertSettings';
 import CalculatorResults from './modernization/CalculatorResults';
 import QuickAccessButtons from './QuickAccessButtons';
-import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 

@@ -13,7 +13,7 @@ import InsulationCalculatorForm from './insulation/InsulationCalculatorForm';
 import InsulationCalculatorResult from './insulation/InsulationCalculatorResult';
 import InsulationInfoSection from "./insulation/InsulationInfoSection";
 import QuickAccessButtons from './QuickAccessButtons';
-import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 

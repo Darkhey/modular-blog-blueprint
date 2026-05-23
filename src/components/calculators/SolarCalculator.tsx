@@ -10,7 +10,7 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
-import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
 
