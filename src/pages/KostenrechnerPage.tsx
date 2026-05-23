@@ -392,6 +392,18 @@ Eigenanteil  = Bruttokosten − Förderung
           </Accordion>
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
+
+          <CalculatorFaqSection
+            faqKey="kostenrechner"
+            calculatorType="kosten"
+            title="Sanierungs-Kostenrechner 2026"
+            description="Online-Kostenrechner für Sanierungen: Gewerke kombinieren, Förderung abziehen, PDF exportieren."
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Sanierungs-Kostenrechner', url: 'https://sanieren-sparen.de/kostenrechner' },
+            ]}
+          />
         </div>
       </div>
     </>
