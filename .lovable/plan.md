@@ -1,40 +1,55 @@
-# Tooltips & Erläuterungen für den Kostenrechner
+# Ziel
+Damit Google die Rechner als prominente Rich Results (Sitelinks, "WebApplication"-Karten, FAQ-Akkordeons, Breadcrumbs) ausspielt, brauchen wir ein konsistentes, sauber verschachteltes JSON-LD-Setup plus ergänzende On-Page-Signale auf jeder Rechner-Seite.
 
-Ziel: Nutzer verstehen sofort, was Begriffe wie "Bruttokosten", "Förderabzug", "Eigenanteil" bedeuten und woher die Zahlen pro Gewerk kommen — ohne die Seite zu verlassen.
+## Was Google bei "Rechner-Boxen" tatsächlich rendert
+- **Sitelinks Search Box / Sitelinks** unter dem Haupttreffer → `WebSite` + `SearchAction` auf der Startseite + saubere interne Verlinkung & Breadcrumbs.
+- **Rich Snippet "FAQ-Akkordeon"** → `FAQPage` JSON-LD pro Rechner (3–5 Fragen).
+- **App-/Tool-Karte** → `SoftwareApplication` (oder `WebApplication`) mit `name`, `applicationCategory`, `offers` (Preis 0), `aggregateRating` (optional, nur wenn echte Bewertungen vorhanden).
+- **Breadcrumb-Pfad im Snippet** → `BreadcrumbList` JSON-LD + sichtbare Breadcrumbs (haben wir bereits via `CalculatorHero`).
+- **Hub-Box mit allen Rechnern** → `ItemList` auf `/rechner` (vorhanden) + zusätzlich `CollectionPage`-Wrapper.
 
-## Umfang (rein UI/Inhalt, keine Logik-Änderungen)
+## Status quo
+- `CalculatorStructuredData.tsx` liefert bereits `WebApplication` + optional `FAQPage`, wird aber nicht überall mit FAQs gefüttert.
+- `RechnerHubPage` hat `ItemList`, aber ohne `CollectionPage`-Hülle und ohne Beschreibungstexte je Item.
+- Breadcrumbs sichtbar via `CalculatorHero`, aber **kein** `BreadcrumbList`-JSON-LD.
+- `index.html` hat vermutlich kein `WebSite` + `SearchAction` (Sitelinks Search Box). Muss geprüft/ergänzt werden.
 
-Datei: `src/pages/KostenrechnerPage.tsx` — Tooltip-Icons (`Info` aus lucide) neben den erklärungsbedürftigen Stellen, Inhalte über `Tooltip` (Desktop) und `Popover` (Touch/Mobile).
+## Umsetzung
 
-Datei: `src/data/kostenrechnerData.ts` — pro Gewerk ein neues Feld `tooltip` (kurze Erklärung zu Kostenspanne & Förderbasis), z. B.:
-- Fassadendämmung: "WDVS 120–180 €/m², vorgehängte hinterlüftete Fassade 200–250 €/m². BAFA-Förderung 15 % + 5 % iSFP-Bonus."
-- Heizung: "Pauschale auf Wohnfläche, da Wärmepumpe/Pellet stark variieren. KfW 458 bis zu 70 % (Sockel 30 % + Boni)."
-- Solar: "Keine Direktförderung; Wirtschaftlichkeit über Einspeisevergütung & Eigenverbrauch — siehe Solar-Rechner."
-- analog Dach, Fenster, Kellerdecke
+### 1. Pro Rechner-Seite (9 Seiten)
+- `CalculatorStructuredData` erweitern um:
+  - `BreadcrumbList`-Schema (aus den Hero-Breadcrumbs ableiten).
+  - `SoftwareApplication` zusätzlich zu `WebApplication` (bessere Trefferquote bei Google für "Tool/Rechner"-Queries).
+  - Pflicht-Felder: `name`, `url`, `description`, `applicationCategory: "FinanceApplication"`, `operatingSystem: "Any"`, `offers { price: 0 }`, `inLanguage: "de-DE"`, `isAccessibleForFree: true`.
+- Jede Rechner-Seite ruft `CalculatorStructuredData` mit **kuratiertem FAQ-Block (3–5 Q&A)** auf. FAQs zentral in `src/data/calculatorFaqs.ts` pflegen.
+- Sichtbares FAQ-Accordion unterhalb des Rechners (Google verlangt, dass FAQ-JSON-LD-Inhalt auch on-page sichtbar ist – sonst Rich-Result-Strike).
 
-## Stellen mit Info-Tooltip
+### 2. Hub-Seite `/rechner`
+- JSON-LD um `CollectionPage` + `ItemList` mit `description`, `image`, `url` pro Item erweitern.
+- Zusätzlich `BreadcrumbList`.
+- H1/Intro semantisch klarer (Keywords "Sanierungsrechner", "kostenlos", "online").
 
-1. Sektion "1. Gewerke auswählen" — Überschrift bekommt einen Info-Hinweis ("Mehrfachauswahl möglich, Werte werden im nächsten Schritt verfeinert.")
-2. Pro Gewerk-Karte — kleines Info-Icon neben dem Label zeigt die `tooltip`-Erklärung (Kostenspanne, Förderbasis, Quelle).
-3. Förderungs-Badge ("20 % Förderung") — Tooltip: "Geschätzter BAFA/KfW-Satz auf förderfähige Kosten, gedeckelt bei {foerderungMax} €/Wohneinheit."
-4. Kostenspanne-Badge ("120–250 €/m²") — Tooltip: "Marktübliche Spanne 2025 inkl. Material & Montage, ohne Gerüst/Sonderbauten."
-5. Sektion "2. Mengen & Flächen" — Slider-Label bekommt Tooltip mit Mess-Hilfe (z. B. "Fassadenfläche = Außenwandfläche minus Fenster/Türen").
-6. Ergebnis-Karten — drei Info-Icons:
-   - **Bruttokosten (Ø)**: "Mittelwert aus Min/Max-Spanne aller gewählten Gewerke, vor Förderung."
-   - **Förderabzug**: "Summe der geschätzten Zuschüsse (BAFA/KfW). Tatsächliche Höhe nach Energieberater-Antrag."
-   - **Eigenanteil**: "Bruttokosten minus Förderung — der Betrag, den Sie selbst tragen oder finanzieren."
-7. Tabellenkopf — Tooltips auf "Förderung" und "Eigenanteil" (gleiche Kurztexte wie 6).
-8. Chart — kleiner Hinweis unter dem Titel: "Balken zeigen pro Gewerk Brutto, Förderung und Netto im direkten Vergleich."
-9. Footnote bleibt, wird aber durch einen prominenteren "Wie wird gerechnet?"-Collapsible (Accordion) am Seitenende ergänzt mit Formel `Eigenanteil = Menge × Ø-Preis − min(Förderquote × Kosten, Deckel)`.
+### 3. Sitewide (`index.html`)
+- `WebSite` JSON-LD mit `potentialAction: SearchAction` ergänzen (target: `/suche?q={search_term_string}` – Route existiert via `SearchPage`).
+- `Organization` JSON-LD prüfen/sicherstellen.
 
-## Technische Umsetzung
+### 4. Interne Verlinkung & Sitelinks-Steuerung
+- Footer-/Header-Link "Rechner" → bereits vorhanden, plus Liste der Top-Rechner im Footer (begünstigt Sitelinks).
+- Konsistente, aussagekräftige `<title>`-Pattern: `"{Rechnername} 2026 – kostenlos online | Sanieren & Sparen"`.
+- `meta description` jeweils mit klarer Nutzenformulierung + Keyword "Rechner".
 
-- `TooltipProvider` umschließt die Seite (sofern noch nicht via Layout vorhanden — kurz prüfen, sonst lokal hinzufügen).
-- Komponente `<InfoTip content="…" />` als kleines internes Hilfs-JSX in derselben Datei (Info-Icon `w-3.5 h-3.5 text-muted-foreground`, on Touch über `Popover`-Fallback). Hält den Diff klein und vermeidet eine neue Datei.
-- A11y: `aria-label="Erläuterung anzeigen"`, fokussierbar via Tab.
-- Keine Änderungen an `useKostenrechner`, Berechnung oder Datenstruktur außer optionalem `tooltip?: string` auf `Gewerk`.
+### 5. Validierung
+- Nach Deploy: Hinweis an Nutzer, im **Google Rich Results Test** und in der **Search Console → Verbesserungen** zu prüfen. Kein automatischer Check möglich.
 
-## Out of scope
+## Betroffene Dateien
+- `src/components/seo/CalculatorStructuredData.tsx` (erweitern: SoftwareApplication, BreadcrumbList, breadcrumbs-Prop)
+- `src/data/calculatorFaqs.ts` (neu, zentrale FAQs)
+- `src/components/shared/CalculatorFaqSection.tsx` (neu, sichtbares Accordion)
+- 9 Rechner-Seiten: FAQ-Block einbinden + Structured-Data-Aufruf vereinheitlichen (`Heizkostenrechner`, `Daemmungsrechner`, `Kostenrechner`, `RechnerVergleich`, `Foerderrechner`, `ROIRechner`, `EnergieCheck`, `Sanierungscheck`, `Solarenergie`)
+- `src/pages/RechnerHubPage.tsx` (CollectionPage + BreadcrumbList)
+- `index.html` (WebSite + SearchAction, sofern fehlt)
+- `src/data/calculatorsCatalog.ts` (sicherstellen, dass `description` SEO-tauglich ist – ggf. minimal nachschärfen)
 
-- Keine neuen Berechnungen, keine neuen Eingabefelder, keine Designüberarbeitung der Cards.
-- Keine Änderungen an PDF-Export oder Share-Link.
+## Out of Scope (für separaten Schritt)
+- Aggregierte Bewertungen (`aggregateRating`) – nur wenn echte User-Reviews vorhanden, sonst Google-Spam-Strike.
+- Bundesland-Förderpages (B2) – bleibt offen.
