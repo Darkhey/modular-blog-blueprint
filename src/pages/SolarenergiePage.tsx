@@ -234,6 +234,20 @@ const SolarenergiePage = () => {
           </section>
 
           <RelatedCalculators topics={['solar', 'photovoltaik', 'pv', 'batterie', 'wallbox']} excludeIds={['solarrechner']} />
+
+          <CalculatorFaqSection
+            faqKey="solarrechner"
+            calculatorType="solar"
+            title="Solar-Rechner 2026"
+            description="PV-Anlage, Speicher, Wallbox und 20-Jahres-Prognose mit regionalem Sonnenertrag berechnen."
+            path="solarenergie"
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Solar-Rechner', url: 'https://sanieren-sparen.de/solarenergie' },
+            ]}
+          />
+
           <EnergyAdvisorSearch />
         </div>
       </main>
