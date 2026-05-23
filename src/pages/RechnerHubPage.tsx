@@ -116,6 +116,7 @@ const RechnerHubPage = () => {
         />
         <link rel="canonical" href={`${SITE}/rechner`} />
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
 
       {/* Hero */}
