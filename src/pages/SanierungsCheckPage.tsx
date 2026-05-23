@@ -6,6 +6,7 @@ import CalculatorHero from "@/components/calculators/CalculatorHero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import CalculatorFaqSection from "@/components/shared/CalculatorFaqSection";
 import { Badge } from "@/components/ui/badge";
 import { decisionSteps, calculateRecommendations, type Recommendation } from "@/data/decisionTreeData";
 import { cn } from "@/lib/utils";
@@ -40,22 +41,12 @@ const SanierungsCheckPage = () => {
     setResults(null);
   };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Sanierungscheck – Welche Sanierung lohnt sich?",
-    description: "Finden Sie in 6 Schritten heraus, welche Sanierungsmaßnahmen für Ihr Haus am sinnvollsten sind.",
-    applicationCategory: "UtilityApplication",
-    operatingSystem: "Web",
-    url: "https://modular-blog-blueprint.lovable.app/sanierungscheck",
-  };
-
   return (
     <>
       <Helmet>
-        <title>Sanierungscheck – Welche Sanierung lohnt sich? | Sanieren & Sparen</title>
-        <meta name="description" content="Finden Sie in 6 Schritten heraus, welche Sanierungsmaßnahmen für Ihr Haus am sinnvollsten sind. Personalisierte Empfehlungen mit Kosten, Förderung und Amortisation." />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        <title>Sanierungscheck 2026 – Welche Sanierung lohnt sich? | Sanieren & Sparen</title>
+        <meta name="description" content="Personalisierter Sanierungscheck in 6 Schritten: priorisierte Maßnahmen mit Kosten, BAFA-Förderung und Amortisation. Kostenlos & ohne Anmeldung." />
+        <link rel="canonical" href="https://sanieren-sparen.de/sanierungscheck" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-secondary/50 to-background">
@@ -215,6 +206,19 @@ const SanierungsCheckPage = () => {
               </div>
             </div>
           )}
+
+          <CalculatorFaqSection
+            faqKey="sanierungscheck"
+            calculatorType="sanierungscheck"
+            title="Sanierungscheck 2026"
+            description="Personalisierte Sanierungsempfehlung in 6 Schritten – mit Kosten, Förderung und Amortisation."
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Sanierungscheck', url: 'https://sanieren-sparen.de/sanierungscheck' },
+            ]}
+          />
+
         </div>
       </div>
     </>

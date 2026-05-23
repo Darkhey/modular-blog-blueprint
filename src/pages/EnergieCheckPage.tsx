@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, AlertTriangle, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -121,8 +122,8 @@ const EnergieCheckPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Energie-Check: Sanierungspotenzial in 2 Minuten</title>
-        <meta name="description" content="12 Fragen, ein Score von 0–100 und konkrete Empfehlungen für deine nächsten Sanierungs-Schritte." />
+        <title>Energie-Check 2026 – Sanierungspotenzial in 2 Minuten</title>
+        <meta name="description" content="Kostenloser Energie-Check für Ihr Zuhause: 12 Fragen, Score 0–100 und konkrete Empfehlungen für Heizung, Dämmung & Förderung." />
         <link rel="canonical" href="https://sanieren-sparen.de/energie-check" />
       </Helmet>
       <CalculatorHero
@@ -236,6 +237,19 @@ const EnergieCheckPage = () => {
             excludeIds={['energie-check']}
             className="mt-12 -mx-4"
           />
+
+          <CalculatorFaqSection
+            faqKey="energie-check"
+            calculatorType="energie-check"
+            title="Energie-Check 2026"
+            description="Kostenloser Energie-Check mit Score und priorisierten Sanierungs-Empfehlungen."
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Energie-Check', url: 'https://sanieren-sparen.de/energie-check' },
+            ]}
+          />
+
         </div>
       </main>
     </div>
