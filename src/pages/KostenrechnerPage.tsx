@@ -17,6 +17,7 @@ import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 
 const InfoTip = ({ content }: { content: React.ReactNode }) => (
   <>
