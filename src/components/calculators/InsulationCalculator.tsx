@@ -76,11 +76,7 @@ const InsulationCalculator = () => {
 
   return (
     <>
-      <CalculatorStructuredData 
-        calculatorType="insulation" 
-        title="Dämmungsrechner - Einsparungen und Amortisation berechnen"
-        description="Berechnen Sie Einsparungen und Amortisation Ihrer Dämmmaßnahme. Alle Dämmstoffe, Materialvergleich und Kostenberechnung."
-      />
+      {/* JSON-LD is emitted by the page-level CalculatorFaqSection */}
       <Card className="max-w-3xl mx-auto animate-fade-in">
       <CardHeader>
         <div className="flex items-center gap-4">
