@@ -71,14 +71,39 @@ const RechnerHubPage = () => {
 
   const itemListJsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ItemList',
+    '@type': 'CollectionPage',
     name: 'Sanierungsrechner & Tools',
-    itemListElement: calculatorsCatalog.map((c, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      url: `${SITE}${c.route.split('#')[0]}`,
-      name: c.title,
-    })),
+    description:
+      'Kostenlose Online-Rechner für Heizung, Dämmung, Solar, Förderung und Amortisation – ohne Anmeldung.',
+    url: `${SITE}/rechner`,
+    inLanguage: 'de-DE',
+    isPartOf: { '@type': 'WebSite', name: 'Sanieren & Sparen', url: SITE },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: calculatorsCatalog.length,
+      itemListElement: calculatorsCatalog.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'SoftwareApplication',
+          name: c.title,
+          description: c.description,
+          url: `${SITE}${c.route.split('#')[0]}`,
+          applicationCategory: 'FinanceApplication',
+          operatingSystem: 'Any',
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        },
+      })),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Start', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name: 'Rechner & Tools', item: `${SITE}/rechner` },
+    ],
   };
 
   return (
