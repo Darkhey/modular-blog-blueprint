@@ -10,6 +10,7 @@ import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import { Helmet } from 'react-helmet-async';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
@@ -17,9 +18,9 @@ const SolarenergiePage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Solar-Rechner & Ratgeber | Photovoltaik berechnen</title>
-        <meta name="description" content="Berechnen Sie Ihr Solar-Potenzial: PV-Anlage, Speicher, E-Auto & 20-Jahres-Prognose. Kostenloser Solar-Rechner mit regionaler Optimierung." />
-        <link rel="canonical" href="https://energieberater-direkt.de/solarenergie" />
+        <title>Solar-Rechner 2026 – Photovoltaik & Speicher kostenlos berechnen</title>
+        <meta name="description" content="Solar-Potenzial online berechnen: PV-Anlage, Batteriespeicher, Wallbox & 20-Jahres-Prognose mit regionalem Sonnenertrag. Kostenlos & sofort." />
+        <link rel="canonical" href="https://sanieren-sparen.de/solarenergie" />
       </Helmet>
 
       {/* Hero */}
