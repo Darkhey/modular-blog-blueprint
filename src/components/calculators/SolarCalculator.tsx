@@ -10,7 +10,7 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
-import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
 
@@ -101,11 +101,7 @@ const SolarCalculator = () => {
 
   return (
     <>
-      <CalculatorStructuredData
-        calculatorType="solar"
-        title="Professioneller Solar-Rechner - Solaranlage mit Speicher & E-Auto berechnen"
-        description="Umfassendes Solar-Potenzial berechnen: PV-Anlage, Batteriespeicher, E-Mobilität, regionale Optimierung und 20-Jahres-Prognose."
-      />
+      {/* JSON-LD is emitted by the page-level CalculatorFaqSection */}
 
       <div className="space-y-6">
         <Card className="glass border-border shadow-xl">

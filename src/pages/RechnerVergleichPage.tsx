@@ -12,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import AnimatedGauge from '@/components/calculators/AnimatedGauge';
 import { useInView } from '@/hooks/useInView';
 import {
@@ -129,8 +130,9 @@ const RechnerVergleichPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Sanierungsrechner-Vergleich | Alle Maßnahmen auf einen Blick</title>
-        <meta name="description" content="Vergleichen Sie Heizungsmodernisierung, Fassadendämmung und Solaranlage: Kosten, Ersparnisse und CO₂-Einsparung auf einen Blick." />
+        <title>Sanierungsrechner-Vergleich 2026 – Heizung, Dämmung & Solar</title>
+        <meta name="description" content="Heizungsmodernisierung, Fassadendämmung und Solar in einem Tool vergleichen: Kosten, Ersparnis, Amortisation und CO₂. Kostenlos & sofort." />
+        <link rel="canonical" href="https://sanieren-sparen.de/rechner-vergleich" />
       </Helmet>
 
       <CalculatorHero
@@ -367,6 +369,18 @@ const RechnerVergleichPage = () => {
             </Card>
           </div>
         )}
+
+        <CalculatorFaqSection
+          faqKey="rechner-vergleich"
+          calculatorType="vergleich"
+          title="Sanierungsrechner-Vergleich 2026"
+          description="Heizung, Dämmung und Solar direkt vergleichen – Kosten, Ersparnis und CO₂ auf einen Blick."
+          breadcrumbs={[
+            { name: 'Start', url: 'https://sanieren-sparen.de/' },
+            { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+            { name: 'Maßnahmen-Vergleich', url: 'https://sanieren-sparen.de/rechner-vergleich' },
+          ]}
+        />
       </main>
     </div>
   );

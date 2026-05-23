@@ -17,6 +17,7 @@ import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 
 const InfoTip = ({ content }: { content: React.ReactNode }) => (
   <>
@@ -74,17 +75,6 @@ const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 const KostenrechnerPage = () => {
   const { inputs, toggleGewerk, setMenge, selectedCount, results, calculate, gewerke } = useKostenrechner();
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebApplication',
-    name: 'Kosten-Vergleichsrechner für Sanierung',
-    description: 'Berechnen Sie die Gesamtkosten Ihrer Sanierung mit Förderabzug. Wählen Sie mehrere Gewerke und erhalten Sie eine detaillierte Kostenschätzung.',
-    applicationCategory: 'FinanceApplication',
-    operatingSystem: 'All',
-    url: 'https://sanieren-sparen.de/kostenrechner',
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
-  };
-
   const chartData = results?.gewerke.map((r) => ({
     name: r.gewerk.label,
     Bruttokosten: Math.round(r.kostenAvg),
@@ -111,14 +101,13 @@ const KostenrechnerPage = () => {
   return (
     <>
       <Helmet>
-        <title>Sanierungskosten berechnen – Kostenrechner</title>
-        <meta name="description" content="Berechnen Sie die Gesamtkosten Ihrer Sanierung inkl. Förderabzug. Wählen Sie Gewerke wie Dämmung, Heizung, Solar und erhalten Sie eine detaillierte Schätzung." />
+        <title>Sanierungs-Kostenrechner 2026 – mit Förderung & PDF-Export</title>
+        <meta name="description" content="Sanierungskosten online berechnen: mehrere Gewerke kombinieren, BAFA-Förderung abziehen, Ergebnis als PDF exportieren. Kostenlos, ohne Anmeldung." />
         <link rel="canonical" href="https://sanieren-sparen.de/kostenrechner" />
         <meta property="og:title" content="Sanierungskosten berechnen – Kostenrechner" />
         <meta property="og:description" content="Mehrere Gewerke kombinieren und Gesamtkosten inkl. Förderung ermitteln." />
         <meta property="og:url" content="https://sanieren-sparen.de/kostenrechner" />
         <meta property="og:type" content="website" />
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
@@ -404,6 +393,18 @@ Eigenanteil  = Bruttokosten − Förderung
           </Accordion>
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
+
+          <CalculatorFaqSection
+            faqKey="kostenrechner"
+            calculatorType="kosten"
+            title="Sanierungs-Kostenrechner 2026"
+            description="Online-Kostenrechner für Sanierungen: Gewerke kombinieren, Förderung abziehen, PDF exportieren."
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Sanierungs-Kostenrechner', url: 'https://sanieren-sparen.de/kostenrechner' },
+            ]}
+          />
         </div>
       </div>
     </>

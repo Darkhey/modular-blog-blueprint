@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
+import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import { TrendingUp, ArrowRight, Leaf } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
@@ -76,8 +77,8 @@ const ROIRechnerPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>ROI-Rechner Sanierung: Amortisation & Cashflow</title>
-        <meta name="description" content="Berechne, wann sich deine Sanierung rechnet: Amortisationszeit, Cashflow über 20 Jahre, IRR und CO₂-Ersparnis." />
+        <title>ROI-Rechner Sanierung 2026 – Amortisation & Cashflow kostenlos</title>
+        <meta name="description" content="Wann rechnet sich Ihre Sanierung? Berechnen Sie Amortisation, Cashflow über 20 Jahre, IRR und CO₂-Ersparnis online und kostenlos." />
         <link rel="canonical" href="https://sanieren-sparen.de/roi-rechner" />
       </Helmet>
       <CalculatorHero
@@ -197,6 +198,19 @@ const ROIRechnerPage = () => {
             excludeIds={['roi-rechner']}
             className="mt-12 -mx-4"
           />
+
+          <CalculatorFaqSection
+            faqKey="roi-rechner"
+            calculatorType="roi"
+            title="ROI-Rechner Sanierung 2026"
+            description="Amortisation, Cashflow und IRR Ihrer Sanierung über bis zu 30 Jahre berechnen."
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanieren-sparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
+              { name: 'Amortisations-Rechner', url: 'https://sanieren-sparen.de/roi-rechner' },
+            ]}
+          />
+
         </div>
       </main>
     </div>

@@ -9,7 +9,7 @@ import ModernizationPlanSection from './modernization/ModernizationPlanSection';
 import ExpertSettings from './modernization/ExpertSettings';
 import CalculatorResults from './modernization/CalculatorResults';
 import QuickAccessButtons from './QuickAccessButtons';
-import CalculatorStructuredData from '../seo/CalculatorStructuredData';
+
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 
@@ -34,11 +34,7 @@ const ModernizationSavingsCalculator = () => {
 
   return (
     <>
-      <CalculatorStructuredData 
-        calculatorType="heating" 
-        title="Heizkostenrechner - Modernisierungs-Einspar-Rechner"
-        description="Berechnen Sie Ihr Sparpotenzial durch Heizungsmodernisierung mit Smart Home Integration. Kostenlos, sofort und ohne Anmeldung."
-      />
+      {/* JSON-LD is emitted by the page-level CalculatorFaqSection */}
       <TooltipProvider>
       <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
         <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg">
