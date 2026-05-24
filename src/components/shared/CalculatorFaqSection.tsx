@@ -156,12 +156,6 @@ const CalculatorFaqSection = ({
 };
 
 export default CalculatorFaqSection;
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </section>
-  );
-};
+
 
 export default CalculatorFaqSection;
