@@ -26,7 +26,7 @@ const HeizkostenrechnerPage = () => {
         ]}
       />
 
-      <main className="container mx-auto px-4 py-8">
+      <main id="rechner" className="container mx-auto px-4 py-8 scroll-mt-24">
         <ModernizationSavingsCalculator />
 
         <CalculatorFaqSection
