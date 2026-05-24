@@ -156,6 +156,3 @@ const CalculatorFaqSection = ({
 };
 
 export default CalculatorFaqSection;
-
-
-export default CalculatorFaqSection;
