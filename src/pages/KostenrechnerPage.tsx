@@ -110,7 +110,7 @@ const KostenrechnerPage = () => {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+      <div id="rechner" className="min-h-screen bg-gradient-to-b from-background to-muted/30 scroll-mt-24">
       <CalculatorHero
         icon={Calculator}
         title="Kosten-Vergleichsrechner"

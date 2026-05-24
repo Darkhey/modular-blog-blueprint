@@ -146,7 +146,7 @@ const RechnerVergleichPage = () => {
         ]}
       />
 
-      <main className="container max-w-6xl mx-auto px-4 py-8 space-y-8">
+      <main id="rechner" className="container max-w-6xl mx-auto px-4 py-8 space-y-8 scroll-mt-24">
         {/* Input Section */}
         <Card className="glass border-border shadow-lg">
           <CardHeader>
