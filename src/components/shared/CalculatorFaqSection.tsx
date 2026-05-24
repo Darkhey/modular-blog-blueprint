@@ -55,6 +55,37 @@ const CalculatorFaqSection = ({
   const faqs = calculatorFaqs[faqKey] ?? [];
   if (faqs.length === 0) return null;
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    anchor: CalculatorFaqAnchor,
+  ) => {
+    // In-page hash → smooth scroll
+    if (anchor.href.startsWith('#')) {
+      e.preventDefault();
+      const id = anchor.href.slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Update URL without jumping
+        window.history.replaceState(null, '', `${location.pathname}${anchor.href}`);
+      }
+      return;
+    }
+    // Same-pathname target with hash → smooth scroll
+    const [pathPart, hashPart] = anchor.href.split('#');
+    if (hashPart && pathPart === location.pathname) {
+      e.preventDefault();
+      const el = document.getElementById(hashPart);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.replaceState(null, '', anchor.href);
+      }
+    }
+  };
+
   return (
     <section className={`mt-12 ${className}`} aria-labelledby={`faq-${faqKey}`}>
       <CalculatorStructuredData
@@ -80,7 +111,51 @@ const CalculatorFaqSection = ({
               {f.question}
             </AccordionTrigger>
             <AccordionContent className="text-muted-foreground leading-relaxed">
-              {f.answer}
+              <p>{f.answer}</p>
+              {f.anchors && f.anchors.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {f.anchors.map((a, j) => {
+                    const isInPage = a.href.startsWith('#');
+                    const isCrossPage = !isInPage && a.href.startsWith('/');
+                    const classes =
+                      'inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/10 hover:border-primary/50';
+
+                    if (isCrossPage) {
+                      return (
+                        <Link
+                          key={j}
+                          to={a.href}
+                          onClick={(e) => handleAnchorClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, a)}
+                          className={classes}
+                        >
+                          {a.label}
+                          <ArrowRight className="w-3 h-3" />
+                        </Link>
+                      );
+                    }
+                    return (
+                      <a
+                        key={j}
+                        href={a.href}
+                        onClick={(e) => handleAnchorClick(e, a)}
+                        className={classes}
+                      >
+                        {a.label}
+                        <ArrowRight className="w-3 h-3" />
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </section>
+  );
+};
+
+export default CalculatorFaqSection;
             </AccordionContent>
           </AccordionItem>
         ))}
