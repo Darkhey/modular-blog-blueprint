@@ -91,7 +91,7 @@ const ROIRechnerPage = () => {
           { label: 'Amortisations-Rechner' },
         ]}
       />
-      <main>
+      <main id="rechner" className="scroll-mt-24">
         <div className="container max-w-5xl mx-auto px-4 py-8">
 
           <div className="grid lg:grid-cols-[380px_1fr] gap-6">
