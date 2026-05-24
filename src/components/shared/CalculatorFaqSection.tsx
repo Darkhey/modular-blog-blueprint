@@ -1,4 +1,5 @@
-import { HelpCircle } from 'lucide-react';
+import { ArrowRight, HelpCircle } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Accordion,
   AccordionContent,
@@ -8,7 +9,7 @@ import {
 import CalculatorStructuredData, {
   type BreadcrumbItem,
 } from '@/components/seo/CalculatorStructuredData';
-import { calculatorFaqs } from '@/data/calculatorFaqs';
+import { calculatorFaqs, type CalculatorFaqAnchor } from '@/data/calculatorFaqs';
 
 interface Props {
   /** Key in calculatorFaqs (e.g. 'heizkostenrechner') */
