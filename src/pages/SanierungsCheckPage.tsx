@@ -62,7 +62,7 @@ const SanierungsCheckPage = () => {
           ]}
         />
 
-        <div id="rechner" className="max-w-3xl mx-auto px-4 pb-16 scroll-mt-24">
+        <div id="rechner" tabIndex={-1} className="max-w-3xl mx-auto px-4 pb-16 scroll-mt-24">
           {/* Progress */}
           <div className="mb-8">
             <div className="flex justify-between text-sm text-muted-foreground mb-2">

@@ -137,7 +137,7 @@ const EnergieCheckPage = () => {
           { label: 'Energie-Check' },
         ]}
       />
-      <main id="rechner" className="scroll-mt-24">
+      <main id="rechner" tabIndex={-1} className="scroll-mt-24">
         <div className="container max-w-4xl mx-auto px-4 py-8">
           <div className="mb-6">
             <div className="mt-4">

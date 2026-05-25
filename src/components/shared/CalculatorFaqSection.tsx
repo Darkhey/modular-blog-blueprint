@@ -62,25 +62,27 @@ const CalculatorFaqSection = ({
     e: React.MouseEvent<HTMLAnchorElement>,
     anchor: CalculatorFaqAnchor,
   ) => {
-    // In-page hash → smooth scroll
+    // In-page hash → smooth scroll + focus
     if (anchor.href.startsWith('#')) {
       e.preventDefault();
       const id = anchor.href.slice(1);
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.focus({ preventScroll: true });
         // Update URL without jumping
         window.history.replaceState(null, '', `${location.pathname}${anchor.href}`);
       }
       return;
     }
-    // Same-pathname target with hash → smooth scroll
+    // Same-pathname target with hash → smooth scroll + focus
     const [pathPart, hashPart] = anchor.href.split('#');
     if (hashPart && pathPart === location.pathname) {
       e.preventDefault();
       const el = document.getElementById(hashPart);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.focus({ preventScroll: true });
         window.history.replaceState(null, '', anchor.href);
       }
     }
