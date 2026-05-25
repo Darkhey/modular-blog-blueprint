@@ -11,6 +11,7 @@ import { Progress } from '@/components/ui/progress';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import { Link } from 'react-router-dom';
 import { CheckCircle2, AlertTriangle, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -237,6 +238,8 @@ const EnergieCheckPage = () => {
             excludeIds={['energie-check']}
             className="mt-12 -mx-4"
           />
+
+          <CalculatorHowToSection howToKey="energie-check" url="https://sanieren-sparen.de/energie-check" />
 
           <CalculatorFaqSection
             faqKey="energie-check"

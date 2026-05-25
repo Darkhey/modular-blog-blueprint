@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import { Euro, ArrowRight, Sparkles } from 'lucide-react';
 
 type MassnahmeId =
@@ -206,6 +207,8 @@ const FoerderrechnerPage = () => {
             excludeIds={['foerderrechner']}
             className="mt-12 -mx-4"
           />
+
+          <CalculatorHowToSection howToKey="foerderrechner" url="https://sanieren-sparen.de/foerderrechner" />
 
           <CalculatorFaqSection
             faqKey="foerderrechner"

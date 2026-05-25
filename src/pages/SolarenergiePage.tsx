@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet-async';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 
 const SolarenergiePage = () => {
   const topic = siteConfig.contentTopics.find(t => t.id === 'solar');
@@ -234,6 +235,8 @@ const SolarenergiePage = () => {
           </section>
 
           <RelatedCalculators topics={['solar', 'photovoltaik', 'pv', 'batterie', 'wallbox']} excludeIds={['solarrechner']} />
+
+          <CalculatorHowToSection howToKey="solarrechner" url="https://sanieren-sparen.de/solarenergie" />
 
           <CalculatorFaqSection
             faqKey="solarrechner"

@@ -3,6 +3,7 @@ import ModernizationSavingsCalculator from '@/components/calculators/Modernizati
 import { Flame } from 'lucide-react';
 import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 
 const SITE = 'https://sanieren-sparen.de';
 
@@ -28,6 +29,8 @@ const HeizkostenrechnerPage = () => {
 
       <main id="rechner" className="container mx-auto px-4 py-8 scroll-mt-24">
         <ModernizationSavingsCalculator />
+
+        <CalculatorHowToSection howToKey="heizkostenrechner" url="https://sanieren-sparen.de/heizkostenrechner" />
 
         <CalculatorFaqSection
           faqKey="heizkostenrechner"

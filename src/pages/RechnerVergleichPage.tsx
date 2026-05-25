@@ -13,6 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import AnimatedGauge from '@/components/calculators/AnimatedGauge';
 import { useInView } from '@/hooks/useInView';
 import {
@@ -369,6 +370,8 @@ const RechnerVergleichPage = () => {
             </Card>
           </div>
         )}
+
+        <CalculatorHowToSection howToKey="rechner-vergleich" url="https://sanieren-sparen.de/rechner-vergleich" />
 
         <CalculatorFaqSection
           faqKey="rechner-vergleich"
