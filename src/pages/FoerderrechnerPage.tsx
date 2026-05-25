@@ -118,7 +118,7 @@ const FoerderrechnerPage = () => {
           { label: 'Förderrechner' },
         ]}
       />
-      <main id="rechner" className="scroll-mt-24">
+      <main id="rechner" tabIndex={-1} className="scroll-mt-24">
         <div className="container max-w-4xl mx-auto px-4 py-8">
 
           <div className="grid md:grid-cols-2 gap-6">

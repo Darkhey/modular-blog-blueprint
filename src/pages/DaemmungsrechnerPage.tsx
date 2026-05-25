@@ -30,7 +30,7 @@ const DaemmungsrechnerPage = () => {
         ]}
       />
 
-      <main id="rechner" className="scroll-mt-24">
+      <main id="rechner" tabIndex={-1} className="scroll-mt-24">
         <div className="container max-w-3xl mx-auto px-4 py-8">
           <Card className="mb-6 glass border-blue-200/50 animate-fade-in">
             <CardHeader className="pb-2">

@@ -27,7 +27,7 @@ const HeizkostenrechnerPage = () => {
         ]}
       />
 
-      <main id="rechner" className="container mx-auto px-4 py-8 scroll-mt-24">
+      <main id="rechner" tabIndex={-1} className="container mx-auto px-4 py-8 scroll-mt-24">
         <ModernizationSavingsCalculator />
 
         <CalculatorHowToSection howToKey="heizkostenrechner" url="https://sanieren-sparen.de/heizkostenrechner" />

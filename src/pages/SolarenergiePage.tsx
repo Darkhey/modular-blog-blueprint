@@ -49,11 +49,11 @@ const SolarenergiePage = () => {
         </div>
       </div>
 
-      <main id="rechner" className="py-12 md:py-16 scroll-mt-24">
+      <main id="rechner" tabIndex={-1} className="py-12 md:py-16 scroll-mt-24">
         <div className="container max-w-5xl mx-auto px-4 space-y-12">
 
           {/* Calculator Section */}
-          <section id="rechner">
+          <section>
             <SolarCalculator />
           </section>
 
