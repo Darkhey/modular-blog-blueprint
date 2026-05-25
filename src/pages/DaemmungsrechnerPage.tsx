@@ -6,6 +6,7 @@ import InsulationManufacturers from '@/components/manufacturers/InsulationManufa
 import { Home, ArrowRight } from 'lucide-react';
 import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 
 const SITE = 'https://sanieren-sparen.de';
 
@@ -45,6 +46,8 @@ const DaemmungsrechnerPage = () => {
             </CardContent>
           </Card>
           <InsulationCalculator />
+
+          <CalculatorHowToSection howToKey="daemmungsrechner" url="https://sanieren-sparen.de/daemmungsrechner" />
 
           <CalculatorFaqSection
             faqKey="daemmungsrechner"

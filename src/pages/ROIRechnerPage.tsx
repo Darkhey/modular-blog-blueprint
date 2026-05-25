@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import { TrendingUp, ArrowRight, Leaf } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
@@ -198,6 +199,8 @@ const ROIRechnerPage = () => {
             excludeIds={['roi-rechner']}
             className="mt-12 -mx-4"
           />
+
+          <CalculatorHowToSection howToKey="roi-rechner" url="https://sanieren-sparen.de/roi-rechner" />
 
           <CalculatorFaqSection
             faqKey="roi-rechner"

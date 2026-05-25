@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import CalculatorFaqSection from "@/components/shared/CalculatorFaqSection";
+import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import { Badge } from "@/components/ui/badge";
 import { decisionSteps, calculateRecommendations, type Recommendation } from "@/data/decisionTreeData";
 import { cn } from "@/lib/utils";
@@ -206,6 +207,8 @@ const SanierungsCheckPage = () => {
               </div>
             </div>
           )}
+
+          <CalculatorHowToSection howToKey="sanierungscheck" url="https://sanieren-sparen.de/sanierungscheck" />
 
           <CalculatorFaqSection
             faqKey="sanierungscheck"
