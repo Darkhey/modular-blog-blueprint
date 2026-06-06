@@ -178,100 +178,52 @@ serve(async (req) => {
 
     if (!output) throw new Error("No response from OpenAI.");
 
-    // Parse JSON - try direct parsing first, then fallback to regex
-    let articleData: any = {};
-    try {
-      articleData = JSON.parse(output);
-    } catch (e) {
-      console.log("Direct JSON parsing failed, trying regex fallback");
-      const match = output.match(/\{[\s\S]*\}/);
-      if (match) {
-        try {
-          articleData = JSON.parse(match[0]);
-        } catch (regexError) {
-          throw new Error("Could not parse AI response as JSON: " + e);
-        }
-      } else {
-        throw new Error("Could not find JSON in AI response: " + e);
-      }
-    }
-
-    // Fallbacks and validation
-    articleData.slug = (articleData.slug || articleData.title || "").toLowerCase()
-      .replace(/[^a-z0-9äöüß]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/(^-|-$)/g, "");
-    
-    if (!articleData.slug) {
-      articleData.slug = `artikel-${Date.now()}`;
-    }
-    
-    if (!articleData.title) articleData.title = `Artikel ${Date.now()}`;
-    if (!articleData.read_time) articleData.read_time = 8;
-
-    // Check for duplicate slugs
-    const { data: existingPost } = await supabase
-      .from("blog_posts")
-      .select("id")
-      .eq("slug", articleData.slug)
-      .single();
-
-    if (existingPost) {
-      articleData.slug += `-${Date.now()}`;
-    }
+    // Parse JSON (direct, with regex fallback)
+    const articleData = parseAiJson(output);
 
     // Get image for the article
     let hero_image_url = imageUrl || null;
     let cover_url = imageUrl || null;
 
     if (!hero_image_url) {
-        if (articleData.image_keywords && articleData.image_keywords.length > 0) {
-          // Try to get image from Unsplash using AI-generated keywords
-          const imageQuery = articleData.image_keywords.join(" ");
-          hero_image_url = await getUnsplashImage(imageQuery);
-          cover_url = hero_image_url; // Use same image for both
-        }
-    
-        // Fallback to category-specific image if Unsplash fails
-        if (!hero_image_url) {
-          hero_image_url = getFallbackImage(topic_name);
-          cover_url = hero_image_url;
-        }
+      if (articleData.image_keywords && articleData.image_keywords.length > 0) {
+        hero_image_url = await getUnsplashImage(articleData.image_keywords.join(" "));
+        cover_url = hero_image_url;
+      }
+      if (!hero_image_url) {
+        hero_image_url = getFallbackImage(topic_name);
+        cover_url = hero_image_url;
+      }
     }
 
     console.log(`Selected image for article: ${hero_image_url}`);
 
+    // Ensure unique slug against existing posts
+    const provisionalSlug = (articleData.slug || articleData.title || "")
+      .toLowerCase().replace(/[^a-z0-9äöüß]+/g, "-").replace(/-+/g, "-").replace(/(^-|-$)/g, "");
+    const existingSlugs = new Set<string>();
+    if (provisionalSlug) {
+      const { data: existingPost } = await supabase
+        .from("blog_posts").select("id").eq("slug", provisionalSlug).maybeSingle();
+      if (existingPost) existingSlugs.add(provisionalSlug);
+    }
+
+    // Build unified insert row (handles slug, faq, fallbacks, trimming)
+    const row = buildInsertRow(articleData, {
+      categoryId: selectedCategory.id,
+      authorId,
+      topicName: topic_name,
+      topicColor: topic_color,
+      status: autoPublish ? "published" : "draft",
+      heroImageUrl: hero_image_url,
+      coverUrl: cover_url,
+      existingSlugs,
+    });
+    articleData.slug = row.slug;
+    articleData.title = row.title;
+
     // Insert into database
-    const { error: insertErr } = await supabase
-      .from("blog_posts")
-      .insert([{
-        title: articleData.title,
-        slug: articleData.slug,
-        excerpt: articleData.excerpt,
-        content: articleData.content,
-        category_id: selectedCategory.id,
-        author_id: authorId,
-        status: autoPublish ? "published" : "draft",
-        topic: topic_name,
-        topic_color: topic_color,
-        published_at: autoPublish ? new Date().toISOString() : null,
-        read_time: articleData.read_time,
-        seo_title: articleData.seo_title,
-        seo_description: articleData.seo_description,
-        keywords: articleData.keywords,
-        table_of_contents: articleData.table_of_contents ? JSON.stringify(articleData.table_of_contents) : null,
-        difficulty: articleData.difficulty ?? 2,
-        savings_potential: articleData.savings_potential,
-        payback_time: articleData.payback_time,
-        funding_available: articleData.funding_available,
-        effort_level: articleData.effort_level,
-        key_benefits: articleData.key_benefits,
-        important_notice: articleData.important_notice,
-        costs: null,
-        is_featured: false,
-        hero_image_url: hero_image_url,
-        cover_url: cover_url
-      }]);
+    const { error: insertErr } = await supabase.from("blog_posts").insert([row]);
 
     if (insertErr) throw new Error("Database insert error: " + insertErr.message);
 
