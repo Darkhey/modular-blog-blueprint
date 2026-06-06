@@ -141,36 +141,10 @@ serve(async (req) => {
         lengthInstruction = "Schreibe einen mittelangen Artikel (8-10 Minuten Lesezeit).";
     }
 
-    const systemPrompt = `Du bist ein deutschsprachiger Energie/Modernisierungs-Redakteur für Hausbesitzer.
-Erstelle einen SEO-optimierten Fachartikel. ${lengthInstruction}
-
-Antworte ausschließlich mit diesem JSON-Format:
-{
-"title": String,          // SEO-optimierte Überschrift
-"slug": String,           // URL-Slug (nur Kleinbuchstaben, Bindestriche)
-"excerpt": String,        // Kurzer Anreißer, max 200 Zeichen
-"content": String,        // HTML-Content mit <h2>, <h3>, <p>, <ul>, <li>, Links
-"seo_title": String,      // max. 65 Zeichen, Keywords vorne
-"seo_description": String,// max. 160 Zeichen
-"keywords": [String],     // SEO Keywords Array
-"read_time": Number,      // geschätzte Lesezeit in Minuten
-"table_of_contents": Array<{id:string,title:string}>,
-"difficulty": 1|2|3,      // 1=einfach, 2=mittel, 3=schwer
-"savings_potential": String,
-"payback_time": String,
-"funding_available": String,
-"effort_level": String,
-"key_benefits": [String],
-"important_notice": String,
-"image_keywords": [String] // 3-5 Keywords für Bildsuche
-}
-
-Thema: "${topic || topic_name}". 
-Kategorie: "${topic_name}".
-Baue praktische Tipps, Kostenbeispiele und Hinweise auf Förderungen ein.
-Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.
-Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
-Antworte ausschließlich mit diesem JSON.`;
+    const systemPrompt = buildSystemPrompt({
+      topicName: topic || topic_name,
+      lengthInstruction,
+    });
 
     const userPrompt = topic 
       ? `Schreibe einen Artikel zum Thema: "${topic}" in der Kategorie "${topic_name}". Fokussiere auf praktische Tipps für 2025.`
