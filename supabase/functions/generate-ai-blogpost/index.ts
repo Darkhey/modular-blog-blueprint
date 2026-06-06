@@ -60,32 +60,8 @@ serve(async (req) => {
     const topic = randomCat.name;
     const topic_color = randomCat.color || "#2563eb";
 
-    // 2. Prompt für OpenAI bauen
-    const sysPrompt = `Du bist ein deutschsprachiger Energie/Modernisierungs-Redakteur.
-Erstelle einen SEO-optimierten Fachartikel für Hausbesitzer. 
-Antworte ausschließlich mit diesem JSON-Format:
-
-{
-"title": String,          // knackige Überschrift
-"slug": String,           // URL-Slug (nur Kleinbuchstaben, Bindestriche)
-"excerpt": String,        // 1 kurzer Satz als Vorschau/Anreißer, max 200 Zeichen
-"content": String,        // HTML. Mit <h2>-Struktur, Links zu /blog/* & passenden /blog/${randomCat.slug}
-"seo_title": String,      // max. 65 Zeichen, Keywords vorne
-"seo_description": String,// max. 160 Zeichen
-"keywords": [String],     // Keywords
-"read_time": Number,      // geschätzt (in Minuten, realistisch)
-"table_of_contents": Array<{id:string,title:string}>,
-"difficulty": 1|2|3,
-"savings_potential": String,
-"payback_time": String,
-"funding_available": String,
-"effort_level": String,
-"key_benefits": [String],       // Stichworte
-"important_notice": String      // Warn- oder Tipp
-}
-
-Das Thema ist "${topic}". Betone Crosslinks, Trends, Tipps & Worauf achten.
-Antworte ausschließlich mit diesem JSON.`;
+    // 2. Prompt für OpenAI bauen (einheitlicher SEO-Standard)
+    const sysPrompt = buildSystemPrompt({ topicName: topic });
 
     // 3. Anfrage an OpenAI
     const userPrompt = `Bitte schreibe einen neuen, eigenständigen Blogartikel in deinem Stil zum Thema "${topic}" für 2025. Wähle ein Unterthema, das Hausbesitzer interessiert. Baue Links zu verwandten Blogs, binde konkrete Tipps oder Fördermittel mit ein.`;
