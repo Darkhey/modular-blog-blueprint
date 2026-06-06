@@ -93,72 +93,30 @@ serve(async (req) => {
 
     if (!out) throw new Error("Keine Antwort von OpenAI.");
 
-    // 4. JSON parsen - try direct parsing first, then fallback to regex
-    let meta: any = {};
-    try {
-      meta = JSON.parse(out);
-    } catch (e) {
-      console.log("Direct JSON parsing failed, trying regex fallback");
-      const match = out.match(/\{[\s\S]*\}/);
-      if (match) {
-        try {
-          meta = JSON.parse(match[0]);
-        } catch (regexError) {
-          throw new Error("Antwort konnte nicht in JSON umgewandelt werden: " + e);
-        }
-      } else {
-        throw new Error("Kein JSON in der AI-Antwort gefunden: " + e);
-      }
-    }
+    // 4. JSON parsen (direkt, mit Regex-Fallback)
+    const meta = parseAiJson(out);
 
-    // 5. Fallbacks & Validierung
-    meta.slug = (meta.slug || meta.title || "").toLowerCase().replace(/[^a-z0-9äöüß]+/g, "-").replace(/-+/g, "-").replace(/(^-|-$)/g, "");
-    if (!meta.slug) meta.slug = `ai-artikel-${Math.floor(Math.random()*100000)}`;
-    if (!meta.title) meta.title = `AI Artikel ${Date.now()}`;
-    if (!meta.topic) meta.topic = topic;
-    if (!meta.topic_color) meta.topic_color = topic_color;
-    if (!meta.read_time) meta.read_time = 6 + Math.floor(Math.random()*5);
-
-    // 6. AI-Autor als Fallback bestimmen
-    const { data: authors, error: authorErr } = await supabase
+    // 5. AI-Autor als Fallback bestimmen
+    const { data: authors } = await supabase
       .from("blog_authors")
       .select("id")
       .limit(1);
 
     const authorId = authors?.[0]?.id ?? null;
-
-    // Kategorie-ID ermitteln
     const catId = randomCat.id ?? null;
 
+    // 6. Einheitliche Insert-Zeile bauen (Slug, faq, Fallbacks, Trimming)
+    const row = buildInsertRow(meta, {
+      categoryId: catId,
+      authorId,
+      topicName: topic,
+      topicColor: topic_color,
+      status: "published",
+    });
+    meta.slug = row.slug;
+
     // 7. In blog_posts einfügen
-    const { error: insErr } = await supabase
-      .from("blog_posts")
-      .insert([{
-        title: meta.title,
-        slug: meta.slug,
-        excerpt: meta.excerpt,
-        content: meta.content,
-        category_id: catId,
-        author_id: authorId,
-        status: "published",
-        topic: topic,
-        topic_color: topic_color,
-        published_at: new Date().toISOString(),
-        read_time: meta.read_time,
-        seo_title: meta.seo_title,
-        seo_description: meta.seo_description,
-        keywords: meta.keywords,
-        table_of_contents: meta.table_of_contents ? JSON.stringify(meta.table_of_contents) : null,
-        difficulty: meta.difficulty ?? 2,
-        savings_potential: meta.savings_potential,
-        payback_time: meta.payback_time,
-        funding_available: meta.funding_available,
-        effort_level: meta.effort_level,
-        key_benefits: meta.key_benefits,
-        important_notice: meta.important_notice,
-        costs: null,
-        is_featured: false
-      }]);
+    const { error: insErr } = await supabase.from("blog_posts").insert([row]);
 
     if (insErr) throw new Error("Fehler beim Speichern im Blog: " + insErr.message);
 
