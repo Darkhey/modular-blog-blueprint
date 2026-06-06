@@ -68,6 +68,7 @@ const BlogPost = () => {
 
   return (
     <>
+      <BlogPostSEO post={post} canonicalUrl={`${siteConfig.siteUrl}/blog/${post.slug}`} />
       <BlogPostContentSEO post={post} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
         <div className="container max-w-5xl mx-auto px-4 py-8">
@@ -81,6 +82,8 @@ const BlogPost = () => {
                   </div>
                 </div>
               </article>
+
+              <BlogPostFaqSection faq={post.faq} className="mt-8" />
 
               <RelatedCalculators
                 topics={deriveTopics(post.topic, post.keywords, post.title)}
