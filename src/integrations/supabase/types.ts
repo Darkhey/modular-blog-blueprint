@@ -145,6 +145,7 @@ export type Database = {
           difficulty: number | null
           effort_level: string | null
           excerpt: string
+          faq: Json | null
           funding_available: string | null
           gallery_urls: string[] | null
           hero_image_url: string | null
@@ -182,6 +183,7 @@ export type Database = {
           difficulty?: number | null
           effort_level?: string | null
           excerpt: string
+          faq?: Json | null
           funding_available?: string | null
           gallery_urls?: string[] | null
           hero_image_url?: string | null
@@ -219,6 +221,7 @@ export type Database = {
           difficulty?: number | null
           effort_level?: string | null
           excerpt?: string
+          faq?: Json | null
           funding_available?: string | null
           gallery_urls?: string[] | null
           hero_image_url?: string | null

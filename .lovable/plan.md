@@ -1,55 +1,87 @@
-# Ziel
-Damit Google die Rechner als prominente Rich Results (Sitelinks, "WebApplication"-Karten, FAQ-Akkordeons, Breadcrumbs) ausspielt, brauchen wir ein konsistentes, sauber verschachteltes JSON-LD-Setup plus ergänzende On-Page-Signale auf jeder Rechner-Seite.
+# Einheitliche SEO- & Qualitätsstandards für (auto-)generierte Blogartikel
 
-## Was Google bei "Rechner-Boxen" tatsächlich rendert
-- **Sitelinks Search Box / Sitelinks** unter dem Haupttreffer → `WebSite` + `SearchAction` auf der Startseite + saubere interne Verlinkung & Breadcrumbs.
-- **Rich Snippet "FAQ-Akkordeon"** → `FAQPage` JSON-LD pro Rechner (3–5 Fragen).
-- **App-/Tool-Karte** → `SoftwareApplication` (oder `WebApplication`) mit `name`, `applicationCategory`, `offers` (Preis 0), `aggregateRating` (optional, nur wenn echte Bewertungen vorhanden).
-- **Breadcrumb-Pfad im Snippet** → `BreadcrumbList` JSON-LD + sichtbare Breadcrumbs (haben wir bereits via `CalculatorHero`).
-- **Hub-Box mit allen Rechnern** → `ItemList` auf `/rechner` (vorhanden) + zusätzlich `CollectionPage`-Wrapper.
+## Ausgangslage (Befunde)
 
-## Status quo
-- `CalculatorStructuredData.tsx` liefert bereits `WebApplication` + optional `FAQPage`, wird aber nicht überall mit FAQs gefüttert.
-- `RechnerHubPage` hat `ItemList`, aber ohne `CollectionPage`-Hülle und ohne Beschreibungstexte je Item.
-- Breadcrumbs sichtbar via `CalculatorHero`, aber **kein** `BreadcrumbList`-JSON-LD.
-- `index.html` hat vermutlich kein `WebSite` + `SearchAction` (Sitelinks Search Box). Muss geprüft/ergänzt werden.
+- Es gibt **drei** Generator-Edge-Functions mit **unterschiedlichen** Prompts, Modellen und Metadaten:
+  - `auto-generate-daily-post` — läuft per Cron 2×/Tag (07:00 & 17:00), nutzt Lovable AI Gateway (Gemini), reichste Metadaten + Duplikat-Vermeidung.
+  - `generate-blog-content` — manueller Admin-Generator, OpenAI `gpt-4o-mini`.
+  - `generate-ai-blogpost` — Legacy, OpenAI, weniger Felder, kein Bild.
+- **Kritische Lücke:** Die Komponente `BlogPostSEO.tsx` (Helmet-Title/Description/Canonical/OG + Article- & Breadcrumb-JSON-LD) wird **nirgends eingebunden**. `BlogPost.tsx` rendert nur `BlogPostContentSEO` (statischer Inhalt für einen einzigen Slug). → Die generierten SEO-Felder landen aktuell **nicht** im HTML-`<head>`.
+- `blog_posts` hat keine FAQ-Spalte, daher kein FAQ-Rich-Snippet möglich.
+- `HelmetProvider` ist bereits in `App.tsx` aktiv; `react-helmet-async` ist installiert.
+
+## Ziel
+
+Alle (auch zukünftig) generierten Artikel erhalten denselben hohen SEO-/Qualitätsstandard: vollständige, valide Metadaten inkl. FAQ, plus tatsächliche Ausgabe als Meta-Tags und strukturierte Daten (Article, Breadcrumb, FAQPage) auf der Artikelseite.
 
 ## Umsetzung
 
-### 1. Pro Rechner-Seite (9 Seiten)
-- `CalculatorStructuredData` erweitern um:
-  - `BreadcrumbList`-Schema (aus den Hero-Breadcrumbs ableiten).
-  - `SoftwareApplication` zusätzlich zu `WebApplication` (bessere Trefferquote bei Google für "Tool/Rechner"-Queries).
-  - Pflicht-Felder: `name`, `url`, `description`, `applicationCategory: "FinanceApplication"`, `operatingSystem: "Any"`, `offers { price: 0 }`, `inLanguage: "de-DE"`, `isAccessibleForFree: true`.
-- Jede Rechner-Seite ruft `CalculatorStructuredData` mit **kuratiertem FAQ-Block (3–5 Q&A)** auf. FAQs zentral in `src/data/calculatorFaqs.ts` pflegen.
-- Sichtbares FAQ-Accordion unterhalb des Rechners (Google verlangt, dass FAQ-JSON-LD-Inhalt auch on-page sichtbar ist – sonst Rich-Result-Strike).
+### 1. Datenbank: FAQ-Spalte
+- Migration: `ALTER TABLE public.blog_posts ADD COLUMN faq jsonb;` (nullable, Default `null`).
+- Keine Grant-/RLS-Änderung nötig (bestehende Policies decken die Spalte ab).
 
-### 2. Hub-Seite `/rechner`
-- JSON-LD um `CollectionPage` + `ItemList` mit `description`, `image`, `url` pro Item erweitern.
-- Zusätzlich `BreadcrumbList`.
-- H1/Intro semantisch klarer (Keywords "Sanierungsrechner", "kostenlos", "online").
+### 2. Gemeinsamer Prompt-/Mapping-Baustein
+- Neue Datei `supabase/functions/_shared/blogPrompt.ts` mit:
+  - `buildSystemPrompt({ topicName, lengthInstruction, existingTitles })` — ein einziger, hochwertiger SEO-Prompt (siehe technische Details).
+  - `buildInsertRow(articleData, ctx)` — einheitliches Mapping der KI-Antwort auf die `blog_posts`-Spalten (inkl. `faq`, Slug-Bereinigung, Fallbacks, Längen-Trim für `seo_title`/`seo_description`).
+- Beide aktiven Functions (`auto-generate-daily-post`, `generate-blog-content`) importieren diesen Baustein, damit Standard und Felder identisch sind.
 
-### 3. Sitewide (`index.html`)
-- `WebSite` JSON-LD mit `potentialAction: SearchAction` ergänzen (target: `/suche?q={search_term_string}` – Route existiert via `SearchPage`).
-- `Organization` JSON-LD prüfen/sicherstellen.
+### 3. Prompt-Qualität anheben (im gemeinsamen Baustein)
+- Erzwingt alle Felder: `title`, `slug`, `excerpt`, `content` (saubere `<h2>/<h3>/<p>/<ul>` Struktur mit internen Links zu `/blog/*` und passenden Rechnern), `seo_title` (≤60 Z., Keyword vorne), `seo_description` (≤160 Z.), `keywords`, `read_time`, `table_of_contents`, `difficulty`, `savings_potential`, `payback_time`, `funding_available`, `effort_level`, `key_benefits`, `important_notice`, `image_keywords` und **neu** `faq` (3–6 prägnante Frage/Antwort-Paare als `[{question, answer}]`).
+- Qualitäts-Leitplanken gemäß Projekt-Memory: realistische Einsparungen (20–40 %), keine übertriebenen Versprechen, E-E-A-T-Ton, aktuelle Förderhinweise 2025/2026.
+- `generate-blog-content` behält Längen-Steuerung (short/medium/long); `auto-generate-daily-post` behält Kategorie-Balancing + Duplikat-Liste.
 
-### 4. Interne Verlinkung & Sitelinks-Steuerung
-- Footer-/Header-Link "Rechner" → bereits vorhanden, plus Liste der Top-Rechner im Footer (begünstigt Sitelinks).
-- Konsistente, aussagekräftige `<title>`-Pattern: `"{Rechnername} 2026 – kostenlos online | Sanieren & Sparen"`.
-- `meta description` jeweils mit klarer Nutzenformulierung + Keyword "Rechner".
+### 4. Legacy-Generator
+- `generate-ai-blogpost` entweder auf denselben Baustein umstellen oder als veraltet markieren (Empfehlung: auf Baustein umstellen, damit kein zweiter Standard existiert). Cron bleibt unverändert auf `auto-generate-daily-post`.
 
-### 5. Validierung
-- Nach Deploy: Hinweis an Nutzer, im **Google Rich Results Test** und in der **Search Console → Verbesserungen** zu prüfen. Kein automatischer Check möglich.
+### 5. Per-Artikel-SEO tatsächlich ausgeben
+- `BlogPostSEO.tsx` in `BlogPost.tsx` einbinden (mit korrekter `canonicalUrl` auf Basis von `siteConfig.siteUrl` + `/blog/<slug>`).
+- `BlogPostSEO.tsx` erweitern: zusätzlich **FAQPage-JSON-LD**, wenn `post.faq` vorhanden ist.
+- Sicherstellen, dass `index.html` keinen doppelten `<link rel="canonical">` setzt (sonst entfernen), um Konflikte mit Helmet zu vermeiden.
 
-## Betroffene Dateien
-- `src/components/seo/CalculatorStructuredData.tsx` (erweitern: SoftwareApplication, BreadcrumbList, breadcrumbs-Prop)
-- `src/data/calculatorFaqs.ts` (neu, zentrale FAQs)
-- `src/components/shared/CalculatorFaqSection.tsx` (neu, sichtbares Accordion)
-- 9 Rechner-Seiten: FAQ-Block einbinden + Structured-Data-Aufruf vereinheitlichen (`Heizkostenrechner`, `Daemmungsrechner`, `Kostenrechner`, `RechnerVergleich`, `Foerderrechner`, `ROIRechner`, `EnergieCheck`, `Sanierungscheck`, `Solarenergie`)
-- `src/pages/RechnerHubPage.tsx` (CollectionPage + BreadcrumbList)
-- `index.html` (WebSite + SearchAction, sofern fehlt)
-- `src/data/calculatorsCatalog.ts` (sicherstellen, dass `description` SEO-tauglich ist – ggf. minimal nachschärfen)
+### 6. Sichtbare FAQ-Sektion im Artikel
+- Neue Komponente `BlogPostFaqSection.tsx` (Accordion analog zu `CalculatorFaqSection`), die `post.faq` rendert; in `BlogPost.tsx` unterhalb des Artikels eingebunden.
+- `BlogPost`-Typ in `src/hooks/useBlogPosts.ts` um `faq` erweitern (Query nutzt `select('*')`, daher kommt die Spalte automatisch mit).
 
-## Out of Scope (für separaten Schritt)
-- Aggregierte Bewertungen (`aggregateRating`) – nur wenn echte User-Reviews vorhanden, sonst Google-Spam-Strike.
-- Bundesland-Förderpages (B2) – bleibt offen.
+### 7. Verifikation
+- Edge Functions deployen, je einen Test-Aufruf machen und Antwort/DB-Eintrag prüfen (alle Felder inkl. `faq` gefüllt).
+- Artikelseite öffnen und prüfen, dass Title/Description/Canonical/OG sowie Article-, Breadcrumb- und FAQPage-JSON-LD im DOM erscheinen und die FAQ-Sektion sichtbar ist.
+
+## Technische Details
+
+### Gemeinsamer System-Prompt (Kern, gekürzt)
+```text
+Du bist deutschsprachiger Energie-/Modernisierungs-Redakteur (E-E-A-T).
+Schreibe einen SEO-optimierten, faktisch korrekten Fachartikel.
+Realistische Einsparungen (20–40%), keine übertriebenen Versprechen.
+Struktur: <h2>/<h3>/<p>/<ul>, interne Links zu /blog/* und passenden Rechnern.
+Antworte AUSSCHLIESSLICH mit gültigem JSON:
+{ title, slug, excerpt(<=200), content(HTML), seo_title(<=60),
+  seo_description(<=160), keywords[], read_time, table_of_contents[],
+  difficulty(1-3), savings_potential, payback_time, funding_available,
+  effort_level, key_benefits[], important_notice, image_keywords[],
+  faq: [{ "question": string, "answer": string }]  // 3-6 Einträge
+}
+```
+
+### FAQPage-Schema (Ausgabe in BlogPostSEO)
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "…",
+      "acceptedAnswer": { "@type": "Answer", "text": "…" } }
+  ]
+}
+```
+
+### Betroffene Dateien
+- Migration (neu): `faq jsonb` auf `blog_posts`
+- Neu: `supabase/functions/_shared/blogPrompt.ts`
+- Geändert: `supabase/functions/auto-generate-daily-post/index.ts`, `supabase/functions/generate-blog-content/index.ts`, `supabase/functions/generate-ai-blogpost/index.ts`
+- Geändert: `src/pages/BlogPost.tsx`, `src/components/seo/BlogPostSEO.tsx`, `src/hooks/useBlogPosts.ts`, ggf. `index.html`
+- Neu: `src/components/blog/post/BlogPostFaqSection.tsx`
+
+## Nicht enthalten
+- Rückwirkende FAQ-Generierung für bereits bestehende Artikel (FAQ erscheint nur bei vorhandenem `faq`-Feld). Auf Wunsch als separater Batch-Lauf nachrüstbar.
