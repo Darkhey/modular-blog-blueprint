@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { buildSystemPrompt, parseAiJson, buildInsertRow } from "../_shared/blogPrompt.ts";
 
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 const UNSPLASH_ACCESS_KEY = Deno.env.get("UNSPLASH_ACCESS_KEY");
@@ -103,42 +104,13 @@ serve(async (req) => {
     const { data: authors } = await supabase.from("blog_authors").select("id").limit(1);
     const authorId = authors?.[0]?.id ?? null;
 
-    // 4. Build prompt with existing titles as exclusion list
-    const existingTitlesList = existingTitles.length > 0
-      ? existingTitles.map((t: string) => `- ${t}`).join("\n")
-      : "Noch keine Artikel vorhanden.";
-
-    const systemPrompt = `Du bist ein deutschsprachiger Energie- und Modernisierungs-Redakteur für Hausbesitzer.
-Erstelle einen SEO-optimierten Fachartikel (8-12 Minuten Lesezeit) zum Thema "${topic_name}".
-
-WICHTIG: Schreibe über ein NEUES Unterthema. Folgende Artikel existieren bereits – schreibe NICHT über diese Themen:
-${existingTitlesList}
-
-Wähle ein frisches, aktuelles Unterthema für 2025/2026, das noch nicht abgedeckt ist.
-
-Antworte ausschließlich mit diesem JSON-Format:
-{
-  "title": "SEO-optimierte Überschrift",
-  "slug": "url-slug-kleinbuchstaben-bindestriche",
-  "excerpt": "Kurzer Anreißer, max 200 Zeichen",
-  "content": "HTML-Content mit <h2>, <h3>, <p>, <ul>, <li>",
-  "seo_title": "Max 65 Zeichen, Keywords vorne",
-  "seo_description": "Max 160 Zeichen",
-  "keywords": ["keyword1", "keyword2"],
-  "read_time": 10,
-  "table_of_contents": [{"id": "section-id", "title": "Section Title"}],
-  "difficulty": 2,
-  "savings_potential": "z.B. Bis zu 30% Energiekosten",
-  "payback_time": "z.B. 5-8 Jahre",
-  "funding_available": "z.B. Ja, BAFA/KfW",
-  "effort_level": "z.B. Mittel",
-  "key_benefits": ["Vorteil 1", "Vorteil 2", "Vorteil 3"],
-  "important_notice": "Wichtiger Hinweis für Leser",
-  "image_keywords": ["english", "search", "terms"]
-}
-
-Baue praktische Tipps, Kostenbeispiele und Hinweise auf Förderungen ein.
-Verwende moderne HTML-Struktur. Antworte ausschließlich mit JSON.`;
+    // 4. Build unified, high-quality SEO prompt with exclusion list
+    const systemPrompt = buildSystemPrompt({
+      topicName: topic_name,
+      lengthInstruction:
+        "Schreibe einen ausführlichen, hochwertigen Fachartikel (8-12 Minuten Lesezeit) zu einem frischen Unterthema für 2025/2026.",
+      existingTitles,
+    });
 
     // 5. Call Lovable AI Gateway
     const aiResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -173,38 +145,9 @@ Verwende moderne HTML-Struktur. Antworte ausschließlich mit JSON.`;
     if (!output) throw new Error("No response from AI Gateway.");
 
     // 6. Parse JSON response
-    let articleData: any = {};
-    try {
-      articleData = JSON.parse(output);
-    } catch {
-      const match = output.match(/\{[\s\S]*\}/);
-      if (match) {
-        articleData = JSON.parse(match[0]);
-      } else {
-        throw new Error("Could not parse AI response as JSON");
-      }
-    }
+    const articleData = parseAiJson(output);
 
-    // Validate & clean slug
-    articleData.slug = (articleData.slug || "").toLowerCase()
-      .replace(/[^a-z0-9äöüß]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/(^-|-$)/g, "");
-
-    if (!articleData.slug) articleData.slug = `artikel-${Date.now()}`;
-    if (!articleData.title) articleData.title = `Artikel ${Date.now()}`;
-    if (!articleData.read_time) articleData.read_time = 10;
-
-    // 7. Ensure unique slug
-    let finalSlug = articleData.slug;
-    let suffix = 1;
-    while (existingSlugs.has(finalSlug)) {
-      finalSlug = `${articleData.slug}-${suffix}`;
-      suffix++;
-    }
-    articleData.slug = finalSlug;
-
-    // 8. Get Unsplash image
+    // 7. Get Unsplash image
     let hero_image_url: string | null = null;
     if (articleData.image_keywords?.length > 0) {
       hero_image_url = await getUnsplashImage(articleData.image_keywords.join(" "));
@@ -213,37 +156,21 @@ Verwende moderne HTML-Struktur. Antworte ausschließlich mit JSON.`;
       hero_image_url = getFallbackImage(topic_name);
     }
 
+    // 8. Build unified insert row (handles slug, faq, fallbacks, trimming)
+    const row = buildInsertRow(articleData, {
+      categoryId: selectedCategory.id,
+      authorId,
+      topicName: topic_name,
+      topicColor: topic_color,
+      status: "published",
+      heroImageUrl: hero_image_url,
+      existingSlugs,
+    });
+    articleData.slug = row.slug;
+    articleData.title = row.title;
+
     // 9. Insert as published
-    const { error: insertErr } = await supabase
-      .from("blog_posts")
-      .insert([{
-        title: articleData.title,
-        slug: articleData.slug,
-        excerpt: articleData.excerpt || "",
-        content: articleData.content || "",
-        category_id: selectedCategory.id,
-        author_id: authorId,
-        status: "published",
-        topic: topic_name,
-        topic_color: topic_color,
-        published_at: new Date().toISOString(),
-        read_time: articleData.read_time,
-        seo_title: articleData.seo_title,
-        seo_description: articleData.seo_description,
-        keywords: articleData.keywords,
-        table_of_contents: articleData.table_of_contents ? JSON.stringify(articleData.table_of_contents) : null,
-        difficulty: articleData.difficulty ?? 2,
-        savings_potential: articleData.savings_potential,
-        payback_time: articleData.payback_time,
-        funding_available: articleData.funding_available,
-        effort_level: articleData.effort_level,
-        key_benefits: articleData.key_benefits,
-        important_notice: articleData.important_notice,
-        costs: null,
-        is_featured: false,
-        hero_image_url,
-        cover_url: hero_image_url,
-      }]);
+    const { error: insertErr } = await supabase.from("blog_posts").insert([row]);
 
     if (insertErr) throw new Error("Database insert error: " + insertErr.message);
 

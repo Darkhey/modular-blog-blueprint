@@ -88,7 +88,23 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
     ]
   };
 
+  // FAQ structured data (only when the post has faq items)
+  const faqItems = Array.isArray(post.faq)
+    ? (post.faq as Array<{ question?: unknown; answer?: unknown }>)
+        .filter((i) => typeof i?.question === 'string' && typeof i?.answer === 'string')
+    : [];
+  const faqData = faqItems.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map((i) => ({
+      "@type": "Question",
+      "name": i.question as string,
+      "acceptedAnswer": { "@type": "Answer", "text": i.answer as string },
+    })),
+  } : null;
+
   return (
+
     <Helmet>
       {/* Basic Meta Tags */}
       <title>{seoTitle}</title>
@@ -132,6 +148,13 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <script type="application/ld+json">
         {JSON.stringify(breadcrumbData)}
       </script>
+
+      {/* Structured Data - FAQ */}
+      {faqData && (
+        <script type="application/ld+json">
+          {JSON.stringify(faqData)}
+        </script>
+      )}
     </Helmet>
   );
 };

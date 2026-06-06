@@ -7,6 +7,9 @@ import BlogPostNotFound from "@/components/blog/post/BlogPostNotFound";
 import BlogPostSkeleton from "@/components/blog/post/BlogPostSkeleton";
 import BlogPostSidebar from "@/components/blog/post/BlogPostSidebar";
 import ArticleBody from "@/components/blog/post/ArticleBody";
+import BlogPostFaqSection from "@/components/blog/post/BlogPostFaqSection";
+import BlogPostSEO from "@/components/seo/BlogPostSEO";
+import { siteConfig } from "@/config/site.config";
 import CommentSystem from "@/components/comments/CommentSystem";
 import RelatedCalculators from "@/components/shared/RelatedCalculators";
 
@@ -65,6 +68,7 @@ const BlogPost = () => {
 
   return (
     <>
+      <BlogPostSEO post={post} canonicalUrl={`${siteConfig.siteUrl}/blog/${post.slug}`} />
       <BlogPostContentSEO post={post} />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
         <div className="container max-w-5xl mx-auto px-4 py-8">
@@ -78,6 +82,8 @@ const BlogPost = () => {
                   </div>
                 </div>
               </article>
+
+              <BlogPostFaqSection faq={post.faq} className="mt-8" />
 
               <RelatedCalculators
                 topics={deriveTopics(post.topic, post.keywords, post.title)}

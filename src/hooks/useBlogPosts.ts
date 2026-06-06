@@ -25,6 +25,7 @@ export interface BlogPost {
   effort_level?: string;
   key_benefits?: string[];
   important_notice?: string;
+  faq?: any;
   table_of_contents?: any;
   costs: any;
   blog_authors?: {

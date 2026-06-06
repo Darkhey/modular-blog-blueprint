@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { buildSystemPrompt, parseAiJson, buildInsertRow } from "../_shared/blogPrompt.ts";
 
 const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 const OPENAI_MODEL = Deno.env.get("OPENAI_MODEL") || "gpt-4o-mini";
@@ -140,36 +141,10 @@ serve(async (req) => {
         lengthInstruction = "Schreibe einen mittelangen Artikel (8-10 Minuten Lesezeit).";
     }
 
-    const systemPrompt = `Du bist ein deutschsprachiger Energie/Modernisierungs-Redakteur für Hausbesitzer.
-Erstelle einen SEO-optimierten Fachartikel. ${lengthInstruction}
-
-Antworte ausschließlich mit diesem JSON-Format:
-{
-"title": String,          // SEO-optimierte Überschrift
-"slug": String,           // URL-Slug (nur Kleinbuchstaben, Bindestriche)
-"excerpt": String,        // Kurzer Anreißer, max 200 Zeichen
-"content": String,        // HTML-Content mit <h2>, <h3>, <p>, <ul>, <li>, Links
-"seo_title": String,      // max. 65 Zeichen, Keywords vorne
-"seo_description": String,// max. 160 Zeichen
-"keywords": [String],     // SEO Keywords Array
-"read_time": Number,      // geschätzte Lesezeit in Minuten
-"table_of_contents": Array<{id:string,title:string}>,
-"difficulty": 1|2|3,      // 1=einfach, 2=mittel, 3=schwer
-"savings_potential": String,
-"payback_time": String,
-"funding_available": String,
-"effort_level": String,
-"key_benefits": [String],
-"important_notice": String,
-"image_keywords": [String] // 3-5 Keywords für Bildsuche
-}
-
-Thema: "${topic || topic_name}". 
-Kategorie: "${topic_name}".
-Baue praktische Tipps, Kostenbeispiele und Hinweise auf Förderungen ein.
-Verwende moderne HTML-Struktur und verlinke zu verwandten Themen.
-Füge image_keywords hinzu - das sind 3-5 englische Begriffe für die Bildsuche.
-Antworte ausschließlich mit diesem JSON.`;
+    const systemPrompt = buildSystemPrompt({
+      topicName: topic || topic_name,
+      lengthInstruction,
+    });
 
     const userPrompt = topic 
       ? `Schreibe einen Artikel zum Thema: "${topic}" in der Kategorie "${topic_name}". Fokussiere auf praktische Tipps für 2025.`
@@ -203,100 +178,52 @@ Antworte ausschließlich mit diesem JSON.`;
 
     if (!output) throw new Error("No response from OpenAI.");
 
-    // Parse JSON - try direct parsing first, then fallback to regex
-    let articleData: any = {};
-    try {
-      articleData = JSON.parse(output);
-    } catch (e) {
-      console.log("Direct JSON parsing failed, trying regex fallback");
-      const match = output.match(/\{[\s\S]*\}/);
-      if (match) {
-        try {
-          articleData = JSON.parse(match[0]);
-        } catch (regexError) {
-          throw new Error("Could not parse AI response as JSON: " + e);
-        }
-      } else {
-        throw new Error("Could not find JSON in AI response: " + e);
-      }
-    }
-
-    // Fallbacks and validation
-    articleData.slug = (articleData.slug || articleData.title || "").toLowerCase()
-      .replace(/[^a-z0-9äöüß]+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/(^-|-$)/g, "");
-    
-    if (!articleData.slug) {
-      articleData.slug = `artikel-${Date.now()}`;
-    }
-    
-    if (!articleData.title) articleData.title = `Artikel ${Date.now()}`;
-    if (!articleData.read_time) articleData.read_time = 8;
-
-    // Check for duplicate slugs
-    const { data: existingPost } = await supabase
-      .from("blog_posts")
-      .select("id")
-      .eq("slug", articleData.slug)
-      .single();
-
-    if (existingPost) {
-      articleData.slug += `-${Date.now()}`;
-    }
+    // Parse JSON (direct, with regex fallback)
+    const articleData = parseAiJson(output);
 
     // Get image for the article
     let hero_image_url = imageUrl || null;
     let cover_url = imageUrl || null;
 
     if (!hero_image_url) {
-        if (articleData.image_keywords && articleData.image_keywords.length > 0) {
-          // Try to get image from Unsplash using AI-generated keywords
-          const imageQuery = articleData.image_keywords.join(" ");
-          hero_image_url = await getUnsplashImage(imageQuery);
-          cover_url = hero_image_url; // Use same image for both
-        }
-    
-        // Fallback to category-specific image if Unsplash fails
-        if (!hero_image_url) {
-          hero_image_url = getFallbackImage(topic_name);
-          cover_url = hero_image_url;
-        }
+      if (articleData.image_keywords && articleData.image_keywords.length > 0) {
+        hero_image_url = await getUnsplashImage(articleData.image_keywords.join(" "));
+        cover_url = hero_image_url;
+      }
+      if (!hero_image_url) {
+        hero_image_url = getFallbackImage(topic_name);
+        cover_url = hero_image_url;
+      }
     }
 
     console.log(`Selected image for article: ${hero_image_url}`);
 
+    // Ensure unique slug against existing posts
+    const provisionalSlug = (articleData.slug || articleData.title || "")
+      .toLowerCase().replace(/[^a-z0-9äöüß]+/g, "-").replace(/-+/g, "-").replace(/(^-|-$)/g, "");
+    const existingSlugs = new Set<string>();
+    if (provisionalSlug) {
+      const { data: existingPost } = await supabase
+        .from("blog_posts").select("id").eq("slug", provisionalSlug).maybeSingle();
+      if (existingPost) existingSlugs.add(provisionalSlug);
+    }
+
+    // Build unified insert row (handles slug, faq, fallbacks, trimming)
+    const row = buildInsertRow(articleData, {
+      categoryId: selectedCategory.id,
+      authorId,
+      topicName: topic_name,
+      topicColor: topic_color,
+      status: autoPublish ? "published" : "draft",
+      heroImageUrl: hero_image_url,
+      coverUrl: cover_url,
+      existingSlugs,
+    });
+    articleData.slug = row.slug;
+    articleData.title = row.title;
+
     // Insert into database
-    const { error: insertErr } = await supabase
-      .from("blog_posts")
-      .insert([{
-        title: articleData.title,
-        slug: articleData.slug,
-        excerpt: articleData.excerpt,
-        content: articleData.content,
-        category_id: selectedCategory.id,
-        author_id: authorId,
-        status: autoPublish ? "published" : "draft",
-        topic: topic_name,
-        topic_color: topic_color,
-        published_at: autoPublish ? new Date().toISOString() : null,
-        read_time: articleData.read_time,
-        seo_title: articleData.seo_title,
-        seo_description: articleData.seo_description,
-        keywords: articleData.keywords,
-        table_of_contents: articleData.table_of_contents ? JSON.stringify(articleData.table_of_contents) : null,
-        difficulty: articleData.difficulty ?? 2,
-        savings_potential: articleData.savings_potential,
-        payback_time: articleData.payback_time,
-        funding_available: articleData.funding_available,
-        effort_level: articleData.effort_level,
-        key_benefits: articleData.key_benefits,
-        important_notice: articleData.important_notice,
-        costs: null,
-        is_featured: false,
-        hero_image_url: hero_image_url,
-        cover_url: cover_url
-      }]);
+    const { error: insertErr } = await supabase.from("blog_posts").insert([row]);
 
     if (insertErr) throw new Error("Database insert error: " + insertErr.message);
 
