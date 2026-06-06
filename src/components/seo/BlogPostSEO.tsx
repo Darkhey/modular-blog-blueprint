@@ -148,6 +148,13 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
       <script type="application/ld+json">
         {JSON.stringify(breadcrumbData)}
       </script>
+
+      {/* Structured Data - FAQ */}
+      {faqData && (
+        <script type="application/ld+json">
+          {JSON.stringify(faqData)}
+        </script>
+      )}
     </Helmet>
   );
 };
