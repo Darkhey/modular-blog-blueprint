@@ -12,6 +12,7 @@ import StatsSection from '@/components/home/StatsSection';
 import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import DynamicFeaturedGuides from '@/components/home/DynamicFeaturedGuides';
+import LatestArticlesSection from '@/components/home/LatestArticlesSection';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 
 const Index = () => {
@@ -38,6 +39,7 @@ const Index = () => {
           isErrorCategories={isErrorCategories}
         />
         <DynamicFeaturedGuides />
+        <LatestArticlesSection />
         <EnergyAdvisorSearch />
         <NewsletterSection />
       </main>
