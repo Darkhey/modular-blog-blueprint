@@ -8,6 +8,7 @@ import BlogPostSkeleton from "@/components/blog/post/BlogPostSkeleton";
 import BlogPostSidebar from "@/components/blog/post/BlogPostSidebar";
 import ArticleBody from "@/components/blog/post/ArticleBody";
 import BlogPostFaqSection from "@/components/blog/post/BlogPostFaqSection";
+import RelatedArticles from "@/components/blog/post/RelatedArticles";
 import BlogPostSEO from "@/components/seo/BlogPostSEO";
 import { siteConfig } from "@/config/site.config";
 import CommentSystem from "@/components/comments/CommentSystem";
