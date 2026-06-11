@@ -8,6 +8,7 @@ import BlogPostSkeleton from "@/components/blog/post/BlogPostSkeleton";
 import BlogPostSidebar from "@/components/blog/post/BlogPostSidebar";
 import ArticleBody from "@/components/blog/post/ArticleBody";
 import BlogPostFaqSection from "@/components/blog/post/BlogPostFaqSection";
+import RelatedArticles from "@/components/blog/post/RelatedArticles";
 import BlogPostSEO from "@/components/seo/BlogPostSEO";
 import { siteConfig } from "@/config/site.config";
 import CommentSystem from "@/components/comments/CommentSystem";
@@ -89,6 +90,14 @@ const BlogPost = () => {
                 topics={deriveTopics(post.topic, post.keywords, post.title)}
                 className="mt-8 rounded-xl"
               />
+
+              <RelatedArticles
+                currentSlug={post.slug}
+                topic={post.topic}
+                keywords={post.keywords}
+                className="mt-8"
+              />
+
 
               {/* Comment System */}
               <div className="mt-8">

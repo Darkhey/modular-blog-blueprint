@@ -161,6 +161,71 @@ export const useBlogPost = (slug: string) => {
   });
 };
 
+// Related posts: same topic first, then keyword overlap, excluding current post
+export const useRelatedPosts = (
+  currentSlug: string,
+  topic?: string,
+  keywords?: string[] | null,
+  limit = 3,
+) => {
+  return useQuery({
+    queryKey: ['related-posts', currentSlug, topic, keywords, limit],
+    queryFn: async () => {
+      const collected = new Map<string, BlogPost>();
+
+      const add = (rows: BlogPost[] | null) => {
+        (rows || []).forEach((p) => {
+          if (p.slug !== currentSlug && !collected.has(p.slug)) {
+            collected.set(p.slug, p);
+          }
+        });
+      };
+
+      // 1) Same topic
+      if (topic) {
+        const { data } = await supabase
+          .from('blog_posts')
+          .select('id, title, slug, excerpt, topic, topic_color, read_time, published_at, hero_image_url, cover_url')
+          .eq('status', 'published')
+          .eq('topic', topic)
+          .neq('slug', currentSlug)
+          .order('published_at', { ascending: false })
+          .limit(limit + 2);
+        add(data as BlogPost[] | null);
+      }
+
+      // 2) Keyword overlap to fill remaining slots
+      if (collected.size < limit && keywords && keywords.length > 0) {
+        const { data } = await supabase
+          .from('blog_posts')
+          .select('id, title, slug, excerpt, topic, topic_color, read_time, published_at, hero_image_url, cover_url')
+          .eq('status', 'published')
+          .neq('slug', currentSlug)
+          .overlaps('keywords', keywords)
+          .order('published_at', { ascending: false })
+          .limit(limit + 2);
+        add(data as BlogPost[] | null);
+      }
+
+      // 3) Fallback to latest posts
+      if (collected.size < limit) {
+        const { data } = await supabase
+          .from('blog_posts')
+          .select('id, title, slug, excerpt, topic, topic_color, read_time, published_at, hero_image_url, cover_url')
+          .eq('status', 'published')
+          .neq('slug', currentSlug)
+          .order('published_at', { ascending: false })
+          .limit(limit + 2);
+        add(data as BlogPost[] | null);
+      }
+
+      return Array.from(collected.values()).slice(0, limit);
+    },
+    enabled: !!currentSlug,
+    staleTime: 5 * 60 * 1000,
+  });
+};
+
 // New hook for analytics and admin features
 export const useBlogPostAnalytics = (timeRange: '7d' | '30d' | '90d' = '30d') => {
   return useQuery({
