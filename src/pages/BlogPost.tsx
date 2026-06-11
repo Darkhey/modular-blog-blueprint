@@ -91,6 +91,14 @@ const BlogPost = () => {
                 className="mt-8 rounded-xl"
               />
 
+              <RelatedArticles
+                currentSlug={post.slug}
+                topic={post.topic}
+                keywords={post.keywords}
+                className="mt-8"
+              />
+
+
               {/* Comment System */}
               <div className="mt-8">
                 <CommentSystem postId={post.id} postSlug={post.slug} />
