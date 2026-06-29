@@ -44,36 +44,32 @@
     <!-- Schriftart Inter wird lokal über @fontsource gebündelt (kein Google-CDN, kein IP-Transfer) -->
 
 
-    <!-- Google Consent Mode v2 (muss VOR Analytics geladen werden) -->
+    <!-- Google Consent Mode v2 (Standard: alles abgelehnt, bis Einwilligung erteilt wird) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      
-      // Standard-Consent: Alles deaktiviert (Google-konform)
+
+      // Standard-Consent: Alles deaktiviert (DSGVO/TTDSG-konform)
       gtag('consent', 'default', {
         analytics_storage: 'denied',
         ad_storage: 'denied',
         ad_user_data: 'denied',
         ad_personalization: 'denied',
         functionality_storage: 'granted',
-        security_storage: 'granted'
+        security_storage: 'granted',
+        wait_for_update: 500
       });
-      
+
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX', {
-        anonymize_ip: true,
-        cookie_expires: 63072000,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false
-      });
     </script>
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <!--
+      Hinweis: Google Analytics und Google AdSense werden NICHT statisch geladen.
+      Sie werden erst nach aktiver Einwilligung des Nutzers (Cookie-Banner) per
+      JavaScript nachgeladen (siehe useAdsenseLoader / Analytics-Initialisierung).
+    -->
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4326654077043920"
-      crossorigin="anonymous"></script>
+
 
     <!-- Enhanced Structured Data -->
     <script type="application/ld+json">
