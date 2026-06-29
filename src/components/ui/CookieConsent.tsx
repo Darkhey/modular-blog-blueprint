@@ -121,9 +121,9 @@ const CookieConsent = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => setShowConsent(false)}
+            onClick={acceptNecessary}
             className="p-1 h-auto"
-            aria-label="Banner schließen"
+            aria-label="Nur notwendige Cookies akzeptieren und schließen"
           >
             <X size={16} />
           </Button>
