@@ -15,19 +15,18 @@ const Impressum = () => {
               
               <div className="space-y-6 text-gray-700">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3">Angaben gemäß § 5 TMG</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">Angaben gemäß § 5 DDG (TMG)</h2>
                   <p>
-                    Maximilian Leistner<br />
                     Klexgetier<br />
-                    Hasberger Dorfstraße 67<br />
-                    27751 Delmenhorst
+                    Sportplatzstraße 41<br />
+                    84030 Ergolding
                   </p>
                 </div>
 
                 <div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">Kontakt</h2>
                   <p>
-                    Telefon: +491739636644<br />
+                    Telefon: 0173 6936644<br />
                     E-Mail: hallo@klexgetier.de
                   </p>
                 </div>

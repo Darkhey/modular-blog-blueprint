@@ -54,7 +54,7 @@ export const siteConfig = {
   googleServices: {
     // Analytics
     analytics: {
-      enabled: true,
+      enabled: false, // Deaktiviert bis echte Mess-ID vorliegt; lädt nur nach Einwilligung
       trackingId: "G-XXXXXXXXXX", // Wird später durch echte ID ersetzt
       config: {
         anonymize_ip: true,
