@@ -97,16 +97,17 @@ const BlogCard = ({ post }: BlogCardProps) => {
         </div>
       </Link>
 
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         <h2 className="text-lg font-bold text-card-foreground mb-2 line-clamp-2">
           <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
             {post.title}
           </Link>
         </h2>
 
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2 flex-1">
           {post.excerpt}
         </p>
+
 
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-3">
