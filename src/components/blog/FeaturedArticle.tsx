@@ -28,7 +28,7 @@ const FeaturedArticle = () => {
 
       {/* Main featured article */}
       <Link to={`/blog/${mainPost.slug}`} className="block group mb-4">
-        <div className="relative overflow-hidden rounded-xl border bg-gradient-to-r from-primary/5 to-accent/10 hover:shadow-lg transition-all duration-300">
+        <div className="relative overflow-hidden rounded-2xl glass border border-border/60 hover:shadow-glow transition-all duration-300 hover:-translate-y-1">
           <div className="flex flex-col md:flex-row">
             {mainPost.hero_image_url && (
               <div className="md:w-2/5 h-48 md:h-auto overflow-hidden">
