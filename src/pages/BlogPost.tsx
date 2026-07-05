@@ -13,6 +13,7 @@ import BlogPostSEO from "@/components/seo/BlogPostSEO";
 import { siteConfig } from "@/config/site.config";
 import CommentSystem from "@/components/comments/CommentSystem";
 import RelatedCalculators from "@/components/shared/RelatedCalculators";
+import ReadingProgress from "@/components/blog/post/ReadingProgress";
 
 /** Map blog topic + keywords to calculator topic vocabulary. */
 const TOPIC_KEYWORD_MAP: Record<string, string[]> = {
