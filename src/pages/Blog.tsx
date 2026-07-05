@@ -35,7 +35,7 @@ const Blog = () => {
   const showFeaturedContent = !selectedTopic && !searchQuery;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
       <Helmet>
         <title>Sanierungs-Blog – Aktuelle Tipps & Förderinfos</title>
         <meta name="description" content="Tagesaktuelle Artikel zu energetischer Sanierung: Heizung, Dämmung, Solar, Smart Home und Fördermittel. Praxisnah recherchiert." />

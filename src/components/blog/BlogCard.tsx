@@ -69,7 +69,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
   const isNew = post.published_at && (Date.now() - new Date(post.published_at).getTime()) < 7 * 24 * 60 * 60 * 1000;
 
   return (
-    <article className="group bg-card rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-glow transition-all duration-300 hover:-translate-y-1">
+    <article className="group glass rounded-2xl border border-border/60 overflow-hidden hover:shadow-glow transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
       {/* Image */}
       <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
         <img
@@ -97,16 +97,17 @@ const BlogCard = ({ post }: BlogCardProps) => {
         </div>
       </Link>
 
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         <h2 className="text-lg font-bold text-card-foreground mb-2 line-clamp-2">
           <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
             {post.title}
           </Link>
         </h2>
 
-        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2 flex-1">
           {post.excerpt}
         </p>
+
 
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <div className="flex items-center gap-3">

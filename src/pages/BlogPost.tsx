@@ -13,6 +13,7 @@ import BlogPostSEO from "@/components/seo/BlogPostSEO";
 import { siteConfig } from "@/config/site.config";
 import CommentSystem from "@/components/comments/CommentSystem";
 import RelatedCalculators from "@/components/shared/RelatedCalculators";
+import ReadingProgress from "@/components/blog/post/ReadingProgress";
 
 /** Map blog topic + keywords to calculator topic vocabulary. */
 const TOPIC_KEYWORD_MAP: Record<string, string[]> = {
@@ -69,13 +70,14 @@ const BlogPost = () => {
 
   return (
     <>
+      <ReadingProgress />
       <BlogPostSEO post={post} canonicalUrl={`${siteConfig.siteUrl}/blog/${post.slug}`} />
       <BlogPostContentSEO post={post} />
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
         <div className="container max-w-5xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <div className="lg:col-span-3 max-w-none">
-              <article className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+              <article className="glass rounded-2xl shadow-sm border border-border/60 overflow-hidden">
                 <div className="p-8 lg:p-12">
                   <BlogPostHeader post={post} />
                   <div className="prose prose-lg max-w-4xl mx-auto">
