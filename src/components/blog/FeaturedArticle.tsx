@@ -75,7 +75,7 @@ const FeaturedArticle = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {secondaryPosts.map((post) => (
             <Link key={post.id} to={`/blog/${post.slug}`} className="block group">
-              <div className="flex items-start gap-4 p-4 rounded-lg border bg-card hover:shadow-md transition-all duration-300">
+              <div className="flex items-start gap-4 p-4 rounded-xl glass border border-border/60 hover:shadow-glow hover:-translate-y-0.5 transition-all duration-300">
                 {post.hero_image_url && (
                   <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                     <img
