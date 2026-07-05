@@ -1,59 +1,46 @@
-# Cookie-Einstellungen & Datenschutz rechtssicher machen
+# Blog modernisieren
 
-Die Prüfung hat zwei Problemklassen ergeben: **technische Consent-Lücken** (Skripte laden vor Einwilligung) und **falsche Rechtstexte** (gehören zu einem anderen Projekt „Spreadshirt/Shopify").
+Ziel: Der Blog (Übersicht + Artikelseite) soll dem modernen Look der Startseite entsprechen – Emerald/Teal-Palette, Glassmorphism, weiche Schatten, konsistente Design-Tokens. Aktuell bricht der Blog optisch aus, weil er noch harte Graustufen und ein flaches Kartenraster nutzt.
 
-## A. Technische Consent-Fixes (rechtlich kritisch)
+## Warum jetzt
+- Blog-Seiten verwenden hartkodierte Farben (`bg-gray-50`, `text-gray-900`, `text-gray-600`) statt der semantischen Tokens (`background`, `foreground`, `muted-foreground`) – dadurch wirken sie älter und inkonsistent zur Startseite.
+- Karten sind flach; die Startseite (`LatestArticlesSection`) nutzt bereits `glass`, `hover:shadow-glow`, `-translate-y-1` und Fade-in-Animationen.
+- Ladezustände zeigen nur „Lade Artikel…" statt Skeletons.
 
-### 1. `index.html` aufräumen
-- **Google-AdSense-Skript** (`adsbygoogle.js`) aus dem `<head>` **entfernen**. Es wird dort ohne Einwilligung geladen und zusätzlich bereits korrekt einwilligungsabhängig per `useAdsenseLoader` nachgeladen (Doppelladung + Verstoß).
-- **Google-Analytics-Skript** (`gtag/js`) aus dem `<head>` **entfernen** – es lädt aktuell ungefragt und nutzt nur die Platzhalter-ID `G-XXXXXXXXXX`.
-- Den **Consent-Mode-v2-Block** (`gtag('consent','default', … denied)`) **behalten** – er ist korrekt und muss vor allem anderen stehen.
+## Umfang der Änderungen (reine UI/Präsentation)
 
-### 2. Analytics sauber deaktivieren, bis echte ID vorliegt
-- In `src/config/site.config.ts` `googleServices.analytics.enabled = false` setzen (du hast „noch unklar" gewählt). So wird nichts geladen/gemessen.
-- Vorbereitung für später: GA wird erst geladen, wenn (a) eine echte Mess-ID hinterlegt ist **und** (b) `analytics_storage` per Consent auf `granted` steht. Sobald du die ID hast, reicht das Eintragen der ID + `enabled: true`.
+### 1. Blog-Übersicht (`src/pages/Blog.tsx`)
+- Hintergrund von `bg-gray-50` auf semantisches `bg-background` bzw. dezenten Verlauf (`bg-gradient-to-b from-secondary/30`) umstellen.
+- Optischer Header-Bereich mit mehr Luft und Akzent, passend zur Startseite.
 
-### 3. Cookie-Banner-Logik
-- Der `X`-Button schließt das Banner aktuell **ohne** eine Einwilligung zu speichern → Banner erscheint bei jeder neuen Sitzung erneut und es gilt korrekt „alles abgelehnt". Das ist tolerierbar, aber sauberer: `X` entfernen bzw. wie „Nur notwendige" behandeln, damit eine bewusste Ablehnung gespeichert wird (Nachweisbarkeit der Einwilligung/Ablehnung).
-- Texte im Banner an die real genutzten Dienste angleichen (Google Analytics nur erwähnen, wenn aktiv; sonst „Statistik" generisch).
+### 2. Hero (`src/components/blog/BlogHero.tsx`)
+- Graustufen durch Tokens ersetzen, kleines Emerald-Akzent-Badge/Icon (analog „Frisch veröffentlicht"), größere Typo-Hierarchie.
 
-### 4. Google Fonts (Empfehlung)
-- `Inter` wird aktuell vom **Google-CDN** geladen → überträgt die IP der Besucher an Google noch vor jeder Einwilligung (häufiger Abmahngrund). Empfehlung: Schrift lokal über `@fontsource/inter` einbinden und den CDN-`<link>` entfernen. (Optional, aber für echte Rechtssicherheit empfohlen.)
+### 3. Karten (`src/components/blog/BlogCard.tsx`)
+- Auf `glass`-Optik + `hover:shadow-glow` vereinheitlichen (konsistent mit `LatestArticlesSection`).
+- Bild-Overlay, Badges und Meta-Zeile feinschleifen; sanfte Fade-in-Einblendung beim Scrollen (`useInView`).
 
-## B. Rechtstexte neu schreiben
+### 4. Grid & Ladezustand (`src/components/blog/BlogPostGrid.tsx`)
+- Graustufen → Tokens.
+- „Lade Artikel…" durch `Skeleton`-Karten ersetzen.
+- Optional dichteres, moderneres Raster (3 Spalten ab `xl`).
 
-### 5. `src/pages/Impressum.tsx`
-Mit den bestätigten Angaben:
-```text
-Klexgetier
-Sportplatzstraße 41
-84030 Ergolding
-E-Mail: hallo@klexgetier.de
-Telefon: 0173 6936644
-```
-(Die alte Delmenhorst-Adresse wird ersetzt.) Restliche Standardklauseln (Haftung, Urheberrecht, EU-OS) bleiben.
+### 5. Featured-Bereich (`src/components/blog/FeaturedArticle.tsx`)
+- An Glass-/Emerald-Stil angleichen, größere Bildfläche, klarere Sekundär-Kacheln.
 
-### 6. `src/pages/Datenschutz.tsx` – komplette Neufassung
-Entfernt alle nicht zutreffenden Passagen (Spreadshirt/sprd.net, Shopify-Hosting, Facebook/Instagram/Pinterest-Plugins, „Registrierung mit Google", Consent-Manager-Drittanbieter) und beschreibt die **tatsächlich genutzten** Dienste:
-- **Verantwortliche Stelle**: Klexgetier (Daten aus #5)
-- **Hosting**: Lovable / Supabase (EU), Auftragsverarbeitung
-- **Server-Logfiles**
-- **Cookies & Consent Mode v2** (passend zum Banner)
-- **Google AdSense** (Publisher-ID `ca-pub-4326654077043920`, einwilligungsbasiert, Art. 6 Abs. 1 lit. a)
-- **Google Analytics** – als „wird ggf. eingesetzt, nur nach Einwilligung" formuliert (da derzeit deaktiviert)
-- **Google Fonts** (bzw. lokales Hosting, falls #4 umgesetzt)
-- **Kontaktaufnahme / Newsletter** (Supabase als Speicher)
-- **Betroffenenrechte, Widerruf, Beschwerderecht, SSL/TLS**
+### 6. Artikelseite (`src/pages/BlogPost.tsx` + `post/`-Komponenten)
+- Header und Body-Container auf Tokens umstellen (statt `text-gray-900`).
+- Prose-Typografie verfeinern (Zwischenüberschriften, Zitat-/Info-Boxen, Bild-Rundungen), bessere Lesbreite und Zeilenabstände.
+- Lesefortschritts-Indikator (dünner Balken oben) als moderner Standard.
 
-### Geänderte Dateien
-| Datei | Änderung |
-|---|---|
-| `index.html` | Statische GA- & AdSense-Skripte entfernt, Consent-Default behalten |
-| `src/config/site.config.ts` | Analytics `enabled: false` bis echte ID |
-| `src/components/ui/CookieConsent.tsx` | X-Button → bewusste Ablehnung, Texte angepasst |
-| `src/pages/Impressum.tsx` | Korrekte Betreiberdaten |
-| `src/pages/Datenschutz.tsx` | Vollständige Neufassung auf reale Dienste |
-| optional: `src/main.tsx` + `tailwind.config.ts` | Lokale Inter-Schrift statt Google-CDN |
+## Technische Details
+- Keine Business-Logik/Datenänderungen – nur Präsentationsschicht (Tailwind-Klassen, Tokens, kleine Animationskomponenten).
+- Wiederverwendung vorhandener Hooks (`useInView`) und `Skeleton`.
+- Farben ausschließlich über bestehende semantische Tokens aus `index.css`/`tailwind.config.ts` (Emerald/Teal), kein Hardcoding.
 
-## Hinweis
-Dies setzt die Seite technisch und inhaltlich DSGVO-/TTDSG-konform auf; es ersetzt keine anwaltliche Endprüfung. Sobald du eine echte Google-Analytics-ID hast, sage Bescheid – dann aktiviere ich GA einwilligungsbasiert.
+## Optional (auf Wunsch)
+- Umschaltbare Listen-/Rasteransicht.
+- „Geschätzte Lesezeit + Datum" als kompakte Pills.
+- Kategorie-Filter als moderne Chips mit aktivem Emerald-Zustand.
+
+Sag Bescheh, ob ich alle Punkte 1–6 umsetzen soll oder nur einen Teil davon.
