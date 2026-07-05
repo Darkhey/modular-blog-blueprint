@@ -69,7 +69,7 @@ const BlogCard = ({ post }: BlogCardProps) => {
   const isNew = post.published_at && (Date.now() - new Date(post.published_at).getTime()) < 7 * 24 * 60 * 60 * 1000;
 
   return (
-    <article className="group bg-card rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-glow transition-all duration-300 hover:-translate-y-1">
+    <article className="group glass rounded-2xl border border-border/60 overflow-hidden hover:shadow-glow transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
       {/* Image */}
       <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
         <img
