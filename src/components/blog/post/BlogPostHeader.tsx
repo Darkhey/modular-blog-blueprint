@@ -63,6 +63,7 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
       </div>
     </div>
   </header>
-);
+  );
+};
 
 export default BlogPostHeader;
