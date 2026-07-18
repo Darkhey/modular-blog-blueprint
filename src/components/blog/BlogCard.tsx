@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, FileText } from 'lucide-react';
 import { BlogPost } from '@/hooks/useBlogPosts';
+import { getReadingStats, formatWordCount } from '@/lib/readingStats';
 
 import heizungImg from '@/assets/blog-hero-heizung.jpg';
 import daemmungImg from '@/assets/blog-hero-daemmung.jpg';
@@ -67,6 +68,7 @@ interface BlogCardProps {
 
 const BlogCard = ({ post }: BlogCardProps) => {
   const isNew = post.published_at && (Date.now() - new Date(post.published_at).getTime()) < 7 * 24 * 60 * 60 * 1000;
+  const { words, minutes } = getReadingStats(post.content, post.read_time);
 
   return (
     <article className="group glass rounded-2xl border border-border/60 overflow-hidden hover:shadow-glow transition-all duration-300 hover:-translate-y-1 h-full flex flex-col">
@@ -117,8 +119,14 @@ const BlogCard = ({ post }: BlogCardProps) => {
             </span>
             <span className="flex items-center gap-1">
               <Clock size={13} />
-              {post.read_time} Min.
+              {minutes} Min.
             </span>
+            {words > 0 && (
+              <span className="hidden sm:flex items-center gap-1" title="Wortanzahl">
+                <FileText size={13} />
+                {formatWordCount(words)} Wörter
+              </span>
+            )}
           </div>
           <Link
             to={`/blog/${post.slug}`}
