@@ -1,12 +1,15 @@
 
-import { Calendar, Clock } from 'lucide-react';
+import { Calendar, Clock, FileText } from 'lucide-react';
 import { BlogPost } from '@/hooks/useBlogPosts';
+import { getReadingStats, formatWordCount } from '@/lib/readingStats';
 
 interface BlogPostHeaderProps {
-  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty'>;
+  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content'>;
 }
 
-const BlogPostHeader = ({ post }: BlogPostHeaderProps) => (
+const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
+  const { words, minutes } = getReadingStats(post.content, post.read_time);
+  return (
   <header className="mb-8">
     <div className="mb-4">
       <span
@@ -37,8 +40,14 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => (
         </div>
         <div className="flex items-center space-x-2">
           <Clock size={16} />
-          <span>{post.read_time} Min. Lesezeit</span>
+          <span>{minutes} Min. Lesezeit</span>
         </div>
+        {words > 0 && (
+          <div className="flex items-center space-x-2" title="Wortanzahl des Artikels">
+            <FileText size={16} />
+            <span>{formatWordCount(words)} Wörter</span>
+          </div>
+        )}
       </div>
 
       <div className="flex items-center space-x-2">
@@ -54,6 +63,7 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => (
       </div>
     </div>
   </header>
-);
+  );
+};
 
 export default BlogPostHeader;
