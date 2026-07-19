@@ -36,26 +36,16 @@ interface Massnahme {
 }
 
 const MASSNAHMEN: Massnahme[] = [
-  { id: 'waermepumpe', label: 'Wärmepumpe', bafa: 30, maxKosten: 30000, isfpEligible: true, hint: 'Klima-Geschwindigkeits-Bonus +20 %, Einkommens-Bonus +30 % möglich.' },
-  { id: 'biomasse', label: 'Biomasse-Heizung (Pellet)', bafa: 10, maxKosten: 30000, isfpEligible: true, hint: 'Emissionsminderungs-Zuschlag bei Feinstaubgrenzwert.' },
-  { id: 'solarthermie', label: 'Solarthermie', bafa: 30, maxKosten: 30000, isfpEligible: true, hint: 'Kombinierbar mit Heizungstausch.' },
-  { id: 'fenster', label: 'Fenster & Außentüren', bafa: 15, maxKosten: 30000, isfpEligible: true, hint: 'Uw ≤ 0,95 W/m²K erforderlich.' },
-  { id: 'daemmung', label: 'Dämmung Hülle/Dach', bafa: 15, maxKosten: 30000, isfpEligible: true, hint: 'Mindest-U-Werte nach BEG.' },
-  { id: 'lueftung', label: 'Lüftungsanlage mit WRG', bafa: 15, maxKosten: 30000, isfpEligible: true, hint: 'Wärmerückgewinnungsgrad ≥ 80 %.' },
-  { id: 'solar', label: 'Photovoltaik (KfW 270)', bafa: 0, maxKosten: 0, isfpEligible: false, hint: 'Kein Direktzuschuss – KfW-Kredit 270 mit zinsgünstiger Finanzierung.' },
+  { id: 'waermepumpe', label: 'W\u00e4rmepumpe', bafa: BEG_2026.heizungGrund, maxKosten: BEG_2026.heizungMaxKosten, isfpEligible: false, hint: 'Klimageschwindigkeits-Bonus +20 % bis 31.12.2028, Effizienzbonus +5 % f\u00fcr Sole/Wasser-WP, Einkommensbonus +30 % bei zvE \u2264 40.000 \u20ac.' },
+  { id: 'biomasse', label: 'Biomasse-Heizung (Pellet)', bafa: 10, maxKosten: BEG_2026.heizungMaxKosten, isfpEligible: false, hint: 'Emissionsminderungs-Zuschlag 2.500 \u20ac bei Feinstaub < 2,5 mg/m\u00b3. Klimageschwindigkeits-Bonus nur beim Heizungstausch.' },
+  { id: 'solarthermie', label: 'Solarthermie', bafa: BEG_2026.heizungGrund, maxKosten: BEG_2026.heizungMaxKosten, isfpEligible: false, hint: 'Kombinierbar mit Heizungstausch. Voller Grundzuschuss 30 %.' },
+  { id: 'fenster', label: 'Fenster & Au\u00dfent\u00fcren', bafa: BEG_2026.huelleGrund, maxKosten: BEG_2026.huelleMaxKostenOhneIsfp, isfpEligible: true, hint: 'Uw \u2264 0,95 W/m\u00b2K (Fenster) bzw. \u2264 1,3 W/m\u00b2K (Haust\u00fcren). Mit iSFP: 20 % Zuschuss auf bis zu 60.000 \u20ac/WE.' },
+  { id: 'daemmung', label: 'D\u00e4mmung H\u00fclle/Dach', bafa: BEG_2026.huelleGrund, maxKosten: BEG_2026.huelleMaxKostenOhneIsfp, isfpEligible: true, hint: 'Mindest-U-Werte nach BEG 2026 (Fassade 0,20 / Dach 0,14). Mit iSFP: 20 % auf 60.000 \u20ac Kostendeckel.' },
+  { id: 'lueftung', label: 'L\u00fcftungsanlage mit WRG', bafa: BEG_2026.huelleGrund, maxKosten: BEG_2026.huelleMaxKostenOhneIsfp, isfpEligible: true, hint: 'W\u00e4rmer\u00fcckgewinnungsgrad \u2265 80 %. Zusammen mit D\u00e4mmung als Paket sinnvoll.' },
+  { id: 'solar', label: 'Photovoltaik (KfW 270)', bafa: 0, maxKosten: 0, isfpEligible: false, hint: 'Kein Direktzuschuss \u2013 KfW-Kredit 270 mit zinsg\u00fcnstiger Finanzierung. Wirtschaftlichkeit \u00fcber 0 % MwSt., Einspeiseverg\u00fctung und Eigenverbrauch.' },
 ];
 
-const BUNDESLAENDER = [
-  'Baden-Württemberg', 'Bayern', 'Berlin', 'Brandenburg', 'Bremen', 'Hamburg',
-  'Hessen', 'Mecklenburg-Vorpommern', 'Niedersachsen', 'Nordrhein-Westfalen',
-  'Rheinland-Pfalz', 'Saarland', 'Sachsen', 'Sachsen-Anhalt', 'Schleswig-Holstein', 'Thüringen',
-] as const;
-
-/** Grobe regionale Top-up-Schätzung in % auf förderfähige Kosten */
-const REGIONAL_BONUS: Record<string, number> = {
-  Bayern: 5, 'Baden-Württemberg': 5, Hessen: 4, 'Nordrhein-Westfalen': 4,
-  Berlin: 6, Hamburg: 6, Bremen: 5,
-};
+const BUNDESLAENDER = Object.keys(REGIONALE_TOPUPS_2026) as (keyof typeof REGIONALE_TOPUPS_2026)[];
 
 const formatEuro = (n: number) =>
   n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
@@ -64,8 +54,9 @@ const FoerderrechnerPage = () => {
   const kostenId = useId();
   const [massnahme, setMassnahme] = useState<MassnahmeId>('waermepumpe');
   const [kosten, setKosten] = useState('25000');
-  const [bundesland, setBundesland] = useState<typeof BUNDESLAENDER[number]>('Bayern');
+  const [bundesland, setBundesland] = useState<string>('Bayern');
   const [klimaBonus, setKlimaBonus] = useState(true);
+  const [effizienzBonus, setEffizienzBonus] = useState(false);
   const [einkommensBonus, setEinkommensBonus] = useState(false);
   const [isfp, setIsfp] = useState(false);
   const [selbstnutzer, setSelbstnutzer] = useState(true);
@@ -73,32 +64,36 @@ const FoerderrechnerPage = () => {
   const result = useMemo(() => {
     const m = MASSNAHMEN.find((x) => x.id === massnahme)!;
     const investition = Math.max(0, Number(kosten.replace(',', '.')) || 0);
-    const foerderfaehig = Math.min(investition, m.maxKosten || investition);
+
+    // Deckel h\u00e4ngt beim H\u00fcllensegment davon ab, ob iSFP vorliegt
+    const isHuelle = ['fenster', 'daemmung', 'lueftung'].includes(m.id);
+    const maxKosten = isHuelle
+      ? (isfp ? BEG_2026.huelleMaxKostenMitIsfp : BEG_2026.huelleMaxKostenOhneIsfp)
+      : m.maxKosten;
+    const foerderfaehig = Math.min(investition, maxKosten || investition);
 
     let prozent = m.bafa;
-    if (m.id === 'waermepumpe') {
-      if (klimaBonus) prozent += 5; // Effizienzbonus für effiziente Wärmequelle (vereinfacht)
-      if (selbstnutzer && klimaBonus) prozent += 20; // Klima-Geschwindigkeits-Bonus
-      if (selbstnutzer && einkommensBonus) prozent += 30; // Einkommensbonus (≤ 40k €)
-    } else if (m.id === 'biomasse' && selbstnutzer && klimaBonus) {
-      prozent += 20;
-    }
+    const isHeizung = ['waermepumpe', 'biomasse', 'solarthermie'].includes(m.id);
 
-    if (isfp && m.isfpEligible && m.id !== 'waermepumpe') {
-      prozent += 5; // iSFP-Bonus nur für Hülle, nicht Heizung-WP
-    }
+    if (isHeizung && selbstnutzer && klimaBonus) prozent += BEG_2026.klimaBonus; // +20
+    if (m.id === 'waermepumpe' && effizienzBonus) prozent += BEG_2026.effizienzBonus; // +5
+    if (isHeizung && selbstnutzer && einkommensBonus) prozent += BEG_2026.einkommensBonus; // +30
 
-    // Deckel: BEG-Anlage max ca. 70 % für Heizung
-    if (['waermepumpe', 'biomasse', 'solarthermie'].includes(m.id)) prozent = Math.min(prozent, 70);
+    if (isfp && m.isfpEligible) prozent += BEG_2026.isfpBonus; // +5 (nur H\u00fclle)
+
+    // Deckel
+    if (isHeizung) prozent = Math.min(prozent, BEG_2026.heizungMaxProzent);
+    else if (isHuelle) prozent = Math.min(prozent, BEG_2026.huelleMaxProzent);
     else prozent = Math.min(prozent, 25);
 
     const bafaZuschuss = (foerderfaehig * prozent) / 100;
-    const regional = ((REGIONAL_BONUS[bundesland] || 0) * foerderfaehig) / 100;
-    const gesamt = bafaZuschuss + regional;
+    const emZuschlag = m.id === 'biomasse' ? BEG_2026.biomasseEmZuschlag : 0;
+    const regional = ((REGIONALE_TOPUPS_2026[bundesland] || 0) * foerderfaehig) / 100;
+    const gesamt = bafaZuschuss + regional + emZuschlag;
     const eigen = Math.max(0, investition - gesamt);
 
-    return { m, investition, foerderfaehig, prozent, bafaZuschuss, regional, gesamt, eigen };
-  }, [massnahme, kosten, bundesland, klimaBonus, einkommensBonus, isfp, selbstnutzer]);
+    return { m, investition, foerderfaehig, prozent, bafaZuschuss, emZuschlag, regional, gesamt, eigen, isHeizung };
+  }, [massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer]);
 
   return (
     <div className="min-h-screen bg-background">
