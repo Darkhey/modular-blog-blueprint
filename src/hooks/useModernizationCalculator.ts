@@ -120,14 +120,14 @@ export const useModernizationCalculator = () => {
         nachtspeicher: parseFloat(customPrices.nachtspeicher),
         fernwaerme: parseFloat(customPrices.fernwaerme)
     };
-    // Emissionsfaktoren in kg/kWh
+    // Emissionsfaktoren in kg/kWh (Stand 2026, Strommix sinkend)
     const CO2_FACTORS = {
-      gas: 0.21,
-      oil: 0.27,
-      waermepumpe: 0.38,
-      pellets: 0.02,
-      nachtspeicher: 0.38,
-      fernwaerme: 0.17
+      gas: 0.201,
+      oil: 0.266,
+      waermepumpe: 0.363,
+      pellets: 0.024,
+      nachtspeicher: 0.363,
+      fernwaerme: 0.180
     };
     const SPECIFIC_CONSUMPTION_BY_YEAR = {
         'vor-1979': 220,
