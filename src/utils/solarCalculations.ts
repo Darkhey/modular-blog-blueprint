@@ -98,45 +98,45 @@ const REGIONAL_DATA: RegionalData = {
   '99': { sonnenstunden: 1940, globalstrahlung: 1195, faktor: 1.15 }, // Bayern
 };
 
-// Konstanten für Berechnungen
+// Konstanten für Berechnungen (Stand 2026)
 const CONSTANTS = {
-  M2_PER_KWP: 7, // m² Dachfläche pro kWp
+  M2_PER_KWP: 5.5, // m² Dachfläche pro kWp (moderne Module ~200 W/m²)
   BASE_KWH_PER_KWP: 1000, // Basis kWh pro kWp
-  KWH_PRICE: 0.32, // €/kWh Strompreis 2024
-  FEED_IN_TARIFF: 0.082, // €/kWh Einspeisevergütung
-  STROMPREIS_STEIGERUNG: 0.03, // 3% jährliche Steigerung
-  DEGRADATION: 0.005, // 0.5% jährliche Leistungsminderung
-  CO2_PER_KWH: 0.434, // kg CO2 pro kWh Strommix
-  BAEUME_PRO_TONNE_CO2: 16, // Bäume für 1 Tonne CO2
-  
-  // Kostenstrukturen 2024
+  KWH_PRICE: 0.34, // €/kWh Haushaltsstrom 2026 (realistisch)
+  FEED_IN_TARIFF: 0.0786, // €/kWh Einspeisevergütung EEG 2026 (bis 10 kWp, Teileinspeisung)
+  STROMPREIS_STEIGERUNG: 0.035, // 3,5 % jährliche Steigerung
+  DEGRADATION: 0.005, // 0.5 % jährliche Leistungsminderung
+  CO2_PER_KWH: 0.363, // kg CO2 pro kWh Strommix 2026 (sinkend)
+  BAEUME_PRO_TONNE_CO2: 16,
+  PARAGRAPH_14A_RABATT: 190, // €/a Netzentgeltrabatt bei WP/Wallbox
+
+  // Kostenstrukturen 2026 (€/kWp, gefallen vs. 2024)
   COSTS_PER_KWP: {
-    MODULE_MONO: 450,
-    MODULE_POLY: 400,
-    MODULE_DUENN: 350,
-    WECHSELRICHTER: 180,
-    MONTAGE: 150,
-    INSTALLATION: 280,
+    MODULE_MONO: 380,
+    MODULE_POLY: 330,
+    MODULE_DUENN: 290,
+    WECHSELRICHTER: 150,
+    MONTAGE: 140,
+    INSTALLATION: 240,
   },
-  
-  SPEICHER_COST_PER_KWH: 750, // €/kWh Speicherkosten
-  WALLBOX_COST: 1500, // € Wallbox mit Installation
-  E_AUTO_KWH_PER_100KM: 18, // kWh/100km E-Auto Verbrauch
-  
-  // Faktoren für verschiedene Konfigurationen
+
+  SPEICHER_COST_PER_KWH: 550, // €/kWh Speicherkosten 2026 (deutlich gefallen)
+  WALLBOX_COST: 1400,
+  E_AUTO_KWH_PER_100KM: 18,
+
   VERSCHATTUNG_FAKTOREN: {
     keine: 1.0,
     gering: 0.93,
     mittel: 0.85,
     stark: 0.7,
   },
-  
+
   MODUL_WIRKUNGSGRAD: {
     mono: 1.0,
     poly: 0.93,
     duennschicht: 0.85,
   },
-  
+
   EIGENVERBRAUCH_OHNE_SPEICHER: 0.3,
   EIGENVERBRAUCH_MIT_SPEICHER: 0.75,
 };
