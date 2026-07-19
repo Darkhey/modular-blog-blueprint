@@ -74,13 +74,14 @@ export const useModernizationCalculator = () => {
   const [calculationMode, setCalculationMode] = useState<'details' | 'consumption'>('details');
   const [currentConsumption, setCurrentConsumption] = useState('20000');
   const [investmentCosts, setInvestmentCosts] = useState('15000');
+  // Standardpreise Stand 2026 (Szenario "realistisch")
   const [customPrices, setCustomPrices] = useState<CustomPrices>({
-    gas: '0.10',
-    oil: '0.11',
-    waermepumpe: '0.30',
-    pellets: '0.08',
-    nachtspeicher: '0.25',
-    fernwaerme: '0.12',
+    gas: '0.115',
+    oil: '0.12',
+    waermepumpe: '0.28',
+    pellets: '0.085',
+    nachtspeicher: '0.34',
+    fernwaerme: '0.14',
   });
 
   const [selectedSmartSystems, setSelectedSmartSystems] = useState<SmartHomeSystem[]>([]);
