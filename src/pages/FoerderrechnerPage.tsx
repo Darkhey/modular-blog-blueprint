@@ -138,7 +138,7 @@ const FoerderrechnerPage = () => {
                 </div>
                 <div>
                   <Label>Bundesland</Label>
-                  <Select value={bundesland} onValueChange={(v) => setBundesland(v as typeof BUNDESLAENDER[number])}>
+                  <Select value={bundesland} onValueChange={(v) => setBundesland(v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {BUNDESLAENDER.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
@@ -150,16 +150,26 @@ const FoerderrechnerPage = () => {
                     <Label htmlFor="selbst">Selbstnutzer (Wohneigentum)</Label>
                     <Switch id="selbst" checked={selbstnutzer} onCheckedChange={setSelbstnutzer} />
                   </div>
+                  {result.isHeizung && (
+                    <>
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="klima">Klimageschwindigkeitsbonus (+20 %)</Label>
+                        <Switch id="klima" checked={klimaBonus} onCheckedChange={setKlimaBonus} />
+                      </div>
+                      {massnahme === 'waermepumpe' && (
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="eff">Effizienzbonus Sole/Wasser (+5 %)</Label>
+                          <Switch id="eff" checked={effizienzBonus} onCheckedChange={setEffizienzBonus} />
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="eink">Einkommensbonus (zvE ≤ 40.000 €/a, +30 %)</Label>
+                        <Switch id="eink" checked={einkommensBonus} onCheckedChange={setEinkommensBonus} />
+                      </div>
+                    </>
+                  )}
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="klima">Klimageschwindigkeitsbonus</Label>
-                    <Switch id="klima" checked={klimaBonus} onCheckedChange={setKlimaBonus} />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="eink">Einkommensbonus (≤ 40.000 €/a)</Label>
-                    <Switch id="eink" checked={einkommensBonus} onCheckedChange={setEinkommensBonus} />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="isfp">iSFP vorhanden (+5 %)</Label>
+                    <Label htmlFor="isfp">iSFP vorhanden (+5 %, nur Hülle)</Label>
                     <Switch id="isfp" checked={isfp} onCheckedChange={setIsfp} />
                   </div>
                 </div>
@@ -169,7 +179,7 @@ const FoerderrechnerPage = () => {
             <Card className="border-primary/30">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-primary" /> Geschätzte Förderung
+                  <Sparkles className="w-5 h-5 text-primary" /> Geschätzte Förderung 2026
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -182,6 +192,9 @@ const FoerderrechnerPage = () => {
                   <div className="flex justify-between"><dt>Investition</dt><dd className="font-medium">{formatEuro(result.investition)}</dd></div>
                   <div className="flex justify-between"><dt>Förderfähig (Deckel)</dt><dd>{formatEuro(result.foerderfaehig)}</dd></div>
                   <div className="flex justify-between"><dt>BAFA / KfW Zuschuss</dt><dd>{formatEuro(result.bafaZuschuss)}</dd></div>
+                  {result.emZuschlag > 0 && (
+                    <div className="flex justify-between"><dt>Emissionsminderungs-Zuschlag</dt><dd>{formatEuro(result.emZuschlag)}</dd></div>
+                  )}
                   <div className="flex justify-between"><dt>Regional ({bundesland})</dt><dd>{formatEuro(result.regional)}</dd></div>
                   <div className="flex justify-between border-t pt-2"><dt className="font-semibold">Eigenanteil</dt><dd className="font-semibold">{formatEuro(result.eigen)}</dd></div>
                 </dl>
