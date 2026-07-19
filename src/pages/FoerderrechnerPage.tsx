@@ -6,12 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import { BEG_2026, REGIONALE_TOPUPS_2026 } from '@/data/energyPrices2026';
 import { Euro, ArrowRight, Sparkles } from 'lucide-react';
 
 type MassnahmeId =
