@@ -203,87 +203,100 @@ export const calculateCosts = (inputs: SolarInputs, anlageGroesse: number): Sola
   };
 };
 
+export interface SolarCalcOptions {
+  priceScenario?: PriceScenarioKey;
+  includeCo2Path?: boolean;
+}
+
 export const calculateSolarResults = (
   inputs: SolarInputs,
-  regionalFaktorOverride?: number
+  regionalFaktorOverride?: number,
+  options: SolarCalcOptions = {}
 ): SolarResults => {
+  const scenarioKey = options.priceScenario ?? DEFAULT_SCENARIO;
+  const scenario = PRICE_SCENARIOS[scenarioKey];
+  const includeCo2 = options.includeCo2Path ?? false;
+
+  // Szenario-abhängige Strompreise & Steigerung; Einspeisevergütung bleibt EEG-fix.
+  const KWH_PRICE = scenario.strom;
+  const STROMPREIS_STEIGERUNG = scenario.jaehrlicheSteigerung;
+  const startjahr = new Date().getFullYear();
+
   const config = getConfiguration(inputs, regionalFaktorOverride);
   const anlageGroesse = parseFloat((inputs.dachflaeche / CONSTANTS.M2_PER_KWP).toFixed(2));
-  
-  // Jahresertrag berechnen
+
   const jahresertrag = Math.round(
-    anlageGroesse * 
-    CONSTANTS.BASE_KWH_PER_KWP * 
-    config.regionalFaktor * 
-    config.verschattungsFaktor * 
-    config.neigungsFaktor * 
+    anlageGroesse *
+    CONSTANTS.BASE_KWH_PER_KWP *
+    config.regionalFaktor *
+    config.verschattungsFaktor *
+    config.neigungsFaktor *
     config.modulWirkungsgrad
   );
-  
-  // E-Auto Bedarf
+
   const eAutoJahresverbrauch = inputs.mitEAuto ? (inputs.eAutoFahrleistung * CONSTANTS.E_AUTO_KWH_PER_100KM) / 100 : 0;
   const gesamtStromverbrauch = inputs.stromverbrauch + eAutoJahresverbrauch;
-  
-  // Eigenverbrauch ohne Speicher
+
   const maxEigenverbrauchOhne = Math.min(
     jahresertrag * config.eigenverbrauchOhneSpeicher,
     gesamtStromverbrauch
   );
-  
-  // Eigenverbrauch mit Speicher
-  const maxEigenverbrauchMit = inputs.mitSpeicher ? 
-    Math.min(jahresertrag * config.eigenverbrauchMitSpeicher, gesamtStromverbrauch) : 
+  const maxEigenverbrauchMit = inputs.mitSpeicher ?
+    Math.min(jahresertrag * config.eigenverbrauchMitSpeicher, gesamtStromverbrauch) :
     maxEigenverbrauchOhne;
-  
-  // Speicher optimierung
+
   const optimaleEigenverbrauch = inputs.mitSpeicher ? maxEigenverbrauchMit : maxEigenverbrauchOhne;
   const speichernutzung = inputs.mitSpeicher ? (maxEigenverbrauchMit - maxEigenverbrauchOhne) : 0;
-  
-  // E-Auto Anteil am Eigenverbrauch
-  const eAutoLadung = inputs.mitEAuto ? 
-    Math.min(eAutoJahresverbrauch, optimaleEigenverbrauch * 0.6) : 0; // 60% des Eigenverbrauchs kann E-Auto sein
-  
+
+  const eAutoLadung = inputs.mitEAuto ?
+    Math.min(eAutoJahresverbrauch, optimaleEigenverbrauch * 0.6) : 0;
+
   const netzeinspeisung = jahresertrag - optimaleEigenverbrauch;
-  
-  // Ersparnisse berechnen
-  const ersparnisSolarstrom = optimaleEigenverbrauch * CONSTANTS.KWH_PRICE;
+
+  // Jahres-1 Ersparnis (für Kennzahlen); Monetärer CO₂-Bonus optional
+  const co2BonusYear = (jahr: number, ertragKwh: number): number => {
+    if (!includeCo2) return 0;
+    // Strommix-Emissionen, die durch PV vermieden werden, monetär bewertet
+    const pricePerTon = getCO2Price(startjahr + jahr - 1);
+    return (ertragKwh * CO2_FACTORS.strom_mix_2026 * pricePerTon) / 1000;
+  };
+
+  const ersparnisSolarstrom = optimaleEigenverbrauch * KWH_PRICE;
   const einspeiseverguetung = netzeinspeisung * CONSTANTS.FEED_IN_TARIFF;
-  const speicherersparnis = speichernutzung * CONSTANTS.KWH_PRICE;
-  const eAutoErsparnis = eAutoLadung * CONSTANTS.KWH_PRICE;
-  const gesamtersparnis = ersparnisSolarstrom + einspeiseverguetung;
-  
-  // Umwelt
-  const co2Vermeidung = (jahresertrag * CONSTANTS.CO2_PER_KWH) / 1000; // in Tonnen
+  const speicherersparnis = speichernutzung * KWH_PRICE;
+  const eAutoErsparnis = eAutoLadung * KWH_PRICE;
+  const gesamtersparnis = ersparnisSolarstrom + einspeiseverguetung + co2BonusYear(1, jahresertrag);
+
+  const co2Vermeidung = (jahresertrag * CONSTANTS.CO2_PER_KWH) / 1000;
   const baumAequivalent = Math.round(co2Vermeidung * CONSTANTS.BAEUME_PRO_TONNE_CO2);
-  
-  // Kosten
+
   const kosten = calculateCosts(inputs, anlageGroesse);
-  
-  // Amortisation
+
   const amortisationOhneSpeicher = kosten.gesamtkosten / gesamtersparnis;
-  const amortisationMitSpeicher = inputs.mitSpeicher ? 
+  const amortisationMitSpeicher = inputs.mitSpeicher ?
     (kosten.gesamtkosten / gesamtersparnis) : amortisationOhneSpeicher;
-  
-  // 20-Jahres-Prognose
+
   const jahresprognose = [];
   let kumulativeErsparnis = 0;
-  
+
   for (let jahr = 1; jahr <= 20; jahr++) {
     const degradationsFaktor = Math.pow(1 - CONSTANTS.DEGRADATION, jahr - 1);
-    const strompreisFaktor = Math.pow(1 + CONSTANTS.STROMPREIS_STEIGERUNG, jahr - 1);
-    
+    const strompreisFaktor = Math.pow(1 + STROMPREIS_STEIGERUNG, jahr - 1);
+
     const jahresErtragAngepasst = jahresertrag * degradationsFaktor;
     const eigenverbrauchAngepasst = Math.min(
       jahresErtragAngepasst * config.eigenverbrauchMitSpeicher,
       gesamtStromverbrauch
     );
     const einspeisungAngepasst = jahresErtragAngepasst - eigenverbrauchAngepasst;
-    
-    const ersparnis = (eigenverbrauchAngepasst * CONSTANTS.KWH_PRICE * strompreisFaktor) +
-                     (einspeisungAngepasst * CONSTANTS.FEED_IN_TARIFF);
-    
+
+    const ersparnis =
+      (eigenverbrauchAngepasst * KWH_PRICE * strompreisFaktor) +
+      (einspeisungAngepasst * CONSTANTS.FEED_IN_TARIFF) +
+      co2BonusYear(jahr, jahresErtragAngepasst);
+
     kumulativeErsparnis += ersparnis;
-    
+
     jahresprognose.push({
       jahr,
       ertrag: Math.round(jahresErtragAngepasst),
@@ -291,14 +304,13 @@ export const calculateSolarResults = (
       kumulativeErsparnis: Math.round(kumulativeErsparnis),
     });
   }
-  
+
   const zwanzigJahresBilanz = kumulativeErsparnis - kosten.gesamtkosten;
-  
-  // Monatliche Erträge
-  const monatlicheErtraege = MONTHLY_FACTORS.map(faktor => 
+
+  const monatlicheErtraege = MONTHLY_FACTORS.map(faktor =>
     Math.round((jahresertrag * faktor) / 12)
   );
-  
+
   return {
     anlageGroesse,
     jahresertrag,
