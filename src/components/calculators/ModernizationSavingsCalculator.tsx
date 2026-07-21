@@ -9,9 +9,12 @@ import ModernizationPlanSection from './modernization/ModernizationPlanSection';
 import ExpertSettings from './modernization/ExpertSettings';
 import CalculatorResults from './modernization/CalculatorResults';
 import QuickAccessButtons from './QuickAccessButtons';
+import ScenarioToggle from './shared/ScenarioToggle';
+import CO2PathToggle from './shared/CO2PathToggle';
 
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+
 
 const ModernizationSavingsCalculator = () => {
   const {
@@ -23,6 +26,10 @@ const ModernizationSavingsCalculator = () => {
     selectedSmartSystems,
     estimateSmartInvestment,
     results,
+    priceScenario,
+    co2Path,
+    setPriceScenario,
+    setCo2Path,
     handleInputChange,
     setCalculationMode,
     setCurrentConsumption,
@@ -31,6 +38,7 @@ const ModernizationSavingsCalculator = () => {
     toggleSmartSystem,
     calculateSavings
   } = useModernizationCalculator();
+
 
   return (
     <>
@@ -70,6 +78,12 @@ const ModernizationSavingsCalculator = () => {
             customPrices={customPrices}
             handlePriceChange={handlePriceChange}
           />
+
+          <div className="grid gap-3 md:grid-cols-2 mb-4">
+            <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
+            <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+          </div>
+
 
           <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-[1.02] transition-all duration-300">
             <Zap className="mr-2 w-5 h-5" />

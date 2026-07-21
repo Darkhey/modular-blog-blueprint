@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  PRICE_SCENARIOS,
+  PriceScenarioKey,
+  DEFAULT_SCENARIO,
+  co2SurchargePerKwh,
+} from '@/data/energyPrices2026';
+
 
 export type HeatingType = 'gas' | 'oil' | 'waermepumpe' | 'pellets' | 'nachtspeicher' | 'fernwaerme';
 export type BuildingYear = 'vor-1979' | '1979-1994' | '1995-2001' | '2002-2015' | 'nach-2016';
@@ -70,21 +77,36 @@ export const useModernizationCalculator = () => {
     futureInsulation: 'gut',
     futureHeating: 'waermepumpe',
   });
-  
+
   const [calculationMode, setCalculationMode] = useState<'details' | 'consumption'>('details');
   const [currentConsumption, setCurrentConsumption] = useState('20000');
   const [investmentCosts, setInvestmentCosts] = useState('15000');
-  // Standardpreise Stand 2026 (Szenario "realistisch")
-  const [customPrices, setCustomPrices] = useState<CustomPrices>({
-    gas: '0.115',
-    oil: '0.12',
-    waermepumpe: '0.28',
-    pellets: '0.085',
-    nachtspeicher: '0.34',
-    fernwaerme: '0.14',
-  });
+
+  const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [co2Path, setCo2Path] = useState(true);
+
+  const scenarioToCustomPrices = (s: PriceScenarioKey): CustomPrices => {
+    const p = PRICE_SCENARIOS[s];
+    return {
+      gas: p.gas.toFixed(3),
+      oil: p.oel.toFixed(3),
+      waermepumpe: p.wpStrom.toFixed(3),
+      pellets: p.pellets.toFixed(3),
+      nachtspeicher: p.strom.toFixed(3),
+      fernwaerme: p.fernwaerme.toFixed(3),
+    };
+  };
+
+  const [customPrices, setCustomPrices] = useState<CustomPrices>(() =>
+    scenarioToCustomPrices(DEFAULT_SCENARIO),
+  );
+  // Beim Wechsel des Szenarios die Standardpreise nachziehen (User kann sie danach weiter anpassen).
+  useEffect(() => {
+    setCustomPrices(scenarioToCustomPrices(priceScenario));
+  }, [priceScenario]);
 
   const [selectedSmartSystems, setSelectedSmartSystems] = useState<SmartHomeSystem[]>([]);
+
 
   const [results, setResults] = useState<CalculationResults | null>(null);
 
@@ -148,6 +170,22 @@ export const useModernizationCalculator = () => {
 
     const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
 
+    const currentYear = new Date().getFullYear();
+    const HEATING_TO_FUEL: Record<HeatingType, 'gas' | 'oel' | 'pellets' | 'fernwaerme' | null> = {
+      gas: 'gas',
+      oil: 'oel',
+      pellets: 'pellets',
+      fernwaerme: 'fernwaerme',
+      waermepumpe: null,
+      nachtspeicher: null,
+    };
+    const co2Extra = (heatingType: HeatingType, kwh: number): number => {
+      if (!co2Path) return 0;
+      const fuel = HEATING_TO_FUEL[heatingType];
+      if (!fuel) return 0;
+      return kwh * co2SurchargePerKwh(fuel, currentYear);
+    };
+
     const calculateCosts = (heatingKwh: number, hotWaterKwh: number, heatingType: HeatingType) => {
         const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
@@ -158,19 +196,22 @@ export const useModernizationCalculator = () => {
           finalHeatingKwh /= HEATPUMP_SCOP;
           finalHotWaterKwh /= HEATPUMP_SCOP;
         }
-        
+
+        const kwhSum = finalHeatingKwh + finalHotWaterKwh;
         const heatingCosts = finalHeatingKwh * pricePerKwh;
         const hotWaterCosts = finalHotWaterKwh * pricePerKwh;
+        const co2Surcharge = co2Extra(heatingType, kwhSum);
         // CO2 nur für effektiven Verbrauch
-        const co2 = (finalHeatingKwh + finalHotWaterKwh) * emissionFactor;
+        const co2 = kwhSum * emissionFactor;
 
         return {
-            total: heatingCosts + hotWaterCosts,
-            heating: heatingCosts,
+            total: heatingCosts + hotWaterCosts + co2Surcharge,
+            heating: heatingCosts + co2Surcharge,
             hotWater: hotWaterCosts,
             co2: co2
         };
     };
+
 
     let current;
     if (calculationMode === 'consumption') {
@@ -188,8 +229,15 @@ export const useModernizationCalculator = () => {
 
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
         const co2 = (consumption + (finalHotWaterKwh - hotWaterKwh)) * emissionFactor;
-        current = { total: totalCost, heating: heatingCost, hotWater: hotWaterCost, co2 };
+        const co2Surcharge = co2Extra(inputs.currentHeating, consumption);
+        current = {
+            total: totalCost + co2Surcharge,
+            heating: heatingCost + co2Surcharge,
+            hotWater: hotWaterCost,
+            co2,
+        };
     } else {
+
         const baseConsumption = SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear];
         const typeFactor = BUILDING_TYPE_FACTOR[inputs.buildingType];
         const currentHeatingKwh = size * baseConsumption * typeFactor;
@@ -255,6 +303,10 @@ export const useModernizationCalculator = () => {
     customPrices,
     selectedSmartSystems,
     results,
+    priceScenario,
+    co2Path,
+    setPriceScenario,
+    setCo2Path,
     handleInputChange,
     setCalculationMode,
     setCurrentConsumption,
@@ -264,4 +316,5 @@ export const useModernizationCalculator = () => {
     toggleSmartSystem,
     calculateSavings
   };
+
 };

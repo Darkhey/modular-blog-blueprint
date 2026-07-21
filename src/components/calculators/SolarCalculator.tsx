@@ -10,9 +10,13 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ScenarioToggle from './shared/ScenarioToggle';
+import CO2PathToggle from './shared/CO2PathToggle';
+import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
 
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
+
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
@@ -34,7 +38,10 @@ const SolarCalculator = () => {
   const [results, setResults] = useState<any>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [sunshine, setSunshine] = useState<SunshineData | null>(null);
+  const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [co2Path, setCo2Path] = useState(false);
   const { toast } = useToast();
+
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
     setInputs(prev => ({ ...prev, [field]: value }));
@@ -64,7 +71,7 @@ const SolarCalculator = () => {
       toast({ title: 'Wetterdaten nicht verfügbar', description: 'Berechnung mit Standardwerten ausgeführt.' });
     }
     setSunshine(data);
-    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor);
+    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario, includeCo2Path: co2Path });
     setResults(calculatedResults);
     setIsCalculating(false);
   };
@@ -116,9 +123,14 @@ const SolarCalculator = () => {
           </CardHeader>
 
           <form onSubmit={handleCalculate}>
-            <CardContent className="p-8">
+            <CardContent className="p-8 space-y-6">
               <SolarInputForm inputs={inputs} onInputChange={handleInputChange} />
+              <div className="grid gap-3 md:grid-cols-2">
+                <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
+                <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+              </div>
             </CardContent>
+
 
             <CardFooter className="flex gap-4 px-8 pb-8">
               <Button
