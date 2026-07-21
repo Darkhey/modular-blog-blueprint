@@ -170,6 +170,22 @@ export const useModernizationCalculator = () => {
 
     const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
 
+    const currentYear = new Date().getFullYear();
+    const HEATING_TO_FUEL: Record<HeatingType, 'gas' | 'oel' | 'pellets' | 'fernwaerme' | null> = {
+      gas: 'gas',
+      oil: 'oel',
+      pellets: 'pellets',
+      fernwaerme: 'fernwaerme',
+      waermepumpe: null,
+      nachtspeicher: null,
+    };
+    const co2Extra = (heatingType: HeatingType, kwh: number): number => {
+      if (!co2Path) return 0;
+      const fuel = HEATING_TO_FUEL[heatingType];
+      if (!fuel) return 0;
+      return kwh * co2SurchargePerKwh(fuel, currentYear);
+    };
+
     const calculateCosts = (heatingKwh: number, hotWaterKwh: number, heatingType: HeatingType) => {
         const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
@@ -180,19 +196,22 @@ export const useModernizationCalculator = () => {
           finalHeatingKwh /= HEATPUMP_SCOP;
           finalHotWaterKwh /= HEATPUMP_SCOP;
         }
-        
+
+        const kwhSum = finalHeatingKwh + finalHotWaterKwh;
         const heatingCosts = finalHeatingKwh * pricePerKwh;
         const hotWaterCosts = finalHotWaterKwh * pricePerKwh;
+        const co2Surcharge = co2Extra(heatingType, kwhSum);
         // CO2 nur für effektiven Verbrauch
-        const co2 = (finalHeatingKwh + finalHotWaterKwh) * emissionFactor;
+        const co2 = kwhSum * emissionFactor;
 
         return {
-            total: heatingCosts + hotWaterCosts,
-            heating: heatingCosts,
+            total: heatingCosts + hotWaterCosts + co2Surcharge,
+            heating: heatingCosts + co2Surcharge,
             hotWater: hotWaterCosts,
             co2: co2
         };
     };
+
 
     let current;
     if (calculationMode === 'consumption') {
