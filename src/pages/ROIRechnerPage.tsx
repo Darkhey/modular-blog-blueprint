@@ -7,25 +7,30 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
+import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
 import { TrendingUp, ArrowRight, Leaf } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
 } from 'recharts';
+import { runScenario } from '@/lib/scenarioEngine';
+import { DEFAULT_SCENARIO, PriceScenarioKey, PRICE_SCENARIOS } from '@/data/energyPrices2026';
 
-type EnergietraegerId = 'gas' | 'oel' | 'strom' | 'pellet' | 'fernwaerme';
+type EnergietraegerId = 'gas' | 'oel' | 'strom' | 'pellets' | 'fernwaerme';
 
-const ENERGIETRAEGER: Record<EnergietraegerId, { label: string; preis: number; co2: number /* kg/kWh */ }> = {
-  gas:        { label: 'Gas',         preis: 0.11, co2: 0.201 },
-  oel:        { label: 'Heizöl',      preis: 0.12, co2: 0.266 },
-  strom:      { label: 'Strom (WP)',  preis: 0.30, co2: 0.380 },
-  pellet:     { label: 'Pellets',     preis: 0.07, co2: 0.025 },
-  fernwaerme: { label: 'Fernwärme',   preis: 0.13, co2: 0.180 },
+const TRAEGER_LABEL: Record<EnergietraegerId, string> = {
+  gas: 'Gas',
+  oel: 'Heizöl',
+  strom: 'Strom (WP)',
+  pellets: 'Pellets',
+  fernwaerme: 'Fernwärme',
 };
+
+const toEngineFuel = (id: EnergietraegerId): 'gas' | 'oel' | 'pellets' | 'fernwaerme' | 'wpStrom' =>
+  id === 'strom' ? 'wpStrom' : id;
 
 const formatEuro = (n: number) =>
   n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
@@ -40,52 +45,62 @@ const ROIRechnerPage = () => {
   const [foerderung, setFoerderung] = useState('9000');
   const [einsparungKwh, setEinsparungKwh] = useState('15000');
   const [traeger, setTraeger] = useState<EnergietraegerId>('gas');
-  const [preisSteigerung, setPreisSteigerung] = useState([4]); // % p.a.
   const [wartung, setWartung] = useState('250');
-  const [lebensdauer, setLebensdauer] = useState([20]); // Jahre
+  const [lebensdauer, setLebensdauer] = useState([20]);
+  const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [co2Path, setCo2Path] = useState(true);
 
   const data = useMemo(() => {
     const inv = Math.max(0, Number(investition) || 0);
     const f = Math.max(0, Number(foerderung) || 0);
     const eigen = Math.max(0, inv - f);
     const kwh = Math.max(0, Number(einsparungKwh) || 0);
-    const t = ENERGIETRAEGER[traeger];
     const wart = Math.max(0, Number(wartung) || 0);
-    const steig = preisSteigerung[0] / 100;
     const years = lebensdauer[0];
+    const fuel = toEngineFuel(traeger);
 
-    const rows: Array<{ jahr: number; kumuliert: number; jaehrlich: number }> = [];
-    let kumuliert = -eigen;
-    let breakEven: number | null = null;
-    let totalCo2 = 0;
+    // ROI-Modell: die gesparten kWh im "alten" Energieträger sind das Ersparnis-Delta.
+    const result = runScenario(
+      {
+        investition: eigen,
+        energieVorherKwh: kwh,
+        energieNachherKwh: 0,
+        brennstoffVorher: fuel,
+        brennstoffNachher: fuel,
+        wartungProJahr: wart,
+        jahre: years,
+      },
+      priceScenario,
+      { includeCo2Path: co2Path },
+    );
 
-    for (let y = 1; y <= years; y++) {
-      const preis = t.preis * Math.pow(1 + steig, y - 1);
-      const ersparnis = kwh * preis - wart;
-      kumuliert += ersparnis;
-      rows.push({ jahr: y, kumuliert: Math.round(kumuliert), jaehrlich: Math.round(ersparnis) });
-      if (breakEven === null && kumuliert >= 0) breakEven = y;
-      totalCo2 += kwh * t.co2;
-    }
+    const rows = result.jahre.map((r, i) => ({
+      jahr: i + 1,
+      kumuliert: Math.round(r.kumuliert),
+      jaehrlich: Math.round(r.ersparnis),
+    }));
 
-    const netto = kumuliert;
-    // Einfache IRR-Approximation (nur, wenn break-even erreicht)
-    const irr = breakEven ? Math.pow(Math.max(1, (netto + eigen) / Math.max(1, eigen)), 1 / years) - 1 : null;
-
-    return { eigen, rows, breakEven, netto, irr, totalCo2: totalCo2 / 1000 };
-  }, [investition, foerderung, einsparungKwh, traeger, preisSteigerung, wartung, lebensdauer]);
+    return {
+      eigen,
+      rows,
+      breakEven: result.amortisationJahre ? Math.ceil(result.amortisationJahre) : null,
+      netto: Math.round(result.gesamtErsparnis - eigen),
+      irr: result.irrApprox,
+      totalCo2: result.co2VermeidungTonnen,
+    };
+  }, [investition, foerderung, einsparungKwh, traeger, wartung, lebensdauer, priceScenario, co2Path]);
 
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>ROI-Rechner Sanierung 2026 – Amortisation & Cashflow kostenlos</title>
-        <meta name="description" content="Wann rechnet sich Ihre Sanierung? Berechnen Sie Amortisation, Cashflow über 20 Jahre, IRR und CO₂-Ersparnis online und kostenlos." />
+        <meta name="description" content="Wann rechnet sich Ihre Sanierung? Amortisation, Cashflow über 20 Jahre, IRR und CO₂-Ersparnis – mit Preis-Szenarien und CO₂-Preis-Pfad." />
         <link rel="canonical" href="https://sanieren-sparen.de/roi-rechner" />
       </Helmet>
       <CalculatorHero
         icon={TrendingUp}
         title="Wann rechnet sich deine Sanierung?"
-        subtitle="Cashflow, Amortisation, IRR und CO₂-Ersparnis – mit Energiepreis-Steigerung und Wartungskosten."
+        subtitle="Cashflow, Amortisation, IRR und CO₂-Ersparnis – mit Preis-Szenarien und CO₂-Pfad ab 2027 (ETS-2)."
         gradient="from-fuchsia-500 to-pink-500"
         breadcrumbs={[
           { label: 'Rechner', to: '/rechner' },
@@ -94,7 +109,6 @@ const ROIRechnerPage = () => {
       />
       <main id="rechner" tabIndex={-1} className="scroll-mt-24">
         <div className="container max-w-5xl mx-auto px-4 py-8">
-
           <div className="grid lg:grid-cols-[380px_1fr] gap-6">
             <Card>
               <CardHeader><CardTitle>Eingaben</CardTitle></CardHeader>
@@ -117,15 +131,14 @@ const ROIRechnerPage = () => {
                   <Select value={traeger} onValueChange={(v) => setTraeger(v as EnergietraegerId)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      {(Object.keys(ENERGIETRAEGER) as EnergietraegerId[]).map((k) => (
-                        <SelectItem key={k} value={k}>{ENERGIETRAEGER[k].label} ({ENERGIETRAEGER[k].preis.toFixed(2)} €/kWh)</SelectItem>
+                      {(Object.keys(TRAEGER_LABEL) as EnergietraegerId[]).map((k) => (
+                        <SelectItem key={k} value={k}>{TRAEGER_LABEL[k]}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                </div>
-                <div>
-                  <Label>Energiepreis-Steigerung: {preisSteigerung[0]}% p.a.</Label>
-                  <Slider value={preisSteigerung} onValueChange={setPreisSteigerung} min={0} max={10} step={0.5} />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Preisniveau nach Szenario „{PRICE_SCENARIOS[priceScenario].label}".
+                  </p>
                 </div>
                 <div>
                   <Label htmlFor={wartungId}>Wartung (EUR/Jahr)</Label>
@@ -134,6 +147,11 @@ const ROIRechnerPage = () => {
                 <div>
                   <Label>Betrachtungszeitraum: {lebensdauer[0]} Jahre</Label>
                   <Slider value={lebensdauer} onValueChange={setLebensdauer} min={5} max={30} step={1} />
+                </div>
+
+                <div className="pt-2 border-t space-y-3">
+                  <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
+                  <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
                 </div>
               </CardContent>
             </Card>
@@ -152,6 +170,9 @@ const ROIRechnerPage = () => {
                   <CardContent className="p-4">
                     <div className="text-xs text-muted-foreground">Netto nach {lebensdauer[0]} J.</div>
                     <div className="text-2xl font-bold">{formatEuro(data.netto)}</div>
+                    {data.irr !== null && (
+                      <div className="text-xs text-muted-foreground mt-0.5">IRR ≈ {(data.irr * 100).toFixed(1)} %</div>
+                    )}
                   </CardContent>
                 </Card>
                 <Card>
@@ -206,14 +227,13 @@ const ROIRechnerPage = () => {
             faqKey="roi-rechner"
             calculatorType="roi"
             title="ROI-Rechner Sanierung 2026"
-            description="Amortisation, Cashflow und IRR Ihrer Sanierung über bis zu 30 Jahre berechnen."
+            description="Amortisation, Cashflow und IRR Ihrer Sanierung über bis zu 30 Jahre – inklusive Preis-Szenarien und CO₂-Pfad."
             breadcrumbs={[
               { name: 'Start', url: 'https://sanieren-sparen.de/' },
               { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
               { name: 'Amortisations-Rechner', url: 'https://sanieren-sparen.de/roi-rechner' },
             ]}
           />
-
         </div>
       </main>
     </div>
