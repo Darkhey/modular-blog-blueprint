@@ -38,7 +38,10 @@ const SolarCalculator = () => {
   const [results, setResults] = useState<any>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [sunshine, setSunshine] = useState<SunshineData | null>(null);
+  const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [co2Path, setCo2Path] = useState(false);
   const { toast } = useToast();
+
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
     setInputs(prev => ({ ...prev, [field]: value }));
