@@ -77,21 +77,36 @@ export const useModernizationCalculator = () => {
     futureInsulation: 'gut',
     futureHeating: 'waermepumpe',
   });
-  
+
   const [calculationMode, setCalculationMode] = useState<'details' | 'consumption'>('details');
   const [currentConsumption, setCurrentConsumption] = useState('20000');
   const [investmentCosts, setInvestmentCosts] = useState('15000');
-  // Standardpreise Stand 2026 (Szenario "realistisch")
-  const [customPrices, setCustomPrices] = useState<CustomPrices>({
-    gas: '0.115',
-    oil: '0.12',
-    waermepumpe: '0.28',
-    pellets: '0.085',
-    nachtspeicher: '0.34',
-    fernwaerme: '0.14',
-  });
+
+  const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [co2Path, setCo2Path] = useState(true);
+
+  const scenarioToCustomPrices = (s: PriceScenarioKey): CustomPrices => {
+    const p = PRICE_SCENARIOS[s];
+    return {
+      gas: p.gas.toFixed(3),
+      oil: p.oel.toFixed(3),
+      waermepumpe: p.wpStrom.toFixed(3),
+      pellets: p.pellets.toFixed(3),
+      nachtspeicher: p.strom.toFixed(3),
+      fernwaerme: p.fernwaerme.toFixed(3),
+    };
+  };
+
+  const [customPrices, setCustomPrices] = useState<CustomPrices>(() =>
+    scenarioToCustomPrices(DEFAULT_SCENARIO),
+  );
+  // Beim Wechsel des Szenarios die Standardpreise nachziehen (User kann sie danach weiter anpassen).
+  useEffect(() => {
+    setCustomPrices(scenarioToCustomPrices(priceScenario));
+  }, [priceScenario]);
 
   const [selectedSmartSystems, setSelectedSmartSystems] = useState<SmartHomeSystem[]>([]);
+
 
   const [results, setResults] = useState<CalculationResults | null>(null);
 
