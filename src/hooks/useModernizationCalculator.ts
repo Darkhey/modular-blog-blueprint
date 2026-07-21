@@ -1,4 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  PRICE_SCENARIOS,
+  PriceScenarioKey,
+  DEFAULT_SCENARIO,
+  co2SurchargePerKwh,
+} from '@/data/energyPrices2026';
+
 
 export type HeatingType = 'gas' | 'oil' | 'waermepumpe' | 'pellets' | 'nachtspeicher' | 'fernwaerme';
 export type BuildingYear = 'vor-1979' | '1979-1994' | '1995-2001' | '2002-2015' | 'nach-2016';
