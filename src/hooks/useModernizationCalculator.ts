@@ -303,6 +303,10 @@ export const useModernizationCalculator = () => {
     customPrices,
     selectedSmartSystems,
     results,
+    priceScenario,
+    co2Path,
+    setPriceScenario,
+    setCo2Path,
     handleInputChange,
     setCalculationMode,
     setCurrentConsumption,
@@ -312,4 +316,5 @@ export const useModernizationCalculator = () => {
     toggleSmartSystem,
     calculateSavings
   };
+
 };
