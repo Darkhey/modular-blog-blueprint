@@ -229,8 +229,15 @@ export const useModernizationCalculator = () => {
 
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
         const co2 = (consumption + (finalHotWaterKwh - hotWaterKwh)) * emissionFactor;
-        current = { total: totalCost, heating: heatingCost, hotWater: hotWaterCost, co2 };
+        const co2Surcharge = co2Extra(inputs.currentHeating, consumption);
+        current = {
+            total: totalCost + co2Surcharge,
+            heating: heatingCost + co2Surcharge,
+            hotWater: hotWaterCost,
+            co2,
+        };
     } else {
+
         const baseConsumption = SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear];
         const typeFactor = BUILDING_TYPE_FACTOR[inputs.buildingType];
         const currentHeatingKwh = size * baseConsumption * typeFactor;
