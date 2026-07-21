@@ -26,6 +26,10 @@ const ModernizationSavingsCalculator = () => {
     selectedSmartSystems,
     estimateSmartInvestment,
     results,
+    priceScenario,
+    co2Path,
+    setPriceScenario,
+    setCo2Path,
     handleInputChange,
     setCalculationMode,
     setCurrentConsumption,
@@ -34,6 +38,7 @@ const ModernizationSavingsCalculator = () => {
     toggleSmartSystem,
     calculateSavings
   } = useModernizationCalculator();
+
 
   return (
     <>
