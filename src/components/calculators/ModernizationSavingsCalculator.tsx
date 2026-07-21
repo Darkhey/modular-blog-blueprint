@@ -79,6 +79,12 @@ const ModernizationSavingsCalculator = () => {
             handlePriceChange={handlePriceChange}
           />
 
+          <div className="grid gap-3 md:grid-cols-2 mb-4">
+            <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
+            <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+          </div>
+
+
           <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-[1.02] transition-all duration-300">
             <Zap className="mr-2 w-5 h-5" />
             Sparpotenzial berechnen!
