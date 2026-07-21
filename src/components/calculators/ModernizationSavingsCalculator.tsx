@@ -9,9 +9,12 @@ import ModernizationPlanSection from './modernization/ModernizationPlanSection';
 import ExpertSettings from './modernization/ExpertSettings';
 import CalculatorResults from './modernization/CalculatorResults';
 import QuickAccessButtons from './QuickAccessButtons';
+import ScenarioToggle from './shared/ScenarioToggle';
+import CO2PathToggle from './shared/CO2PathToggle';
 
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+
 
 const ModernizationSavingsCalculator = () => {
   const {
