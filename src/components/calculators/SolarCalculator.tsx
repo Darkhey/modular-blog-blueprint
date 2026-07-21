@@ -71,7 +71,7 @@ const SolarCalculator = () => {
       toast({ title: 'Wetterdaten nicht verfügbar', description: 'Berechnung mit Standardwerten ausgeführt.' });
     }
     setSunshine(data);
-    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor);
+    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario, includeCo2Path: co2Path });
     setResults(calculatedResults);
     setIsCalculating(false);
   };
