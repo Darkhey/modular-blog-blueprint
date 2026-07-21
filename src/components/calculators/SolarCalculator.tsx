@@ -123,9 +123,14 @@ const SolarCalculator = () => {
           </CardHeader>
 
           <form onSubmit={handleCalculate}>
-            <CardContent className="p-8">
+            <CardContent className="p-8 space-y-6">
               <SolarInputForm inputs={inputs} onInputChange={handleInputChange} />
+              <div className="grid gap-3 md:grid-cols-2">
+                <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
+                <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+              </div>
             </CardContent>
+
 
             <CardFooter className="flex gap-4 px-8 pb-8">
               <Button
