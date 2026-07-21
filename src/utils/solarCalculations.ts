@@ -1,4 +1,12 @@
 import { SolarInputs, SolarConfiguration, SolarResults, SolarCosts, RegionalData } from '@/types/solarCalculator';
+import {
+  PRICE_SCENARIOS,
+  PriceScenarioKey,
+  DEFAULT_SCENARIO,
+  getCO2Price,
+  CO2_FACTORS,
+} from '@/data/energyPrices2026';
+
 
 // Regionale Sonneneinstrahlung (vereinfacht nach ersten 2 PLZ-Stellen)
 const REGIONAL_DATA: RegionalData = {
