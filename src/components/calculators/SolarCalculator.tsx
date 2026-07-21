@@ -10,9 +10,13 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ScenarioToggle from './shared/ScenarioToggle';
+import CO2PathToggle from './shared/CO2PathToggle';
+import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
 
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
+
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
