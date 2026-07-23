@@ -534,8 +534,17 @@ const KombiRechnerPage = () => {
               </p>
             </CardContent>
           </Card>
+
+          <SensitivityPanel
+            baseInput={result.baseInput}
+            activeScenario={scenario}
+            activeCo2={co2Path}
+            fundingBreakdown={result.fundingBreakdown}
+            investBrutto={result.investBrutto}
+          />
         </div>
       </div>
+
 
       <div className="max-w-6xl mx-auto px-4">
         <CalculatorHowToSection howToKey="kombi-rechner" url="https://sanieren-sparen.de/rechner/kombi" />
