@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
+import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
