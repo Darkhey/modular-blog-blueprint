@@ -188,6 +188,82 @@ const KombiRechnerPage = () => {
     const naiveSummeEinspar =
       aktiveHuelle.reduce((s, h) => s + h.einsparAnteil, 0) + (wpAktiv ? 0.6 : 0);
 
+    const baseInput = {
+      investition: netto,
+      energieVorherKwh: energieVorher,
+      energieNachherKwh: energieNachher,
+      brennstoffVorher: aktBrennstoff,
+      brennstoffNachher: brennstoffNachher,
+      wartungProJahr: wpAktiv ? 250 : 120,
+      jahre: 20,
+    } as const;
+
+    const fundingBreakdown = [
+      {
+        label: `Hülle-Grundzuschuss (${BEG_2026.huelleGrund} %)`,
+        amount:
+          aktiveHuelle.length > 0
+            ? Math.min(huelleKostenSauber, huelleDeckel) * (BEG_2026.huelleGrund / 100)
+            : 0,
+        hint: `Deckel ${formatEuro(huelleDeckel)}${isfp ? ' (mit iSFP)' : ''}.`,
+      },
+      {
+        label: `iSFP-Bonus (+${BEG_2026.isfpBonus} % auf Hülle)`,
+        amount:
+          isfp && aktiveHuelle.length > 0
+            ? Math.min(huelleKostenSauber, BEG_2026.huelleMaxKostenMitIsfp) * (BEG_2026.isfpBonus / 100)
+            : 0,
+        optional: true,
+        hint: 'Voraussetzung: individueller Sanierungsfahrplan von zertifiziertem Energieberater.',
+      },
+      {
+        label: `Heizung-Grundzuschuss (${BEG_2026.heizungGrund} %)`,
+        amount: wpAktiv ? Math.min(wpKosten, BEG_2026.heizungMaxKosten) * (BEG_2026.heizungGrund / 100) : 0,
+        hint: `KfW-458, Deckel ${formatEuro(BEG_2026.heizungMaxKosten)}.`,
+      },
+      {
+        label: `Klimageschwindigkeits-Bonus (+${BEG_2026.klimaBonus} %)`,
+        amount:
+          wpAktiv && klimaBonus
+            ? Math.min(wpKosten, BEG_2026.heizungMaxKosten) *
+              Math.max(
+                0,
+                Math.min(BEG_2026.klimaBonus, BEG_2026.heizungMaxProzent - (heizungProz * 100 - BEG_2026.klimaBonus)) / 100,
+              )
+            : 0,
+        optional: true,
+        hint: 'Selbstnutzer, Tausch fossiler Heizung bis 31.12.2028.',
+      },
+      {
+        label: `Einkommens-Bonus (+${BEG_2026.einkommensBonus} %)`,
+        amount:
+          wpAktiv && einkommensBonus
+            ? Math.min(wpKosten, BEG_2026.heizungMaxKosten) *
+              Math.max(
+                0,
+                Math.min(BEG_2026.einkommensBonus, BEG_2026.heizungMaxProzent - (heizungProz * 100 - BEG_2026.einkommensBonus)) / 100,
+              )
+            : 0,
+        optional: true,
+        hint: 'Zu versteuerndes Haushaltseinkommen ≤ 40.000 €.',
+      },
+      {
+        label: `Effizienz-Bonus (+${BEG_2026.effizienzBonus} %)`,
+        amount:
+          wpAktiv && effizienzBonus
+            ? Math.min(wpKosten, BEG_2026.heizungMaxKosten) * (BEG_2026.effizienzBonus / 100)
+            : 0,
+        optional: true,
+        hint: 'Für Sole/Wasser-WP oder natürliche Kältemittel.',
+      },
+      {
+        label: `Regionaler Top-up ${bundesland}`,
+        amount: regionalTopup,
+        optional: true,
+        hint: `Prozentualer Aufschlag ${((REGIONALE_TOPUPS_2026[bundesland] ?? 0)).toFixed(0)} % auf Bundesförderung.`,
+      },
+    ];
+
     return {
       energieVorher,
       energieNachher,
@@ -204,6 +280,8 @@ const KombiRechnerPage = () => {
       scenario: sc,
       naiveSummeEinspar,
       brennstoffNachher,
+      baseInput,
+      fundingBreakdown,
     };
   }, [
     flaeche,
