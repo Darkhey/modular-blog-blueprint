@@ -238,4 +238,38 @@ export const calculatorFaqs: Record<string, CalculatorFaq[]> = {
         'Nein. Alle Berechnungen laufen im Browser. Wir speichern keine personenbezogenen Daten.',
     },
   ],
+
+  'kombi-rechner': [
+    {
+      question: 'Was bringt eine Kombi-Berechnung gegenüber einzelnen Rechnern?',
+      answer:
+        'Sie sehen Wechselwirkungen: eine gut gedämmte Hülle senkt die Heizlast, wodurch die Wärmepumpe kleiner und günstiger wird. Zusätzlich werden Förder-Deckel und Boni korrekt getrennt für Hülle (BAFA-Einzelmaßnahme) und Heizung (KfW-458) angewendet.',
+      anchors: [{ label: 'Maßnahmenpaket wählen', href: '#rechner' }],
+    },
+    {
+      question: 'Wie wird die konsolidierte Förderung berechnet?',
+      answer:
+        'Getrennt: Hülle-Maßnahmen erhalten 15 % (mit iSFP 20 %) bis 30.000 € bzw. 60.000 € Deckel. Die Wärmepumpe erhält 30 % Grundzuschuss + Klimageschwindigkeits-, Einkommens- und Effizienzbonus (max. 70 %) auf bis zu 30.000 € förderfähige Kosten. Regionale Top-ups kommen prozentual oben drauf.',
+      anchors: [
+        { label: 'Detail-Förderrechner', href: '/foerderrechner#rechner' },
+        { label: 'Regionale Programme', href: '/foerdermittel/regional' },
+      ],
+    },
+    {
+      question: 'Warum ist die kombinierte Einsparung kleiner als die Summe der Einzel-Einsparungen?',
+      answer:
+        'Weil Einsparungen multiplikativ wirken, nicht additiv. Wenn Fassade 22 % und Dach 18 % einsparen, ist das kombiniert nicht 40 %, sondern (1 − 0,78 × 0,82) ≈ 36 %. Der Rechner nutzt die korrekte Multiplikation.',
+    },
+    {
+      question: 'In welcher Reihenfolge sollte man sanieren?',
+      answer:
+        'Hülle vor Technik. Erst dämmen, dann Heizung tauschen – so kann die Wärmepumpe kleiner und günstiger dimensioniert werden. Der Rechner reduziert die WP-Investition entsprechend automatisch (bis −18 %).',
+    },
+    {
+      question: 'Sind die Deckel-Warnungen kritisch?',
+      answer:
+        'Sie zeigen an, wenn Ihre Kosten den förderfähigen Betrag übersteigen. Die Über-Summe zahlen Sie voll selbst, der Zuschuss wird auf den Deckel begrenzt. Ein iSFP verdoppelt den Hülle-Deckel auf 60.000 €.',
+      anchors: [{ label: 'iSFP-Bonus aktivieren', href: '#rechner' }],
+    },
+  ],
 };

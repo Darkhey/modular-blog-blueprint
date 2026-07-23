@@ -137,4 +137,17 @@ export const calculatorHowTos: Record<string, CalculatorHowTo> = {
       { name: 'Roadmap erhalten', text: 'Priorisierte Maßnahmenliste mit Reihenfolge und Förderprognose.' },
     ],
   },
+
+  'kombi-rechner': {
+    name: 'So kombinieren Sie Heizung und Hülle in einer Berechnung',
+    description:
+      'In 4 Schritten Dämmung + Wärmepumpe gemeinsam simulieren – inkl. konsolidierter BEG-Förderung 2026.',
+    totalTimeMinutes: 3,
+    steps: [
+      { name: 'Gebäude erfassen', text: 'Wohnfläche, Baujahr und aktuellen Brennstoff eintragen.' },
+      { name: 'Maßnahmen-Paket wählen', text: 'Hülle-Maßnahmen (Fassade/Dach/Fenster/Keller) und optional Wärmepumpe kombinieren.' },
+      { name: 'Förder-Boni aktivieren', text: 'iSFP, Klimageschwindigkeit, Einkommens- und Effizienzbonus einschalten, sofern zutreffend.' },
+      { name: 'Kombi-Ergebnis prüfen', text: 'Konsolidierte Förderung, Eigenanteil, Amortisation und Deckel-Warnungen ablesen.' },
+    ],
+  },
 };

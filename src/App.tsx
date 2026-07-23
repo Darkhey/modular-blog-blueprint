@@ -23,6 +23,7 @@ import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import RechnerVergleichPage from "./pages/RechnerVergleichPage";
 const RechnerHubPage = lazy(() => import("./pages/RechnerHubPage"));
+const KombiRechnerPage = lazy(() => import("./pages/KombiRechnerPage"));
 const KostenrechnerPage = lazy(() => import("./pages/KostenrechnerPage"));
 const ReferenzenPage = lazy(() => import("./pages/ReferenzenPage"));
 import HeizungModernisierenPage from "./pages/HeizungModernisierenPage";
@@ -100,6 +101,7 @@ function App() {
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
                   <Route path="/rechner" element={<RechnerHubPage />} />
+                  <Route path="/rechner/kombi" element={<KombiRechnerPage />} />
                   <Route path="/rechner-vergleich" element={<RechnerVergleichPage />} />
                   <Route path="/kostenrechner" element={<KostenrechnerPage />} />
                   <Route path="/heizung-modernisieren" element={<HeizungModernisierenPage />} />

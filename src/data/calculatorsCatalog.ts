@@ -11,6 +11,7 @@ import {
   PlaneTakeoff,
   Wallet,
   CheckSquare,
+  Layers,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -81,6 +82,18 @@ export const calculatorsCatalog: CalculatorEntry[] = [
     topics: ['kosten', 'gewerk', 'pdf', 'gesamt'],
     gradient: 'from-emerald-500 to-teal-500',
     highlight: 'PDF-Export',
+  },
+  {
+    id: 'kombi-rechner',
+    title: 'Kombi-Rechner (Heizung + Hülle)',
+    description: 'Dämmung und Wärmepumpe gemeinsam simulieren – konsolidierte Förderung mit Deckel- und Bonuslogik.',
+    route: '/rechner/kombi',
+    icon: Layers,
+    category: 'vergleich',
+    badge: 'Vergleich',
+    topics: ['kombination', 'heizung', 'daemmung', 'waermepumpe', 'foerderung', 'planung'],
+    gradient: 'from-teal-500 to-emerald-500',
+    highlight: 'Wechselwirkungen',
   },
   {
     id: 'rechner-vergleich',
