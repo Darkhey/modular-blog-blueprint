@@ -24,6 +24,8 @@ const staticRoutes: Entry[] = [
   { path: "/energie-check", changefreq: "monthly", priority: "0.7" },
   { path: "/roi-rechner", changefreq: "monthly", priority: "0.7" },
   { path: "/daemmungsrechner", changefreq: "monthly", priority: "0.7" },
+  { path: "/wdvs-kosten-rechner", changefreq: "monthly", priority: "0.8" },
+  { path: "/dachdaemmung-kosten-rechner", changefreq: "monthly", priority: "0.8" },
   { path: "/daemmung-isolierung", changefreq: "weekly", priority: "0.9" },
   { path: "/heizkostenrechner", changefreq: "monthly", priority: "0.7" },
   { path: "/rechner-vergleich", changefreq: "monthly", priority: "0.7" },

@@ -19,6 +19,8 @@ const FoerderrechnerPage = lazy(() => import("./pages/FoerderrechnerPage"));
 const EnergieCheckPage = lazy(() => import("./pages/EnergieCheckPage"));
 const ROIRechnerPage = lazy(() => import("./pages/ROIRechnerPage"));
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
+const WdvsKostenRechnerPage = lazy(() => import("./pages/WdvsKostenRechnerPage"));
+const DachdaemmungKostenRechnerPage = lazy(() => import("./pages/DachdaemmungKostenRechnerPage"));
 import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import RechnerVergleichPage from "./pages/RechnerVergleichPage";
@@ -98,6 +100,8 @@ function App() {
                   <Route path="/energie-check" element={<EnergieCheckPage />} />
                   <Route path="/roi-rechner" element={<ROIRechnerPage />} />
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
+                  <Route path="/wdvs-kosten-rechner" element={<WdvsKostenRechnerPage />} />
+                  <Route path="/dachdaemmung-kosten-rechner" element={<DachdaemmungKostenRechnerPage />} />
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
                   <Route path="/rechner" element={<RechnerHubPage />} />
