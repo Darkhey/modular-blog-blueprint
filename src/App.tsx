@@ -100,6 +100,8 @@ function App() {
                   <Route path="/energie-check" element={<EnergieCheckPage />} />
                   <Route path="/roi-rechner" element={<ROIRechnerPage />} />
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
+                  <Route path="/wdvs-kosten-rechner" element={<WdvsKostenRechnerPage />} />
+                  <Route path="/dachdaemmung-kosten-rechner" element={<DachdaemmungKostenRechnerPage />} />
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />
                   <Route path="/rechner" element={<RechnerHubPage />} />
