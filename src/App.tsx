@@ -19,6 +19,8 @@ const FoerderrechnerPage = lazy(() => import("./pages/FoerderrechnerPage"));
 const EnergieCheckPage = lazy(() => import("./pages/EnergieCheckPage"));
 const ROIRechnerPage = lazy(() => import("./pages/ROIRechnerPage"));
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
+const WdvsKostenRechnerPage = lazy(() => import("./pages/WdvsKostenRechnerPage"));
+const DachdaemmungKostenRechnerPage = lazy(() => import("./pages/DachdaemmungKostenRechnerPage"));
 import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
 import RechnerVergleichPage from "./pages/RechnerVergleichPage";
