@@ -18,7 +18,7 @@ const ReferenzenPage = () => {
     '@type': 'ImageGallery',
     name: 'Sanierungsprojekte Vorher/Nachher',
     description: 'Interaktive Vorher/Nachher-Vergleiche von energetischen Sanierungsprojekten in Deutschland.',
-    url: 'https://modular-blog-blueprint.lovable.app/referenzen',
+    url: 'https://sanierenundsparen.de/referenzen',
     numberOfItems: referenzenData.length,
   };
 
@@ -27,7 +27,7 @@ const ReferenzenPage = () => {
       <Helmet>
         <title>Referenzen – Vorher/Nachher Sanierungsprojekte | Sanieren & Sparen</title>
         <meta name="description" content="Entdecken Sie echte Sanierungsprojekte im Vorher/Nachher-Vergleich. Interaktiver Bild-Slider zeigt den Unterschied bei Dämmung, Heizung & mehr." />
-        <link rel="canonical" href="https://modular-blog-blueprint.lovable.app/referenzen" />
+        <link rel="canonical" href="https://sanierenundsparen.de/referenzen" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

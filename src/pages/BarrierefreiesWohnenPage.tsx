@@ -50,7 +50,7 @@ const BarrierefreiesWohnenPage = () => {
     '@type': 'Article',
     headline: 'Barrierefreies Wohnen: Maßnahmen, Kosten & Förderung 2025',
     description: 'Umfassender Ratgeber zu barrierefreiem Umbau – Maßnahmen für Bad, Treppen und Türen mit KfW-Förderung und Kostenübersicht.',
-    url: 'https://sanieren-sparen.de/barrierefreies-wohnen',
+    url: 'https://sanierenundsparen.de/barrierefreies-wohnen',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -59,7 +59,7 @@ const BarrierefreiesWohnenPage = () => {
       <Helmet>
         <title>Barrierefreies Wohnen: Maßnahmen, Kosten & Förderung 2025</title>
         <meta name="description" content="Ratgeber barrierefreier Umbau – Maßnahmen für Bad, Treppen, Türen & Küche. KfW-Förderung bis 12.500 €, Pflegekassen-Zuschuss und Checkliste." />
-        <link rel="canonical" href="https://sanieren-sparen.de/barrierefreies-wohnen" />
+        <link rel="canonical" href="https://sanierenundsparen.de/barrierefreies-wohnen" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -106,7 +106,7 @@ const BarrierefreiesWohnenPage = () => {
 
       <CostTable title="Kosten barrierefreier Umbau" rows={costs} />
       <ChecklistSection title="Checkliste Barrierefreies Wohnen" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/barrierefreies-wohnen" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/barrierefreies-wohnen" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

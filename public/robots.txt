@@ -1,4 +1,4 @@
-# Robots.txt for sanieren-sparen.de
+# Robots.txt for sanierenundsparen.de
 
 # Google
 User-agent: Googlebot
@@ -31,7 +31,7 @@ Disallow: /auth
 Disallow: /dashboard
 
 # Sitemap
-Sitemap: https://sanieren-sparen.de/sitemap.xml
+Sitemap: https://sanierenundsparen.de/sitemap.xml
 
 # Crawl-delay for other bots
 User-agent: *

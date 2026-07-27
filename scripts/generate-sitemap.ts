@@ -2,7 +2,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 
-const BASE_URL = "https://sanieren-sparen.de";
+const BASE_URL = "https://sanierenundsparen.de";
 const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
 const SUPABASE_ANON =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZW1kdGJmbHJtZHlteHFwcWhzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk5MjUzNTIsImV4cCI6MjA2NTUwMTM1Mn0.fs1wAnmkGCGD7tbMpqot7sqFqYpLYuDzwCiYT32USTY";

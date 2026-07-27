@@ -49,7 +49,7 @@ const ShareResults = ({ calculatorType, results, inputs, className = '' }: Share
 
   const summary = useMemo(() => {
     const fn = SUMMARIES[calculatorType];
-    return (fn ? fn(results) : 'Meine Energieberatung – berechnet auf sanieren-sparen.de').trim();
+    return (fn ? fn(results) : 'Meine Energieberatung – berechnet auf sanierenundsparen.de').trim();
   }, [calculatorType, results]);
 
   const shareUrl = useMemo(() => {

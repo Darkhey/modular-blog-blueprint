@@ -5,7 +5,7 @@ import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 
-const SITE = 'https://sanieren-sparen.de';
+const SITE = 'https://sanierenundsparen.de';
 
 const HeizkostenrechnerPage = () => {
   return (
@@ -30,7 +30,7 @@ const HeizkostenrechnerPage = () => {
       <main id="rechner" tabIndex={-1} className="container mx-auto px-4 py-8 scroll-mt-24">
         <ModernizationSavingsCalculator />
 
-        <CalculatorHowToSection howToKey="heizkostenrechner" url="https://sanieren-sparen.de/heizkostenrechner" />
+        <CalculatorHowToSection howToKey="heizkostenrechner" url="https://sanierenundsparen.de/heizkostenrechner" />
 
         <CalculatorFaqSection
           faqKey="heizkostenrechner"

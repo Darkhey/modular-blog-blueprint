@@ -39,10 +39,10 @@ const Blog = () => {
       <Helmet>
         <title>Sanierungs-Blog – Aktuelle Tipps & Förderinfos</title>
         <meta name="description" content="Tagesaktuelle Artikel zu energetischer Sanierung: Heizung, Dämmung, Solar, Smart Home und Fördermittel. Praxisnah recherchiert." />
-        <link rel="canonical" href="https://sanieren-sparen.de/blog" />
+        <link rel="canonical" href="https://sanierenundsparen.de/blog" />
         <meta property="og:title" content="Sanierungs-Blog – Aktuelle Tipps & Förderinfos" />
         <meta property="og:description" content="Tagesaktuelle Artikel zu Heizung, Dämmung, Solar, Smart Home und Fördermitteln." />
-        <meta property="og:url" content="https://sanieren-sparen.de/blog" />
+        <meta property="og:url" content="https://sanierenundsparen.de/blog" />
         <meta property="og:type" content="website" />
       </Helmet>
       

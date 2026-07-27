@@ -54,7 +54,7 @@ const GartengestaltungPage = () => {
     '@type': 'Article',
     headline: 'Gartengestaltung: Kosten, Planung & Ideen – Ratgeber 2025',
     description: 'Kompletter Ratgeber zur Gartengestaltung – Kosten, Planung, Bepflanzung und Bewässerung.',
-    url: 'https://sanieren-sparen.de/gartengestaltung',
+    url: 'https://sanierenundsparen.de/gartengestaltung',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -63,7 +63,7 @@ const GartengestaltungPage = () => {
       <Helmet>
         <title>Gartengestaltung: Kosten, Planung & Ideen 2025</title>
         <meta name="description" content="Kompletter Ratgeber zur Gartengestaltung – Kosten von 500 bis 40.000 €, Planung, Bepflanzung, Bewässerung und Checkliste." />
-        <link rel="canonical" href="https://sanieren-sparen.de/gartengestaltung" />
+        <link rel="canonical" href="https://sanierenundsparen.de/gartengestaltung" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -98,7 +98,7 @@ const GartengestaltungPage = () => {
 
       <CostTable title="Kosten Gartengestaltung" rows={costs} />
       <ChecklistSection title="Checkliste Gartengestaltung" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/gartengestaltung" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/gartengestaltung" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

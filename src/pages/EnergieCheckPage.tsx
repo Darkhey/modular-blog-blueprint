@@ -125,7 +125,7 @@ const EnergieCheckPage = () => {
       <Helmet>
         <title>Energie-Check 2026 – Sanierungspotenzial in 2 Minuten</title>
         <meta name="description" content="Kostenloser Energie-Check für Ihr Zuhause: 12 Fragen, Score 0–100 und konkrete Empfehlungen für Heizung, Dämmung & Förderung." />
-        <link rel="canonical" href="https://sanieren-sparen.de/energie-check" />
+        <link rel="canonical" href="https://sanierenundsparen.de/energie-check" />
       </Helmet>
       <CalculatorHero
         icon={Zap}
@@ -239,7 +239,7 @@ const EnergieCheckPage = () => {
             className="mt-12 -mx-4"
           />
 
-          <CalculatorHowToSection howToKey="energie-check" url="https://sanieren-sparen.de/energie-check" />
+          <CalculatorHowToSection howToKey="energie-check" url="https://sanierenundsparen.de/energie-check" />
 
           <CalculatorFaqSection
             faqKey="energie-check"
@@ -247,9 +247,9 @@ const EnergieCheckPage = () => {
             title="Energie-Check 2026"
             description="Kostenloser Energie-Check mit Score und priorisierten Sanierungs-Empfehlungen."
             breadcrumbs={[
-              { name: 'Start', url: 'https://sanieren-sparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
-              { name: 'Energie-Check', url: 'https://sanieren-sparen.de/energie-check' },
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Energie-Check', url: 'https://sanierenundsparen.de/energie-check' },
             ]}
           />
 

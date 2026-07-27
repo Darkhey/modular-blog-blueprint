@@ -26,7 +26,7 @@ const Kontakt = () => {
                   <Mail className="text-green-600 mt-1" size={24} />
                   <div>
                     <h3 className="font-semibold text-gray-900">E-Mail</h3>
-                    <p className="text-gray-600">kontakt@sanieren-sparen.de</p>
+                    <p className="text-gray-600">kontakt@sanierenundsparen.de</p>
                     <p className="text-sm text-gray-500 mt-1">
                       Wir antworten innerhalb von 24 Stunden
                     </p>

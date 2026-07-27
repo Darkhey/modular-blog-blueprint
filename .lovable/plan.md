@@ -1,83 +1,59 @@
 
-# Rechner-Ausbau 2026/2027
+# Traffic & Sichtbarkeit — Stufe 1: der blockierende Fehler
 
-Alle 9 Rechner werden systematisch überarbeitet: aktualisierte Werte, geprüfte Formeln, plus 4 neue Querschnittsfunktionen (CO₂-Pfad, Preis-Szenarien, Kombi-Berechnung, Sensitivitätsanalyse).
+## Befund (geprüft)
 
-## Phase 1 — Fundament (zentrale Daten & Utilities)
+Die Seite läuft live auf `sanierenundsparen.de` (und `www.sanierenundsparen.de`, beide antworten mit 200). Im Code steht aber überall eine andere Domain:
 
-Neue Datei `src/data/energyPrices2026.ts` als Single Source of Truth:
-- Strompreis-Szenarien (Best/Normal/Worst): 0,28 / 0,34 / 0,42 €/kWh; Steigerung 2–5 %/a
-- Gas-/Ölpreis 2026 + Prognose
-- **CO₂-Preis-Pfad**: 55 €/t (2025) → 65 €/t (2026) → 55–65 €/t (2027, ETS-2-Übergang), ab 2027 marktbasiert (Prognose 80–120 €/t)
-- Einspeisevergütung 2026 (aktuelle degression), 0 % MwSt. bestätigt
-- BAFA/KfW 2026: KfW-458 Sätze, iSFP-Bonus, Klimageschwindigkeit, Einkommensbonus (neue Grenzen)
-- GEG-2026 U-Wert-Anforderungen (Fassade 0,24 / Dach 0,20 / Fenster 1,3)
+- `src/config/site.config.ts` → `siteUrl: "https://sanieren-sparen.de"`
+- `scripts/generate-sitemap.ts` → `BASE_URL = "https://sanieren-sparen.de"`
+- `public/sitemap.xml` → alle 254 URLs zeigen auf `https://sanieren-sparen.de/...`
+- `public/robots.txt` → `Sitemap: https://sanieren-sparen.de/sitemap.xml`
 
-Neue Utility `src/lib/scenarioEngine.ts`:
-- `runScenario(inputs, priceScenario, co2Path)` → berechnet Cashflow inkl. CO₂-Aufschlag auf fossile Brennstoffe
-- Genutzt von ROI-, Heizungs-, Solar-Rechner
+`sanieren-sparen.de` (mit Bindestrich) existiert nicht — DNS löst nicht auf. Das heißt: sämtliche Canonicals, og:url-Angaben und alle Sitemap-Einträge verweisen auf eine tote Domain. Google bekommt für jede Seite die Anweisung „die echte Adresse ist woanders" — und dieses Woanders gibt es nicht. Semrush bestätigt das Ergebnis: 3 rankende Keywords, geschätzt 0 Besucher/Monat, beste Position 76.
 
-## Phase 2 — Rechner-für-Rechner Update
+Das ist die Erklärung für den fehlenden Traffic. Alles andere ist zweitrangig, bis das behoben ist.
 
-| Rechner | Werte-Update | Logik-/Feature-Ausbau |
-|---|---|---|
-| **Förderrechner** | KfW-458 2026 Sätze, neue Einkommensgrenzen, Klimabonus-Fristen | Wechselwirkung Einzelmaßnahme vs. Sanierungsfahrplan-Paket; iSFP-Kaskade korrekt |
-| **Heizungsrechner** | Gas/Öl/WP/Pellet-Preise 2026, JAZ-Bandbreiten aktualisiert | CO₂-Pfad in Amortisation, Szenario-Toggle Best/Normal/Worst |
-| **Solar-Rechner** | Einspeisevergütung Feb 2026, Modul-/Speicherpreise, §14a EnWG | 20-Jahres-Chart mit Szenarien, Netzentgelt-Reduktion §14a |
-| **Dämmungsrechner** | GEG-U-Werte, Materialkosten 2026 | Bauteil-Kombi (Fassade+Dach+Keller) mit Gesamt-Einsparung; CO₂-Ersparnis mit Preis-Pfad |
-| **Kostenrechner** | Handwerkerpreise 2026 (+ ~4 %) | Kombi-Rabatt bei ≥3 Gewerken (realistischer Skaleneffekt), iSFP-Bonus-Toggle |
-| **ROI-Rechner** | Referenz-Energiepreise 2026 | **Sensitivitäts-Slider** (Strompreis, Zinssatz, Inflation) mit Live-Chart-Update; CO₂-Pfad ein/aus |
-| **Energie-Check** | Fragenkatalog an GEG-2026 ausrichten | Score-Gewichte neu kalibriert; Ausgabe verlinkt jetzt konkrete Maßnahmen-Kombi |
-| **Fenster/Türen-Rechner** | U-Wert-Anforderungen, Preise 2026 | Amortisation über realistischen Wärmebrücken-Faktor |
-| **Foerdermittel-Checker** | Programmliste 2026 (BEG-Novelle) | Regionale Top-ups aktualisiert |
+## Schritt 1 — Domain überall korrigieren
 
-## Phase 3 — Neue Querschnitts-Features
+- `site.config.ts` und `generate-sitemap.ts` auf `https://sanierenundsparen.de` umstellen.
+- Sitemap neu generieren (alle 254 Einträge inkl. Blogposts aus Supabase).
+- `robots.txt`: Sitemap-Direktive auf die richtige Domain; Kommentarzeile korrigieren.
+- Alle weiteren Hardcodings der alten Domain im Code suchen und ersetzen (Canonical-Helper, Structured Data, Share-Links, llms.txt).
+- Entscheidung www vs. ohne www: aktuell antworten beide mit 200 → Duplicate Content. Wir setzen **`https://sanierenundsparen.de` ohne www** als kanonische Variante (so ist es auch in den Projekt-Domains hinterlegt); Semrush indexiert bisher die www-Variante, der Canonical konsolidiert das.
 
-### 3.1 Szenario-Umschalter (in ROI, Heizung, Solar)
-UI-Component `ScenarioToggle` (3 Buttons: Optimistisch / Realistisch / Vorsichtig) → verändert Preispfade in der Live-Berechnung.
+## Schritt 2 — Google Search Console anbinden
 
-### 3.2 CO₂-Preis-Pfad
-Optional aktivierbar in Amortisationsberechnungen. Zeigt zusätzliche Einsparung fossiler Systeme durch steigenden CO₂-Preis. Info-Tooltip erklärt ETS-2.
+Der SEO-Scanner meldet GSC als nicht eingerichtet. Ablauf:
 
-### 3.3 Sensitivitätsanalyse (ROI-Rechner)
-Drei Slider (Strompreissteigerung, Zinssatz, Wartungskosten) mit Live-Update des Amortisations-Charts. Kein neuer Rechner, sondern Panel im bestehenden ROI-Rechner.
+1. Search-Console-Connector verbinden (OAuth, Klick durch dich).
+2. Meta-Tag-Verifizierung für `https://sanierenundsparen.de/` einbauen und veröffentlichen.
+3. Property anlegen + Sitemap einreichen.
+4. Danach sehen wir echte Impressionen/Klicks pro Seite statt nur Schätzwerten — Grundlage für alles Weitere.
 
-### 3.4 Kombi-Berechnung (neue Seite `/rechner/kombi`)
-Neuer Rechner der 2–4 Maßnahmen kombiniert und Wechselwirkungen berücksichtigt:
-- Dämmung senkt Heizlast → kleinere/günstigere WP möglich
-- Solar + WP: erhöhter Eigenverbrauch
-- Zeigt: Einzel-Summe vs. Kombi-Realität (Ersparnis ~10–15 % höher, aber Investitionsüberlagerung)
-- Empfiehlt Reihenfolge (Hülle vor Technik)
+## Schritt 3 — Indexierbarkeit für die wichtigen Seiten
 
-## Phase 4 — Qualitätssicherung
+Das Projekt ist eine reine Client-App: Crawler, die kein JavaScript ausführen, sehen nur die statische `index.html`. Googlebot rendert zwar JS, aber verzögert und unzuverlässig bei vielen Seiten.
 
-- **Test-Skript** `scripts/testCalculators.ts`: prüft alle Rechner mit Referenz-Szenarien gegen erwartete Bandbreiten (Regressionstest bei zukünftigen Werte-Updates)
-- Edge Cases: 0-Werte, Maximal-Werte, ungültige PLZ
-- Ergebnis-Konsistenz zwischen Rechnern (Solar-CO₂ = ROI-CO₂ bei gleichen Inputs)
-- FAQ + HowTo Texte an neue Features anpassen
+Maßnahme mit dem besten Verhältnis von Aufwand zu Wirkung: **Pre-Rendering der Rechner- und Kernseiten beim Build** — die ~20 wichtigsten Routen werden als echte HTML-Dateien mit Titel, Description, Text und JSON-LD ausgeliefert. Blogartikel bleiben vorerst client-seitig.
+
+## Schritt 4 — Keyword-Basis schärfen
+
+Bereits sichtbar (Positionen 76–94, also knapp am Rand der Sichtbarkeit):
+`wdvs kosten rechner` (140/mo), `dachdämmung kosten rechner` (170/mo), `sanierungsrechner haus` (140/mo)
+
+Diese drei zeigen alle auf `/daemmungsrechner` bzw. `/`. Statt neue Seiten zu bauen, holen wir sie erst nach vorne:
+
+- Eigene Landingpages `/daemmungsrechner/wdvs-kosten` und `/daemmungsrechner/dachdaemmung-kosten` mit passgenauem Title/H1, Preistabellen und dem Rechner darunter.
+- Startseiten-Title auf „Sanierungsrechner Haus" ausrichten.
+- Interne Verlinkung von Blogartikeln gezielt auf diese Ziele.
 
 ## Technische Details
 
-### Neue Dateien
-- `src/data/energyPrices2026.ts` — zentrale Preise/Pfade/Förderwerte
-- `src/lib/scenarioEngine.ts` — Cashflow-Simulation mit Szenarien + CO₂-Pfad
-- `src/components/calculators/shared/ScenarioToggle.tsx`
-- `src/components/calculators/shared/CO2PathToggle.tsx`
-- `src/components/calculators/shared/SensitivitySliders.tsx`
-- `src/pages/KombiRechnerPage.tsx` + Route `/rechner/kombi`
-- `scripts/testCalculators.ts`
+**Geänderte Dateien:** `src/config/site.config.ts`, `scripts/generate-sitemap.ts`, `public/robots.txt`, `public/sitemap.xml` (regeneriert), `public/llms.txt`, `index.html` (GSC-Meta-Tag), plus alle Fundstellen der alten Domain.
 
-### Geänderte Dateien
-- Alle 9 Rechner-Pages/Hooks (Werte + Wiring der neuen Components)
-- `src/data/kostenrechnerData.ts`, `insulationCalculatorData.ts`, `useModernizationCalculator.ts`, `solarCalculations.ts`
-- `src/data/calculatorsCatalog.ts` (Kombi-Rechner aufnehmen)
-- `src/data/calculatorFaqs.ts` + `calculatorHowTos.ts` (Ergänzungen)
+**Neu (Schritt 3/4):** Prerender-Setup in `vite.config.ts` bzw. Post-Build-Skript, zwei neue Landingpage-Komponenten + Routen in `src/App.tsx`, Einträge im Sitemap-Generator.
 
-### Rollout-Reihenfolge
-1. Phase 1 (Fundament) — 1 Turn
-2. Phase 2 A: Förder/Heizung/Solar (traffic-stark) — 1 Turn
-3. Phase 2 B: Dämmung/Kosten/ROI/Energie-Check/Fenster — 1 Turn
-4. Phase 3 (Kombi-Rechner + neue Toggles wiring) — 1 Turn
-5. Phase 4 (Tests + FAQ/HowTo Update) — 1 Turn
+**Reihenfolge:** Schritt 1 sofort (ein Turn). Schritt 2 direkt danach, braucht deine Bestätigung im OAuth-Dialog. Schritte 3 und 4 danach als eigene Turns.
 
-Nach Approval starte ich mit Phase 1 + 2A im ersten Schritt.
+Wichtig zur Erwartung: Nach der Korrektur braucht Google typischerweise 2–6 Wochen, bis die Seiten neu bewertet sind. Der Effekt kommt nicht über Nacht.

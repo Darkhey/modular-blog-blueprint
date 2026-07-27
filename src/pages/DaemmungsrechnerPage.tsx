@@ -8,7 +8,7 @@ import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 
-const SITE = 'https://sanieren-sparen.de';
+const SITE = 'https://sanierenundsparen.de';
 
 const DaemmungsrechnerPage = () => {
   return (
@@ -47,7 +47,7 @@ const DaemmungsrechnerPage = () => {
           </Card>
           <InsulationCalculator />
 
-          <CalculatorHowToSection howToKey="daemmungsrechner" url="https://sanieren-sparen.de/daemmungsrechner" />
+          <CalculatorHowToSection howToKey="daemmungsrechner" url="https://sanierenundsparen.de/daemmungsrechner" />
 
           <CalculatorFaqSection
             faqKey="daemmungsrechner"

@@ -21,7 +21,7 @@ const SolarenergiePage = () => {
       <Helmet>
         <title>Solar-Rechner 2026 – Photovoltaik & Speicher kostenlos berechnen</title>
         <meta name="description" content="Solar-Potenzial online berechnen: PV-Anlage, Batteriespeicher, Wallbox & 20-Jahres-Prognose mit regionalem Sonnenertrag. Kostenlos & sofort." />
-        <link rel="canonical" href="https://sanieren-sparen.de/solarenergie" />
+        <link rel="canonical" href="https://sanierenundsparen.de/solarenergie" />
       </Helmet>
 
       {/* Hero */}
@@ -236,7 +236,7 @@ const SolarenergiePage = () => {
 
           <RelatedCalculators topics={['solar', 'photovoltaik', 'pv', 'batterie', 'wallbox']} excludeIds={['solarrechner']} />
 
-          <CalculatorHowToSection howToKey="solarrechner" url="https://sanieren-sparen.de/solarenergie" />
+          <CalculatorHowToSection howToKey="solarrechner" url="https://sanierenundsparen.de/solarenergie" />
 
           <CalculatorFaqSection
             faqKey="solarrechner"
@@ -245,9 +245,9 @@ const SolarenergiePage = () => {
             description="PV-Anlage, Speicher, Wallbox und 20-Jahres-Prognose mit regionalem Sonnenertrag berechnen."
             path="solarenergie"
             breadcrumbs={[
-              { name: 'Start', url: 'https://sanieren-sparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
-              { name: 'Solar-Rechner', url: 'https://sanieren-sparen.de/solarenergie' },
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Solar-Rechner', url: 'https://sanierenundsparen.de/solarenergie' },
             ]}
           />
 

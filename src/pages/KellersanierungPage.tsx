@@ -52,7 +52,7 @@ const KellersanierungPage = () => {
     '@type': 'Article',
     headline: 'Kellersanierung: Kosten, Abdichtung & Dämmung – Ratgeber 2025',
     description: 'Kompletter Ratgeber zur Kellersanierung – Abdichtung, Dämmung, Ausbau mit Kostenübersicht und Checkliste.',
-    url: 'https://sanieren-sparen.de/kellersanierung',
+    url: 'https://sanierenundsparen.de/kellersanierung',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -61,7 +61,7 @@ const KellersanierungPage = () => {
       <Helmet>
         <title>Kellersanierung: Kosten, Abdichtung & Dämmung 2025</title>
         <meta name="description" content="Kompletter Ratgeber zur Kellersanierung – Kosten von 2.000 bis 50.000 €, Abdichtungsmethoden, Dämmung und Fördermöglichkeiten." />
-        <link rel="canonical" href="https://sanieren-sparen.de/kellersanierung" />
+        <link rel="canonical" href="https://sanierenundsparen.de/kellersanierung" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -96,7 +96,7 @@ const KellersanierungPage = () => {
 
       <CostTable title="Kosten Kellersanierung" rows={costs} />
       <ChecklistSection title="Checkliste Kellersanierung" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/kellersanierung" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/kellersanierung" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

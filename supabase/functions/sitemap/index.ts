@@ -18,7 +18,7 @@ serve(async (_req) => {
 
   try {
     const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
-    const domain = "https://sanieren-sparen.de";
+    const domain = "https://sanierenundsparen.de";
 
     // Statische Seiten aus App.tsx - alle wichtigen Seiten
     const staticPages = [
