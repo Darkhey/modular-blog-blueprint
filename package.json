@@ -16,7 +16,8 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
     "test:ci": "vitest run --passWithNoTests",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "bunx tsx scripts/prerender-head.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
