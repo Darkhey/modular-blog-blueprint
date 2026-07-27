@@ -61,7 +61,7 @@ const ElektroinstallationPage = () => {
     '@type': 'Article',
     headline: 'Elektroinstallation erneuern: Kosten, Sicherheit & Smart Home 2025',
     description: 'Ratgeber zur Erneuerung der Elektroinstallation – Wann ist es nötig? Was kostet es? Inklusive Smart-Home-Vorbereitung und Sicherheits-Checkliste.',
-    url: 'https://sanieren-sparen.de/elektroinstallation',
+    url: 'https://sanierenundsparen.de/elektroinstallation',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -70,7 +70,7 @@ const ElektroinstallationPage = () => {
       <Helmet>
         <title>Elektroinstallation erneuern: Kosten, Sicherheit & Smart Home 2025</title>
         <meta name="description" content="Ratgeber Elektroinstallation – Kosten ab 8.000 €, Warnzeichen für veraltete Leitungen, Smart-Home-Vorbereitung und Sicherheits-Checkliste." />
-        <link rel="canonical" href="https://sanieren-sparen.de/elektroinstallation" />
+        <link rel="canonical" href="https://sanierenundsparen.de/elektroinstallation" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -123,7 +123,7 @@ const ElektroinstallationPage = () => {
 
       <CostTable title="Kosten Elektroinstallation" rows={costs} />
       <ChecklistSection title="Checkliste Elektroinstallation" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/elektroinstallation" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/elektroinstallation" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

@@ -308,7 +308,7 @@ const KombiRechnerPage = () => {
           name="description"
           content="Kombinieren Sie Dämmung, Fenster und Wärmepumpe in einer Berechnung. Konsolidierte BAFA-/KfW-Förderung 2026 inkl. Deckel, iSFP- und Klimabonus."
         />
-        <link rel="canonical" href="https://sanieren-sparen.de/rechner/kombi" />
+        <link rel="canonical" href="https://sanierenundsparen.de/rechner/kombi" />
       </Helmet>
 
       <CalculatorHero
@@ -548,7 +548,7 @@ const KombiRechnerPage = () => {
 
 
       <div className="max-w-6xl mx-auto px-4">
-        <CalculatorHowToSection howToKey="kombi-rechner" url="https://sanieren-sparen.de/rechner/kombi" />
+        <CalculatorHowToSection howToKey="kombi-rechner" url="https://sanierenundsparen.de/rechner/kombi" />
         <CalculatorFaqSection
           faqKey="kombi-rechner"
           calculatorType="vergleich"

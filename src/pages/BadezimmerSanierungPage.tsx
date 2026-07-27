@@ -51,7 +51,7 @@ const BadezimmerSanierungPage = () => {
     '@type': 'Article',
     headline: 'Badezimmer-Sanierung: Kosten, Ablauf & Checkliste 2025',
     description: 'Kompletter Ratgeber zur Badsanierung – von Teilsanierung bis Komplettsanierung mit Kostenübersicht, Zeitplan und Checkliste.',
-    url: 'https://sanieren-sparen.de/badezimmer-sanierung',
+    url: 'https://sanierenundsparen.de/badezimmer-sanierung',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -60,7 +60,7 @@ const BadezimmerSanierungPage = () => {
       <Helmet>
         <title>Badezimmer-Sanierung: Kosten, Ablauf & Checkliste 2025</title>
         <meta name="description" content="Kompletter Ratgeber zur Badsanierung – Kosten von 3.000 bis 35.000 €, Zeitplan, Checkliste und Fördermöglichkeiten im Überblick." />
-        <link rel="canonical" href="https://sanieren-sparen.de/badezimmer-sanierung" />
+        <link rel="canonical" href="https://sanierenundsparen.de/badezimmer-sanierung" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -95,7 +95,7 @@ const BadezimmerSanierungPage = () => {
 
       <CostTable title="Kosten Badezimmer-Sanierung" rows={costs} />
       <ChecklistSection title="Checkliste Badsanierung" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/badezimmer-sanierung" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/badezimmer-sanierung" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

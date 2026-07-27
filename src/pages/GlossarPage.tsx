@@ -58,24 +58,24 @@ const GlossarPage = () => {
     name: 'Sanierungs-Glossar – Fachbegriffe der energetischen Sanierung',
     description:
       'Umfassendes Glossar mit über 50 Fachbegriffen rund um Dämmung, Heizung, Förderung und erneuerbare Energien.',
-    url: 'https://sanieren-sparen.de/glossar',
+    url: 'https://sanierenundsparen.de/glossar',
     hasDefinedTerm: glossaryData.map(e => ({
       '@type': 'DefinedTerm',
       name: e.term,
       description: e.definition,
-      url: `https://sanieren-sparen.de/glossar#${e.slug}`,
+      url: `https://sanierenundsparen.de/glossar#${e.slug}`,
     })),
   };
 
   return (
     <>
       <Helmet>
-        <title>Sanierungs-Glossar – 50+ Fachbegriffe einfach erklärt | sanieren-sparen.de</title>
+        <title>Sanierungs-Glossar – 50+ Fachbegriffe einfach erklärt | sanierenundsparen.de</title>
         <meta
           name="description"
           content="Alle wichtigen Fachbegriffe der energetischen Sanierung verständlich erklärt: U-Wert, Wärmepumpe, BAFA, KfW, Dämmung und mehr."
         />
-        <link rel="canonical" href="https://sanieren-sparen.de/glossar" />
+        <link rel="canonical" href="https://sanierenundsparen.de/glossar" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

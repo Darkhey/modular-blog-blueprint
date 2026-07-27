@@ -100,7 +100,7 @@ const FoerderrechnerPage = () => {
       <Helmet>
         <title>Förderrechner 2026 – BAFA, KfW & Boni kostenlos berechnen</title>
         <meta name="description" content="BAFA-Zuschuss, KfW-Förderung, iSFP-Bonus und regionale Programme für Ihre Sanierung in Sekunden online berechnen – aktuell 2026." />
-        <link rel="canonical" href="https://sanieren-sparen.de/foerderrechner" />
+        <link rel="canonical" href="https://sanierenundsparen.de/foerderrechner" />
       </Helmet>
       <CalculatorHero
         icon={Euro}
@@ -215,7 +215,7 @@ const FoerderrechnerPage = () => {
             className="mt-12 -mx-4"
           />
 
-          <CalculatorHowToSection howToKey="foerderrechner" url="https://sanieren-sparen.de/foerderrechner" />
+          <CalculatorHowToSection howToKey="foerderrechner" url="https://sanierenundsparen.de/foerderrechner" />
 
           <CalculatorFaqSection
             faqKey="foerderrechner"
@@ -223,9 +223,9 @@ const FoerderrechnerPage = () => {
             title="Förderrechner 2026"
             description="BAFA, KfW, iSFP-Bonus und regionale Top-ups für Ihre Sanierung online berechnen."
             breadcrumbs={[
-              { name: 'Start', url: 'https://sanieren-sparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
-              { name: 'Förderrechner', url: 'https://sanieren-sparen.de/foerderrechner' },
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Förderrechner', url: 'https://sanierenundsparen.de/foerderrechner' },
             ]}
           />
 

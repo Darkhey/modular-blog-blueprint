@@ -47,7 +47,7 @@ const SanierungsCheckPage = () => {
       <Helmet>
         <title>Sanierungscheck 2026 – Welche Sanierung lohnt sich? | Sanieren & Sparen</title>
         <meta name="description" content="Personalisierter Sanierungscheck in 6 Schritten: priorisierte Maßnahmen mit Kosten, BAFA-Förderung und Amortisation. Kostenlos & ohne Anmeldung." />
-        <link rel="canonical" href="https://sanieren-sparen.de/sanierungscheck" />
+        <link rel="canonical" href="https://sanierenundsparen.de/sanierungscheck" />
       </Helmet>
 
       <div className="min-h-screen bg-gradient-to-b from-secondary/50 to-background">
@@ -208,7 +208,7 @@ const SanierungsCheckPage = () => {
             </div>
           )}
 
-          <CalculatorHowToSection howToKey="sanierungscheck" url="https://sanieren-sparen.de/sanierungscheck" />
+          <CalculatorHowToSection howToKey="sanierungscheck" url="https://sanierenundsparen.de/sanierungscheck" />
 
           <CalculatorFaqSection
             faqKey="sanierungscheck"
@@ -216,9 +216,9 @@ const SanierungsCheckPage = () => {
             title="Sanierungscheck 2026"
             description="Personalisierte Sanierungsempfehlung in 6 Schritten – mit Kosten, Förderung und Amortisation."
             breadcrumbs={[
-              { name: 'Start', url: 'https://sanieren-sparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
-              { name: 'Sanierungscheck', url: 'https://sanieren-sparen.de/sanierungscheck' },
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Sanierungscheck', url: 'https://sanierenundsparen.de/sanierungscheck' },
             ]}
           />
 

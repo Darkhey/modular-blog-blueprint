@@ -13,7 +13,7 @@ import {
   type CalculatorEntry,
 } from '@/data/calculatorsCatalog';
 
-const SITE = 'https://sanieren-sparen.de';
+const SITE = 'https://sanierenundsparen.de';
 
 const CalcCard = ({ entry }: { entry: CalculatorEntry }) => {
   const Icon = entry.icon;

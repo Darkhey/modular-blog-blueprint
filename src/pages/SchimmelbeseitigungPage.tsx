@@ -57,7 +57,7 @@ const SchimmelbeseitigungPage = () => {
     '@type': 'Article',
     headline: 'Schimmelbeseitigung: Ursachen, Kosten & Prävention 2025',
     description: 'Ratgeber Schimmel – Ursachen erkennen, richtig entfernen, dauerhaft vorbeugen. DIY vs. Fachbetrieb Entscheidungshilfe mit Kostenübersicht.',
-    url: 'https://sanieren-sparen.de/schimmelbeseitigung',
+    url: 'https://sanierenundsparen.de/schimmelbeseitigung',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -66,7 +66,7 @@ const SchimmelbeseitigungPage = () => {
       <Helmet>
         <title>Schimmelbeseitigung: Ursachen, Kosten & Prävention 2025</title>
         <meta name="description" content="Ratgeber Schimmel – Ursachen erkennen, richtig entfernen, dauerhaft vorbeugen. Kosten, DIY-Tipps und Fachbetrieb-Entscheidungshilfe." />
-        <link rel="canonical" href="https://sanieren-sparen.de/schimmelbeseitigung" />
+        <link rel="canonical" href="https://sanierenundsparen.de/schimmelbeseitigung" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -125,7 +125,7 @@ const SchimmelbeseitigungPage = () => {
 
       <CostTable title="Kosten Schimmelbeseitigung" rows={costs} />
       <ChecklistSection title="Checkliste Schimmelprävention" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/schimmelbeseitigung" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/schimmelbeseitigung" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

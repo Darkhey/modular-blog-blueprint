@@ -104,10 +104,10 @@ const KostenrechnerPage = () => {
       <Helmet>
         <title>Sanierungs-Kostenrechner 2026 – mit Förderung & PDF-Export</title>
         <meta name="description" content="Sanierungskosten online berechnen: mehrere Gewerke kombinieren, BAFA-Förderung abziehen, Ergebnis als PDF exportieren. Kostenlos, ohne Anmeldung." />
-        <link rel="canonical" href="https://sanieren-sparen.de/kostenrechner" />
+        <link rel="canonical" href="https://sanierenundsparen.de/kostenrechner" />
         <meta property="og:title" content="Sanierungskosten berechnen – Kostenrechner" />
         <meta property="og:description" content="Mehrere Gewerke kombinieren und Gesamtkosten inkl. Förderung ermitteln." />
-        <meta property="og:url" content="https://sanieren-sparen.de/kostenrechner" />
+        <meta property="og:url" content="https://sanierenundsparen.de/kostenrechner" />
         <meta property="og:type" content="website" />
       </Helmet>
 
@@ -395,7 +395,7 @@ Eigenanteil  = Bruttokosten − Förderung
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
 
-          <CalculatorHowToSection howToKey="kostenrechner" url="https://sanieren-sparen.de/kostenrechner" />
+          <CalculatorHowToSection howToKey="kostenrechner" url="https://sanierenundsparen.de/kostenrechner" />
 
           <CalculatorFaqSection
             faqKey="kostenrechner"
@@ -403,9 +403,9 @@ Eigenanteil  = Bruttokosten − Förderung
             title="Sanierungs-Kostenrechner 2026"
             description="Online-Kostenrechner für Sanierungen: Gewerke kombinieren, Förderung abziehen, PDF exportieren."
             breadcrumbs={[
-              { name: 'Start', url: 'https://sanieren-sparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanieren-sparen.de/rechner' },
-              { name: 'Sanierungs-Kostenrechner', url: 'https://sanieren-sparen.de/kostenrechner' },
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Sanierungs-Kostenrechner', url: 'https://sanierenundsparen.de/kostenrechner' },
             ]}
           />
         </div>

@@ -21,10 +21,10 @@ const HeizungModernisierenPage = () => {
         <title>Heizung modernisieren 2025 – Bis zu 70% Förderung</title>
         <meta name="description" content="Heizung modernisieren mit Smart-Home-Integration. Bis zu 40% Energiekosten sparen, 70% BAFA-Förderung. Alle Heizsysteme & Smart Thermostate für 2025." />
         <meta name="keywords" content="Heizung modernisieren, Smart Home, Wärmepumpe, Smart Thermostat, BAFA Förderung, Energiekosten sparen" />
-        <link rel="canonical" href="https://sanieren-sparen.de/heizung-modernisieren" />
+        <link rel="canonical" href="https://sanierenundsparen.de/heizung-modernisieren" />
         <meta property="og:title" content="Heizung modernisieren 2025 – Bis zu 70% Förderung" />
         <meta property="og:description" content="Smart-Home-Integration, Wärmepumpen und BAFA-Förderung im Überblick." />
-        <meta property="og:url" content="https://sanieren-sparen.de/heizung-modernisieren" />
+        <meta property="og:url" content="https://sanierenundsparen.de/heizung-modernisieren" />
         <meta property="og:type" content="article" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',

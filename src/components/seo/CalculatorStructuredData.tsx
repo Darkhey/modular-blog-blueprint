@@ -23,7 +23,7 @@ interface CalculatorStructuredDataProps {
   breadcrumbs?: BreadcrumbItem[];
 }
 
-const SITE = 'https://sanieren-sparen.de';
+const SITE = 'https://sanierenundsparen.de';
 
 const ROUTE_MAP: Record<string, string> = {
   heating: 'heizkostenrechner',

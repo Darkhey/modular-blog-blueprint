@@ -54,7 +54,7 @@ const DachausbauPage = () => {
     '@type': 'Article',
     headline: 'Dachausbau: Kosten, Genehmigung & Dämmung – Ratgeber 2025',
     description: 'Kompletter Ratgeber zum Dachausbau – Kosten, Baugenehmigung, Dämmung und Förderung.',
-    url: 'https://sanieren-sparen.de/dachausbau',
+    url: 'https://sanierenundsparen.de/dachausbau',
     publisher: { '@type': 'Organization', name: 'Sanieren & Sparen' },
   };
 
@@ -63,7 +63,7 @@ const DachausbauPage = () => {
       <Helmet>
         <title>Dachausbau: Kosten, Genehmigung & Dämmung 2025</title>
         <meta name="description" content="Kompletter Ratgeber zum Dachausbau – Kosten von 2.000 bis 70.000 €, Baugenehmigung, Dämmung und Fördermöglichkeiten im Überblick." />
-        <link rel="canonical" href="https://sanieren-sparen.de/dachausbau" />
+        <link rel="canonical" href="https://sanierenundsparen.de/dachausbau" />
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
 
@@ -98,7 +98,7 @@ const DachausbauPage = () => {
 
       <CostTable title="Kosten Dachausbau" rows={costs} />
       <ChecklistSection title="Checkliste Dachausbau" items={checklist} />
-      <FAQSection faqs={faqs} pageUrl="https://sanieren-sparen.de/dachausbau" />
+      <FAQSection faqs={faqs} pageUrl="https://sanierenundsparen.de/dachausbau" />
 
       {/* CTA */}
       <section className="py-12 bg-primary/5">

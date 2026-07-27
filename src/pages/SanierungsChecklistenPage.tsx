@@ -109,7 +109,7 @@ const SanierungsChecklistenPage = () => {
       <Helmet>
         <title>Sanierungschecklisten: Planung, Bauüberwachung & Abnahme</title>
         <meta name="description" content="Kostenlose interaktive Sanierungschecklisten – Vor, während und nach der Sanierung. Mit Fortschrittsanzeige und PDF-Download." />
-        <link rel="canonical" href="https://sanieren-sparen.de/sanierungschecklisten" />
+        <link rel="canonical" href="https://sanierenundsparen.de/sanierungschecklisten" />
         <script type="application/ld+json">{JSON.stringify(howToSchema)}</script>
       </Helmet>
 
