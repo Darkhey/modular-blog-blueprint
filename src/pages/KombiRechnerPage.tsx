@@ -13,6 +13,9 @@ import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
 import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
+
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
 import {
@@ -300,6 +303,31 @@ const KombiRechnerPage = () => {
 
   const ersparnisJahr1 = result.scenario.jahre[0]?.ersparnis ?? 0;
 
+  const pdfResults = {
+    inputs: {
+      wohnflaeche: Math.max(30, Number(flaeche) || 0),
+      baujahr,
+      brennstoff: aktBrennstoff,
+      massnahmen: HUELLE.filter((h) => selected[h.id]).map((h) => h.label).join(', '),
+      heizung: selected.waermepumpe ? 'Wärmepumpe' : 'unverändert',
+      szenario: PRICE_SCENARIOS[scenario].label,
+      co2Pfad: co2Path ? 'aktiv' : 'inaktiv',
+    },
+    investBrutto: result.investBrutto,
+    foerderungGesamt: result.foerderungGesamt,
+    netto: result.netto,
+    amortisationJahre: result.scenario.amortisationJahre,
+    ersparnisJahr1,
+    co2VermeidungTonnen: result.scenario.co2VermeidungTonnen,
+    energieVorher: result.energieVorher,
+    energieNachher: result.energieNachher,
+    huelleEinsparAnteil: result.huelleEinsparAnteil,
+    huelleZuschuss: result.huelleZuschuss,
+    heizungZuschuss: result.heizungZuschuss,
+    regionalTopup: result.regionalTopup,
+  };
+
+
   return (
     <>
       <Helmet>
@@ -543,6 +571,12 @@ const KombiRechnerPage = () => {
             fundingBreakdown={result.fundingBreakdown}
             investBrutto={result.investBrutto}
           />
+
+          <div className="flex flex-wrap gap-2">
+            <ShareResults calculatorType="kombi" results={pdfResults} />
+            <ResultsPDFExport calculatorType="kombi" results={pdfResults} />
+          </div>
+
         </div>
       </div>
 

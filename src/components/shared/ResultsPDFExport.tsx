@@ -3,6 +3,7 @@ import { FileDown, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
+import { siteConfig } from '@/config/site.config';
 
 interface ResultsPDFExportProps {
   calculatorType: string;
@@ -10,110 +11,225 @@ interface ResultsPDFExportProps {
   className?: string;
 }
 
-const ResultsPDFExport = ({ calculatorType, results, className = "" }: ResultsPDFExportProps) => {
+const TITLES: Record<string, string> = {
+  heating: 'Heizungsmodernisierung – Berechnungsergebnis',
+  insulation: 'Dämmungsberechnung – Berechnungsergebnis',
+  solar: 'Solar-Potenzial – Berechnungsergebnis',
+  kostenrechner: 'Kosten-Vergleichsrechner – Ergebnis',
+  kombi: 'Kombi-Rechner (Heizung + Hülle) – Ergebnis',
+};
+
+const num = (v: any, digits = 0) =>
+  typeof v === 'number' && isFinite(v)
+    ? v.toLocaleString('de-DE', { maximumFractionDigits: digits })
+    : 'k. A.';
+
+const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPDFExportProps) => {
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const generatePDFContent = () => {
-    const currentDate = new Date().toLocaleDateString('de-DE');
-    
+  /** Baut die Zeilenstruktur des Berichts: Abschnitte mit Label/Wert-Paaren */
+  const buildSections = (): { heading: string; rows: [string, string][] }[] => {
     switch (calculatorType) {
       case 'heating':
-        return `
-HEIZUNGSMODERNISIERUNG - BERECHNUNGSERGEBNIS
-Erstellt am: ${currentDate}
-
-IHRE EINGABEN:
-- Wohnfläche: ${results.inputs?.livingSpace || 'N/A'} m²
-- Gebäudealter: ${results.inputs?.buildingAge || 'N/A'}
-- Heizungsart: ${results.inputs?.heatingType || 'N/A'}
-
-ERGEBNISSE:
-- Jährliche Ersparnis: ${results.annualSavings ? Math.round(results.annualSavings).toLocaleString('de-DE') : (results.totalSavingsPerYear ? Math.round(results.totalSavingsPerYear).toLocaleString('de-DE') : 'N/A')} €
-- Ersparnis in %: ${results.savingsPercentage ? results.savingsPercentage.toFixed(0) : 'N/A'}%
-- Amortisationszeit: ${results.amortizationPeriod ? Math.round(results.amortizationPeriod) : (results.amortizationYears ? Math.round(results.amortizationYears) : 'N/A')} Jahre
-- CO₂-Einsparung: ${results.co2Savings ? Math.round(results.co2Savings).toLocaleString('de-DE') : 'N/A'} kg/Jahr
-
-KOSTEN VORHER/NACHHER:
-- Kosten vorher: ${results.current?.total ? Math.round(results.current.total).toLocaleString('de-DE') : 'N/A'} €/Jahr
-- Kosten nachher: ${results.future?.total ? Math.round(results.future.total).toLocaleString('de-DE') : 'N/A'} €/Jahr
-
-Erstellt mit energieberater-direkt.de
-Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
-        `;
+        return [
+          {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Wohnfläche', `${results.inputs?.livingSpace ?? 'k. A.'} m²`],
+              ['Gebäudealter', `${results.inputs?.buildingAge ?? 'k. A.'}`],
+              ['Heizungsart', `${results.inputs?.heatingType ?? 'k. A.'}`],
+            ],
+          },
+          {
+            heading: 'Ergebnisse',
+            rows: [
+              ['Jährliche Ersparnis', `${num(results.annualSavings ?? results.totalSavingsPerYear)} EUR`],
+              ['Ersparnis in %', results.savingsPercentage ? `${results.savingsPercentage.toFixed(0)} %` : 'k. A.'],
+              ['Amortisationszeit', `${num(results.amortizationPeriod ?? results.amortizationYears)} Jahre`],
+              ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
+              ['Kosten vorher', `${num(results.current?.total)} EUR/Jahr`],
+              ['Kosten nachher', `${num(results.future?.total)} EUR/Jahr`],
+            ],
+          },
+        ];
       case 'insulation':
-        return `
-DÄMMUNGSBERECHNUNG - BERECHNUNGSERGEBNIS
-Erstellt am: ${currentDate}
-
-ERGEBNISSE:
-- Investition: ${results.investment ? Math.round(results.investment).toLocaleString('de-DE') : 'N/A'} €
-- Jährliche Ersparnis: ${results.savingsPerYear ? Math.round(results.savingsPerYear).toLocaleString('de-DE') : 'N/A'} €
-- Amortisationszeit: ${results.amortization ? Math.round(results.amortization) : 'N/A'} Jahre
-- CO₂-Einsparung: ${results.co2Savings ? Math.round(results.co2Savings).toLocaleString('de-DE') : 'N/A'} kg/Jahr
-
-Erstellt mit energieberater-direkt.de
-Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
-        `;
+        return [
+          {
+            heading: 'Ergebnisse',
+            rows: [
+              ['Investition', `${num(results.investment)} EUR`],
+              ['Jährliche Ersparnis', `${num(results.savingsPerYear)} EUR`],
+              ['Amortisationszeit', `${num(results.amortization)} Jahre`],
+              ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
+            ],
+          },
+        ];
       case 'solar':
-        return `
-SOLAR-POTENZIAL - BERECHNUNGSERGEBNIS
-Erstellt am: ${currentDate}
-
-ERGEBNISSE:
-- Anlagengröße: ${results.anlageGroesse || 'N/A'} kWp
-- Jährlicher Stromertrag: ${results.jahresertrag ? results.jahresertrag.toLocaleString('de-DE') : 'N/A'} kWh
-- Jährliche Ersparnis: ${results.gesamtersparnis ? results.gesamtersparnis.toLocaleString('de-DE') : 'N/A'} €
-- Amortisationszeit: ${(results.amortisationMitSpeicher ?? results.amortisationOhneSpeicher ?? results.amortisation) || 'N/A'} Jahre
-
-Erstellt mit energieberater-direkt.de
-Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
-        `;
-      case 'kostenrechner': {
-        const lines = (results?.gewerke || []).map((g: any) =>
-          `- ${g.label}: ${g.menge} ${g.unit} → Ø ${Math.round(g.bruttoAvg).toLocaleString('de-DE')} € (Förderung: -${Math.round(g.foerderung).toLocaleString('de-DE')} €, Eigenanteil: ${Math.round(g.nettoAvg).toLocaleString('de-DE')} €)`
-        ).join('\n');
-        return `
-KOSTEN-VERGLEICHSRECHNER - ERGEBNIS
-Erstellt am: ${currentDate}
-
-AUSGEWÄHLTE GEWERKE:
-${lines}
-
-GESAMT:
-- Bruttokosten (Ø): ${Math.round(results?.totalBruttoAvg || 0).toLocaleString('de-DE')} €
-- Förderabzug: -${Math.round(results?.totalFoerderung || 0).toLocaleString('de-DE')} €
-- Eigenanteil (Ø): ${Math.round(results?.totalNettoAvg || 0).toLocaleString('de-DE')} €
-
-Erstellt mit energieberater-direkt.de
-Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten.
-        `;
-      }
-        return 'Berechnungsergebnis - energieberater-direkt.de';
+        return [
+          {
+            heading: 'Ergebnisse',
+            rows: [
+              ['Anlagengröße', `${results.anlageGroesse ?? 'k. A.'} kWp`],
+              ['Jährlicher Stromertrag', `${num(results.jahresertrag)} kWh`],
+              ['Jährliche Ersparnis', `${num(results.gesamtersparnis)} EUR`],
+              [
+                'Amortisationszeit',
+                `${results.amortisationMitSpeicher ?? results.amortisationOhneSpeicher ?? results.amortisation ?? 'k. A.'} Jahre`,
+              ],
+            ],
+          },
+        ];
+      case 'kostenrechner':
+        return [
+          {
+            heading: 'Ausgewählte Gewerke',
+            rows: (results?.gewerke || []).map((g: any): [string, string] => [
+              `${g.label} (${g.menge} ${g.unit})`,
+              `Ø ${num(g.bruttoAvg)} EUR · Förderung -${num(g.foerderung)} EUR · Eigenanteil ${num(g.nettoAvg)} EUR`,
+            ]),
+          },
+          {
+            heading: 'Gesamt',
+            rows: [
+              ['Bruttokosten (Ø)', `${num(results?.totalBruttoAvg)} EUR`],
+              ['Förderabzug', `-${num(results?.totalFoerderung)} EUR`],
+              ['Eigenanteil (Ø)', `${num(results?.totalNettoAvg)} EUR`],
+            ],
+          },
+        ];
+      case 'kombi':
+        return [
+          {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Wohnfläche', `${num(results?.inputs?.wohnflaeche)} m²`],
+              ['Baujahr-Klasse', `${results?.inputs?.baujahr ?? 'k. A.'}`],
+              ['Aktueller Brennstoff', `${results?.inputs?.brennstoff ?? 'k. A.'}`],
+              ['Hüllen-Maßnahmen', `${results?.inputs?.massnahmen || 'keine'}`],
+              ['Wärmeerzeuger neu', `${results?.inputs?.heizung ?? 'k. A.'}`],
+              ['Szenario / CO2-Pfad', `${results?.inputs?.szenario ?? 'k. A.'} / ${results?.inputs?.co2Pfad ?? 'k. A.'}`],
+            ],
+          },
+          {
+            heading: 'Kombi-Ergebnis',
+            rows: [
+              ['Investition brutto', `${num(results?.investBrutto)} EUR`],
+              ['Konsolidierte Förderung', `${num(results?.foerderungGesamt)} EUR`],
+              ['Eigenanteil', `${num(results?.netto)} EUR`],
+              ['Amortisation', results?.amortisationJahre != null ? `${results.amortisationJahre.toFixed(1)} Jahre` : '> 20 Jahre'],
+              ['Ersparnis Jahr 1', `${num(results?.ersparnisJahr1)} EUR`],
+              ['CO2-Vermeidung (20 J.)', `${num(results?.co2VermeidungTonnen, 1)} t`],
+              ['Endenergie vorher', `${num(results?.energieVorher)} kWh/a`],
+              ['Endenergie nachher', `${num(results?.energieNachher)} kWh/a`],
+              ['Hüllen-Einsparung', `-${num((results?.huelleEinsparAnteil ?? 0) * 100)} %`],
+            ],
+          },
+          {
+            heading: 'Förder-Aufschlüsselung 2026',
+            rows: [
+              ['Hülle-Zuschuss', `${num(results?.huelleZuschuss)} EUR`],
+              ['Heizungs-Zuschuss (KfW 458)', `${num(results?.heizungZuschuss)} EUR`],
+              ['Regionaler Top-up', `${num(results?.regionalTopup)} EUR`],
+              ['Summe Förderung', `${num(results?.foerderungGesamt)} EUR`],
+            ],
+          },
+        ];
+      default:
+        return [{ heading: 'Ergebnis', rows: [] }];
     }
   };
 
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
-    
     try {
-      const content = generatePDFContent();
-      const element = document.createElement('a');
-      const file = new Blob([content], { type: 'text/plain' });
-      element.href = URL.createObjectURL(file);
-      element.download = `${calculatorType}-berechnung-${new Date().toISOString().split('T')[0]}.txt`;
-      document.body.appendChild(element);
-      element.click();
-      document.body.removeChild(element);
-      
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 48;
+      const maxWidth = pageWidth - margin * 2;
+      let y = 0;
+
+      // Kopfbereich (Markenfarbe Emerald)
+      doc.setFillColor(5, 150, 105);
+      doc.rect(0, 0, pageWidth, 92, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text(TITLES[calculatorType] || 'Berechnungsergebnis', margin, 46, { maxWidth });
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.text(
+        `${siteConfig.projectName} · ${siteConfig.domain} · Erstellt am ${new Date().toLocaleDateString('de-DE')}`,
+        margin,
+        68,
+      );
+
+      y = 130;
+      doc.setTextColor(30, 41, 59);
+
+      const ensureSpace = (needed: number) => {
+        if (y + needed > pageHeight - 70) {
+          doc.addPage();
+          y = margin + 10;
+        }
+      };
+
+      buildSections().forEach((section) => {
+        if (!section.rows.length) return;
+        ensureSpace(48);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(13);
+        doc.setTextColor(5, 150, 105);
+        doc.text(section.heading, margin, y);
+        y += 8;
+        doc.setDrawColor(209, 213, 219);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 18;
+
+        doc.setFontSize(10.5);
+        doc.setTextColor(30, 41, 59);
+        section.rows.forEach(([label, value]) => {
+          const valueLines = doc.splitTextToSize(String(value), maxWidth * 0.5);
+          const labelLines = doc.splitTextToSize(String(label), maxWidth * 0.45);
+          const blockHeight = Math.max(valueLines.length, labelLines.length) * 14;
+          ensureSpace(blockHeight + 6);
+          doc.setFont('helvetica', 'normal');
+          doc.text(labelLines, margin, y);
+          doc.setFont('helvetica', 'bold');
+          doc.text(valueLines, pageWidth - margin, y, { align: 'right' });
+          y += blockHeight + 6;
+        });
+        y += 14;
+      });
+
+      // Fußnote auf allen Seiten
+      const pageCount = doc.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.setTextColor(120, 128, 140);
+        doc.text(
+          'Diese Berechnung ist eine unverbindliche Schätzung auf Basis typischer Durchschnittswerte (Stand 2026).',
+          margin,
+          pageHeight - 44,
+          { maxWidth },
+        );
+        doc.text(`${siteConfig.siteUrl}  ·  Seite ${i} von ${pageCount}`, margin, pageHeight - 30);
+      }
+
+      doc.save(`${calculatorType}-bericht-${new Date().toISOString().split('T')[0]}.pdf`);
+
       toast({
-        title: "Download gestartet",
-        description: "Ihr Berechnungsergebnis wurde heruntergeladen.",
+        title: 'PDF erstellt',
+        description: 'Ihr Bericht wurde heruntergeladen.',
       });
     } catch (error) {
       toast({
-        title: "Fehler",
-        description: "Beim Download ist ein Fehler aufgetreten.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Beim Erstellen des PDF ist ein Fehler aufgetreten.',
+        variant: 'destructive',
       });
     } finally {
       setIsGenerating(false);
@@ -121,22 +237,16 @@ Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten
   };
 
   return (
-    <Card className={`bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200 ${className}`}>
+    <Card className={`border-primary/30 bg-primary/5 ${className}`}>
       <CardContent className="p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <FileDown className="h-4 w-4 text-purple-600" />
-            <span className="text-sm font-medium text-purple-900">Ergebnis exportieren</span>
+            <FileDown className="h-4 w-4 text-primary" />
+            <span className="text-sm font-medium text-foreground">Ergebnis als PDF-Bericht</span>
           </div>
-          <Button
-            onClick={handleDownloadPDF}
-            disabled={isGenerating}
-            size="sm"
-            variant="outline"
-            className="border-purple-300 text-purple-700 hover:bg-purple-100"
-          >
+          <Button onClick={handleDownloadPDF} disabled={isGenerating} size="sm" variant="outline">
             <Download className="h-4 w-4 mr-1" />
-            {isGenerating ? "Erstelle..." : "Als Datei"}
+            {isGenerating ? 'Erstelle…' : 'PDF herunterladen'}
           </Button>
         </div>
       </CardContent>
