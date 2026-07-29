@@ -300,6 +300,31 @@ const KombiRechnerPage = () => {
 
   const ersparnisJahr1 = result.scenario.jahre[0]?.ersparnis ?? 0;
 
+  const pdfResults = {
+    inputs: {
+      wohnflaeche: Math.max(30, Number(flaeche) || 0),
+      baujahr,
+      brennstoff: aktBrennstoff,
+      massnahmen: HUELLE.filter((h) => selected[h.id]).map((h) => h.label).join(', '),
+      heizung: selected.waermepumpe ? 'Wärmepumpe' : 'unverändert',
+      szenario: PRICE_SCENARIOS[scenario].label,
+      co2Pfad: co2Path ? 'aktiv' : 'inaktiv',
+    },
+    investBrutto: result.investBrutto,
+    foerderungGesamt: result.foerderungGesamt,
+    netto: result.netto,
+    amortisationJahre: result.scenario.amortisationJahre,
+    ersparnisJahr1,
+    co2VermeidungTonnen: result.scenario.co2VermeidungTonnen,
+    energieVorher: result.energieVorher,
+    energieNachher: result.energieNachher,
+    huelleEinsparAnteil: result.huelleEinsparAnteil,
+    huelleZuschuss: result.huelleZuschuss,
+    heizungZuschuss: result.heizungZuschuss,
+    regionalTopup: result.regionalTopup,
+  };
+
+
   return (
     <>
       <Helmet>
