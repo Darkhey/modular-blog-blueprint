@@ -568,6 +568,12 @@ const KombiRechnerPage = () => {
             fundingBreakdown={result.fundingBreakdown}
             investBrutto={result.investBrutto}
           />
+
+          <div className="flex flex-wrap gap-2">
+            <ShareResults calculatorType="kombi" results={pdfResults} />
+            <ResultsPDFExport calculatorType="kombi" results={pdfResults} />
+          </div>
+
         </div>
       </div>
 
