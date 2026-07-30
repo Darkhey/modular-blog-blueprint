@@ -236,6 +236,11 @@ const KostenrechnerPage = () => {
             {selectedCount === 0 ? 'Bitte Gewerke auswählen' : `Kosten für ${selectedCount} Gewerk${selectedCount > 1 ? 'e' : ''} berechnen`}
           </Button>
 
+          <div className="flex justify-center">
+            <ShareInputs values={inputs as unknown as Record<string, unknown>} onRestore={restoreInputs} label="Eingaben als Link teilen" />
+          </div>
+
+
           {/* Ergebnisse */}
           {results && (
             <section className="space-y-6">
