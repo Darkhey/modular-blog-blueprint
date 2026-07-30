@@ -10,6 +10,8 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ShareInputs from '../shared/ShareInputs';
+
 import ScenarioToggle from './shared/ScenarioToggle';
 import CO2PathToggle from './shared/CO2PathToggle';
 import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
@@ -46,6 +48,11 @@ const SolarCalculator = () => {
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
+
+  const restoreFromUrl = (restored: Record<string, unknown>) => {
+    setInputs(prev => ({ ...prev, ...(restored as Partial<SolarInputs>), plz: String((restored as any).plz ?? prev.plz).padStart(5, '0') }));
+  };
+
 
   const validateInputs = (): string[] => {
     const errs: string[] = [];
@@ -147,12 +154,22 @@ const SolarCalculator = () => {
                 )}
               </Button>
 
+              <ShareInputs
+                values={{ ...inputs, priceScenario, co2Path }}
+                onRestore={(r) => {
+                  restoreFromUrl(r);
+                  if (typeof r.priceScenario === 'string') setPriceScenario(r.priceScenario as PriceScenarioKey);
+                  if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
+                }}
+              />
+
               {results && (
                 <div className="flex gap-2">
-                  <ShareResults calculatorType="solar" results={results} />
+                  <ShareResults calculatorType="solar" results={results} inputs={inputs as unknown as Record<string, unknown>} />
                   <ResultsPDFExport results={results} calculatorType="solar" />
                 </div>
               )}
+
             </CardFooter>
           </form>
         </Card>

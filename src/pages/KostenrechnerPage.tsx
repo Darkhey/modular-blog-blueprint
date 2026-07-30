@@ -16,6 +16,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContain
 import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
+import ShareInputs from '@/components/shared/ShareInputs';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
@@ -74,7 +75,7 @@ const iconMap: Record<string, React.ReactNode> = {
 const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 
 const KostenrechnerPage = () => {
-  const { inputs, toggleGewerk, setMenge, selectedCount, results, calculate, gewerke } = useKostenrechner();
+  const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
 
   const chartData = results?.gewerke.map((r) => ({
     name: r.gewerk.label,
@@ -234,6 +235,11 @@ const KostenrechnerPage = () => {
             <Zap className="mr-2 w-5 h-5" />
             {selectedCount === 0 ? 'Bitte Gewerke auswählen' : `Kosten für ${selectedCount} Gewerk${selectedCount > 1 ? 'e' : ''} berechnen`}
           </Button>
+
+          <div className="flex justify-center">
+            <ShareInputs values={inputs as unknown as Record<string, unknown>} onRestore={restoreInputs} label="Eingaben als Link teilen" />
+          </div>
+
 
           {/* Ergebnisse */}
           {results && (

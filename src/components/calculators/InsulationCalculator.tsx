@@ -16,6 +16,8 @@ import QuickAccessButtons from './QuickAccessButtons';
 
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ShareInputs from '../shared/ShareInputs';
+
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -34,6 +36,12 @@ const InsulationCalculator = () => {
   const selectedBuildingPart = form.watch('buildingPart');
   const selectedSystemKey = form.watch('insulationSystem');
   const selectedSystem = insulationSystems[selectedSystemKey];
+  const watchedValues = form.watch();
+
+  const restoreFromUrl = (restored: Record<string, unknown>) => {
+    form.reset({ ...form.getValues(), ...(restored as Partial<FormValues>) });
+  };
+
 
   // Effekt, um das Dämmsystem zurückzusetzen, wenn sich das Bauteil ändert
   useEffect(() => {
@@ -96,15 +104,19 @@ const InsulationCalculator = () => {
           selectedSystem={selectedSystem}
           selectedBuildingPart={selectedBuildingPart}
         />
+        <div className="mt-4">
+          <ShareInputs values={watchedValues as Record<string, unknown>} onRestore={restoreFromUrl} />
+        </div>
         {result && (
           <>
             <InsulationCalculatorResult result={result} />
             <div className="mt-4 flex gap-2 flex-wrap">
-              <ShareResults calculatorType="insulation" results={result} />
+              <ShareResults calculatorType="insulation" results={result} inputs={watchedValues} />
               <ResultsPDFExport calculatorType="insulation" results={result} />
             </div>
           </>
         )}
+
         <QuickAccessButtons currentCalculator="insulation" className="mt-8" />
         <InsulationInfoSection />
       </CardContent>
