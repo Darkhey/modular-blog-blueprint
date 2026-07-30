@@ -49,6 +49,11 @@ const SolarCalculator = () => {
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
+  const restoreFromUrl = (restored: Record<string, unknown>) => {
+    setInputs(prev => ({ ...prev, ...(restored as Partial<SolarInputs>), plz: String((restored as any).plz ?? prev.plz).padStart(5, '0') }));
+  };
+
+
   const validateInputs = (): string[] => {
     const errs: string[] = [];
     if (inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
