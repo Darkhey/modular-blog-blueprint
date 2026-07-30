@@ -50,9 +50,10 @@ const ShareInputs = ({ values, onRestore, label = 'Eingaben teilen', className =
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm" variant="outline" className={className}>
+        <Button type="button" size="sm" variant="outline" className={className}>
           <Link2 className="h-4 w-4 mr-1" /> {label}
         </Button>
+
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
