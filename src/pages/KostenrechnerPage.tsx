@@ -16,6 +16,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContain
 import { useKostenrechner } from '@/hooks/useKostenrechner';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
+import ShareInputs from '@/components/shared/ShareInputs';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
