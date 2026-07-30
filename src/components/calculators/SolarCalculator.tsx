@@ -154,12 +154,22 @@ const SolarCalculator = () => {
                 )}
               </Button>
 
+              <ShareInputs
+                values={{ ...inputs, priceScenario, co2Path }}
+                onRestore={(r) => {
+                  restoreFromUrl(r);
+                  if (typeof r.priceScenario === 'string') setPriceScenario(r.priceScenario as PriceScenarioKey);
+                  if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
+                }}
+              />
+
               {results && (
                 <div className="flex gap-2">
-                  <ShareResults calculatorType="solar" results={results} />
+                  <ShareResults calculatorType="solar" results={results} inputs={inputs as unknown as Record<string, unknown>} />
                   <ResultsPDFExport results={results} calculatorType="solar" />
                 </div>
               )}
+
             </CardFooter>
           </form>
         </Card>
