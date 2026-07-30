@@ -613,9 +613,11 @@ const KombiRechnerPage = () => {
           />
 
           <div className="flex flex-wrap gap-2">
-            <ShareResults calculatorType="kombi" results={pdfResults} />
+            <ShareInputs values={shareValues} onRestore={restoreFromUrl} label="Eingaben als Link teilen" />
+            <ShareResults calculatorType="kombi" results={pdfResults} inputs={shareValues} />
             <ResultsPDFExport calculatorType="kombi" results={pdfResults} />
           </div>
+
 
         </div>
       </div>
