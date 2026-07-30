@@ -32,11 +32,19 @@ export function useShareableInputs<T extends InputValues>({ values, onRestore, s
   const query = useMemo(() => inputsToQuery(values), [values]);
   const shareUrl = useMemo(() => buildInputsShareUrl(values), [values]);
 
+  const skippedFirstSync = useRef(false);
   useEffect(() => {
-    if (!syncUrl || typeof window === 'undefined' || !restored.current) return;
+    if (!syncUrl || typeof window === 'undefined') return;
+    // Erste Runde überspringen, damit ein geteilter Link nicht überschrieben wird,
+    // bevor der Rechner-State wiederhergestellt ist.
+    if (!skippedFirstSync.current) {
+      skippedFirstSync.current = true;
+      return;
+    }
     const next = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
     window.history.replaceState(null, '', next);
   }, [query, syncUrl]);
+
 
   const clearUrl = useCallback(() => {
     if (typeof window === 'undefined') return;
