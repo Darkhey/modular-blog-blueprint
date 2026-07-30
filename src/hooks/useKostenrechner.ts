@@ -120,5 +120,5 @@ export const useKostenrechner = () => {
     setResults({ gewerke: gewerkResults, ...totals });
   }, [inputs]);
 
-  return { inputs, toggleGewerk, setMenge, selectedCount, results, calculate, gewerke };
+  return { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke };
 };
