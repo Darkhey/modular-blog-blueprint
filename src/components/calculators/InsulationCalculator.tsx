@@ -36,6 +36,12 @@ const InsulationCalculator = () => {
   const selectedBuildingPart = form.watch('buildingPart');
   const selectedSystemKey = form.watch('insulationSystem');
   const selectedSystem = insulationSystems[selectedSystemKey];
+  const watchedValues = form.watch();
+
+  const restoreFromUrl = (restored: Record<string, unknown>) => {
+    form.reset({ ...form.getValues(), ...(restored as Partial<FormValues>) });
+  };
+
 
   // Effekt, um das Dämmsystem zurückzusetzen, wenn sich das Bauteil ändert
   useEffect(() => {
