@@ -75,7 +75,7 @@ const iconMap: Record<string, React.ReactNode> = {
 const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 
 const KostenrechnerPage = () => {
-  const { inputs, toggleGewerk, setMenge, selectedCount, results, calculate, gewerke } = useKostenrechner();
+  const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
 
   const chartData = results?.gewerke.map((r) => ({
     name: r.gewerk.label,
