@@ -16,6 +16,8 @@ import QuickAccessButtons from './QuickAccessButtons';
 
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ShareInputs from '../shared/ShareInputs';
+
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
