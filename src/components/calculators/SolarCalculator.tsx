@@ -10,6 +10,8 @@ import SolarResults from './solar/SolarResults';
 import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ShareInputs from '../shared/ShareInputs';
+
 import ScenarioToggle from './shared/ScenarioToggle';
 import CO2PathToggle from './shared/CO2PathToggle';
 import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
