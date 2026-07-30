@@ -54,7 +54,24 @@ export const useKostenrechner = () => {
     }));
   }, []);
 
+  /** Stellt Eingaben aus geteilten URL-Parametern wieder her. */
+  const restoreInputs = useCallback((restored: Record<string, unknown>) => {
+    setInputs((prev) => {
+      const next = { ...prev };
+      Object.entries(restored).forEach(([id, value]) => {
+        if (!next[id] || typeof value !== 'object' || value === null) return;
+        const v = value as { selected?: unknown; menge?: unknown };
+        next[id] = {
+          selected: typeof v.selected === 'boolean' ? v.selected : next[id].selected,
+          menge: typeof v.menge === 'number' ? v.menge : next[id].menge,
+        };
+      });
+      return next;
+    });
+  }, []);
+
   const selectedCount = Object.values(inputs).filter((i) => i.selected).length;
+
 
   const calculate = useCallback(() => {
     const selectedGewerke = gewerke.filter((g) => inputs[g.id].selected);

@@ -14,6 +14,8 @@ import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
 import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import ShareResults from '@/components/shared/ShareResults';
+import ShareInputs from '@/components/shared/ShareInputs';
+
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
