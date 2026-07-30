@@ -305,6 +305,44 @@ const KombiRechnerPage = () => {
 
   const ersparnisJahr1 = result.scenario.jahre[0]?.ersparnis ?? 0;
 
+  const shareValues = {
+    flaeche,
+    baujahr,
+    aktBrennstoff,
+    bundesland,
+    selected,
+    isfp,
+    klimaBonus,
+    einkommensBonus,
+    effizienzBonus,
+    scenario,
+    co2Path,
+  };
+
+  const restoreFromUrl = (r: Record<string, any>) => {
+    if (r.flaeche !== undefined) setFlaeche(String(r.flaeche));
+    if (typeof r.baujahr === 'string') setBaujahr(r.baujahr as keyof typeof KENNWERT_KWH_M2);
+    if (typeof r.aktBrennstoff === 'string') setAktBrennstoff(r.aktBrennstoff as FuelKey);
+    if (typeof r.bundesland === 'string') setBundesland(r.bundesland);
+    if (r.selected && typeof r.selected === 'object') {
+      setSelected((prev) => {
+        const next = { ...prev };
+        Object.entries(r.selected as Record<string, unknown>).forEach(([k, v]) => {
+          if (k in next && typeof v === 'boolean') next[k] = v;
+        });
+        return next;
+      });
+    }
+    if (typeof r.isfp === 'boolean') setIsfp(r.isfp);
+    if (typeof r.klimaBonus === 'boolean') setKlimaBonus(r.klimaBonus);
+    if (typeof r.einkommensBonus === 'boolean') setEinkommensBonus(r.einkommensBonus);
+    if (typeof r.effizienzBonus === 'boolean') setEffizienzBonus(r.effizienzBonus);
+    if (typeof r.scenario === 'string' && r.scenario in PRICE_SCENARIOS) setScenario(r.scenario as PriceScenarioKey);
+    if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
+  };
+
+
+
   const pdfResults = {
     inputs: {
       wohnflaeche: Math.max(30, Number(flaeche) || 0),
