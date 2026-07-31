@@ -41,9 +41,17 @@ const KEYWORD_CANON: Array<[RegExp, string]> = [
   [/wallbox|e-auto/i, "wallbox"],
   [/förder|foerder|bafa|kfw|zuschuss/i, "foerderung"],
   [/amortisation|payback|roi/i, "amortisation"],
-  [/kosten|budget/i, "kosten"],
-  [/sanierung/i, "sanierung"],
+  [/kosten|budget|preis/i, "kosten"],
+  [/sanierung|modernisier/i, "sanierung"],
+  // Themen mit bestehender Google-Sichtbarkeit gezielt auf Rechner verlinken
+  [/einblas|kerndämmung|kerndaemmung|zweischalig|hohlschicht/i, "daemmung"],
+  [/lehm|stroh|schüttung|schuettung|naturdämmstoff/i, "daemmung"],
+  [/markise|sonnenschutz|balkonkraftwerk/i, "solar"],
+  [/prämie|praemie|umsteige/i, "foerderung"],
 ];
+
+
+
 
 function deriveTopics(topic?: string, keywords?: string[] | null, title?: string): string[] {
   const topics = new Set<string>();

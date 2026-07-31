@@ -1,59 +1,44 @@
+## Was die Search Console aktuell zeigt
 
-# Traffic & Sichtbarkeit — Stufe 1: der blockierende Fehler
+Die Property ist erst seit 27.07.2026 aktiv, entsprechend dünn sind die Daten (Zeitraum 01.05.–30.07.2026):
 
-## Befund (geprüft)
+- **0 Klicks, 4 Impressionen gesamt.** Sichtbare Queries: „solar markise" (Pos. 89), „zweischaliges mauerwerk nachträglich dämmen kosten" (Pos. 100).
+- **Positiv:** Vier Blogartikel wurden bereits auf guten Positionen ausgespielt (Umsteigeprämie Wärmepumpe Pos. 6, Hochwasserschutz-Türen Pos. 7, Lehm-Dämmung Pos. 8), Startseite Pos. 1, /kontakt Pos. 2. Thematisch trägt also der Förder-/Dämmungs-Content.
+- **Sitemap:** 256 URLs eingereicht, fehlerfrei, zuletzt am 30.07. abgerufen — **0 davon indexiert**.
 
-Die Seite läuft live auf `sanierenundsparen.de` (und `www.sanierenundsparen.de`, beide antworten mit 200). Im Code steht aber überall eine andere Domain:
+## Das eigentliche Problem (verifiziert)
 
-- `src/config/site.config.ts` → `siteUrl: "https://sanieren-sparen.de"`
-- `scripts/generate-sitemap.ts` → `BASE_URL = "https://sanieren-sparen.de"`
-- `public/sitemap.xml` → alle 254 URLs zeigen auf `https://sanieren-sparen.de/...`
-- `public/robots.txt` → `Sitemap: https://sanieren-sparen.de/sitemap.xml`
+Die URL-Inspection zeigt für `/blog/foerderung-umsteigepraemie-waermepumpe-2025-2026`:
+`coverageState: "Alternate page with proper canonical tag"`, Google-Canonical = ein **anderer** Blogartikel.
 
-`sanieren-sparen.de` (mit Bindestrich) existiert nicht — DNS löst nicht auf. Das heißt: sämtliche Canonicals, og:url-Angaben und alle Sitemap-Einträge verweisen auf eine tote Domain. Google bekommt für jede Seite die Anweisung „die echte Adresse ist woanders" — und dieses Woanders gibt es nicht. Semrush bestätigt das Ergebnis: 3 rankende Keywords, geschätzt 0 Besucher/Monat, beste Position 76.
+Ursache im Live-HTML bestätigt: Der Abruf eines Blogartikels liefert
+`<title>Sanieren & Sparen – Energieeffiziente Sanierung</title>` und
+`<link rel="canonical" href="https://sanierenundsparen.de/" />`.
 
-Das ist die Erklärung für den fehlenden Traffic. Alles andere ist zweitrangig, bis das behoben ist.
+Das Head-Prerendering (`scripts/prerender-head.ts` + `scripts/routeMeta.ts`) deckt nur 22 statische Routen ab. Alle Blog-, Kategorie- und Landingpage-URLs fallen auf `dist/index.html` zurück — und die trägt die Startseiten-Canonical. Google sieht dadurch 250+ identische Seiten und indexiert keine davon. Weitere Befunde: `/wdvs-kosten-rechner` = „Discovered – currently not indexed", `/blog` und `/rechner` = „URL is unknown to Google", und `www.sanierenundsparen.de` antwortet mit HTTP 200 statt einer Weiterleitung (Duplikat-Host, taucht auch in Googles referringUrls auf).
 
-## Schritt 1 — Domain überall korrigieren
+## Plan
 
-- `site.config.ts` und `generate-sitemap.ts` auf `https://sanierenundsparen.de` umstellen.
-- Sitemap neu generieren (alle 254 Einträge inkl. Blogposts aus Supabase).
-- `robots.txt`: Sitemap-Direktive auf die richtige Domain; Kommentarzeile korrigieren.
-- Alle weiteren Hardcodings der alten Domain im Code suchen und ersetzen (Canonical-Helper, Structured Data, Share-Links, llms.txt).
-- Entscheidung www vs. ohne www: aktuell antworten beide mit 200 → Duplicate Content. Wir setzen **`https://sanierenundsparen.de` ohne www** als kanonische Variante (so ist es auch in den Projekt-Domains hinterlegt); Semrush indexiert bisher die www-Variante, der Canonical konsolidiert das.
+**1. Prerendering auf alle dynamischen Routen ausweiten**
+`scripts/prerender-head.ts` holt beim Build die veröffentlichten Blogposts und Kategorien aus Supabase (gleiche Filter wie `generate-sitemap.ts`) und schreibt pro Slug `dist/blog/<slug>/index.html` bzw. `dist/themen/<slug>/index.html` mit echtem Titel, Description, Canonical, og:url, og:image und Article-JSON-LD.
 
-## Schritt 2 — Google Search Console anbinden
+**2. Fallback-Canonical entschärfen**
+Die Startseiten-Canonical darf nicht mehr für unbekannte Routen ausgeliefert werden: Root-`index.html` behält `/`, aber jede in Sitemap/routeMeta gelistete Route bekommt garantiert ihre eigene Datei. Ein Build-Check vergleicht Sitemap-Einträge gegen erzeugte HTML-Dateien und bricht bei Lücken ab.
 
-Der SEO-Scanner meldet GSC als nicht eingerichtet. Ablauf:
+**3. www-Duplikat beseitigen**
+`www` per Domain-Konfiguration auf die Apex-Domain weiterleiten; zusätzlich in Search Console eine `sc-domain:`-Property anlegen, damit beide Hosts in einer Datenansicht landen.
 
-1. Search-Console-Connector verbinden (OAuth, Klick durch dich).
-2. Meta-Tag-Verifizierung für `https://sanierenundsparen.de/` einbauen und veröffentlichen.
-3. Property anlegen + Sitemap einreichen.
-4. Danach sehen wir echte Impressionen/Klicks pro Seite statt nur Schätzwerten — Grundlage für alles Weitere.
+**4. Auf das aufbauen, was schon rankt**
+Die vier rankenden Artikel sind Förder- und Dämmungsthemen. Konkret:
+- Interne Verlinkung von diesen vier Artikeln auf `/foerderrechner`, `/rechner/kombi` und `/daemmungsrechner` verstärken.
+- Zwei Vertiefungsseiten zu genau den Queries, die schon Impressionen erzeugen: „zweischaliges Mauerwerk nachträglich dämmen – Kosten" und „Solarmarkise Kosten/Ertrag", jeweils mit Rechner-Einbindung statt reinem Text.
+- Erst nach Fix 1–3 sinnvoll, weil sonst nichts indexiert wird.
 
-## Schritt 3 — Indexierbarkeit für die wichtigen Seiten
-
-Das Projekt ist eine reine Client-App: Crawler, die kein JavaScript ausführen, sehen nur die statische `index.html`. Googlebot rendert zwar JS, aber verzögert und unzuverlässig bei vielen Seiten.
-
-Maßnahme mit dem besten Verhältnis von Aufwand zu Wirkung: **Pre-Rendering der Rechner- und Kernseiten beim Build** — die ~20 wichtigsten Routen werden als echte HTML-Dateien mit Titel, Description, Text und JSON-LD ausgeliefert. Blogartikel bleiben vorerst client-seitig.
-
-## Schritt 4 — Keyword-Basis schärfen
-
-Bereits sichtbar (Positionen 76–94, also knapp am Rand der Sichtbarkeit):
-`wdvs kosten rechner` (140/mo), `dachdämmung kosten rechner` (170/mo), `sanierungsrechner haus` (140/mo)
-
-Diese drei zeigen alle auf `/daemmungsrechner` bzw. `/`. Statt neue Seiten zu bauen, holen wir sie erst nach vorne:
-
-- Eigene Landingpages `/daemmungsrechner/wdvs-kosten` und `/daemmungsrechner/dachdaemmung-kosten` mit passgenauem Title/H1, Preistabellen und dem Rechner darunter.
-- Startseiten-Title auf „Sanierungsrechner Haus" ausrichten.
-- Interne Verlinkung von Blogartikeln gezielt auf diese Ziele.
+**5. Kontrolle**
+Nach dem nächsten Publish: Sitemap neu einreichen, URL-Inspection für je einen Blogartikel, `/blog` und `/rechner` erneut abfragen und prüfen, ob `googleCanonical` jetzt selbstreferenziell ist.
 
 ## Technische Details
 
-**Geänderte Dateien:** `src/config/site.config.ts`, `scripts/generate-sitemap.ts`, `public/robots.txt`, `public/sitemap.xml` (regeneriert), `public/llms.txt`, `index.html` (GSC-Meta-Tag), plus alle Fundstellen der alten Domain.
-
-**Neu (Schritt 3/4):** Prerender-Setup in `vite.config.ts` bzw. Post-Build-Skript, zwei neue Landingpage-Komponenten + Routen in `src/App.tsx`, Einträge im Sitemap-Generator.
-
-**Reihenfolge:** Schritt 1 sofort (ein Turn). Schritt 2 direkt danach, braucht deine Bestätigung im OAuth-Dialog. Schritte 3 und 4 danach als eigene Turns.
-
-Wichtig zur Erwartung: Nach der Korrektur braucht Google typischerweise 2–6 Wochen, bis die Seiten neu bewertet sind. Der Effekt kommt nicht über Nacht.
+- Betroffene Dateien: `scripts/prerender-head.ts`, `scripts/routeMeta.ts`, ggf. neuer `scripts/verify-prerender.ts`, `package.json` (postbuild-Kette).
+- Supabase-Zugriff im Build über die bereits in `scripts/generate-sitemap.ts` genutzten Anon-Credentials.
+- Kein Eingriff in Runtime-Code oder React-Helmet-Logik; die Client-Tags bleiben als Ergänzung bestehen.
