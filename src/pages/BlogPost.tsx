@@ -48,6 +48,9 @@ const KEYWORD_CANON: Array<[RegExp, string]> = [
   [/lehm|stroh|schüttung|schuettung|naturdämmstoff/i, "daemmung"],
   [/markise|sonnenschutz|balkonkraftwerk/i, "solar"],
   [/prämie|praemie|umsteige/i, "foerderung"],
+];
+
+
 
 
 function deriveTopics(topic?: string, keywords?: string[] | null, title?: string): string[] {
