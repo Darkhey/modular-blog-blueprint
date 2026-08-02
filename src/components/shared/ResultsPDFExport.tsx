@@ -17,7 +17,11 @@ const TITLES: Record<string, string> = {
   solar: 'Solar-Potenzial – Berechnungsergebnis',
   kostenrechner: 'Kosten-Vergleichsrechner – Ergebnis',
   kombi: 'Kombi-Rechner (Heizung + Hülle) – Ergebnis',
+  roi: 'Amortisations-Rechner – Wirtschaftlichkeitsbericht',
+  foerder: 'Förderrechner 2026 – Zuschuss-Übersicht',
+  'energie-check': 'Energie-Check – Effizienz-Auswertung',
 };
+
 
 const num = (v: any, digits = 0) =>
   typeof v === 'number' && isFinite(v)
