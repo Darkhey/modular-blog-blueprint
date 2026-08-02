@@ -403,7 +403,14 @@ Eigenanteil  = Bruttokosten − Förderung
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
 
+          <RelatedCalculators
+            topics={['kosten', 'foerderung', 'planung', 'modernisierung']}
+            excludeIds={['kostenrechner']}
+            className="mt-12 -mx-4"
+          />
+
           <CalculatorHowToSection howToKey="kostenrechner" url="https://sanierenundsparen.de/kostenrechner" />
+
 
           <CalculatorFaqSection
             faqKey="kostenrechner"
