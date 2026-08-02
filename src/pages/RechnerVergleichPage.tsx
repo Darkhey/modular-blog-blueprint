@@ -14,6 +14,8 @@ import { Separator } from '@/components/ui/separator';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 import AnimatedGauge from '@/components/calculators/AnimatedGauge';
 import { useInView } from '@/hooks/useInView';
 import {
