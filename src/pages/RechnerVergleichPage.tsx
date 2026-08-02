@@ -373,7 +373,14 @@ const RechnerVergleichPage = () => {
           </div>
         )}
 
+        <RelatedCalculators
+          topics={['vergleich', 'heizung', 'daemmung', 'solar']}
+          excludeIds={['rechner-vergleich']}
+          className="mt-12"
+        />
+
         <CalculatorHowToSection howToKey="rechner-vergleich" url="https://sanierenundsparen.de/rechner-vergleich" />
+
 
         <CalculatorFaqSection
           faqKey="rechner-vergleich"
