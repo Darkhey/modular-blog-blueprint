@@ -59,20 +59,18 @@ const ROIRechnerPage = () => {
     const years = lebensdauer[0];
     const fuel = toEngineFuel(traeger);
 
+    const baseInput = {
+      investition: eigen,
+      energieVorherKwh: kwh,
+      energieNachherKwh: 0,
+      brennstoffVorher: fuel,
+      brennstoffNachher: fuel,
+      wartungProJahr: wart,
+      jahre: years,
+    };
+
     // ROI-Modell: die gesparten kWh im "alten" Energieträger sind das Ersparnis-Delta.
-    const result = runScenario(
-      {
-        investition: eigen,
-        energieVorherKwh: kwh,
-        energieNachherKwh: 0,
-        brennstoffVorher: fuel,
-        brennstoffNachher: fuel,
-        wartungProJahr: wart,
-        jahre: years,
-      },
-      priceScenario,
-      { includeCo2Path: co2Path },
-    );
+    const result = runScenario(baseInput, priceScenario, { includeCo2Path: co2Path });
 
     const rows = result.jahre.map((r, i) => ({
       jahr: i + 1,
@@ -83,12 +81,50 @@ const ROIRechnerPage = () => {
     return {
       eigen,
       rows,
+      baseInput,
+      investBrutto: inv,
+      foerderung: f,
       breakEven: result.amortisationJahre ? Math.ceil(result.amortisationJahre) : null,
       netto: Math.round(result.gesamtErsparnis - eigen),
       irr: result.irrApprox,
       totalCo2: result.co2VermeidungTonnen,
+      inputs: {
+        investition: inv,
+        foerderung: f,
+        einsparungKwh: kwh,
+        traeger: TRAEGER_LABEL[traeger],
+        wartung: wart,
+        jahre: years,
+        szenario: PRICE_SCENARIOS[priceScenario].label,
+        co2Pfad: co2Path ? 'aktiv (ETS-2)' : 'aus',
+      },
     };
   }, [investition, foerderung, einsparungKwh, traeger, wartung, lebensdauer, priceScenario, co2Path]);
+
+  // Eingaben teilbar machen (URL-Parameter) und aus geteilten Links wiederherstellen
+  useShareableInputs({
+    values: {
+      investition,
+      foerderung,
+      einsparungKwh,
+      traeger,
+      wartung,
+      lebensdauer: lebensdauer[0],
+      szenario: priceScenario,
+      co2: co2Path,
+    },
+    onRestore: (r) => {
+      if (r.investition != null) setInvestition(String(r.investition));
+      if (r.foerderung != null) setFoerderung(String(r.foerderung));
+      if (r.einsparungKwh != null) setEinsparungKwh(String(r.einsparungKwh));
+      if (typeof r.traeger === 'string' && r.traeger in TRAEGER_LABEL) setTraeger(r.traeger as EnergietraegerId);
+      if (r.wartung != null) setWartung(String(r.wartung));
+      if (r.lebensdauer != null) setLebensdauer([Number(r.lebensdauer)]);
+      if (typeof r.szenario === 'string' && r.szenario in PRICE_SCENARIOS) setPriceScenario(r.szenario as PriceScenarioKey);
+      if (typeof r.co2 === 'boolean') setCo2Path(r.co2);
+    },
+  });
+
 
   return (
     <div className="min-h-screen bg-background">
