@@ -10,8 +10,14 @@ import { Button } from '@/components/ui/button';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
+import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 import { TrendingUp, ArrowRight, Leaf } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
