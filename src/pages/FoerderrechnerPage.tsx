@@ -111,6 +111,23 @@ const FoerderrechnerPage = () => {
 
   }, [massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer]);
 
+  // Eingaben als URL-Parameter teilbar machen
+  useShareableInputs({
+    values: { massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer },
+    onRestore: (r) => {
+      if (typeof r.massnahme === 'string' && MASSNAHMEN.some((m) => m.id === r.massnahme)) setMassnahme(r.massnahme as MassnahmeId);
+      if (r.kosten != null) setKosten(String(r.kosten));
+      if (typeof r.bundesland === 'string') setBundesland(r.bundesland);
+      if (typeof r.klimaBonus === 'boolean') setKlimaBonus(r.klimaBonus);
+      if (typeof r.effizienzBonus === 'boolean') setEffizienzBonus(r.effizienzBonus);
+      if (typeof r.einkommensBonus === 'boolean') setEinkommensBonus(r.einkommensBonus);
+      if (typeof r.isfp === 'boolean') setIsfp(r.isfp);
+      if (typeof r.selbstnutzer === 'boolean') setSelbstnutzer(r.selbstnutzer);
+    },
+  });
+
+
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
