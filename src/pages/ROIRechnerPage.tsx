@@ -254,8 +254,46 @@ const ROIRechnerPage = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              <div className="grid sm:grid-cols-2 gap-3">
+                <ShareResults calculatorType="roi" results={data} inputs={data.inputs} />
+                <ResultsPDFExport calculatorType="roi" results={data} />
+              </div>
             </div>
           </div>
+
+          <SensitivityPanel
+            baseInput={data.baseInput}
+            activeScenario={priceScenario}
+            activeCo2={co2Path}
+            investBrutto={data.investBrutto}
+            fundingBreakdown={[
+              { label: 'Zuschuss / Förderung', amount: data.foerderung, hint: 'Aus dem Förderrechner übernehmbar – reduziert direkt den Eigenanteil.' },
+            ]}
+            className="mt-8"
+          />
+
+          <Accordion type="single" collapsible className="mt-8">
+            <AccordionItem value="methodik">
+              <AccordionTrigger className="text-base font-semibold">Wie wird gerechnet?</AccordionTrigger>
+              <AccordionContent className="space-y-3 text-sm text-muted-foreground">
+                <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
+Eigenanteil   = Investition − Förderung
+Ersparnis(t)  = eingesparte kWh × Energiepreis(t) − Wartung
+Cashflow(t)   = Summe Ersparnis bis Jahr t − Eigenanteil
+Amortisation  = erstes Jahr mit Cashflow ≥ 0
+                </pre>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Energiepreis(t):</strong> Startpreis 2026 mit jährlicher Steigerung je nach Szenario (optimistisch / realistisch / vorsichtig).</li>
+                  <li><strong>CO₂-Pfad:</strong> Ab 2027 wird der ETS-2-Preisaufschlag auf fossile Energieträger aufgeschlagen.</li>
+                  <li><strong>IRR:</strong> Näherung der internen Verzinsung über den gewählten Betrachtungszeitraum.</li>
+                  <li>Preissteigerungen bei Wartung sowie Reparaturen sind nicht enthalten.</li>
+                </ul>
+                <p className="text-xs">Unverbindliche Schätzung – verbindliche Zahlen liefert eine Energieberatung.</p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
 
           <RelatedCalculators
             topics={['kosten', 'foerderung', 'vergleich', 'planung']}
