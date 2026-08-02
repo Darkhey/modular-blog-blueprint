@@ -12,6 +12,10 @@ import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+
 import { Link } from 'react-router-dom';
 import { CheckCircle2, AlertTriangle, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 
