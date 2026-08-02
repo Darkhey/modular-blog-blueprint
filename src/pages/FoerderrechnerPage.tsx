@@ -97,7 +97,18 @@ const FoerderrechnerPage = () => {
     const gesamt = bafaZuschuss + regional + emZuschlag;
     const eigen = Math.max(0, investition - gesamt);
 
-    return { m, investition, foerderfaehig, prozent, bafaZuschuss, emZuschlag, regional, gesamt, eigen, isHeizung };
+    const boni = [
+      isHeizung && selbstnutzer && klimaBonus ? 'Klimageschwindigkeit +20 %' : null,
+      m.id === 'waermepumpe' && effizienzBonus ? 'Effizienzbonus +5 %' : null,
+      isHeizung && selbstnutzer && einkommensBonus ? 'Einkommensbonus +30 %' : null,
+      isfp && m.isfpEligible ? 'iSFP-Bonus +5 %' : null,
+    ].filter(Boolean).join(', ');
+
+    return {
+      m, investition, foerderfaehig, prozent, bafaZuschuss, emZuschlag, regional, gesamt, eigen, isHeizung,
+      inputs: { massnahme: m.label, bundesland, selbstnutzer, isfp, boni },
+    };
+
   }, [massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer]);
 
   return (
