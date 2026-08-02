@@ -20,6 +20,8 @@ import ShareInputs from '@/components/shared/ShareInputs';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 
 const InfoTip = ({ content }: { content: React.ReactNode }) => (
   <>
