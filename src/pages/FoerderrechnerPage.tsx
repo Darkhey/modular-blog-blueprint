@@ -10,6 +10,11 @@ import { Button } from '@/components/ui/button';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 import { BEG_2026, REGIONALE_TOPUPS_2026 } from '@/data/energyPrices2026';
 import { Euro, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -92,8 +97,36 @@ const FoerderrechnerPage = () => {
     const gesamt = bafaZuschuss + regional + emZuschlag;
     const eigen = Math.max(0, investition - gesamt);
 
-    return { m, investition, foerderfaehig, prozent, bafaZuschuss, emZuschlag, regional, gesamt, eigen, isHeizung };
+    const boni = [
+      isHeizung && selbstnutzer && klimaBonus ? 'Klimageschwindigkeit +20 %' : null,
+      m.id === 'waermepumpe' && effizienzBonus ? 'Effizienzbonus +5 %' : null,
+      isHeizung && selbstnutzer && einkommensBonus ? 'Einkommensbonus +30 %' : null,
+      isfp && m.isfpEligible ? 'iSFP-Bonus +5 %' : null,
+    ].filter(Boolean).join(', ');
+
+    return {
+      m, investition, foerderfaehig, prozent, bafaZuschuss, emZuschlag, regional, gesamt, eigen, isHeizung,
+      inputs: { massnahme: m.label, bundesland, selbstnutzer, isfp, boni },
+    };
+
   }, [massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer]);
+
+  // Eingaben als URL-Parameter teilbar machen
+  useShareableInputs({
+    values: { massnahme, kosten, bundesland, klimaBonus, effizienzBonus, einkommensBonus, isfp, selbstnutzer },
+    onRestore: (r) => {
+      if (typeof r.massnahme === 'string' && MASSNAHMEN.some((m) => m.id === r.massnahme)) setMassnahme(r.massnahme as MassnahmeId);
+      if (r.kosten != null) setKosten(String(r.kosten));
+      if (typeof r.bundesland === 'string') setBundesland(r.bundesland);
+      if (typeof r.klimaBonus === 'boolean') setKlimaBonus(r.klimaBonus);
+      if (typeof r.effizienzBonus === 'boolean') setEffizienzBonus(r.effizienzBonus);
+      if (typeof r.einkommensBonus === 'boolean') setEinkommensBonus(r.einkommensBonus);
+      if (typeof r.isfp === 'boolean') setIsfp(r.isfp);
+      if (typeof r.selbstnutzer === 'boolean') setSelbstnutzer(r.selbstnutzer);
+    },
+  });
+
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -203,11 +236,43 @@ const FoerderrechnerPage = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <Button asChild variant="outline" size="sm"><a href="/foerdermittel"><Euro className="w-4 h-4 mr-1" /> Programme</a></Button>
-                  <Button asChild size="sm"><a href="/roi-rechner">Wann rechnet's sich? <ArrowRight className="w-4 h-4 ml-1" /></a></Button>
+                  <Button asChild size="sm">
+                    <a href={`/roi-rechner?investition=${Math.round(result.investition)}&foerderung=${Math.round(result.gesamt)}`}>
+                      Wann rechnet's sich? <ArrowRight className="w-4 h-4 ml-1" />
+                    </a>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
+
+          <div className="grid sm:grid-cols-2 gap-3 mt-6">
+            <ShareResults calculatorType="foerder" results={result} inputs={result.inputs} />
+            <ResultsPDFExport calculatorType="foerder" results={result} />
+          </div>
+
+          <Accordion type="single" collapsible className="mt-8">
+            <AccordionItem value="methodik">
+              <AccordionTrigger className="text-base font-semibold">Wie wird gerechnet?</AccordionTrigger>
+              <AccordionContent className="space-y-3 text-sm text-muted-foreground">
+                <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
+Förderfähig = min(Investition, Kostendeckel)
+Fördersatz  = Grundförderung + Boni (gedeckelt)
+Zuschuss    = Förderfähig × Fördersatz + Zuschläge + regionaler Top-up
+Eigenanteil = Investition − Zuschuss
+                </pre>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Kostendeckel:</strong> Heizung 30.000 €/WE, Hülle 30.000 € bzw. 60.000 € mit iSFP.</li>
+                  <li><strong>Boni:</strong> Klimageschwindigkeit (+20 %), Effizienz (+5 %), Einkommen (+30 %), iSFP (+5 %, nur Hülle).</li>
+                  <li><strong>Maximalsätze:</strong> Heizung 70 %, Hülle 20 % – höhere Bonus-Summen werden gekappt.</li>
+                  <li><strong>Regionale Top-ups</strong> sind Durchschnittswerte je Bundesland und ersetzen keine Programmprüfung.</li>
+                </ul>
+                <p className="text-xs">Richtwerte nach BEG-EM 2026 – der Bewilligungsbescheid kann abweichen.</p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
+
 
           <RelatedCalculators
             topics={['foerderung', 'kosten', 'heizung', 'modernisierung']}

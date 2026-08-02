@@ -7,6 +7,8 @@ import { Home, ArrowRight } from 'lucide-react';
 import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 
 const SITE = 'https://sanierenundsparen.de';
 
@@ -47,7 +49,14 @@ const DaemmungsrechnerPage = () => {
           </Card>
           <InsulationCalculator />
 
+          <RelatedCalculators
+            topics={['daemmung', 'fassade', 'dach', 'foerderung']}
+            excludeIds={['daemmungsrechner']}
+            className="mt-12 -mx-4"
+          />
+
           <CalculatorHowToSection howToKey="daemmungsrechner" url="https://sanierenundsparen.de/daemmungsrechner" />
+
 
           <CalculatorFaqSection
             faqKey="daemmungsrechner"

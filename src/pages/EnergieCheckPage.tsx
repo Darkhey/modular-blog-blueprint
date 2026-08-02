@@ -12,6 +12,10 @@ import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+
 import { Link } from 'react-router-dom';
 import { CheckCircle2, AlertTriangle, XCircle, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -115,8 +119,31 @@ const EnergieCheckPage = () => {
     empfehlungen.push({ titel: 'Förderung berechnen', route: '/foerderrechner', warum: 'BAFA, KfW und regionale Boni kombinieren.' });
 
     const ampel = score >= 70 ? 'gut' : score >= 40 ? 'mittel' : 'schlecht';
-    return { score, perBereich, empfehlungen: empfehlungen.slice(0, 4), beantwortet, ampel };
+    const bereiche = (Object.keys(perBereich) as Bereich[]).map((b) => ({
+      key: b,
+      label: BEREICH_LABELS[b],
+      prozent: Math.round((perBereich[b].got / perBereich[b].max) * 100) || 0,
+    }));
+    return {
+      score, perBereich, bereiche,
+      empfehlungen: empfehlungen.slice(0, 4),
+      beantwortet, gesamtFragen: FRAGEN.length, ampel,
+    };
   }, [answers]);
+
+  // Antworten teilbar machen (URL-Parameter) und aus geteilten Links wiederherstellen
+  useShareableInputs({
+    values: answers,
+    onRestore: (r) => {
+      const restored: Record<string, number> = {};
+      FRAGEN.forEach((f) => {
+        const v = r[f.id];
+        if (typeof v === 'number' && f.options.some((o) => o.score === v)) restored[f.id] = v;
+      });
+      if (Object.keys(restored).length) setAnswers(restored);
+    },
+  });
+
 
   const progress = (Object.keys(answers).length / FRAGEN.length) * 100;
 
@@ -229,6 +256,12 @@ const EnergieCheckPage = () => {
                   <Button asChild><Link to="/sanierungscheck">Detaillierten Sanierungs-Check starten</Link></Button>
                   <Button asChild variant="outline"><Link to="/rechner">Alle Rechner</Link></Button>
                 </div>
+
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <ShareResults calculatorType="energie-check" results={result} inputs={answers} />
+                  <ResultsPDFExport calculatorType="energie-check" results={result} />
+                </div>
+
               </CardContent>
             </Card>
           )}

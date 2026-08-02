@@ -17,7 +17,11 @@ const TITLES: Record<string, string> = {
   solar: 'Solar-Potenzial – Berechnungsergebnis',
   kostenrechner: 'Kosten-Vergleichsrechner – Ergebnis',
   kombi: 'Kombi-Rechner (Heizung + Hülle) – Ergebnis',
+  roi: 'Amortisations-Rechner – Wirtschaftlichkeitsbericht',
+  foerder: 'Förderrechner 2026 – Zuschuss-Übersicht',
+  'energie-check': 'Energie-Check – Effizienz-Auswertung',
 };
+
 
 const num = (v: any, digits = 0) =>
   typeof v === 'number' && isFinite(v)
@@ -134,8 +138,85 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
             ],
           },
         ];
+      case 'roi':
+        return [
+          {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Investition brutto', `${num(results?.inputs?.investition)} EUR`],
+              ['Förderung/Zuschuss', `${num(results?.inputs?.foerderung)} EUR`],
+              ['Energie-Einsparung', `${num(results?.inputs?.einsparungKwh)} kWh/Jahr`],
+              ['Ersetzter Energieträger', `${results?.inputs?.traeger ?? 'k. A.'}`],
+              ['Wartung', `${num(results?.inputs?.wartung)} EUR/Jahr`],
+              ['Betrachtungszeitraum', `${num(results?.inputs?.jahre)} Jahre`],
+              ['Szenario / CO2-Pfad', `${results?.inputs?.szenario ?? 'k. A.'} / ${results?.inputs?.co2Pfad ?? 'k. A.'}`],
+            ],
+          },
+          {
+            heading: 'Wirtschaftlichkeit',
+            rows: [
+              ['Eigenanteil nach Förderung', `${num(results?.eigen)} EUR`],
+              ['Amortisation', results?.breakEven ? `${results.breakEven} Jahre` : 'nicht im Zeitraum'],
+              ['Netto-Ergebnis am Ende', `${num(results?.netto)} EUR`],
+              ['Interne Verzinsung (IRR)', results?.irr != null ? `${(results.irr * 100).toFixed(1)} %` : 'k. A.'],
+              ['CO2-Vermeidung gesamt', `${num(results?.totalCo2, 1)} t`],
+            ],
+          },
+          {
+            heading: 'Kumulierter Cashflow (Auszug)',
+            rows: (results?.rows || [])
+              .filter((r: any) => r.jahr % 5 === 0 || r.jahr === 1)
+              .map((r: any): [string, string] => [`Jahr ${r.jahr}`, `${num(r.kumuliert)} EUR`]),
+          },
+        ];
+      case 'foerder':
+        return [
+          {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Maßnahme', `${results?.inputs?.massnahme ?? 'k. A.'}`],
+              ['Investitionskosten', `${num(results?.investition)} EUR`],
+              ['Bundesland', `${results?.inputs?.bundesland ?? 'k. A.'}`],
+              ['Selbstnutzer', results?.inputs?.selbstnutzer ? 'ja' : 'nein'],
+              ['iSFP vorhanden', results?.inputs?.isfp ? 'ja' : 'nein'],
+              ['Gewählte Boni', `${results?.inputs?.boni || 'keine'}`],
+            ],
+          },
+          {
+            heading: 'Förder-Ergebnis 2026',
+            rows: [
+              ['Förderfähige Kosten (Deckel)', `${num(results?.foerderfaehig)} EUR`],
+              ['Fördersatz', `${num(results?.prozent)} %`],
+              ['BAFA-/KfW-Zuschuss', `${num(results?.bafaZuschuss)} EUR`],
+              ['Emissionsminderungs-Zuschlag', `${num(results?.emZuschlag)} EUR`],
+              ['Regionaler Top-up', `${num(results?.regional)} EUR`],
+              ['Gesamt-Zuschuss', `${num(results?.gesamt)} EUR`],
+              ['Eigenanteil', `${num(results?.eigen)} EUR`],
+            ],
+          },
+        ];
+      case 'energie-check':
+        return [
+          {
+            heading: 'Auswertung',
+            rows: [
+              ['Effizienz-Score', `${num(results?.score)} / 100`],
+              ['Einstufung', `${results?.ampel ?? 'k. A.'}`],
+              ['Beantwortete Fragen', `${num(results?.beantwortet)} von ${num(results?.gesamtFragen)}`],
+            ],
+          },
+          {
+            heading: 'Teilbereiche',
+            rows: (results?.bereiche || []).map((b: any): [string, string] => [b.label, `${num(b.prozent)} %`]),
+          },
+          {
+            heading: 'Empfohlene nächste Schritte',
+            rows: (results?.empfehlungen || []).map((e: any): [string, string] => [e.titel, e.warum]),
+          },
+        ];
       default:
         return [{ heading: 'Ergebnis', rows: [] }];
+
     }
   };
 

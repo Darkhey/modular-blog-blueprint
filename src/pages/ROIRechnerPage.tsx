@@ -10,8 +10,14 @@ import { Button } from '@/components/ui/button';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
+import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 import { TrendingUp, ArrowRight, Leaf } from 'lucide-react';
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine,
@@ -59,20 +65,18 @@ const ROIRechnerPage = () => {
     const years = lebensdauer[0];
     const fuel = toEngineFuel(traeger);
 
+    const baseInput = {
+      investition: eigen,
+      energieVorherKwh: kwh,
+      energieNachherKwh: 0,
+      brennstoffVorher: fuel,
+      brennstoffNachher: fuel,
+      wartungProJahr: wart,
+      jahre: years,
+    };
+
     // ROI-Modell: die gesparten kWh im "alten" Energieträger sind das Ersparnis-Delta.
-    const result = runScenario(
-      {
-        investition: eigen,
-        energieVorherKwh: kwh,
-        energieNachherKwh: 0,
-        brennstoffVorher: fuel,
-        brennstoffNachher: fuel,
-        wartungProJahr: wart,
-        jahre: years,
-      },
-      priceScenario,
-      { includeCo2Path: co2Path },
-    );
+    const result = runScenario(baseInput, priceScenario, { includeCo2Path: co2Path });
 
     const rows = result.jahre.map((r, i) => ({
       jahr: i + 1,
@@ -83,12 +87,50 @@ const ROIRechnerPage = () => {
     return {
       eigen,
       rows,
+      baseInput,
+      investBrutto: inv,
+      foerderung: f,
       breakEven: result.amortisationJahre ? Math.ceil(result.amortisationJahre) : null,
       netto: Math.round(result.gesamtErsparnis - eigen),
       irr: result.irrApprox,
       totalCo2: result.co2VermeidungTonnen,
+      inputs: {
+        investition: inv,
+        foerderung: f,
+        einsparungKwh: kwh,
+        traeger: TRAEGER_LABEL[traeger],
+        wartung: wart,
+        jahre: years,
+        szenario: PRICE_SCENARIOS[priceScenario].label,
+        co2Pfad: co2Path ? 'aktiv (ETS-2)' : 'aus',
+      },
     };
   }, [investition, foerderung, einsparungKwh, traeger, wartung, lebensdauer, priceScenario, co2Path]);
+
+  // Eingaben teilbar machen (URL-Parameter) und aus geteilten Links wiederherstellen
+  useShareableInputs({
+    values: {
+      investition,
+      foerderung,
+      einsparungKwh,
+      traeger,
+      wartung,
+      lebensdauer: lebensdauer[0],
+      szenario: priceScenario,
+      co2: co2Path,
+    },
+    onRestore: (r) => {
+      if (r.investition != null) setInvestition(String(r.investition));
+      if (r.foerderung != null) setFoerderung(String(r.foerderung));
+      if (r.einsparungKwh != null) setEinsparungKwh(String(r.einsparungKwh));
+      if (typeof r.traeger === 'string' && r.traeger in TRAEGER_LABEL) setTraeger(r.traeger as EnergietraegerId);
+      if (r.wartung != null) setWartung(String(r.wartung));
+      if (r.lebensdauer != null) setLebensdauer([Number(r.lebensdauer)]);
+      if (typeof r.szenario === 'string' && r.szenario in PRICE_SCENARIOS) setPriceScenario(r.szenario as PriceScenarioKey);
+      if (typeof r.co2 === 'boolean') setCo2Path(r.co2);
+    },
+  });
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -212,8 +254,46 @@ const ROIRechnerPage = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              <div className="grid sm:grid-cols-2 gap-3">
+                <ShareResults calculatorType="roi" results={data} inputs={data.inputs} />
+                <ResultsPDFExport calculatorType="roi" results={data} />
+              </div>
             </div>
           </div>
+
+          <SensitivityPanel
+            baseInput={data.baseInput}
+            activeScenario={priceScenario}
+            activeCo2={co2Path}
+            investBrutto={data.investBrutto}
+            fundingBreakdown={[
+              { label: 'Zuschuss / Förderung', amount: data.foerderung, hint: 'Aus dem Förderrechner übernehmbar – reduziert direkt den Eigenanteil.' },
+            ]}
+            className="mt-8"
+          />
+
+          <Accordion type="single" collapsible className="mt-8">
+            <AccordionItem value="methodik">
+              <AccordionTrigger className="text-base font-semibold">Wie wird gerechnet?</AccordionTrigger>
+              <AccordionContent className="space-y-3 text-sm text-muted-foreground">
+                <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
+Eigenanteil   = Investition − Förderung
+Ersparnis(t)  = eingesparte kWh × Energiepreis(t) − Wartung
+Cashflow(t)   = Summe Ersparnis bis Jahr t − Eigenanteil
+Amortisation  = erstes Jahr mit Cashflow ≥ 0
+                </pre>
+                <ul className="list-disc list-inside space-y-1">
+                  <li><strong>Energiepreis(t):</strong> Startpreis 2026 mit jährlicher Steigerung je nach Szenario (optimistisch / realistisch / vorsichtig).</li>
+                  <li><strong>CO₂-Pfad:</strong> Ab 2027 wird der ETS-2-Preisaufschlag auf fossile Energieträger aufgeschlagen.</li>
+                  <li><strong>IRR:</strong> Näherung der internen Verzinsung über den gewählten Betrachtungszeitraum.</li>
+                  <li>Preissteigerungen bei Wartung sowie Reparaturen sind nicht enthalten.</li>
+                </ul>
+                <p className="text-xs">Unverbindliche Schätzung – verbindliche Zahlen liefert eine Energieberatung.</p>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+
 
           <RelatedCalculators
             topics={['kosten', 'foerderung', 'vergleich', 'planung']}

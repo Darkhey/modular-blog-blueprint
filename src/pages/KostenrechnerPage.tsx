@@ -20,6 +20,8 @@ import ShareInputs from '@/components/shared/ShareInputs';
 import QuickAccessButtons from '@/components/calculators/QuickAccessButtons';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 
 const InfoTip = ({ content }: { content: React.ReactNode }) => (
   <>
@@ -401,7 +403,14 @@ Eigenanteil  = Bruttokosten − Förderung
 
           <QuickAccessButtons currentCalculator="heating" className="mt-4" />
 
+          <RelatedCalculators
+            topics={['kosten', 'foerderung', 'planung', 'modernisierung']}
+            excludeIds={['kostenrechner']}
+            className="mt-12 -mx-4"
+          />
+
           <CalculatorHowToSection howToKey="kostenrechner" url="https://sanierenundsparen.de/kostenrechner" />
+
 
           <CalculatorFaqSection
             faqKey="kostenrechner"

@@ -14,6 +14,8 @@ import { Separator } from '@/components/ui/separator';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 import AnimatedGauge from '@/components/calculators/AnimatedGauge';
 import { useInView } from '@/hooks/useInView';
 import {
@@ -371,7 +373,14 @@ const RechnerVergleichPage = () => {
           </div>
         )}
 
+        <RelatedCalculators
+          topics={['vergleich', 'heizung', 'daemmung', 'solar']}
+          excludeIds={['rechner-vergleich']}
+          className="mt-12"
+        />
+
         <CalculatorHowToSection howToKey="rechner-vergleich" url="https://sanierenundsparen.de/rechner-vergleich" />
+
 
         <CalculatorFaqSection
           faqKey="rechner-vergleich"
