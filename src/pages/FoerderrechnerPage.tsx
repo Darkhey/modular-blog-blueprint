@@ -10,6 +10,11 @@ import { Button } from '@/components/ui/button';
 import RelatedCalculators from '@/components/shared/RelatedCalculators';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import ShareResults from '@/components/shared/ShareResults';
+import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
+import { useShareableInputs } from '@/hooks/useShareableInputs';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
 import { BEG_2026, REGIONALE_TOPUPS_2026 } from '@/data/energyPrices2026';
 import { Euro, ArrowRight, Sparkles } from 'lucide-react';
 
