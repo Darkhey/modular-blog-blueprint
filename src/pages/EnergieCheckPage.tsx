@@ -256,6 +256,12 @@ const EnergieCheckPage = () => {
                   <Button asChild><Link to="/sanierungscheck">Detaillierten Sanierungs-Check starten</Link></Button>
                   <Button asChild variant="outline"><Link to="/rechner">Alle Rechner</Link></Button>
                 </div>
+
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <ShareResults calculatorType="energie-check" results={result} inputs={answers} />
+                  <ResultsPDFExport calculatorType="energie-check" results={result} />
+                </div>
+
               </CardContent>
             </Card>
           )}
