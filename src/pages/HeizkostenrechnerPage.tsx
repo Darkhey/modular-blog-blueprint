@@ -4,6 +4,8 @@ import { Flame } from 'lucide-react';
 import CalculatorHero from '@/components/calculators/CalculatorHero';
 import CalculatorFaqSection from '@/components/shared/CalculatorFaqSection';
 import CalculatorHowToSection from '@/components/shared/CalculatorHowToSection';
+import RelatedCalculators from '@/components/shared/RelatedCalculators';
+
 
 const SITE = 'https://sanierenundsparen.de';
 
