@@ -1,44 +1,44 @@
-## Was die Search Console aktuell zeigt
+# Rechner vervollständigen – einheitlicher Funktionsstandard
 
-Die Property ist erst seit 27.07.2026 aktiv, entsprechend dünn sind die Daten (Zeitraum 01.05.–30.07.2026):
+Ziel: Alle Rechner bekommen denselben Funktionsumfang wie der Kombi-Rechner (Szenarien, Teilen, PDF, Transparenz, Related-Links). Aktuell ist das nur teilweise umgesetzt.
 
-- **0 Klicks, 4 Impressionen gesamt.** Sichtbare Queries: „solar markise" (Pos. 89), „zweischaliges mauerwerk nachträglich dämmen kosten" (Pos. 100).
-- **Positiv:** Vier Blogartikel wurden bereits auf guten Positionen ausgespielt (Umsteigeprämie Wärmepumpe Pos. 6, Hochwasserschutz-Türen Pos. 7, Lehm-Dämmung Pos. 8), Startseite Pos. 1, /kontakt Pos. 2. Thematisch trägt also der Förder-/Dämmungs-Content.
-- **Sitemap:** 256 URLs eingereicht, fehlerfrei, zuletzt am 30.07. abgerufen — **0 davon indexiert**.
+## Ist-Stand (geprüft)
 
-## Das eigentliche Problem (verifiziert)
+| Rechner | Szenario/CO₂ | Teilen | PDF | Related | Sensitivität |
+|---|---|---|---|---|---|
+| Kombi | ja | ja | ja | ja | ja |
+| Kostenrechner | nein | ja | ja | nein | nein |
+| Solar | ja | ja | ja | nein | nein |
+| ROI | ja | nein | nein | ja | nein |
+| Förderrechner | nein | nein | nein | ja | nein |
+| Energie-Check | nein | nein | nein | ja | nein |
+| Heizkosten | nein | nein | nein | nein | nein |
+| Dämmung | nein | nein | nein | nein | nein |
+| Vergleich | nein | nein | nein | nein | nein |
+| WDVS / Dachdämmung (Landing) | nein | nein | nein | ja | nein |
+| Budgetplan / Projektplaner | keine Hero/FAQ/HowTo/Related | | | | |
 
-Die URL-Inspection zeigt für `/blog/foerderung-umsteigepraemie-waermepumpe-2025-2026`:
-`coverageState: "Alternate page with proper canonical tag"`, Google-Canonical = ein **anderer** Blogartikel.
+## Schritt 1 – Basisfunktionen überall (größter Nutzen)
 
-Ursache im Live-HTML bestätigt: Der Abruf eines Blogartikels liefert
-`<title>Sanieren & Sparen – Energieeffiziente Sanierung</title>` und
-`<link rel="canonical" href="https://sanierenundsparen.de/" />`.
+- Teilbare Eingaben (`useShareableInputs`) + „Ergebnis teilen" (`ShareResults`) für: ROI, Förderrechner, Energie-Check, Heizkosten, Dämmung.
+- PDF-Export (`ResultsPDFExport`) für: ROI, Förderrechner, Energie-Check, Heizkosten, Dämmung.
+- `RelatedCalculators` auf Kostenrechner, Solar, Heizkosten, Dämmung, Vergleich ergänzen.
+- Budgetplan und Projektplaner auf den Standard heben: `CalculatorHero`, FAQ- und HowTo-Sektion, Related-Links, Katalog-Einträge prüfen.
 
-Das Head-Prerendering (`scripts/prerender-head.ts` + `scripts/routeMeta.ts`) deckt nur 22 statische Routen ab. Alle Blog-, Kategorie- und Landingpage-URLs fallen auf `dist/index.html` zurück — und die trägt die Startseiten-Canonical. Google sieht dadurch 250+ identische Seiten und indexiert keine davon. Weitere Befunde: `/wdvs-kosten-rechner` = „Discovered – currently not indexed", `/blog` und `/rechner` = „URL is unknown to Google", und `www.sanierenundsparen.de` antwortet mit HTTP 200 statt einer Weiterleitung (Duplikat-Host, taucht auch in Googles referringUrls auf).
+## Schritt 2 – Rechenlogik & Transparenz
 
-## Plan
+- Szenario- und CO₂-Toggle (`scenarioEngine`) für Heizkostenrechner, Dämmungsrechner und Kostenrechner nachziehen, damit alle mit denselben Energiepreis-Pfaden 2026+ rechnen.
+- `SensitivityPanel` (Einflussfaktoren-Matrix) zusätzlich auf ROI- und Förderrechner.
+- Einheitliche „Wie wird gerechnet?"-Erläuterung (wie im Kostenrechner) für Heizkosten, Dämmung, ROI, Förderrechner.
 
-**1. Prerendering auf alle dynamischen Routen ausweiten**
-`scripts/prerender-head.ts` holt beim Build die veröffentlichten Blogposts und Kategorien aus Supabase (gleiche Filter wie `generate-sitemap.ts`) und schreibt pro Slug `dist/blog/<slug>/index.html` bzw. `dist/themen/<slug>/index.html` mit echtem Titel, Description, Canonical, og:url, og:image und Article-JSON-LD.
+## Schritt 3 – Konsistenz & Tests
 
-**2. Fallback-Canonical entschärfen**
-Die Startseiten-Canonical darf nicht mehr für unbekannte Routen ausgeliefert werden: Root-`index.html` behält `/`, aber jede in Sitemap/routeMeta gelistete Route bekommt garantiert ihre eigene Datei. Ein Build-Check vergleicht Sitemap-Einträge gegen erzeugte HTML-Dateien und bricht bei Lücken ab.
+- Zentrale Annahmen (Energiepreise, Förderquoten, CO₂-Preis) durchgängig aus `src/data/energyPrices2026.ts` beziehen – keine hartkodierten Preise mehr in einzelnen Rechnern.
+- Vitest-Tests je Rechner: Plausibilität der Ergebnisse, Förderdeckel, Szenario-Reihenfolge (konservativ ≤ realistisch ≤ optimistisch).
+- Kurzer Durchklick-Check im Browser (Mobile 390px), inkl. Share-Link-Wiederherstellung.
 
-**3. www-Duplikat beseitigen**
-`www` per Domain-Konfiguration auf die Apex-Domain weiterleiten; zusätzlich in Search Console eine `sc-domain:`-Property anlegen, damit beide Hosts in einer Datenansicht landen.
+## Technische Hinweise
 
-**4. Auf das aufbauen, was schon rankt**
-Die vier rankenden Artikel sind Förder- und Dämmungsthemen. Konkret:
-- Interne Verlinkung von diesen vier Artikeln auf `/foerderrechner`, `/rechner/kombi` und `/daemmungsrechner` verstärken.
-- Zwei Vertiefungsseiten zu genau den Queries, die schon Impressionen erzeugen: „zweischaliges Mauerwerk nachträglich dämmen – Kosten" und „Solarmarkise Kosten/Ertrag", jeweils mit Rechner-Einbindung statt reinem Text.
-- Erst nach Fix 1–3 sinnvoll, weil sonst nichts indexiert wird.
-
-**5. Kontrolle**
-Nach dem nächsten Publish: Sitemap neu einreichen, URL-Inspection für je einen Blogartikel, `/blog` und `/rechner` erneut abfragen und prüfen, ob `googleCanonical` jetzt selbstreferenziell ist.
-
-## Technische Details
-
-- Betroffene Dateien: `scripts/prerender-head.ts`, `scripts/routeMeta.ts`, ggf. neuer `scripts/verify-prerender.ts`, `package.json` (postbuild-Kette).
-- Supabase-Zugriff im Build über die bereits in `scripts/generate-sitemap.ts` genutzten Anon-Credentials.
-- Kein Eingriff in Runtime-Code oder React-Helmet-Logik; die Client-Tags bleiben als Ergänzung bestehen.
+- Wiederverwendung bestehender Bausteine: `src/hooks/useShareableInputs.ts`, `src/components/shared/{ShareResults,ShareInputs,ResultsPDFExport,RelatedCalculators}.tsx`, `src/components/calculators/shared/*`, `src/lib/scenarioEngine.ts`.
+- Keine neuen Abhängigkeiten nötig (jspdf, qrcode.react, recharts bereits vorhanden).
+- FAQ/HowTo-Einträge für neu ausgestattete Rechner in `src/data/calculatorFaqs.ts` und `src/data/calculatorHowTos.ts` ergänzen (SEO-Snippets bleiben konsistent).
