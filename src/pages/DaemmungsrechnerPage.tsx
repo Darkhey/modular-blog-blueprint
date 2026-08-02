@@ -49,7 +49,14 @@ const DaemmungsrechnerPage = () => {
           </Card>
           <InsulationCalculator />
 
+          <RelatedCalculators
+            topics={['daemmung', 'fassade', 'dach', 'foerderung']}
+            excludeIds={['daemmungsrechner']}
+            className="mt-12 -mx-4"
+          />
+
           <CalculatorHowToSection howToKey="daemmungsrechner" url="https://sanierenundsparen.de/daemmungsrechner" />
+
 
           <CalculatorFaqSection
             faqKey="daemmungsrechner"
