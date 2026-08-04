@@ -41,23 +41,39 @@ export interface ScenarioResult {
   gesamtErsparnis: number;
   co2VermeidungTonnen: number;
   irrApprox: number | null;
+  /** Barwert (NPV) der Ersparnisse abzgl. Investition, mit Diskontsatz */
+  barwert: number;
+}
+
+/** Manuelle Annahmen, die die Szenario-Defaults überschreiben. */
+export interface ScenarioOverrides {
+  /** Energiepreis Jahr 1 für den alten Energieträger (€/kWh) */
+  preisVorher?: number;
+  /** Energiepreis Jahr 1 für den neuen Energieträger (€/kWh) */
+  preisNachher?: number;
+  /** jährliche Preissteigerung (Dezimal, z. B. 0.035) */
+  steigerung?: number;
 }
 
 const priceForFuel = (
   scenario: PriceScenarioKey,
   fuel: ScenarioInput['brennstoffVorher'],
   jahr: number,
-  startjahr: number
+  startjahr: number,
+  basisOverride?: number,
+  steigerungOverride?: number
 ): number => {
   const s = PRICE_SCENARIOS[scenario];
   const base =
+    basisOverride != null && basisOverride > 0 ? basisOverride :
     fuel === 'gas' ? s.gas :
     fuel === 'oel' ? s.oel :
     fuel === 'pellets' ? s.pellets :
     fuel === 'fernwaerme' ? s.fernwaerme :
     fuel === 'wpStrom' ? s.wpStrom :
     s.strom;
-  return base * Math.pow(1 + s.jaehrlicheSteigerung, jahr - startjahr);
+  const steigerung = steigerungOverride != null ? steigerungOverride : s.jaehrlicheSteigerung;
+  return base * Math.pow(1 + steigerung, jahr - startjahr);
 };
 
 const isFossil = (fuel: ScenarioInput['brennstoffVorher']): fuel is 'gas' | 'oel' | 'pellets' | 'fernwaerme' =>
@@ -66,8 +82,14 @@ const isFossil = (fuel: ScenarioInput['brennstoffVorher']): fuel is 'gas' | 'oel
 export const runScenario = (
   input: ScenarioInput,
   scenario: PriceScenarioKey = 'realistisch',
-  options: { includeCo2Path?: boolean; co2Mode?: 'min' | 'expected' | 'max'; startjahr?: number } = {}
+  options: {
+    includeCo2Path?: boolean;
+    co2Mode?: 'min' | 'expected' | 'max';
+    startjahr?: number;
+    overrides?: ScenarioOverrides;
+  } = {}
 ): ScenarioResult => {
+
   const jahre = input.jahre ?? 20;
   const startjahr = options.startjahr ?? new Date().getFullYear();
   const includeCo2 = options.includeCo2Path ?? true;
