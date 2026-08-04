@@ -338,6 +338,42 @@ const KostenrechnerPage = () => {
                 </Card>
               </div>
 
+              {/* Wirtschaftlichkeit nach Annahmen */}
+              {finanz && (
+                <Card className="border-border">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base flex items-center gap-2">
+                      Wirtschaftlichkeit nach Ihren Annahmen
+                      <InfoTip content="Basiert auf dem gewählten Szenario und dem Annahmen-Editor: Energiepreis, Preissteigerung, Laufzeit und Zinssatz." />
+                    </CardTitle>
+                    <CardDescription>
+                      {fmt(finanz.kwh)} kWh/Jahr geschätzte Einsparung · {assumptions.energiepreis} €/kWh · +{assumptions.steigerung} %/a · {finanz.jahre} Jahre · {assumptions.zinssatz} % Zins
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Ersparnis Jahr 1</p>
+                      <p className="text-xl font-bold text-emerald-600">{fmt(finanz.ersparnisJahr1)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Ersparnis über {finanz.jahre} Jahre</p>
+                      <p className="text-xl font-bold text-foreground">{fmt(finanz.ersparnisGesamt)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Monatliche Rate (Eigenanteil)</p>
+                      <p className="text-xl font-bold text-foreground">{fmt(finanz.rate)} €</p>
+                      <p className="text-[11px] text-muted-foreground">Zinskosten gesamt {fmt(finanz.zinskosten)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Amortisation</p>
+                      <p className="text-xl font-bold text-primary">{finanz.amortisation ? `${finanz.amortisation} Jahre` : '> 40 Jahre'}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+
+
               {/* Table */}
               <Card className="border-border overflow-hidden">
                 <Table>
