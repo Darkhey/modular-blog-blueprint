@@ -83,6 +83,39 @@ const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 
 const KostenrechnerPage = () => {
   const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
+  const [scenario, setScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const { assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario } =
+    useScenarioAssumptions(scenario, 'gas', 15);
+
+  // Energie-Ersparnis und Finanzierung auf Basis der Annahmen
+  const finanz = (() => {
+    if (!results) return null;
+    const kwh = results.gewerke.reduce(
+      (sum, r) => sum + r.menge * (r.gewerk.einsparungKwhProEinheit ?? 0),
+      0
+    );
+    const ersparnisJahr1 = kwh * assumptions.energiepreis;
+    const g = 1 + assumptions.steigerung / 100;
+    const jahre = assumptions.laufzeit;
+    const ersparnisGesamt =
+      g === 1 ? ersparnisJahr1 * jahre : ersparnisJahr1 * ((Math.pow(g, jahre) - 1) / (g - 1));
+
+    const eigen = results.totalNettoAvg;
+    const i = assumptions.zinssatz / 100 / 12;
+    const n = jahre * 12;
+    const rate = i === 0 ? eigen / n : (eigen * i) / (1 - Math.pow(1 + i, -n));
+    const zinskosten = rate * n - eigen;
+
+    // Amortisation über kumulierte Ersparnis
+    let kum = 0;
+    let amortisation: number | null = null;
+    for (let y = 1; y <= 40; y++) {
+      kum += ersparnisJahr1 * Math.pow(g, y - 1);
+      if (kum >= eigen) { amortisation = y; break; }
+    }
+
+    return { kwh, ersparnisJahr1, ersparnisGesamt, rate, zinskosten, amortisation, jahre };
+  })();
 
   const chartData = results?.gewerke.map((r) => ({
     name: r.gewerk.label,
