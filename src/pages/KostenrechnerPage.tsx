@@ -14,6 +14,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useKostenrechner } from '@/hooks/useKostenrechner';
+import { useScenarioAssumptions } from '@/hooks/useScenarioAssumptions';
+import AssumptionsEditor from '@/components/calculators/shared/AssumptionsEditor';
+import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
+import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
+import { useState } from 'react';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import ShareInputs from '@/components/shared/ShareInputs';
