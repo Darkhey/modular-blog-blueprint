@@ -209,8 +209,14 @@ const ROIRechnerPage = () => {
                   <Input id={wartungId} type="number" value={wartung} onChange={(e) => setWartung(e.target.value)} />
                 </div>
                 <div>
-                  <Label>Betrachtungszeitraum: {lebensdauer[0]} Jahre</Label>
-                  <Slider value={lebensdauer} onValueChange={setLebensdauer} min={5} max={30} step={1} />
+                  <Label>Betrachtungszeitraum: {data.jahre} Jahre</Label>
+                  <Slider
+                    value={lebensdauer}
+                    onValueChange={(v) => { setLebensdauer(v); setAssumption('laufzeit', v[0]); }}
+                    min={5}
+                    max={30}
+                    step={1}
+                  />
                 </div>
 
                 <div className="pt-2 border-t space-y-3">
@@ -221,6 +227,18 @@ const ROIRechnerPage = () => {
             </Card>
 
             <div className="space-y-4">
+              <AssumptionsEditor
+                scenario={priceScenario}
+                assumptions={assumptions}
+                defaults={assumptionDefaults}
+                isCustom={isCustom}
+                onChange={setAssumption}
+                onReset={resetScenario}
+                energyLabel={`Preis ${TRAEGER_LABEL[traeger]}`}
+                laufzeitLabel="Betrachtungszeitraum"
+                zinsLabel="Kalkulationszins"
+                hint="Energiepreis, Steigerung, Laufzeit und Kalkulationszins gelten je Szenario. Der Zins fließt in den Barwert (NPV) ein."
+              />
               <div className="grid sm:grid-cols-3 gap-3">
                 <Card className="border-emerald-500/30">
                   <CardContent className="p-4">
@@ -232,8 +250,12 @@ const ROIRechnerPage = () => {
                 </Card>
                 <Card>
                   <CardContent className="p-4">
-                    <div className="text-xs text-muted-foreground">Netto nach {lebensdauer[0]} J.</div>
+                    <div className="text-xs text-muted-foreground">Netto nach {data.jahre} J.</div>
                     <div className="text-2xl font-bold">{formatEuro(data.netto)}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">
+                      Barwert bei {assumptions.zinssatz} %: {formatEuro(data.barwert)}
+                    </div>
+
                     {data.irr !== null && (
                       <div className="text-xs text-muted-foreground mt-0.5">IRR ≈ {(data.irr * 100).toFixed(1)} %</div>
                     )}
