@@ -102,8 +102,9 @@ export const runScenario = (
 
   for (let i = 0; i < jahre; i++) {
     const jahr = startjahr + i;
-    const preisVorher = priceForFuel(scenario, input.brennstoffVorher, jahr, startjahr);
-    const preisNachher = priceForFuel(scenario, input.brennstoffNachher, jahr, startjahr);
+    const ov = options.overrides ?? {};
+    const preisVorher = priceForFuel(scenario, input.brennstoffVorher, jahr, startjahr, ov.preisVorher, ov.steigerung);
+    const preisNachher = priceForFuel(scenario, input.brennstoffNachher, jahr, startjahr, ov.preisNachher, ov.steigerung);
 
     let kostenVorher = input.energieVorherKwh * preisVorher;
     let kostenNachher = input.energieNachherKwh * preisNachher;
