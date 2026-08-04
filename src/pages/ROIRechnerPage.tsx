@@ -58,14 +58,20 @@ const ROIRechnerPage = () => {
   const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
   const [co2Path, setCo2Path] = useState(true);
 
+  const engineFuel = toEngineFuel(traeger);
+  const {
+    assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario,
+    overrides: assumptionOverrides, restoreAssumptions,
+  } = useScenarioAssumptions(priceScenario, engineFuel, lebensdauer[0]);
+
   const data = useMemo(() => {
     const inv = Math.max(0, Number(investition) || 0);
     const f = Math.max(0, Number(foerderung) || 0);
     const eigen = Math.max(0, inv - f);
     const kwh = Math.max(0, Number(einsparungKwh) || 0);
     const wart = Math.max(0, Number(wartung) || 0);
-    const years = lebensdauer[0];
-    const fuel = toEngineFuel(traeger);
+    const years = assumptions.laufzeit;
+    const fuel = engineFuel;
 
     const baseInput = {
       investition: eigen,
@@ -75,10 +81,18 @@ const ROIRechnerPage = () => {
       brennstoffNachher: fuel,
       wartungProJahr: wart,
       jahre: years,
+      diskontsatz: assumptions.zinssatz / 100,
     };
 
     // ROI-Modell: die gesparten kWh im "alten" Energieträger sind das Ersparnis-Delta.
-    const result = runScenario(baseInput, priceScenario, { includeCo2Path: co2Path });
+    const result = runScenario(baseInput, priceScenario, {
+      includeCo2Path: co2Path,
+      overrides: {
+        preisVorher: assumptions.energiepreis,
+        preisNachher: assumptions.energiepreis,
+        steigerung: assumptions.steigerung / 100,
+      },
+    });
 
     const rows = result.jahre.map((r, i) => ({
       jahr: i + 1,
@@ -92,8 +106,10 @@ const ROIRechnerPage = () => {
       baseInput,
       investBrutto: inv,
       foerderung: f,
+      jahre: years,
       breakEven: result.amortisationJahre ? Math.ceil(result.amortisationJahre) : null,
       netto: Math.round(result.gesamtErsparnis - eigen),
+      barwert: Math.round(result.barwert),
       irr: result.irrApprox,
       totalCo2: result.co2VermeidungTonnen,
       inputs: {
@@ -105,9 +121,11 @@ const ROIRechnerPage = () => {
         jahre: years,
         szenario: PRICE_SCENARIOS[priceScenario].label,
         co2Pfad: co2Path ? 'aktiv (ETS-2)' : 'aus',
+        annahmen: `${assumptions.energiepreis} €/kWh, +${assumptions.steigerung} %/a, Zins ${assumptions.zinssatz} %${isCustom ? ' (angepasst)' : ''}`,
       },
     };
-  }, [investition, foerderung, einsparungKwh, traeger, wartung, lebensdauer, priceScenario, co2Path]);
+  }, [investition, foerderung, einsparungKwh, traeger, engineFuel, wartung, priceScenario, co2Path, assumptions, isCustom]);
+
 
   // Eingaben teilbar machen (URL-Parameter) und aus geteilten Links wiederherstellen
   useShareableInputs({
