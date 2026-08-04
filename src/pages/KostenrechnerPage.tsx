@@ -14,6 +14,11 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip as ChartTooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useKostenrechner } from '@/hooks/useKostenrechner';
+import { useScenarioAssumptions } from '@/hooks/useScenarioAssumptions';
+import AssumptionsEditor from '@/components/calculators/shared/AssumptionsEditor';
+import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
+import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
+import { useState } from 'react';
 import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ShareResults from '@/components/shared/ShareResults';
 import ShareInputs from '@/components/shared/ShareInputs';
@@ -78,6 +83,39 @@ const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 
 const KostenrechnerPage = () => {
   const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
+  const [scenario, setScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const { assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario } =
+    useScenarioAssumptions(scenario, 'gas', 15);
+
+  // Energie-Ersparnis und Finanzierung auf Basis der Annahmen
+  const finanz = (() => {
+    if (!results) return null;
+    const kwh = results.gewerke.reduce(
+      (sum, r) => sum + r.menge * (r.gewerk.einsparungKwhProEinheit ?? 0),
+      0
+    );
+    const ersparnisJahr1 = kwh * assumptions.energiepreis;
+    const g = 1 + assumptions.steigerung / 100;
+    const jahre = assumptions.laufzeit;
+    const ersparnisGesamt =
+      g === 1 ? ersparnisJahr1 * jahre : ersparnisJahr1 * ((Math.pow(g, jahre) - 1) / (g - 1));
+
+    const eigen = results.totalNettoAvg;
+    const i = assumptions.zinssatz / 100 / 12;
+    const n = jahre * 12;
+    const rate = i === 0 ? eigen / n : (eigen * i) / (1 - Math.pow(1 + i, -n));
+    const zinskosten = rate * n - eigen;
+
+    // Amortisation über kumulierte Ersparnis
+    let kum = 0;
+    let amortisation: number | null = null;
+    for (let y = 1; y <= 40; y++) {
+      kum += ersparnisJahr1 * Math.pow(g, y - 1);
+      if (kum >= eigen) { amortisation = y; break; }
+    }
+
+    return { kwh, ersparnisJahr1, ersparnisGesamt, rate, zinskosten, amortisation, jahre };
+  })();
 
   const chartData = results?.gewerke.map((r) => ({
     name: r.gewerk.label,
@@ -242,6 +280,25 @@ const KostenrechnerPage = () => {
             <ShareInputs values={inputs as unknown as Record<string, unknown>} onRestore={restoreInputs} label="Eingaben als Link teilen" />
           </div>
 
+          {/* Annahmen */}
+          <div className="space-y-3">
+            <ScenarioToggle value={scenario} onChange={setScenario} />
+            <AssumptionsEditor
+              scenario={scenario}
+              assumptions={assumptions}
+              defaults={assumptionDefaults}
+              isCustom={isCustom}
+              onChange={setAssumption}
+              onReset={resetScenario}
+              energyLabel="Energiepreis (ersetzt)"
+              laufzeitLabel="Finanzierungslaufzeit"
+              zinsLabel="Kreditzins"
+              hint="Diese Annahmen gelten je Szenario und bestimmen Energie-Ersparnis, monatliche Rate und Amortisation."
+            />
+          </div>
+
+
+
 
           {/* Ergebnisse */}
           {results && (
@@ -280,6 +337,42 @@ const KostenrechnerPage = () => {
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Wirtschaftlichkeit nach Annahmen */}
+              {finanz && (
+                <Card className="border-border">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base flex items-center gap-2">
+                      Wirtschaftlichkeit nach Ihren Annahmen
+                      <InfoTip content="Basiert auf dem gewählten Szenario und dem Annahmen-Editor: Energiepreis, Preissteigerung, Laufzeit und Zinssatz." />
+                    </CardTitle>
+                    <CardDescription>
+                      {fmt(finanz.kwh)} kWh/Jahr geschätzte Einsparung · {assumptions.energiepreis} €/kWh · +{assumptions.steigerung} %/a · {finanz.jahre} Jahre · {assumptions.zinssatz} % Zins
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div>
+                      <p className="text-xs text-muted-foreground">Ersparnis Jahr 1</p>
+                      <p className="text-xl font-bold text-emerald-600">{fmt(finanz.ersparnisJahr1)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Ersparnis über {finanz.jahre} Jahre</p>
+                      <p className="text-xl font-bold text-foreground">{fmt(finanz.ersparnisGesamt)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Monatliche Rate (Eigenanteil)</p>
+                      <p className="text-xl font-bold text-foreground">{fmt(finanz.rate)} €</p>
+                      <p className="text-[11px] text-muted-foreground">Zinskosten gesamt {fmt(finanz.zinskosten)} €</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Amortisation</p>
+                      <p className="text-xl font-bold text-primary">{finanz.amortisation ? `${finanz.amortisation} Jahre` : '> 40 Jahre'}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+
 
               {/* Table */}
               <Card className="border-border overflow-hidden">

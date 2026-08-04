@@ -15,6 +15,8 @@ import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
 import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
+import AssumptionsEditor from '@/components/calculators/shared/AssumptionsEditor';
+import { useScenarioAssumptions } from '@/hooks/useScenarioAssumptions';
 import { useShareableInputs } from '@/hooks/useShareableInputs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -56,14 +58,20 @@ const ROIRechnerPage = () => {
   const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
   const [co2Path, setCo2Path] = useState(true);
 
+  const engineFuel = toEngineFuel(traeger);
+  const {
+    assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario,
+    overrides: assumptionOverrides, restoreAssumptions,
+  } = useScenarioAssumptions(priceScenario, engineFuel, lebensdauer[0]);
+
   const data = useMemo(() => {
     const inv = Math.max(0, Number(investition) || 0);
     const f = Math.max(0, Number(foerderung) || 0);
     const eigen = Math.max(0, inv - f);
     const kwh = Math.max(0, Number(einsparungKwh) || 0);
     const wart = Math.max(0, Number(wartung) || 0);
-    const years = lebensdauer[0];
-    const fuel = toEngineFuel(traeger);
+    const years = assumptions.laufzeit;
+    const fuel = engineFuel;
 
     const baseInput = {
       investition: eigen,
@@ -73,10 +81,18 @@ const ROIRechnerPage = () => {
       brennstoffNachher: fuel,
       wartungProJahr: wart,
       jahre: years,
+      diskontsatz: assumptions.zinssatz / 100,
     };
 
     // ROI-Modell: die gesparten kWh im "alten" Energieträger sind das Ersparnis-Delta.
-    const result = runScenario(baseInput, priceScenario, { includeCo2Path: co2Path });
+    const result = runScenario(baseInput, priceScenario, {
+      includeCo2Path: co2Path,
+      overrides: {
+        preisVorher: assumptions.energiepreis,
+        preisNachher: assumptions.energiepreis,
+        steigerung: assumptions.steigerung / 100,
+      },
+    });
 
     const rows = result.jahre.map((r, i) => ({
       jahr: i + 1,
@@ -90,8 +106,10 @@ const ROIRechnerPage = () => {
       baseInput,
       investBrutto: inv,
       foerderung: f,
+      jahre: years,
       breakEven: result.amortisationJahre ? Math.ceil(result.amortisationJahre) : null,
       netto: Math.round(result.gesamtErsparnis - eigen),
+      barwert: Math.round(result.barwert),
       irr: result.irrApprox,
       totalCo2: result.co2VermeidungTonnen,
       inputs: {
@@ -103,9 +121,11 @@ const ROIRechnerPage = () => {
         jahre: years,
         szenario: PRICE_SCENARIOS[priceScenario].label,
         co2Pfad: co2Path ? 'aktiv (ETS-2)' : 'aus',
+        annahmen: `${assumptions.energiepreis} €/kWh, +${assumptions.steigerung} %/a, Zins ${assumptions.zinssatz} %${isCustom ? ' (angepasst)' : ''}`,
       },
     };
-  }, [investition, foerderung, einsparungKwh, traeger, wartung, lebensdauer, priceScenario, co2Path]);
+  }, [investition, foerderung, einsparungKwh, traeger, engineFuel, wartung, priceScenario, co2Path, assumptions, isCustom]);
+
 
   // Eingaben teilbar machen (URL-Parameter) und aus geteilten Links wiederherstellen
   useShareableInputs({
@@ -118,6 +138,7 @@ const ROIRechnerPage = () => {
       lebensdauer: lebensdauer[0],
       szenario: priceScenario,
       co2: co2Path,
+      annahmen: assumptionOverrides as unknown as Record<string, unknown>,
     },
     onRestore: (r) => {
       if (r.investition != null) setInvestition(String(r.investition));
@@ -128,6 +149,7 @@ const ROIRechnerPage = () => {
       if (r.lebensdauer != null) setLebensdauer([Number(r.lebensdauer)]);
       if (typeof r.szenario === 'string' && r.szenario in PRICE_SCENARIOS) setPriceScenario(r.szenario as PriceScenarioKey);
       if (typeof r.co2 === 'boolean') setCo2Path(r.co2);
+      if (r.annahmen) restoreAssumptions(r.annahmen);
     },
   });
 
@@ -187,8 +209,14 @@ const ROIRechnerPage = () => {
                   <Input id={wartungId} type="number" value={wartung} onChange={(e) => setWartung(e.target.value)} />
                 </div>
                 <div>
-                  <Label>Betrachtungszeitraum: {lebensdauer[0]} Jahre</Label>
-                  <Slider value={lebensdauer} onValueChange={setLebensdauer} min={5} max={30} step={1} />
+                  <Label>Betrachtungszeitraum: {data.jahre} Jahre</Label>
+                  <Slider
+                    value={lebensdauer}
+                    onValueChange={(v) => { setLebensdauer(v); setAssumption('laufzeit', v[0]); }}
+                    min={5}
+                    max={30}
+                    step={1}
+                  />
                 </div>
 
                 <div className="pt-2 border-t space-y-3">
@@ -199,6 +227,18 @@ const ROIRechnerPage = () => {
             </Card>
 
             <div className="space-y-4">
+              <AssumptionsEditor
+                scenario={priceScenario}
+                assumptions={assumptions}
+                defaults={assumptionDefaults}
+                isCustom={isCustom}
+                onChange={setAssumption}
+                onReset={resetScenario}
+                energyLabel={`Preis ${TRAEGER_LABEL[traeger]}`}
+                laufzeitLabel="Betrachtungszeitraum"
+                zinsLabel="Kalkulationszins"
+                hint="Energiepreis, Steigerung, Laufzeit und Kalkulationszins gelten je Szenario. Der Zins fließt in den Barwert (NPV) ein."
+              />
               <div className="grid sm:grid-cols-3 gap-3">
                 <Card className="border-emerald-500/30">
                   <CardContent className="p-4">
@@ -210,8 +250,12 @@ const ROIRechnerPage = () => {
                 </Card>
                 <Card>
                   <CardContent className="p-4">
-                    <div className="text-xs text-muted-foreground">Netto nach {lebensdauer[0]} J.</div>
+                    <div className="text-xs text-muted-foreground">Netto nach {data.jahre} J.</div>
                     <div className="text-2xl font-bold">{formatEuro(data.netto)}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">
+                      Barwert bei {assumptions.zinssatz} %: {formatEuro(data.barwert)}
+                    </div>
+
                     {data.irr !== null && (
                       <div className="text-xs text-muted-foreground mt-0.5">IRR ≈ {(data.irr * 100).toFixed(1)} %</div>
                     )}

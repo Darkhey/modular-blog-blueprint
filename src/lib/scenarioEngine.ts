@@ -41,23 +41,39 @@ export interface ScenarioResult {
   gesamtErsparnis: number;
   co2VermeidungTonnen: number;
   irrApprox: number | null;
+  /** Barwert (NPV) der Ersparnisse abzgl. Investition, mit Diskontsatz */
+  barwert: number;
+}
+
+/** Manuelle Annahmen, die die Szenario-Defaults überschreiben. */
+export interface ScenarioOverrides {
+  /** Energiepreis Jahr 1 für den alten Energieträger (€/kWh) */
+  preisVorher?: number;
+  /** Energiepreis Jahr 1 für den neuen Energieträger (€/kWh) */
+  preisNachher?: number;
+  /** jährliche Preissteigerung (Dezimal, z. B. 0.035) */
+  steigerung?: number;
 }
 
 const priceForFuel = (
   scenario: PriceScenarioKey,
   fuel: ScenarioInput['brennstoffVorher'],
   jahr: number,
-  startjahr: number
+  startjahr: number,
+  basisOverride?: number,
+  steigerungOverride?: number
 ): number => {
   const s = PRICE_SCENARIOS[scenario];
   const base =
+    basisOverride != null && basisOverride > 0 ? basisOverride :
     fuel === 'gas' ? s.gas :
     fuel === 'oel' ? s.oel :
     fuel === 'pellets' ? s.pellets :
     fuel === 'fernwaerme' ? s.fernwaerme :
     fuel === 'wpStrom' ? s.wpStrom :
     s.strom;
-  return base * Math.pow(1 + s.jaehrlicheSteigerung, jahr - startjahr);
+  const steigerung = steigerungOverride != null ? steigerungOverride : s.jaehrlicheSteigerung;
+  return base * Math.pow(1 + steigerung, jahr - startjahr);
 };
 
 const isFossil = (fuel: ScenarioInput['brennstoffVorher']): fuel is 'gas' | 'oel' | 'pellets' | 'fernwaerme' =>
@@ -66,8 +82,14 @@ const isFossil = (fuel: ScenarioInput['brennstoffVorher']): fuel is 'gas' | 'oel
 export const runScenario = (
   input: ScenarioInput,
   scenario: PriceScenarioKey = 'realistisch',
-  options: { includeCo2Path?: boolean; co2Mode?: 'min' | 'expected' | 'max'; startjahr?: number } = {}
+  options: {
+    includeCo2Path?: boolean;
+    co2Mode?: 'min' | 'expected' | 'max';
+    startjahr?: number;
+    overrides?: ScenarioOverrides;
+  } = {}
 ): ScenarioResult => {
+
   const jahre = input.jahre ?? 20;
   const startjahr = options.startjahr ?? new Date().getFullYear();
   const includeCo2 = options.includeCo2Path ?? true;
@@ -80,8 +102,9 @@ export const runScenario = (
 
   for (let i = 0; i < jahre; i++) {
     const jahr = startjahr + i;
-    const preisVorher = priceForFuel(scenario, input.brennstoffVorher, jahr, startjahr);
-    const preisNachher = priceForFuel(scenario, input.brennstoffNachher, jahr, startjahr);
+    const ov = options.overrides ?? {};
+    const preisVorher = priceForFuel(scenario, input.brennstoffVorher, jahr, startjahr, ov.preisVorher, ov.steigerung);
+    const preisNachher = priceForFuel(scenario, input.brennstoffNachher, jahr, startjahr, ov.preisNachher, ov.steigerung);
 
     let kostenVorher = input.energieVorherKwh * preisVorher;
     let kostenNachher = input.energieNachherKwh * preisNachher;
@@ -145,5 +168,12 @@ export const runScenario = (
     irrApprox = r;
   }
 
-  return { jahre: rows, amortisationJahre, gesamtErsparnis, co2VermeidungTonnen, irrApprox };
+  // Barwert (NPV) mit optionalem Diskontsatz
+  const disk = input.diskontsatz ?? 0;
+  const barwert = rows.reduce(
+    (acc, row, idx) => acc + row.ersparnis / Math.pow(1 + disk, idx + 1),
+    -input.investition
+  );
+
+  return { jahre: rows, amortisationJahre, gesamtErsparnis, co2VermeidungTonnen, irrApprox, barwert };
 };

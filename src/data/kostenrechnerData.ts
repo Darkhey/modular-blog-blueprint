@@ -15,6 +15,8 @@ export interface Gewerk {
   step: number;
   tooltip?: string;
   mengeHelp?: string;
+  /** grober Endenergie-Einspareffekt je Einheit (kWh pro Jahr) */
+  einsparungKwhProEinheit?: number;
 }
 
 export const gewerke: Gewerk[] = [
@@ -35,6 +37,7 @@ export const gewerke: Gewerk[] = [
     step: 10,
     tooltip: 'WDVS 120–180 €/m², vorgehängte hinterlüftete Fassade 200–250 €/m². BAFA-Förderung Einzelmaßnahme 15 % + 5 % iSFP-Bonus, Deckel 60.000 €/Wohneinheit.',
     mengeHelp: 'Außenwandfläche minus Fenster/Türen. Faustregel: Wohnfläche × 1,2.',
+    einsparungKwhProEinheit: 25,
   },
   {
     id: 'dachdaemmung',
@@ -53,6 +56,7 @@ export const gewerke: Gewerk[] = [
     step: 10,
     tooltip: 'Aufsparrendämmung 150–200 €/m², Zwischen-/Untersparren günstiger (80–130 €/m²). BAFA-Förderung 15 % + 5 % iSFP, Deckel 60.000 €/WE.',
     mengeHelp: 'Geneigte Dachfläche (nicht Grundfläche). Bei Steildach ≈ Grundfläche × 1,3.',
+    einsparungKwhProEinheit: 20,
   },
   {
     id: 'fenster',
@@ -71,6 +75,7 @@ export const gewerke: Gewerk[] = [
     step: 1,
     tooltip: '3-fach Verglasung Standard 2025, Preis je Fenster inkl. Demontage, Einbau & Entsorgung. BAFA 15 % + 5 % iSFP. Haustüren ähnlich.',
     mengeHelp: 'Anzahl auszutauschender Fenster und Außentüren. Dachfenster zählen mit.',
+    einsparungKwhProEinheit: 180,
   },
   {
     id: 'heizung',
@@ -89,6 +94,7 @@ export const gewerke: Gewerk[] = [
     step: 10,
     tooltip: 'Pauschale auf Wohnfläche, da Wärmepumpe/Pellet stark variieren (15.000–45.000 €). KfW 458: Sockel 30 % + bis zu 40 % Boni (Klimageschwindigkeit, Einkommen), Deckel 70.000 € förderfähige Kosten.',
     mengeHelp: 'Beheizte Wohnfläche in m². Steht im Energieausweis oder Mietvertrag.',
+    einsparungKwhProEinheit: 45,
   },
   {
     id: 'solar',
@@ -107,6 +113,7 @@ export const gewerke: Gewerk[] = [
     step: 1,
     tooltip: 'Keine Direktförderung mehr; Wirtschaftlichkeit über 0 % MwSt., Einspeisevergütung (~8 ct/kWh) und Eigenverbrauch. Speicher und Wallbox separat im Solar-Rechner.',
     mengeHelp: 'Faustregel: 1 kWp ≈ 5 m² Modulfläche und ~1.000 kWh Ertrag/Jahr.',
+    einsparungKwhProEinheit: 950,
   },
   {
     id: 'kellerdecke',
@@ -125,5 +132,6 @@ export const gewerke: Gewerk[] = [
     step: 10,
     tooltip: 'Günstigste Dämmmaßnahme mit kurzer Amortisation (5–10 Jahre). BAFA 15 % + 5 % iSFP, Deckel 60.000 €/WE.',
     mengeHelp: 'Grundfläche des beheizten Erdgeschosses ≈ Kellerdeckenfläche.',
+    einsparungKwhProEinheit: 12,
   },
 ];
