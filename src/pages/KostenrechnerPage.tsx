@@ -280,6 +280,25 @@ const KostenrechnerPage = () => {
             <ShareInputs values={inputs as unknown as Record<string, unknown>} onRestore={restoreInputs} label="Eingaben als Link teilen" />
           </div>
 
+          {/* Annahmen */}
+          <div className="space-y-3">
+            <ScenarioToggle value={scenario} onChange={setScenario} />
+            <AssumptionsEditor
+              scenario={scenario}
+              assumptions={assumptions}
+              defaults={assumptionDefaults}
+              isCustom={isCustom}
+              onChange={setAssumption}
+              onReset={resetScenario}
+              energyLabel="Energiepreis (ersetzt)"
+              laufzeitLabel="Finanzierungslaufzeit"
+              zinsLabel="Kreditzins"
+              hint="Diese Annahmen gelten je Szenario und bestimmen Energie-Ersparnis, monatliche Rate und Amortisation."
+            />
+          </div>
+
+
+
 
           {/* Ergebnisse */}
           {results && (
