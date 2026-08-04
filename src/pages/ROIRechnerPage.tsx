@@ -15,6 +15,8 @@ import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import ScenarioToggle from '@/components/calculators/shared/ScenarioToggle';
 import CO2PathToggle from '@/components/calculators/shared/CO2PathToggle';
 import SensitivityPanel from '@/components/calculators/shared/SensitivityPanel';
+import AssumptionsEditor from '@/components/calculators/shared/AssumptionsEditor';
+import { useScenarioAssumptions } from '@/hooks/useScenarioAssumptions';
 import { useShareableInputs } from '@/hooks/useShareableInputs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
