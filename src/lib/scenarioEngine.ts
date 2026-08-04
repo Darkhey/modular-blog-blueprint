@@ -168,5 +168,12 @@ export const runScenario = (
     irrApprox = r;
   }
 
-  return { jahre: rows, amortisationJahre, gesamtErsparnis, co2VermeidungTonnen, irrApprox };
+  // Barwert (NPV) mit optionalem Diskontsatz
+  const disk = input.diskontsatz ?? 0;
+  const barwert = rows.reduce(
+    (acc, row, idx) => acc + row.ersparnis / Math.pow(1 + disk, idx + 1),
+    -input.investition
+  );
+
+  return { jahre: rows, amortisationJahre, gesamtErsparnis, co2VermeidungTonnen, irrApprox, barwert };
 };
