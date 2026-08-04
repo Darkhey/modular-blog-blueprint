@@ -138,6 +138,7 @@ const ROIRechnerPage = () => {
       lebensdauer: lebensdauer[0],
       szenario: priceScenario,
       co2: co2Path,
+      annahmen: assumptionOverrides as unknown as Record<string, unknown>,
     },
     onRestore: (r) => {
       if (r.investition != null) setInvestition(String(r.investition));
@@ -148,6 +149,7 @@ const ROIRechnerPage = () => {
       if (r.lebensdauer != null) setLebensdauer([Number(r.lebensdauer)]);
       if (typeof r.szenario === 'string' && r.szenario in PRICE_SCENARIOS) setPriceScenario(r.szenario as PriceScenarioKey);
       if (typeof r.co2 === 'boolean') setCo2Path(r.co2);
+      if (r.annahmen) restoreAssumptions(r.annahmen);
     },
   });
 
