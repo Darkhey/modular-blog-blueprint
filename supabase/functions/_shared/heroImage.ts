@@ -13,36 +13,36 @@ export interface HeroImageResult {
  * Keys are matched case-insensitively against title + keywords + topic.
  */
 const LOCAL_ASSETS: Array<{ keywords: string[]; path: string; alt: string }> = [
-  { keywords: ["wärmepumpe", "waermepumpe", "luft-wasser", "heat pump"], path: "/assets/blog-hero-waermepumpe.jpg", alt: "Wärmepumpe an einem sanierten Wohnhaus" },
-  { keywords: ["altbau wärmepumpe", "wärmepumpe altbau"], path: "/assets/blog-hero-waermepumpe-altbau.jpg", alt: "Wärmepumpe im Altbau" },
-  { keywords: ["einblasdämmung", "kerndämmung", "zweischalig"], path: "/assets/blog-hero-einblasdaemmung.jpg", alt: "Einblasdämmung im zweischaligen Mauerwerk" },
-  { keywords: ["dämmung", "daemmung", "wdvs", "dämmstoff", "isolierung"], path: "/assets/blog-hero-daemmung.jpg", alt: "Fassadendämmung an einem Einfamilienhaus" },
-  { keywords: ["solar", "photovoltaik", "pv-anlage", "balkonkraftwerk"], path: "/assets/blog-hero-solar.jpg", alt: "Photovoltaikanlage auf einem Hausdach" },
-  { keywords: ["fenster", "verglasung", "haustür"], path: "/assets/blog-hero-fenster.jpg", alt: "Moderne Fenster mit Wärmeschutzverglasung" },
-  { keywords: ["heizung", "heizkessel", "hydraulischer abgleich", "heizkörper"], path: "/assets/blog-hero-heizung.jpg", alt: "Moderne Heizungsanlage im Keller" },
-  { keywords: ["förder", "foerder", "kfw", "bafa", "zuschuss", "prämie"], path: "/assets/blog-hero-foerdermittel.jpg", alt: "Förderantrag für die energetische Sanierung" },
-  { keywords: ["smart home", "smarthome", "thermostat", "steuerung"], path: "/assets/blog-hero-smarthome.jpg", alt: "Smart-Home-Steuerung für die Heizung" },
-  { keywords: ["dach", "dachausbau", "dachgeschoss"], path: "/assets/blog-hero-dachausbau.jpg", alt: "Ausgebautes und gedämmtes Dachgeschoss" },
-  { keywords: ["keller", "kellersanierung", "bodenplatte"], path: "/assets/blog-hero-kellersanierung.jpg", alt: "Sanierter und gedämmter Keller" },
-  { keywords: ["schimmel", "feuchtigkeit", "lüften"], path: "/assets/blog-hero-schimmelbeseitigung.jpg", alt: "Schimmelbeseitigung an einer Innenwand" },
-  { keywords: ["bad", "badezimmer", "sanitär"], path: "/assets/blog-hero-badezimmer-sanierung.jpg", alt: "Modernisiertes Badezimmer" },
-  { keywords: ["barrierefrei", "altersgerecht"], path: "/assets/blog-hero-barrierefreies-wohnen.jpg", alt: "Barrierefrei umgebautes Wohnhaus" },
-  { keywords: ["elektro", "leitungen", "wallbox"], path: "/assets/blog-hero-elektroinstallation.jpg", alt: "Erneuerte Elektroinstallation" },
-  { keywords: ["kernsanierung", "komplettsanierung"], path: "/assets/blog-hero-kernsanierung.jpg", alt: "Haus in der Kernsanierung" },
-  { keywords: ["garten", "außenanlage"], path: "/assets/blog-hero-gartengestaltung.jpg", alt: "Neu gestalteter Garten am sanierten Haus" },
+  { keywords: ["wärmepumpe", "waermepumpe", "luft-wasser", "heat pump"], path: "/blog-images/blog-hero-waermepumpe.jpg", alt: "Wärmepumpe an einem sanierten Wohnhaus" },
+  { keywords: ["altbau wärmepumpe", "wärmepumpe altbau"], path: "/blog-images/blog-hero-waermepumpe-altbau.jpg", alt: "Wärmepumpe im Altbau" },
+  { keywords: ["einblasdämmung", "kerndämmung", "zweischalig"], path: "/blog-images/blog-hero-einblasdaemmung.jpg", alt: "Einblasdämmung im zweischaligen Mauerwerk" },
+  { keywords: ["dämmung", "daemmung", "wdvs", "dämmstoff", "isolierung"], path: "/blog-images/blog-hero-daemmung.jpg", alt: "Fassadendämmung an einem Einfamilienhaus" },
+  { keywords: ["solar", "photovoltaik", "pv-anlage", "balkonkraftwerk"], path: "/blog-images/blog-hero-solar.jpg", alt: "Photovoltaikanlage auf einem Hausdach" },
+  { keywords: ["fenster", "verglasung", "haustür"], path: "/blog-images/blog-hero-fenster.jpg", alt: "Moderne Fenster mit Wärmeschutzverglasung" },
+  { keywords: ["heizung", "heizkessel", "hydraulischer abgleich", "heizkörper"], path: "/blog-images/blog-hero-heizung.jpg", alt: "Moderne Heizungsanlage im Keller" },
+  { keywords: ["förder", "foerder", "kfw", "bafa", "zuschuss", "prämie"], path: "/blog-images/blog-hero-foerdermittel.jpg", alt: "Förderantrag für die energetische Sanierung" },
+  { keywords: ["smart home", "smarthome", "thermostat", "steuerung"], path: "/blog-images/blog-hero-smarthome.jpg", alt: "Smart-Home-Steuerung für die Heizung" },
+  { keywords: ["dach", "dachausbau", "dachgeschoss"], path: "/blog-images/blog-hero-dachausbau.jpg", alt: "Ausgebautes und gedämmtes Dachgeschoss" },
+  { keywords: ["keller", "kellersanierung", "bodenplatte"], path: "/blog-images/blog-hero-kellersanierung.jpg", alt: "Sanierter und gedämmter Keller" },
+  { keywords: ["schimmel", "feuchtigkeit", "lüften"], path: "/blog-images/blog-hero-schimmelbeseitigung.jpg", alt: "Schimmelbeseitigung an einer Innenwand" },
+  { keywords: ["bad", "badezimmer", "sanitär"], path: "/blog-images/blog-hero-badezimmer-sanierung.jpg", alt: "Modernisiertes Badezimmer" },
+  { keywords: ["barrierefrei", "altersgerecht"], path: "/blog-images/blog-hero-barrierefreies-wohnen.jpg", alt: "Barrierefrei umgebautes Wohnhaus" },
+  { keywords: ["elektro", "leitungen", "wallbox"], path: "/blog-images/blog-hero-elektroinstallation.jpg", alt: "Erneuerte Elektroinstallation" },
+  { keywords: ["kernsanierung", "komplettsanierung"], path: "/blog-images/blog-hero-kernsanierung.jpg", alt: "Haus in der Kernsanierung" },
+  { keywords: ["garten", "außenanlage"], path: "/blog-images/blog-hero-gartengestaltung.jpg", alt: "Neu gestalteter Garten am sanierten Haus" },
 ];
 
 const CATEGORY_FALLBACK: Record<string, string> = {
-  "Heizung modernisieren": "/assets/blog-hero-heizung.jpg",
-  "Dämmung & Isolierung": "/assets/blog-hero-daemmung.jpg",
-  "Fenster": "/assets/blog-hero-fenster.jpg",
-  "Dach": "/assets/blog-hero-dachausbau.jpg",
-  "Smart Home": "/assets/blog-hero-smarthome.jpg",
-  "Solarenergie": "/assets/blog-hero-solar.jpg",
-  "Fördermittel": "/assets/blog-hero-foerdermittel.jpg",
+  "Heizung modernisieren": "/blog-images/blog-hero-heizung.jpg",
+  "Dämmung & Isolierung": "/blog-images/blog-hero-daemmung.jpg",
+  "Fenster": "/blog-images/blog-hero-fenster.jpg",
+  "Dach": "/blog-images/blog-hero-dachausbau.jpg",
+  "Smart Home": "/blog-images/blog-hero-smarthome.jpg",
+  "Solarenergie": "/blog-images/blog-hero-solar.jpg",
+  "Fördermittel": "/blog-images/blog-hero-foerdermittel.jpg",
 };
 
-const GENERIC_FALLBACK = "/assets/sanierungsfahrplan-hero.jpg";
+const GENERIC_FALLBACK = "/blog-images/sanierungsfahrplan-hero.jpg";
 
 function pickLocal(haystack: string) {
   const text = haystack.toLowerCase();
