@@ -1,5 +1,7 @@
 
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useBlogPost } from "@/hooks/useBlogPosts";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
 import BlogPostContentSEO from "@/components/blog/post/BlogPostContentSEO";
@@ -67,6 +69,16 @@ function deriveTopics(topic?: string, keywords?: string[] | null, title?: string
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: post, isLoading, error } = useBlogPost(slug || "");
+
+  // Zählt Aufrufe für das dynamische Ranking auf der Startseite
+  useEffect(() => {
+    if (!slug) return;
+    supabase.rpc("increment_post_view", { post_slug: slug }).then(({ error: rpcError }) => {
+      if (rpcError) console.error("view tracking failed:", rpcError.message);
+    });
+  }, [slug]);
+
+
 
   if (isLoading) {
     return <BlogPostSkeleton />;
