@@ -1,5 +1,7 @@
 
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useBlogPost } from "@/hooks/useBlogPosts";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
 import BlogPostContentSEO from "@/components/blog/post/BlogPostContentSEO";

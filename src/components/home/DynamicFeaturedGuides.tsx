@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useFeaturedPosts } from '@/hooks/useFeaturedPosts';
+import { useRankedPosts } from '@/hooks/useRankedPosts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useInView } from '@/hooks/useInView';
 import { ArrowRight } from 'lucide-react';
@@ -7,13 +7,14 @@ import { ArrowRight } from 'lucide-react';
 import heizungImg from '@/assets/blog-hero-heizung.jpg';
 import daemmungImg from '@/assets/blog-hero-daemmung.jpg';
 import solarImg from '@/assets/blog-hero-solar.jpg';
+import fensterImg from '@/assets/blog-hero-fenster.jpg';
 import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
 
 const topicFallbackImages: Record<string, string> = {
   'Heizung': heizungImg,
   'Dämmung': daemmungImg,
   'Solar': solarImg,
-  'Fenster': 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=300&fit=crop',
+  'Fenster': fensterImg,
 };
 
 const getImage = (post: any) =>
@@ -22,7 +23,8 @@ const getImage = (post: any) =>
   sanierungsfahrplanImg;
 
 const DynamicFeaturedGuides = () => {
-  const { data: posts, isLoading } = useFeaturedPosts(4);
+  // Ranked by real Search-Console performance, views and freshness
+  const { data: posts, isLoading } = useRankedPosts(5);
   const { ref, isInView } = useInView();
 
   if (isLoading) {
@@ -42,13 +44,17 @@ const DynamicFeaturedGuides = () => {
 
   if (!posts?.length) return null;
 
+  // The first ranked post is already shown in the hero above
+  const guides = posts.slice(1, 5);
+  if (guides.length === 0) return null;
+
   return (
     <section ref={ref} className="py-16 bg-background">
       <div className="container max-w-5xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-3 text-foreground">Top-Ratgeber für Ihr Sanierungsprojekt</h2>
-        <p className="text-center text-muted-foreground mb-10">Unsere wichtigsten Anleitungen für Ihre Planung.</p>
+        <p className="text-center text-muted-foreground mb-10">Die meistgelesenen Anleitungen für Ihre Planung.</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {posts.map((post, i) => (
+          {guides.map((post, i) => (
             <Link
               key={post.id}
               to={`/blog/${post.slug}`}
@@ -59,7 +65,7 @@ const DynamicFeaturedGuides = () => {
                 <div className="w-full h-36 overflow-hidden">
                   <img
                     src={getImage(post)}
-                    alt={post.title}
+                    alt={(post as any).image_alt || post.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
