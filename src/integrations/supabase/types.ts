@@ -71,6 +71,45 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_generation_runs: {
+        Row: {
+          category: string | null
+          created_at: string
+          error_message: string | null
+          focus_keyword: string | null
+          id: string
+          mode: string
+          model: string | null
+          post_slug: string | null
+          post_title: string | null
+          status: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          error_message?: string | null
+          focus_keyword?: string | null
+          id?: string
+          mode?: string
+          model?: string | null
+          post_slug?: string | null
+          post_title?: string | null
+          status: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          error_message?: string | null
+          focus_keyword?: string | null
+          id?: string
+          mode?: string
+          model?: string | null
+          post_slug?: string | null
+          post_title?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       blog_post_ratings: {
         Row: {
           created_at: string | null
@@ -146,14 +185,18 @@ export type Database = {
           effort_level: string | null
           excerpt: string
           faq: Json | null
+          focus_keyword: string | null
           funding_available: string | null
           gallery_urls: string[] | null
           hero_image_url: string | null
           id: string
+          image_alt: string | null
+          image_credit: string | null
           important_notice: string | null
           is_featured: boolean | null
           key_benefits: string[] | null
           keywords: string[] | null
+          last_refreshed_at: string | null
           like_count: number | null
           payback_time: string | null
           published_at: string | null
@@ -184,14 +227,18 @@ export type Database = {
           effort_level?: string | null
           excerpt: string
           faq?: Json | null
+          focus_keyword?: string | null
           funding_available?: string | null
           gallery_urls?: string[] | null
           hero_image_url?: string | null
           id?: string
+          image_alt?: string | null
+          image_credit?: string | null
           important_notice?: string | null
           is_featured?: boolean | null
           key_benefits?: string[] | null
           keywords?: string[] | null
+          last_refreshed_at?: string | null
           like_count?: number | null
           payback_time?: string | null
           published_at?: string | null
@@ -222,14 +269,18 @@ export type Database = {
           effort_level?: string | null
           excerpt?: string
           faq?: Json | null
+          focus_keyword?: string | null
           funding_available?: string | null
           gallery_urls?: string[] | null
           hero_image_url?: string | null
           id?: string
+          image_alt?: string | null
+          image_credit?: string | null
           important_notice?: string | null
           is_featured?: boolean | null
           key_benefits?: string[] | null
           keywords?: string[] | null
+          last_refreshed_at?: string | null
           like_count?: number | null
           payback_time?: string | null
           published_at?: string | null
@@ -328,12 +379,55 @@ export type Database = {
         }
         Relationships: []
       }
+      search_console_stats: {
+        Row: {
+          clicks: number
+          ctr: number
+          dimension: string
+          id: string
+          impressions: number
+          page: string | null
+          period_end: string | null
+          period_start: string | null
+          position: number
+          query: string | null
+          synced_at: string
+        }
+        Insert: {
+          clicks?: number
+          ctr?: number
+          dimension: string
+          id?: string
+          impressions?: number
+          page?: string | null
+          period_end?: string | null
+          period_start?: string | null
+          position?: number
+          query?: string | null
+          synced_at?: string
+        }
+        Update: {
+          clicks?: number
+          ctr?: number
+          dimension?: string
+          id?: string
+          impressions?: number
+          page?: string | null
+          period_end?: string | null
+          period_start?: string | null
+          position?: number
+          query?: string | null
+          synced_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
       get_current_user_role: { Args: never; Returns: string }
+      increment_post_view: { Args: { post_slug: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never
