@@ -85,10 +85,14 @@ const LatestArticlesSection = () => {
                   <div className="relative w-full h-40 overflow-hidden">
                     <img
                       src={getImage(post)}
-                      alt={post.title}
+                      alt={(post as any).image_alt || post.title}
+                      width={640}
+                      height={360}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      decoding="async"
                     />
+
                     <span
                       className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold text-white shadow-sm"
                       style={{ backgroundColor: post.topic_color }}
