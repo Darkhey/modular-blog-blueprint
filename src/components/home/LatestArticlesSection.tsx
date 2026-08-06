@@ -85,21 +85,30 @@ const LatestArticlesSection = () => {
                   <div className="relative w-full h-40 overflow-hidden">
                     <img
                       src={getImage(post)}
-                      alt={post.title}
+                      alt={(post as any).image_alt || post.title}
+                      width={640}
+                      height={360}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      decoding="async"
                     />
+
                     <span
                       className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-semibold text-white shadow-sm"
                       style={{ backgroundColor: post.topic_color }}
                     >
                       {post.topic}
                     </span>
-                    {isNew(post.published_at) && (
+                    {isNew(post.published_at) ? (
                       <span className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold bg-amber-400 text-amber-900">
                         NEU
                       </span>
-                    )}
+                    ) : (post as any).last_refreshed_at ? (
+                      <span className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">
+                        Aktualisiert
+                      </span>
+                    ) : null}
+
                   </div>
                   <div className="p-4 flex flex-col flex-1">
                     <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">

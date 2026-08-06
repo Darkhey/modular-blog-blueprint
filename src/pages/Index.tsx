@@ -13,7 +13,9 @@ import BlogAndCategoriesSection from '@/components/home/BlogAndCategoriesSection
 import NewsletterSection from '@/components/home/NewsletterSection';
 import DynamicFeaturedGuides from '@/components/home/DynamicFeaturedGuides';
 import LatestArticlesSection from '@/components/home/LatestArticlesSection';
+import PopularSearchTopics from '@/components/home/PopularSearchTopics';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
+
 
 const Index = () => {
   const { data: posts, isLoading: isLoadingPosts, isError: isErrorPosts } = useBlogPosts(undefined, 3);
@@ -40,7 +42,9 @@ const Index = () => {
         />
         <DynamicFeaturedGuides />
         <LatestArticlesSection />
+        <PopularSearchTopics />
         <EnergyAdvisorSearch />
+
         <NewsletterSection />
       </main>
     </div>

@@ -1,11 +1,12 @@
 
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Clock, BarChart3, GitBranch } from "lucide-react";
+import { Calendar, Clock, BarChart3, GitBranch, TrendingUp } from "lucide-react";
 import ContentCalendar from "./ContentCalendar";
 import ScheduledPublishing from "./ScheduledPublishing";
 import ContentAnalytics from "./ContentAnalytics";
 import VersionControl from "./VersionControl";
+import SearchConsoleOpportunities from "./SearchConsoleOpportunities";
 
 interface ContentManagementTabsProps {
   selectedPostId?: string;
@@ -16,7 +17,7 @@ const ContentManagementTabs = ({ selectedPostId }: ContentManagementTabsProps) =
 
   return (
     <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <TabsList className="grid w-full grid-cols-4">
+      <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5">
         <TabsTrigger value="calendar" className="flex items-center gap-2">
           <Calendar className="h-4 w-4" />
           Calendar
@@ -24,6 +25,10 @@ const ContentManagementTabs = ({ selectedPostId }: ContentManagementTabsProps) =
         <TabsTrigger value="scheduling" className="flex items-center gap-2">
           <Clock className="h-4 w-4" />
           Zeitplanung
+        </TabsTrigger>
+        <TabsTrigger value="opportunities" className="flex items-center gap-2">
+          <TrendingUp className="h-4 w-4" />
+          Chancen
         </TabsTrigger>
         <TabsTrigger value="analytics" className="flex items-center gap-2">
           <BarChart3 className="h-4 w-4" />
@@ -34,6 +39,11 @@ const ContentManagementTabs = ({ selectedPostId }: ContentManagementTabsProps) =
           Versionen
         </TabsTrigger>
       </TabsList>
+
+      <TabsContent value="opportunities" className="mt-6">
+        <SearchConsoleOpportunities />
+      </TabsContent>
+
 
       <TabsContent value="calendar" className="mt-6">
         <ContentCalendar />

@@ -1,7 +1,13 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { buildSystemPrompt, parseAiJson, buildInsertRow } from "../_shared/blogPrompt.ts";
-import { validateArticle } from "../_shared/contentStructure.ts";
+import { buildSystemPrompt, parseAiJson, buildInsertRow, normalizeFaq } from "../_shared/blogPrompt.ts";
+import {
+  estimateReadTime,
+  sanitizeInternalLinks,
+  syncHeadingsAndToc,
+  validateArticle,
+} from "../_shared/contentStructure.ts";
+
 import { resolveHeroImage } from "../_shared/heroImage.ts";
 
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -104,6 +110,86 @@ async function callModel(systemPrompt: string, userPrompt: string) {
   return parseAiJson(output);
 }
 
+/**
+ * Picks an existing article worth refreshing: it gets impressions in Search
+ * Console but converts badly (weak CTR / position 8-30) and has not been
+ * refreshed in the last 90 days.
+ */
+async function pickRefreshCandidate(supabase: any) {
+  const { data: stats } = await supabase
+    .from("search_console_stats")
+    .select("page, impressions, clicks, ctr, position")
+    .eq("dimension", "page")
+    .order("impressions", { ascending: false })
+    .limit(400);
+
+  const perf = new Map<string, { impressions: number; clicks: number; position: number }>();
+  for (const row of stats || []) {
+    const match = String(row.page || "").match(/\/blog\/([^/?#]+)/);
+    if (!match) continue;
+    const current = perf.get(match[1]) || { impressions: 0, clicks: 0, position: 0 };
+    perf.set(match[1], {
+      impressions: current.impressions + Number(row.impressions || 0),
+      clicks: current.clicks + Number(row.clicks || 0),
+      position: Number(row.position || current.position || 0),
+    });
+  }
+
+  const { data: posts } = await supabase
+    .from("blog_posts")
+    .select(
+      "id, slug, title, excerpt, content, topic, seo_title, seo_description, focus_keyword, keywords, published_at, last_refreshed_at",
+    )
+    .eq("status", "published");
+
+  const ninetyDaysAgo = Date.now() - 90 * 86_400_000;
+  const eligible = (posts || []).filter((p: any) => {
+    const stamp = p.last_refreshed_at ? new Date(p.last_refreshed_at).getTime() : 0;
+    return stamp < ninetyDaysAgo;
+  });
+  if (eligible.length === 0) return null;
+
+  const scored = eligible.map((post: any) => {
+    const p = perf.get(post.slug);
+    if (!p) return { post, score: 0, perf: null };
+    const ctr = p.impressions > 0 ? p.clicks / p.impressions : 0;
+    const positionBonus = p.position >= 8 && p.position <= 30 ? 1.5 : 1;
+    const ctrPenalty = ctr < 0.02 ? 1.5 : 1;
+    return { post, score: p.impressions * positionBonus * ctrPenalty, perf: p };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  const best = scored[0];
+  if (!best || best.score <= 0) return null;
+  return best;
+}
+
+function buildRefreshPrompt(post: any, perf: any, linkableSlugs: Array<{ slug: string; title: string }>) {
+  return `Du bist erfahrener SEO-Fachredakteur für Gebäudesanierung in Deutschland (Stand 2026).
+Deine Aufgabe: Einen bestehenden Artikel überarbeiten und deutlich verbessern – NICHT neu erfinden.
+
+BESTEHENDER ARTIKEL
+Titel: ${post.title}
+SEO-Titel: ${post.seo_title || "-"}
+SEO-Description: ${post.seo_description || "-"}
+Fokus-Keyword: ${post.focus_keyword || "-"}
+${perf ? `Search Console: ${Math.round(perf.impressions)} Impressionen, ${Math.round(perf.clicks)} Klicks, Position ${perf.position.toFixed(1)}.` : ""}
+
+HTML des Artikels:
+${String(post.content || "").slice(0, 22000)}
+
+AUFGABEN
+1. Titel und SEO-Titel (max. 60 Zeichen) sowie SEO-Description (max. 160 Zeichen) klickstärker formulieren – konkret, ohne Clickbait.
+2. Erster Absatz: direkte, snippet-taugliche Antwort (40-60 Wörter).
+3. Bestehende Inhalte behalten und aktualisieren (Zahlen mit Jahresangabe, Förderstand 2026), mindestens EINEN neuen, substanziellen H2-Abschnitt ergänzen.
+4. Mindestens 3 FAQ-Einträge liefern.
+5. Nur diese internen Links verwenden: ${linkableSlugs.slice(0, 20).map((l) => `/blog/${l.slug}`).join(", ")} sowie die Rechner-/Themenrouten der Seite. Keine erfundenen URLs.
+6. HTML nur mit <h2>, <h3>, <p>, <ul>, <li>, <strong>, <table>, <a>. Kein <h1>.
+
+Antworte AUSSCHLIESSLICH mit JSON:
+{"title":"...","seo_title":"...","seo_description":"...","excerpt":"...","content":"<p>...</p>","faq":[{"question":"...","answer":"..."}],"keywords":["..."]}`;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
@@ -116,7 +202,26 @@ serve(async (req) => {
   const { createClient } = await import("npm:@supabase/supabase-js");
   const supabase = createClient(SUPABASE_URL!, SUPABASE_KEY!);
 
-  let runContext: Record<string, unknown> = { mode: "create", model: MODEL };
+  let body: any = {};
+  try {
+    body = await req.json();
+  } catch {
+    body = {};
+  }
+
+  // Evening cron run refreshes an existing article instead of adding a new one.
+  const requestedMode: "create" | "refresh" =
+    body?.mode === "refresh" || body?.mode === "create"
+      ? body.mode
+      : new Date().getUTCHours() >= 12
+        ? "refresh"
+        : "create";
+  const keywordOverride: string | null =
+    typeof body?.focus_keyword === "string" && body.focus_keyword.trim()
+      ? body.focus_keyword.trim()
+      : null;
+
+  let runContext: Record<string, unknown> = { mode: requestedMode, model: MODEL };
 
   const logRun = async (fields: Record<string, unknown>) => {
     try {
@@ -127,6 +232,7 @@ serve(async (req) => {
   };
 
   try {
+
     // 1. Existing posts (duplicate avoidance + link targets)
     const { data: existingPosts, error: postsErr } = await supabase
       .from("blog_posts")
@@ -140,6 +246,69 @@ serve(async (req) => {
     const linkableSlugs = (existingPosts || [])
       .slice(0, 40)
       .map((p: any) => ({ slug: p.slug, title: p.title }));
+
+    // 1b. Refresh mode – improve an existing article instead of adding a new one
+    if (requestedMode === "refresh") {
+      const candidate = await pickRefreshCandidate(supabase);
+      if (!candidate) {
+        console.log("[Auto-Generate] No refresh candidate found – falling back to create mode.");
+        runContext = { ...runContext, mode: "create" };
+      } else {
+        const post = candidate.post;
+        runContext = {
+          ...runContext,
+          category: post.topic,
+          focus_keyword: post.focus_keyword ?? null,
+        };
+
+        const refreshed = await callModel(
+          buildRefreshPrompt(post, candidate.perf, linkableSlugs),
+          `Überarbeite den Artikel "${post.title}" vollständig nach den Vorgaben.`,
+        );
+
+        const issues = validateArticle(refreshed, post.focus_keyword);
+        if (issues.length > 0) {
+          throw new Error(
+            "Refresh-Qualitätsprüfung fehlgeschlagen: " + issues.map((i) => i.message).join("; "),
+          );
+        }
+
+        const linked = sanitizeInternalLinks(refreshed.content || "", existingSlugs);
+        const { content, toc } = syncHeadingsAndToc(linked);
+
+        const { error: updateErr } = await supabase
+          .from("blog_posts")
+          .update({
+            title: refreshed.title || post.title,
+            excerpt: (refreshed.excerpt || post.excerpt || "").slice(0, 200),
+            content,
+            seo_title: (refreshed.seo_title || post.seo_title || "").slice(0, 60) || null,
+            seo_description:
+              (refreshed.seo_description || post.seo_description || "").slice(0, 160) || null,
+            keywords: Array.isArray(refreshed.keywords) ? refreshed.keywords : post.keywords,
+            faq: normalizeFaq(refreshed.faq) ?? undefined,
+            table_of_contents: toc.length > 0 ? JSON.stringify(toc) : null,
+            read_time: estimateReadTime(content),
+            last_refreshed_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", post.id);
+
+        if (updateErr) throw new Error("Database update error: " + updateErr.message);
+
+        console.log(`[Auto-Generate] Refreshed "${post.slug}"`);
+        await logRun({ status: "success", post_slug: post.slug, post_title: refreshed.title || post.title });
+
+        return json({
+          success: true,
+          mode: "refresh",
+          slug: post.slug,
+          title: refreshed.title || post.title,
+          category: post.topic,
+          toc_entries: toc.length,
+        });
+      }
+    }
 
     // 2. Category balancing – pick the least covered category
     const { data: categories, error: catErr } = await supabase.from("blog_categories").select("*");
@@ -158,13 +327,12 @@ serve(async (req) => {
     const topic_name = selectedCategory.name;
     const topic_color = selectedCategory.color || "#2563eb";
 
-    // 3. Search-Console driven keyword focus
-    const { focusKeyword, relatedQueries } = await pickFocusKeyword(
-      supabase,
-      topic_name,
-      existingPosts || [],
-    );
-    runContext = { ...runContext, category: topic_name, focus_keyword: focusKeyword };
+    // 3. Search-Console driven keyword focus (explicit override wins)
+    const picked = await pickFocusKeyword(supabase, topic_name, existingPosts || []);
+    const focusKeyword = keywordOverride ?? picked.focusKeyword;
+    const relatedQueries = keywordOverride ? [] : picked.relatedQueries;
+    runContext = { ...runContext, mode: "create", category: topic_name, focus_keyword: focusKeyword };
+
     console.log(
       `[Auto-Generate] Category: ${topic_name} | Focus keyword: ${focusKeyword ?? "(keine GSC-Daten)"}`,
     );
@@ -240,7 +408,9 @@ serve(async (req) => {
 
     return json({
       success: true,
+      mode: "create",
       slug: row.slug,
+
       title: row.title,
       category: topic_name,
       focus_keyword: focusKeyword,

@@ -15,6 +15,11 @@ export interface BlogPost {
   slug: string;
   hero_image_url?: string;
   cover_url?: string;
+  image_alt?: string | null;
+  image_credit?: string | null;
+  focus_keyword?: string | null;
+  last_refreshed_at?: string | null;
+
   seo_title?: string;
   seo_description?: string;
   keywords?: string[];

@@ -1,11 +1,14 @@
 
-import { Calendar, Clock, FileText } from 'lucide-react';
+import { Calendar, Clock, FileText, RefreshCw } from 'lucide-react';
 import { BlogPost } from '@/hooks/useBlogPosts';
 import { getReadingStats, formatWordCount } from '@/lib/readingStats';
 
 interface BlogPostHeaderProps {
-  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content'>;
+  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content'> & {
+    last_refreshed_at?: string | null;
+  };
 }
+
 
 const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
   const { words, minutes } = getReadingStats(post.content, post.read_time);
@@ -42,12 +45,26 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
           <Clock size={16} />
           <span>{minutes} Min. Lesezeit</span>
         </div>
+        {post.last_refreshed_at && (
+          <div className="flex items-center space-x-2 text-emerald-600">
+            <RefreshCw size={16} />
+            <span>
+              Aktualisiert am{' '}
+              {new Date(post.last_refreshed_at).toLocaleDateString('de-DE', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+          </div>
+        )}
         {words > 0 && (
           <div className="flex items-center space-x-2" title="Wortanzahl des Artikels">
             <FileText size={16} />
             <span>{formatWordCount(words)} Wörter</span>
           </div>
         )}
+
       </div>
 
       <div className="flex items-center space-x-2">
