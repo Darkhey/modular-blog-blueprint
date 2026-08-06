@@ -42,7 +42,9 @@ const Index = () => {
         />
         <DynamicFeaturedGuides />
         <LatestArticlesSection />
+        <PopularSearchTopics />
         <EnergyAdvisorSearch />
+
         <NewsletterSection />
       </main>
     </div>
