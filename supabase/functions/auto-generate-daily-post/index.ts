@@ -1,7 +1,13 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { buildSystemPrompt, parseAiJson, buildInsertRow } from "../_shared/blogPrompt.ts";
-import { validateArticle } from "../_shared/contentStructure.ts";
+import { buildSystemPrompt, parseAiJson, buildInsertRow, normalizeFaq } from "../_shared/blogPrompt.ts";
+import {
+  estimateReadTime,
+  sanitizeInternalLinks,
+  syncHeadingsAndToc,
+  validateArticle,
+} from "../_shared/contentStructure.ts";
+
 import { resolveHeroImage } from "../_shared/heroImage.ts";
 
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
