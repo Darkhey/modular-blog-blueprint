@@ -99,11 +99,16 @@ const LatestArticlesSection = () => {
                     >
                       {post.topic}
                     </span>
-                    {isNew(post.published_at) && (
+                    {isNew(post.published_at) ? (
                       <span className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold bg-amber-400 text-amber-900">
                         NEU
                       </span>
-                    )}
+                    ) : (post as any).last_refreshed_at ? (
+                      <span className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold bg-emerald-500 text-white">
+                        Aktualisiert
+                      </span>
+                    ) : null}
+
                   </div>
                   <div className="p-4 flex flex-col flex-1">
                     <h3 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
