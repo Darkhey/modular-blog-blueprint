@@ -241,6 +241,69 @@ serve(async (req) => {
       .slice(0, 40)
       .map((p: any) => ({ slug: p.slug, title: p.title }));
 
+    // 1b. Refresh mode – improve an existing article instead of adding a new one
+    if (requestedMode === "refresh") {
+      const candidate = await pickRefreshCandidate(supabase);
+      if (!candidate) {
+        console.log("[Auto-Generate] No refresh candidate found – falling back to create mode.");
+        runContext = { ...runContext, mode: "create" };
+      } else {
+        const post = candidate.post;
+        runContext = {
+          ...runContext,
+          category: post.topic,
+          focus_keyword: post.focus_keyword ?? null,
+        };
+
+        const refreshed = await callModel(
+          buildRefreshPrompt(post, candidate.perf, linkableSlugs),
+          `Überarbeite den Artikel "${post.title}" vollständig nach den Vorgaben.`,
+        );
+
+        const issues = validateArticle(refreshed, post.focus_keyword);
+        if (issues.length > 0) {
+          throw new Error(
+            "Refresh-Qualitätsprüfung fehlgeschlagen: " + issues.map((i) => i.message).join("; "),
+          );
+        }
+
+        const linked = sanitizeInternalLinks(refreshed.content || "", existingSlugs);
+        const { content, toc } = syncHeadingsAndToc(linked);
+
+        const { error: updateErr } = await supabase
+          .from("blog_posts")
+          .update({
+            title: refreshed.title || post.title,
+            excerpt: (refreshed.excerpt || post.excerpt || "").slice(0, 200),
+            content,
+            seo_title: (refreshed.seo_title || post.seo_title || "").slice(0, 60) || null,
+            seo_description:
+              (refreshed.seo_description || post.seo_description || "").slice(0, 160) || null,
+            keywords: Array.isArray(refreshed.keywords) ? refreshed.keywords : post.keywords,
+            faq: normalizeFaq(refreshed.faq) ?? undefined,
+            table_of_contents: toc.length > 0 ? JSON.stringify(toc) : null,
+            read_time: estimateReadTime(content),
+            last_refreshed_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", post.id);
+
+        if (updateErr) throw new Error("Database update error: " + updateErr.message);
+
+        console.log(`[Auto-Generate] Refreshed "${post.slug}"`);
+        await logRun({ status: "success", post_slug: post.slug, post_title: refreshed.title || post.title });
+
+        return json({
+          success: true,
+          mode: "refresh",
+          slug: post.slug,
+          title: refreshed.title || post.title,
+          category: post.topic,
+          toc_entries: toc.length,
+        });
+      }
+    }
+
     // 2. Category balancing – pick the least covered category
     const { data: categories, error: catErr } = await supabase.from("blog_categories").select("*");
     if (catErr || !categories?.length) {
