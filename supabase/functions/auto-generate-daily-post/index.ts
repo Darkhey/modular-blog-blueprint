@@ -321,13 +321,12 @@ serve(async (req) => {
     const topic_name = selectedCategory.name;
     const topic_color = selectedCategory.color || "#2563eb";
 
-    // 3. Search-Console driven keyword focus
-    const { focusKeyword, relatedQueries } = await pickFocusKeyword(
-      supabase,
-      topic_name,
-      existingPosts || [],
-    );
-    runContext = { ...runContext, category: topic_name, focus_keyword: focusKeyword };
+    // 3. Search-Console driven keyword focus (explicit override wins)
+    const picked = await pickFocusKeyword(supabase, topic_name, existingPosts || []);
+    const focusKeyword = keywordOverride ?? picked.focusKeyword;
+    const relatedQueries = keywordOverride ? [] : picked.relatedQueries;
+    runContext = { ...runContext, mode: "create", category: topic_name, focus_keyword: focusKeyword };
+
     console.log(
       `[Auto-Generate] Category: ${topic_name} | Focus keyword: ${focusKeyword ?? "(keine GSC-Daten)"}`,
     );
