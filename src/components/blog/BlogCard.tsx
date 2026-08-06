@@ -76,10 +76,14 @@ const BlogCard = ({ post }: BlogCardProps) => {
       <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
         <img
           src={getImage(post)}
-          alt={post.title}
+          alt={post.image_alt || post.title}
+          width={640}
+          height={360}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
+          decoding="async"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
           <span className="text-white text-sm font-medium flex items-center gap-1">
             Weiterlesen <ArrowRight className="w-4 h-4" />
