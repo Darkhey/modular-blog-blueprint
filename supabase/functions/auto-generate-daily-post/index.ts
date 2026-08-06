@@ -408,7 +408,9 @@ serve(async (req) => {
 
     return json({
       success: true,
+      mode: "create",
       slug: row.slug,
+
       title: row.title,
       category: topic_name,
       focus_keyword: focusKeyword,
