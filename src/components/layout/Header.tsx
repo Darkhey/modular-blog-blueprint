@@ -1,7 +1,7 @@
 
 import { useState, useEffect, forwardRef, ElementRef, ComponentPropsWithoutRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Menu } from 'lucide-react';
+import { Zap, Menu, Search } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
 import { calculatorsCatalog, calculatorCategories } from '@/data/calculatorsCatalog';
 import { supabase } from '@/integrations/supabase/client';
