@@ -3,7 +3,7 @@ import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
 import MuuttoBanner from '@/components/home/MuuttoBanner';
-import FeaturedArticleHero from '@/components/home/FeaturedArticleHero';
+import HeroBentoSection from '@/components/home/HeroBentoSection';
 import CalculatorsBentoSection from '@/components/home/CalculatorsBentoSection';
 import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
 import FeaturesSection from '@/components/home/FeaturesSection';
@@ -25,7 +25,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <main>
         <HeroSection />
-        <FeaturedArticleHero />
+        <HeroBentoSection />
         <MuuttoBanner />
         <CalculatorsBentoSection />
         <FeaturedExpertSection />

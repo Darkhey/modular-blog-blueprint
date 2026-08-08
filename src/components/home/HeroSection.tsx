@@ -1,76 +1,96 @@
-
 import { Link } from 'react-router-dom';
 import { ArrowRight, Calculator, BookOpen } from 'lucide-react';
 import { siteConfig } from '@/config/site.config';
-import { useBlogStats } from '@/hooks/useBlogStats';
 
 const HeroSection = () => {
-  const { data: stats } = useBlogStats();
-
   return (
-    <section className="relative min-h-[520px] flex items-center overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900" />
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-emerald-500/40 blur-3xl animate-pulse" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-400/30 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute top-[30%] right-[20%] w-[30%] h-[30%] rounded-full bg-teal-400/20 blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
+    <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900">
+      {/* Soft light accent */}
+      <div
+        className="absolute -top-1/3 left-1/2 h-[70%] w-[85%] -translate-x-1/2 rounded-full bg-emerald-400/20 blur-3xl"
+        aria-hidden="true"
+      />
 
       {/* Grid overlay */}
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
-        backgroundSize: '60px 60px',
-      }} />
+      <div
+        className="absolute inset-0 opacity-[0.05]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px)',
+          backgroundSize: '64px 64px',
+        }}
+      />
 
-      <div className="relative max-w-5xl mx-auto px-4 py-20 text-center z-10">
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-emerald-200 text-sm font-medium px-4 py-1.5 rounded-full mb-6 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          Ihr unabhängiger Sanierungsratgeber
-        </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-4 pb-14 pt-10 sm:px-6 md:pb-20 md:pt-16 lg:px-8">
+        <div className="max-w-2xl">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white backdrop-blur-sm animate-fade-in">
+            <span className="h-2 w-2 rounded-full bg-emerald-300" aria-hidden="true" />
+            Ihr unabhängiger Sanierungsratgeber
+          </div>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight text-shadow-lg animate-fade-in">
-          Sanierung <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-300">smart</span> planen
-        </h1>
+          <h1 className="mb-4 text-[2.1rem] font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl animate-fade-in">
+            Sanierung{' '}
+            <span className="bg-gradient-to-r from-emerald-300 to-cyan-200 bg-clip-text text-transparent">
+              smart
+            </span>{' '}
+            planen
+          </h1>
 
-        <p className="text-lg md:text-xl text-emerald-100/90 mb-10 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '150ms' }}>
-          {siteConfig.siteMeta.description}
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: '300ms' }}>
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 px-8 py-3.5 gradient-primary text-white rounded-xl font-semibold hover:opacity-90 transition-all shadow-glow"
+          <p
+            className="mb-7 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg animate-fade-in"
+            style={{ animationDelay: '120ms' }}
           >
-            <BookOpen className="w-5 h-5" />
-            Ratgeber entdecken
-          </Link>
-          <Link
-            to="/heizkostenrechner"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white/10 backdrop-blur-sm text-white border border-white/20 rounded-xl font-semibold hover:bg-white/20 transition-all"
+            Unabhängige Ratgeber, aktuelle Fördermittel und Rechner für Heizung, Dämmung und Solar.
+          </p>
+
+          <div
+            className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center animate-fade-in"
+            style={{ animationDelay: '220ms' }}
           >
-            <Calculator className="w-5 h-5" />
-            Zum Rechner
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            <Link
+              to="/blog"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-emerald-900 transition-colors hover:bg-emerald-50"
+            >
+              <BookOpen className="h-5 w-5" aria-hidden="true" />
+              Ratgeber entdecken
+            </Link>
+            <Link
+              to="/rechner"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+            >
+              <Calculator className="h-5 w-5" aria-hidden="true" />
+              Zu den Rechnern
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
 
-        {/* Stats badges */}
-        <div className="flex flex-wrap items-center justify-center gap-6 animate-fade-in" style={{ animationDelay: '450ms' }}>
-          <div className="glass rounded-xl px-5 py-3 text-center">
-            <div className="text-2xl font-bold text-white">{stats?.totalPosts ? `${stats.totalPosts}+` : '40+'}</div>
-            <div className="text-xs text-emerald-200">Ratgeber-Artikel</div>
-          </div>
-          <div className="glass rounded-xl px-5 py-3 text-center">
-            <div className="text-2xl font-bold text-white">bis 30%</div>
-            <div className="text-xs text-emerald-200">Energiekosten sparen</div>
-          </div>
-          <div className="glass rounded-xl px-5 py-3 text-center">
-            <div className="text-2xl font-bold text-white">500+</div>
-            <div className="text-xs text-emerald-200">Begleitete Projekte</div>
-          </div>
-        </div>
+        {/* Topic chips */}
+        <nav aria-label="Themen" className="-mx-4 px-4 sm:mx-0 sm:px-0">
+          <ul
+            className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible animate-fade-in"
+            style={{ animationDelay: '320ms', scrollbarWidth: 'none' }}
+          >
+            {siteConfig.contentTopics.map((topic) => (
+              <li key={topic.id} className="shrink-0">
+                <Link
+                  to={topic.seoUrl}
+                  className="inline-flex min-h-[40px] items-center rounded-full border border-white/30 bg-emerald-950/30 px-4 text-sm font-medium text-white transition-colors hover:border-white/60 hover:bg-emerald-950/50"
+                >
+                  {topic.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
+
+      {/* Soft transition into the next section */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-b from-transparent to-background"
+        aria-hidden="true"
+      />
     </section>
   );
 };
