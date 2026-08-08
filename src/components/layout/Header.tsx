@@ -18,6 +18,8 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import HeaderSearchBar from "@/components/layout/HeaderSearchBar";
+
 
 const ListItem = forwardRef<
   ElementRef<typeof Link>,
