@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
 
 const HeroBentoSection = () => {
-  const { data: posts, isLoading } = useRankedPosts(3);
+  const { data: posts, isLoading } = useRankedPosts(4);
 
   const lead = posts?.[0];
   const secondary = posts?.slice(1, 3) ?? [];
@@ -26,7 +26,7 @@ const HeroBentoSection = () => {
         {isLoading ? (
           <div className="grid gap-4 md:grid-cols-3">
             <Skeleton className="h-72 rounded-2xl md:col-span-2" />
-            <div className="grid gap-4">
+            <div className="grid content-start gap-4">
               <Skeleton className="h-[8.5rem] rounded-2xl" />
               <Skeleton className="h-[8.5rem] rounded-2xl" />
             </div>
@@ -69,7 +69,7 @@ const HeroBentoSection = () => {
               </Link>
             )}
 
-            <div className="grid gap-4">
+            <div className="grid content-start gap-4">
               {secondary.map((post) => (
                 <Link
                   key={post.id}
