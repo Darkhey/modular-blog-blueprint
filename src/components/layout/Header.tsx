@@ -317,6 +317,13 @@ const Header = () => {
               </NavigationMenu>
 
               <div className="flex items-center space-x-2 ml-4">
+                <Link
+                  to="/suche"
+                  aria-label="Suche"
+                  className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                >
+                  <Search className="w-4 h-4" />
+                </Link>
                 {profile?.role === 'admin' && (
                   <>
                     <Link to="/admin" className={cn(navigationMenuTriggerStyle(), 'bg-transparent hover:text-primary font-semibold')}>Admin Dashboard</Link>
