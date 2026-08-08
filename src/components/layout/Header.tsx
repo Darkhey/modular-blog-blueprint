@@ -132,22 +132,36 @@ const Header = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center group">
+            <Link to="/" className="flex items-center gap-2.5 group" aria-label="Sanieren & Sparen – Startseite">
               <div className="relative">
                 <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-glow">
                   <Zap className="text-primary-foreground w-5 h-5" />
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
               </div>
+              <span className="hidden sm:flex flex-col leading-none">
+                <span className="text-base font-extrabold tracking-tight text-foreground">
+                  Sanieren <span className="text-primary">&amp;</span> Sparen
+                </span>
+                <span className="text-[11px] font-medium text-muted-foreground">
+                  Ratgeber &amp; Rechner
+                </span>
+              </span>
             </Link>
 
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
+            {/* Mobile actions */}
+            <div className="flex items-center gap-1 lg:hidden">
+              <Button variant="ghost" size="icon" className="h-11 w-11" asChild>
+                <Link to="/suche" aria-label="Suche">
+                  <Search className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-11 w-11" aria-label="Menü öffnen">
+                    <Menu className="w-6 h-6" />
+                  </Button>
+                </SheetTrigger>
               <SheetContent side="left" className="pt-10">
                 <nav className="flex flex-col space-y-4">
                   {siteConfig.navigation.map((item) => (
