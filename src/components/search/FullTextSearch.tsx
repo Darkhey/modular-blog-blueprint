@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ const FullTextSearch = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     // Load search history from localStorage
@@ -26,6 +28,15 @@ const FullTextSearch = () => {
       setSearchHistory(JSON.parse(history));
     }
   }, []);
+
+  const initialQuery = searchParams.get("q") || "";
+  useEffect(() => {
+    if (initialQuery) {
+      setQuery(initialQuery);
+      performSearch(initialQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialQuery]);
 
   const performSearch = async (searchQuery: string) => {
     if (!searchQuery.trim()) {

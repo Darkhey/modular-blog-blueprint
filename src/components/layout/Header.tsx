@@ -18,6 +18,8 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import HeaderSearchBar from "@/components/layout/HeaderSearchBar";
+
 
 const ListItem = forwardRef<
   ElementRef<typeof Link>,
@@ -151,11 +153,7 @@ const Header = () => {
 
             {/* Mobile actions */}
             <div className="flex items-center gap-1 lg:hidden">
-              <Button variant="ghost" size="icon" className="h-11 w-11" asChild>
-                <Link to="/suche" aria-label="Suche">
-                  <Search className="w-5 h-5" />
-                </Link>
-              </Button>
+
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="h-11 w-11" aria-label="Menü öffnen">
@@ -342,7 +340,10 @@ const Header = () => {
               </div>
             </nav>
           </div>
+
+          <HeaderSearchBar />
         </div>
+
       </header>
     </>
   );
