@@ -139,11 +139,11 @@ const Header = () => {
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full animate-pulse" />
               </div>
-              <span className="hidden sm:flex flex-col leading-none">
-                <span className="text-base font-extrabold tracking-tight text-foreground">
+              <span className="flex flex-col leading-none">
+                <span className="text-[15px] sm:text-base font-extrabold tracking-tight text-foreground">
                   Sanieren <span className="text-primary">&amp;</span> Sparen
                 </span>
-                <span className="text-[11px] font-medium text-muted-foreground">
+                <span className="hidden sm:block text-[11px] font-medium text-muted-foreground">
                   Ratgeber &amp; Rechner
                 </span>
               </span>

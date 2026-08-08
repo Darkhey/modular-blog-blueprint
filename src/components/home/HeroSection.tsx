@@ -88,7 +88,7 @@ const HeroSection = () => {
 
       {/* Soft transition into the next section */}
       <div
-        className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-background"
+        className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-b from-transparent to-background"
         aria-hidden="true"
       />
     </section>
