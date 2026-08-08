@@ -340,7 +340,10 @@ const Header = () => {
               </div>
             </nav>
           </div>
+
+          <HeaderSearchBar />
         </div>
+
       </header>
     </>
   );
