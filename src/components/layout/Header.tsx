@@ -227,7 +227,10 @@ const Header = () => {
                   )}
                 </nav>
               </SheetContent>
-            </Sheet>
+              </Sheet>
+            </div>
+
+
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center">
