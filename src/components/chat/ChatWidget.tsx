@@ -91,26 +91,32 @@ export default function ChatWidget() {
         });
 
         if (resp.status === 429) {
-          toast.error("Zu viele Anfragen. Bitte warte einen Moment.");
+          toast.error("Service gerade stark ausgelastet.");
           setMessages((prev) => [
             ...prev,
-            { role: "assistant", content: "⏳ Zu viele Anfragen. Bitte warte einen Moment und versuche es dann erneut." },
+            { role: "assistant", content: "⏳ Der Sanierungshelfer ist gerade stark ausgelastet. Bitte versuche es in ein paar Minuten erneut." },
           ]);
           return;
         }
 
-        if (resp.status === 402) {
-          toast.error("AI-Kontingent vorübergehend erschöpft.");
+        if (resp.status === 402 || resp.status === 503) {
+          toast.error("Service leider nicht verfügbar.");
           setMessages((prev) => [
             ...prev,
-            { role: "assistant", content: "Das AI-Kontingent ist vorübergehend erschöpft. Bitte versuche es später erneut." },
+            { role: "assistant", content: "⚠️ Der Sanierungshelfer ist leider vorübergehend nicht verfügbar. Bitte versuche es später noch einmal – in der Zwischenzeit helfen dir unsere Ratgeber und Rechner weiter." },
           ]);
           return;
         }
 
         if (!resp.ok || !resp.body) {
-          throw new Error("Stream failed");
+          toast.error("Service leider nicht verfügbar.");
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: "⚠️ Der Sanierungshelfer ist leider gerade nicht verfügbar. Bitte versuche es später noch einmal." },
+          ]);
+          return;
         }
+
 
         const reader = resp.body.getReader();
         const decoder = new TextDecoder();
@@ -159,10 +165,12 @@ export default function ChatWidget() {
         }
       } catch (e) {
         console.error("Chat error:", e);
+        toast.error("Service leider nicht verfügbar.");
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "Entschuldigung, es gab einen Fehler. Bitte versuche es erneut." },
+          { role: "assistant", content: "⚠️ Der Sanierungshelfer ist leider gerade nicht verfügbar. Bitte versuche es später noch einmal." },
         ]);
+
       } finally {
         setIsLoading(false);
       }

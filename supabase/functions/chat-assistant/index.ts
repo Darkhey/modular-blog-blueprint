@@ -190,7 +190,7 @@ ${articleContext}`;
         });
       }
       if (aiResponse.status === 402) {
-        return new Response(JSON.stringify({ error: "AI-Kontingent erschöpft. Bitte später erneut versuchen." }), {
+        return new Response(JSON.stringify({ error: "Service leider nicht verfügbar. Bitte später erneut versuchen." }), {
           status: 402,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
