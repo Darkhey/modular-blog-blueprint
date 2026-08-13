@@ -165,10 +165,12 @@ export default function ChatWidget() {
         }
       } catch (e) {
         console.error("Chat error:", e);
+        toast.error("Service leider nicht verfügbar.");
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: "Entschuldigung, es gab einen Fehler. Bitte versuche es erneut." },
+          { role: "assistant", content: "⚠️ Der Sanierungshelfer ist leider gerade nicht verfügbar. Bitte versuche es später noch einmal." },
         ]);
+
       } finally {
         setIsLoading(false);
       }
