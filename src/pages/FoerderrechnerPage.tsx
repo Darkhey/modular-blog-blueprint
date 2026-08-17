@@ -342,7 +342,42 @@ Eigenanteil = Investition − Zuschuss
                 <p className="text-xs">Richtwerte nach BEG-EM 2026 – der Bewilligungsbescheid kann abweichen.</p>
               </AccordionContent>
             </AccordionItem>
+
+            <AccordionItem value="begriffe">
+              <AccordionTrigger className="text-base font-semibold">Begriffe kurz erklärt</AccordionTrigger>
+              <AccordionContent className="space-y-4 text-sm text-muted-foreground">
+                <dl className="space-y-4">
+                  {FOERDER_BEGRIFFE.map((b) => (
+                    <div key={b.id}>
+                      <dt className="font-semibold text-foreground">{b.term}</dt>
+                      <dd className="mt-1">{b.long}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <Button asChild variant="outline" size="sm"><Link to="/glossar">Zum großen Sanierungs-Glossar</Link></Button>
+                  <Button asChild variant="outline" size="sm"><Link to="/foerdermittel/regional">Regionale Förderprogramme</Link></Button>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
           </Accordion>
+
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'DefinedTermSet',
+                name: 'Förderbegriffe der energetischen Sanierung',
+                url: 'https://sanierenundsparen.de/foerderrechner',
+                hasDefinedTerm: FOERDER_BEGRIFFE.map((b) => ({
+                  '@type': 'DefinedTerm',
+                  name: b.term,
+                  description: b.long,
+                })),
+              })}
+            </script>
+          </Helmet>
+
 
 
 
