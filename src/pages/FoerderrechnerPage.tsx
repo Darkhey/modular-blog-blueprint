@@ -253,18 +253,59 @@ const FoerderrechnerPage = () => {
                   <div className="text-sm text-muted-foreground mt-2">≙ {result.prozent}% der förderfähigen Kosten</div>
                 </div>
                 <dl className="text-sm space-y-2">
-                  <div className="flex justify-between"><dt>Investition</dt><dd className="font-medium">{formatEuro(result.investition)}</dd></div>
-                  <div className="flex justify-between"><dt>Förderfähig (Deckel)</dt><dd>{formatEuro(result.foerderfaehig)}</dd></div>
-                  <div className="flex justify-between"><dt>BAFA / KfW Zuschuss</dt><dd>{formatEuro(result.bafaZuschuss)}</dd></div>
+                  <div className="flex justify-between gap-2"><dt>Investition</dt><dd className="font-medium">{formatEuro(result.investition)}</dd></div>
+                  <div className="flex justify-between gap-2">
+                    <dt className="flex items-center gap-1">
+                      Förderfähig (Deckel)
+                      <InfoHint label="Was bedeutet der Kostendeckel?">{hint('kostendeckel')}</InfoHint>
+                    </dt>
+                    <dd>{formatEuro(result.foerderfaehig)}</dd>
+                  </div>
+                  <div className="flex justify-between gap-2">
+                    <dt className="flex items-center gap-1">
+                      BAFA / KfW Zuschuss
+                      <InfoHint label="Wer zahlt BAFA- und KfW-Zuschüsse?">{hint('bafa-kfw')}</InfoHint>
+                    </dt>
+                    <dd>{formatEuro(result.bafaZuschuss)}</dd>
+                  </div>
                   {result.emZuschlag > 0 && (
-                    <div className="flex justify-between"><dt>Emissionsminderungs-Zuschlag</dt><dd>{formatEuro(result.emZuschlag)}</dd></div>
+                    <div className="flex justify-between gap-2">
+                      <dt className="flex items-center gap-1">
+                        Emissionsminderungs-Zuschlag
+                        <InfoHint label="Was ist der Emissionsminderungs-Zuschlag?">{hint('em-zuschlag')}</InfoHint>
+                      </dt>
+                      <dd>{formatEuro(result.emZuschlag)}</dd>
+                    </div>
                   )}
-                  <div className="flex justify-between"><dt>Regional ({bundesland})</dt><dd>{formatEuro(result.regional)}</dd></div>
-                  <div className="flex justify-between border-t pt-2"><dt className="font-semibold">Eigenanteil</dt><dd className="font-semibold">{formatEuro(result.eigen)}</dd></div>
+                  <div className="flex justify-between gap-2">
+                    <dt className="flex items-center gap-1">
+                      Regional ({bundesland})
+                      <InfoHint label="Was ist der regionale Top-up?">{hint('regional')}</InfoHint>
+                    </dt>
+                    <dd>{formatEuro(result.regional)}</dd>
+                  </div>
+                  <div className="flex justify-between gap-2 border-t pt-2">
+                    <dt className="font-semibold flex items-center gap-1">
+                      Eigenanteil
+                      <InfoHint label="Was ist der Eigenanteil?">{hint('eigenanteil')}</InfoHint>
+                    </dt>
+                    <dd className="font-semibold">{formatEuro(result.eigen)}</dd>
+                  </div>
                 </dl>
+                {result.foerderfaehig < result.investition && (
+                  <div className="flex gap-2 text-xs bg-amber-500/10 text-amber-900 dark:text-amber-200 p-3 rounded-lg">
+                    <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+                    <span>
+                      Ihre Investition liegt über dem Kostendeckel von {formatEuro(result.foerderfaehig)}.
+                      Die {formatEuro(result.investition - result.foerderfaehig)} darüber werden nicht bezuschusst
+                      und erhöhen den Eigenanteil in voller Höhe.
+                    </span>
+                  </div>
+                )}
                 <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
                   <strong>Hinweis:</strong> {result.m.hint}
                 </div>
+
                 <div className="grid grid-cols-2 gap-2">
                   <Button asChild variant="outline" size="sm"><a href="/foerdermittel"><Euro className="w-4 h-4 mr-1" /> Programme</a></Button>
                   <Button asChild size="sm">
