@@ -15,8 +15,14 @@ import ResultsPDFExport from '@/components/shared/ResultsPDFExport';
 import { useShareableInputs } from '@/hooks/useShareableInputs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
+import InfoHint from '@/components/calculators/shared/InfoHint';
+import { FOERDER_BEGRIFFE, getFoerderBegriff } from '@/data/foerderGlossar';
+import { Link } from 'react-router-dom';
 import { BEG_2026, REGIONALE_TOPUPS_2026 } from '@/data/energyPrices2026';
-import { Euro, ArrowRight, Sparkles } from 'lucide-react';
+import { Euro, ArrowRight, Sparkles, AlertTriangle } from 'lucide-react';
+
+const hint = (id: string) => getFoerderBegriff(id)?.short ?? '';
+
 
 type MassnahmeId =
   | 'waermepumpe'
