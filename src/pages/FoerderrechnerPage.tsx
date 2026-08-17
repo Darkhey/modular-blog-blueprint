@@ -161,7 +161,10 @@ const FoerderrechnerPage = () => {
               </CardHeader>
               <CardContent className="space-y-5">
                 <div>
-                  <Label>Maßnahme</Label>
+                  <div className="flex items-center gap-1">
+                    <Label>Maßnahme</Label>
+                    <InfoHint label="Was bedeutet die Auswahl der Maßnahme?">{hint('massnahme')}</InfoHint>
+                  </div>
                   <Select value={massnahme} onValueChange={(v) => setMassnahme(v as MassnahmeId)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -172,11 +175,17 @@ const FoerderrechnerPage = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label htmlFor={kostenId}>Investitionskosten (EUR)</Label>
+                  <div className="flex items-center gap-1">
+                    <Label htmlFor={kostenId}>Investitionskosten (EUR)</Label>
+                    <InfoHint label="Welche Kosten sind förderfähig?">{hint('investitionskosten')}</InfoHint>
+                  </div>
                   <Input id={kostenId} type="number" min={0} value={kosten} onChange={(e) => setKosten(e.target.value)} />
                 </div>
                 <div>
-                  <Label>Bundesland</Label>
+                  <div className="flex items-center gap-1">
+                    <Label>Bundesland</Label>
+                    <InfoHint label="Wozu dient die Auswahl des Bundeslands?">{hint('regional')}</InfoHint>
+                  </div>
                   <Select value={bundesland} onValueChange={(v) => setBundesland(v)}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -185,33 +194,49 @@ const FoerderrechnerPage = () => {
                   </Select>
                 </div>
                 <div className="space-y-3 pt-2 border-t">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="selbst">Selbstnutzer (Wohneigentum)</Label>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1 min-w-0">
+                      <Label htmlFor="selbst">Selbstnutzer (Wohneigentum)</Label>
+                      <InfoHint label="Wer gilt als Selbstnutzer?">{hint('selbstnutzer')}</InfoHint>
+                    </div>
                     <Switch id="selbst" checked={selbstnutzer} onCheckedChange={setSelbstnutzer} />
                   </div>
                   {result.isHeizung && (
                     <>
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="klima">Klimageschwindigkeitsbonus (+20 %)</Label>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1 min-w-0">
+                          <Label htmlFor="klima">Klimageschwindigkeitsbonus (+20 %)</Label>
+                          <InfoHint label="Was ist der Klimageschwindigkeitsbonus?">{hint('klimabonus')}</InfoHint>
+                        </div>
                         <Switch id="klima" checked={klimaBonus} onCheckedChange={setKlimaBonus} />
                       </div>
                       {massnahme === 'waermepumpe' && (
-                        <div className="flex items-center justify-between">
-                          <Label htmlFor="eff">Effizienzbonus Sole/Wasser (+5 %)</Label>
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-1 min-w-0">
+                            <Label htmlFor="eff">Effizienzbonus Sole/Wasser (+5 %)</Label>
+                            <InfoHint label="Was ist der Effizienzbonus?">{hint('effizienzbonus')}</InfoHint>
+                          </div>
                           <Switch id="eff" checked={effizienzBonus} onCheckedChange={setEffizienzBonus} />
                         </div>
                       )}
-                      <div className="flex items-center justify-between">
-                        <Label htmlFor="eink">Einkommensbonus (zvE ≤ 40.000 €/a, +30 %)</Label>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1 min-w-0">
+                          <Label htmlFor="eink">Einkommensbonus (zvE ≤ 40.000 €/a, +30 %)</Label>
+                          <InfoHint label="Was ist der Einkommensbonus?">{hint('einkommensbonus')}</InfoHint>
+                        </div>
                         <Switch id="eink" checked={einkommensBonus} onCheckedChange={setEinkommensBonus} />
                       </div>
                     </>
                   )}
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="isfp">iSFP vorhanden (+5 %, nur Hülle)</Label>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1 min-w-0">
+                      <Label htmlFor="isfp">iSFP vorhanden (+5 %, nur Hülle)</Label>
+                      <InfoHint label="Was ist ein iSFP?">{hint('isfp')}</InfoHint>
+                    </div>
                     <Switch id="isfp" checked={isfp} onCheckedChange={setIsfp} />
                   </div>
                 </div>
+
               </CardContent>
             </Card>
 
