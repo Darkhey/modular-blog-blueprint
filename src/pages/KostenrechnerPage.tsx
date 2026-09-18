@@ -485,7 +485,7 @@ Eigenanteil  = Bruttokosten − Förderung
                   <li><strong>Förderquote:</strong> BAFA-Sätze (Einzelmaßnahmen Hülle 15 % + 5 % iSFP) bzw. KfW 458 Heizung (30 % Sockel, bis 70 % mit Boni).</li>
                   <li><strong>Deckel:</strong> 60.000 €/Wohneinheit (Hülle, Fenster, Anlagentechnik), 70.000 € (Heizung), Solar ohne Direktzuschuss.</li>
                   <li>Mehrere Gewerke werden additiv summiert; Deckelung erfolgt pro Gewerk.</li>
-                  <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/regionale-foerderung" className="text-primary underline">regionale Förderkarte</Link>.</li>
+                  <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/foerdermittel/regional" className="text-primary underline">regionale Förderkarte</Link>.</li>
                 </ul>
                 <p className="text-xs">
                   Stand: 2025. Verbindliche Kostenangebote nur durch zertifizierte Energieberater und Fachbetriebe.

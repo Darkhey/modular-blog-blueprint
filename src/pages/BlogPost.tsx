@@ -92,7 +92,6 @@ const BlogPost = () => {
     <>
       <ReadingProgress />
       <BlogPostSEO post={post} canonicalUrl={`${siteConfig.siteUrl}/blog/${post.slug}`} />
-      <BlogPostContentSEO post={post} />
       <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
         <div className="container max-w-5xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
