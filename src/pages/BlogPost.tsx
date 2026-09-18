@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useBlogPost } from "@/hooks/useBlogPosts";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
-import BlogPostContentSEO from "@/components/blog/post/BlogPostContentSEO";
 import BlogPostNotFound from "@/components/blog/post/BlogPostNotFound";
 import BlogPostSkeleton from "@/components/blog/post/BlogPostSkeleton";
 import BlogPostSidebar from "@/components/blog/post/BlogPostSidebar";
