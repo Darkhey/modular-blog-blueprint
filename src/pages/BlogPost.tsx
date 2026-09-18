@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useBlogPost } from "@/hooks/useBlogPosts";
 import BlogPostHeader from "@/components/blog/post/BlogPostHeader";
-import BlogPostContentSEO from "@/components/blog/post/BlogPostContentSEO";
 import BlogPostNotFound from "@/components/blog/post/BlogPostNotFound";
 import BlogPostSkeleton from "@/components/blog/post/BlogPostSkeleton";
 import BlogPostSidebar from "@/components/blog/post/BlogPostSidebar";
@@ -92,7 +91,6 @@ const BlogPost = () => {
     <>
       <ReadingProgress />
       <BlogPostSEO post={post} canonicalUrl={`${siteConfig.siteUrl}/blog/${post.slug}`} />
-      <BlogPostContentSEO post={post} />
       <div className="min-h-screen bg-gradient-to-b from-secondary/30 to-background">
         <div className="container max-w-5xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
