@@ -146,6 +146,8 @@ serve(async (req) => {
       period: { start: iso(start), end: iso(end) },
       queries: (queries.rows || []).length,
       pages: (pages.rows || []).length,
+      blog_query_pages: (blogQueryPages.rows || []).length,
+      regional_queries: (regional.rows || []).length,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
