@@ -1,20 +1,14 @@
 import AdSenseDisplay from './AdSenseDisplay';
+import { siteConfig } from '@/config/site.config';
 
-interface InArticleAdProps {
-  className?: string;
-}
-
-export default function InArticleAd({ className = '' }: InArticleAdProps) {
+export default function InArticleAd({ className = '' }: { className?: string }) {
   return (
-    <div className={`my-8 flex justify-center ${className}`}>
-      <AdSenseDisplay
-        adSlot="1234567890" // Replace with actual ad slot
-        adFormat="auto"
-        adStyle={{
-          display: 'block'
-        }}
-        className="max-w-full"
-      />
-    </div>
+    <AdSenseDisplay
+      adSlot={siteConfig.adSlots.inArticle}
+      adFormat="fluid"
+      adLayout="in-article"
+      minHeight={160}
+      className={`max-w-2xl mx-auto my-10 ${className}`}
+    />
   );
 }

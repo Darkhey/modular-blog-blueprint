@@ -6,7 +6,6 @@ import { BlogPost } from '@/hooks/useBlogPosts';
 import TableOfContents from './TableOfContents';
 import QuickFacts from './QuickFacts';
 import SidebarAd from '@/components/ads/SidebarAd';
-import NativeAd from '@/components/ads/NativeAd';
 
 interface BlogPostSidebarProps {
   post: BlogPost;
@@ -20,7 +19,6 @@ const BlogPostSidebar = ({ post }: BlogPostSidebarProps) => {
       <TableOfContents tableOfContents={tableOfContents} />
       <SidebarAd />
       <QuickFacts post={post} />
-      <NativeAd title="Weitere Sanierungstipps" />
 
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
