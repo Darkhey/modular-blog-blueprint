@@ -56,6 +56,91 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://sanierenundsparen.de/kernsanierung-kosten-rechner</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/baden-wuerttemberg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/bayern</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/berlin</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/brandenburg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/bremen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/hamburg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/hessen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/mecklenburg-vorpommern</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/niedersachsen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/nordrhein-westfalen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/rheinland-pfalz</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/saarland</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/sachsen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/sachsen-anhalt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/schleswig-holstein</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/foerdermittel/regional/thueringen</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sanierenundsparen.de/daemmung-isolierung</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -1374,13 +1459,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/grauwasser-recycling-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/infrarotheizung-altbau-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/infrarotheizung-altbau-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/grauwasser-recycling-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1392,13 +1477,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/waermepumpe-planung-installation-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/regenwasser-nutzen-leitfaden-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/regenwasser-nutzen-leitfaden-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/waermepumpe-planung-installation-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1416,12 +1501,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/kellerdecke-daemmen-anleitung-2025</loc>
-    <lastmod>2025-06-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://sanierenundsparen.de/blog/zellulosedaemmung-nachhaltig-daemmen</loc>
     <lastmod>2025-06-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -1430,6 +1509,12 @@
   <url>
     <loc>https://sanierenundsparen.de/blog/effektive-daemmung-ratgeber</loc>
     <lastmod>2025-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/kellerdecke-daemmen-anleitung-2025</loc>
+    <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
