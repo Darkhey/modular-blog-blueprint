@@ -264,12 +264,15 @@ serve(async (req) => {
   }
 
   // Evening cron run refreshes an existing article instead of adding a new one.
-  const requestedMode: "create" | "refresh" =
-    body?.mode === "refresh" || body?.mode === "create"
-      ? body.mode
-      : new Date().getUTCHours() >= 12
-        ? "refresh"
-        : "create";
+  // Quality over quantity: scheduled morning runs only create new articles on
+  // Mon/Wed/Fri/Sat; on other days they refresh an existing article instead.
+  const explicitMode = body?.mode === "refresh" || body?.mode === "create";
+  const createDay = [1, 3, 5, 6].includes(new Date().getUTCDay());
+  const requestedMode: "create" | "refresh" = explicitMode
+    ? body.mode
+    : new Date().getUTCHours() >= 12 || !createDay
+      ? "refresh"
+      : "create";
   const keywordOverride: string | null =
     typeof body?.focus_keyword === "string" && body.focus_keyword.trim()
       ? body.focus_keyword.trim()
