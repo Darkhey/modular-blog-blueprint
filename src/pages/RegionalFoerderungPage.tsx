@@ -36,7 +36,7 @@ const RegionalFoerderungPage = () => {
     '@type': 'WebPage',
     name: 'Regionale Fördermittel Deutschland – Interaktive Karte',
     description: 'Finden Sie regionale Förderprogramme für energetische Sanierung in Ihrem Bundesland. Interaktive Karte mit allen 16 Bundesländern.',
-    url: 'https://www.sanierenundsparen.de/foerdermittel/regional',
+    url: 'https://sanierenundsparen.de/foerdermittel/regional',
   };
 
   return (
@@ -44,7 +44,7 @@ const RegionalFoerderungPage = () => {
       <Helmet>
         <title>Regionale Fördermittel nach Bundesland | sanierenundsparen.de</title>
         <meta name="description" content="Interaktive Karte: Finden Sie Förderprogramme für energetische Sanierung in Ihrem Bundesland. Zuschüsse, Kredite und Beratung in allen 16 Bundesländern." />
-        <link rel="canonical" href="https://www.sanierenundsparen.de/foerdermittel/regional" />
+        <link rel="canonical" href="https://sanierenundsparen.de/foerdermittel/regional" />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
@@ -135,6 +135,11 @@ const RegionalFoerderungPage = () => {
                         <Button asChild variant="outline" size="sm">
                           <Link to="/foerdermittel">← Alle Fördermittel</Link>
                         </Button>
+                        {bundesland && (
+                          <Button asChild variant="secondary" size="sm">
+                            <Link to={`/foerdermittel/regional/${bundesland.id}`}>Alle Infos: Förderung {bundesland.name}</Link>
+                          </Button>
+                        )}
                         <Button asChild size="sm">
                           <Link to="/foerderrechner">Förderrechner starten</Link>
                         </Button>

@@ -20,6 +20,8 @@ const EnergieCheckPage = lazy(() => import("./pages/EnergieCheckPage"));
 const ROIRechnerPage = lazy(() => import("./pages/ROIRechnerPage"));
 import DaemmungsrechnerPage from "./pages/DaemmungsrechnerPage";
 const WdvsKostenRechnerPage = lazy(() => import("./pages/WdvsKostenRechnerPage"));
+const KernsanierungKostenRechnerPage = lazy(() => import("./pages/KernsanierungKostenRechnerPage"));
+const BundeslandFoerderungPage = lazy(() => import("./pages/BundeslandFoerderungPage"));
 const DachdaemmungKostenRechnerPage = lazy(() => import("./pages/DachdaemmungKostenRechnerPage"));
 import DaemmungIsolierungPage from "./pages/DaemmungIsolierungPage";
 import HeizkostenrechnerPage from "./pages/HeizkostenrechnerPage";
@@ -96,11 +98,13 @@ function App() {
                   <Route path="/themen/:categorySlug" element={<CategoryPage />} />
                   <Route path="/foerdermittel" element={<FoerdermittelPage />} />
                   <Route path="/foerdermittel/regional" element={<RegionalFoerderungPage />} />
+                  <Route path="/foerdermittel/regional/:slug" element={<BundeslandFoerderungPage />} />
                   <Route path="/foerderrechner" element={<FoerderrechnerPage />} />
                   <Route path="/energie-check" element={<EnergieCheckPage />} />
                   <Route path="/roi-rechner" element={<ROIRechnerPage />} />
                   <Route path="/daemmungsrechner" element={<DaemmungsrechnerPage />} />
                   <Route path="/wdvs-kosten-rechner" element={<WdvsKostenRechnerPage />} />
+                  <Route path="/kernsanierung-kosten-rechner" element={<KernsanierungKostenRechnerPage />} />
                   <Route path="/dachdaemmung-kosten-rechner" element={<DachdaemmungKostenRechnerPage />} />
                   <Route path="/daemmung-isolierung" element={<DaemmungIsolierungPage />} />
                   <Route path="/heizkostenrechner" element={<HeizkostenrechnerPage />} />

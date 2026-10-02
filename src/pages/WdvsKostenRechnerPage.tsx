@@ -163,6 +163,10 @@ const WdvsKostenRechnerPage = () => {
             Mehr zum Thema:{' '}
             <Link to="/daemmung-isolierung" className="text-primary hover:underline font-medium">
               Dämmung &amp; Isolierung im Überblick
+            </Link>
+            ,{' '}
+            <Link to="/dachdaemmung-kosten-rechner" className="text-primary hover:underline font-medium">
+              Dachdämmung Kosten berechnen
             </Link>{' '}
             oder{' '}
             <Link to="/foerderrechner" className="text-primary hover:underline font-medium inline-flex items-center gap-1">

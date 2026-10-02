@@ -2,6 +2,8 @@
 // (scripts/prerender-head.ts). Muss mit den Helmet-Tags der jeweiligen Seite
 // übereinstimmen.
 
+import { bundeslaender } from '../src/data/regionalFoerderung';
+
 export interface RouteMeta {
   path: string;
   title: string;
@@ -17,9 +19,9 @@ export const routeMeta: RouteMeta[] = [
   },
   {
     path: '/rechner',
-    title: 'Sanierungsrechner 2026 – alle Rechner & Tools im Überblick',
+    title: 'Sanierungsrechner kostenlos 2026 – alle Rechner & Tools',
     description:
-      'Alle kostenlosen Rechner für Heizung, Dämmung, Solar, Förderung und ROI auf einen Blick – sofort online nutzbar.',
+      'Kostenloser Sanierungsrechner ohne Anmeldung: Sanierungskosten, Heizung, Dämmung, Solar, Förderung und Amortisation sofort online berechnen.',
   },
   {
     path: '/heizkostenrechner',
@@ -47,9 +49,9 @@ export const routeMeta: RouteMeta[] = [
   },
   {
     path: '/kostenrechner',
-    title: 'Sanierungskosten-Rechner 2026 – Kosten aller Gewerke berechnen',
+    title: 'Sanierungskosten Rechner 2026 – Kosten aller Gewerke berechnen',
     description:
-      'Sanierungskosten für Dach, Fassade, Fenster, Heizung und mehr kalkulieren – inkl. Förderung und PDF-Export.',
+      'Sanierungskosten online berechnen: Dach, Fassade, Fenster und Heizung kombinieren, Förderung abziehen und als PDF speichern – kostenlos.',
   },
   {
     path: '/rechner/kombi',
@@ -140,4 +142,15 @@ export const routeMeta: RouteMeta[] = [
     title: 'Kontakt – Sanieren & Sparen',
     description: 'Fragen zu Sanierung, Förderung oder unseren Rechnern? Schreiben Sie uns.',
   },
+  {
+    path: '/kernsanierung-kosten-rechner',
+    title: 'Kernsanierung Kosten Rechner 2026 – Preis pro m² berechnen',
+    description:
+      'Kernsanierung Kosten pro m² berechnen: Einfach, Standard oder gehoben – mit Kostenaufteilung nach Gewerken und möglicher Förderung. Kostenlos online.',
+  },
+  ...bundeslaender.map((b) => ({
+    path: `/foerdermittel/regional/${b.id}`,
+    title: `Förderung ${b.name} 2026 – Sanierung, Wärmepumpe & PV`,
+    description: `Förderprogramme in ${b.name} für Sanierung, Heizung und Photovoltaik – Landesprogramme plus BAFA/KfW kombiniert im Überblick.`,
+  })),
 ];

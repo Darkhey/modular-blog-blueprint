@@ -1,6 +1,7 @@
 // Generates public/sitemap.xml. Runs via predev/prebuild npm hooks.
 import { writeFileSync } from "fs";
 import { resolve } from "path";
+import { bundeslaender } from "../src/data/regionalFoerderung";
 
 const BASE_URL = "https://sanierenundsparen.de";
 const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
@@ -26,6 +27,8 @@ const staticRoutes: Entry[] = [
   { path: "/daemmungsrechner", changefreq: "monthly", priority: "0.7" },
   { path: "/wdvs-kosten-rechner", changefreq: "monthly", priority: "0.8" },
   { path: "/dachdaemmung-kosten-rechner", changefreq: "monthly", priority: "0.8" },
+  { path: "/kernsanierung-kosten-rechner", changefreq: "monthly", priority: "0.8" },
+  ...bundeslaender.map((b) => ({ path: `/foerdermittel/regional/${b.id}`, changefreq: "monthly", priority: "0.6" })),
   { path: "/daemmung-isolierung", changefreq: "weekly", priority: "0.9" },
   { path: "/heizkostenrechner", changefreq: "monthly", priority: "0.7" },
   { path: "/rechner-vergleich", changefreq: "monthly", priority: "0.7" },
