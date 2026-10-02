@@ -41,6 +41,12 @@ export const siteConfig = {
   
   // Werbung (Google AdSense Auto Ads aktiviert)
   adsEnabled: true,
+  // Echte Anzeigenblock-IDs aus AdSense (Anzeigen → Nach Anzeigenblock).
+  // Leer = an dieser Stelle keine feste Anzeige; Auto Ads übernehmen.
+  adSlots: {
+    inArticle: '',
+    sidebar: '',
+  },
   adsSettings: {
     positions: {
       afterParagraph: true,
