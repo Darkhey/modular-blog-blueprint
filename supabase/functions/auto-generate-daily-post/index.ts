@@ -34,36 +34,76 @@ function json(body: unknown, status = 200) {
  * Picks a keyword with real, unrealised demand: high impressions, weak
  * position and no existing article that already targets it.
  */
+const BUNDESLAENDER = [
+  "baden-württemberg", "bayern", "berlin", "brandenburg", "bremen", "hamburg", "hessen",
+  "mecklenburg", "niedersachsen", "nordrhein-westfalen", "nrw", "rheinland-pfalz",
+  "saarland", "sachsen", "sachsen-anhalt", "schleswig-holstein", "thüringen",
+];
+const isRegional = (q: string) => {
+  const s = q.toLowerCase();
+  return BUNDESLAENDER.some((b) => s.includes(b)) || /\b(regional|landesförder|kommunal)/.test(s);
+};
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9äöüß]+/g, " ").trim();
+
 async function pickFocusKeyword(supabase: any, topicName: string, existingPosts: any[]) {
-  const { data } = await supabase
-    .from("search_console_stats")
-    .select("query, impressions, clicks, position")
-    .eq("dimension", "query")
-    .gte("impressions", 5)
-    .gte("position", 8)
-    .order("impressions", { ascending: false })
-    .limit(150);
+  const [{ data }, { data: posts }, { data: ranked }] = await Promise.all([
+    supabase
+      .from("search_console_stats")
+      .select("query, impressions, clicks, position, dimension")
+      .in("dimension", ["query", "regional_query"])
+      .gte("impressions", 5)
+      .gte("position", 8)
+      .order("impressions", { ascending: false })
+      .limit(250),
+    supabase.from("blog_posts").select("title, focus_keyword, keywords").eq("status", "published"),
+    // Queries for which a blog article already ranks on page 1 count as covered.
+    supabase
+      .from("search_console_stats")
+      .select("query")
+      .eq("dimension", "query_page")
+      .lt("position", 8)
+      .limit(1000),
+  ]);
 
   if (!data?.length) return { focusKeyword: null as string | null, relatedQueries: [] as string[] };
 
-  const titles = (existingPosts || []).map((p: any) => (p.title || "").toLowerCase());
-  const covered = (q: string) => titles.some((t: string) => t.includes(q.toLowerCase()));
+  const coveredTexts = [
+    ...(existingPosts || []).map((p: any) => p.title || ""),
+    ...(posts || []).flatMap((p: any) => [p.title || "", p.focus_keyword || "", ...(p.keywords || [])]),
+  ].map(norm).filter(Boolean);
+  const rankedSet = new Set((ranked || []).map((r: any) => norm(r.query || "")));
+  const covered = (q: string) => {
+    const n = norm(q);
+    return rankedSet.has(n) || coveredTexts.some((t) => t === n || t.includes(n));
+  };
 
-  const candidates = data.filter((row: any) => row.query && !covered(row.query));
+  // Deduplicate (a query can appear both as query and regional_query).
+  const seen = new Set<string>();
+  const candidates = data.filter((row: any) => {
+    if (!row.query || covered(row.query)) return false;
+    const n = norm(row.query);
+    if (seen.has(n)) return false;
+    seen.add(n);
+    return true;
+  });
   if (candidates.length === 0) return { focusKeyword: null, relatedQueries: [] };
 
-  // Prefer candidates that thematically match the selected category.
   const topicTokens = topicName.toLowerCase().split(/[^a-zäöüß]+/).filter((t) => t.length > 4);
+  const isFoerderTopic = /förder|zuschuss|finanz/i.test(topicName);
   const matching = candidates.filter((row: any) =>
-    topicTokens.some((token) => row.query.toLowerCase().includes(token.slice(0, 6))),
+    topicTokens.some((token) => row.query.toLowerCase().includes(token.slice(0, 6))) ||
+    (isFoerderTopic && (row.dimension === "regional_query" || isRegional(row.query))),
   );
   const pool = matching.length > 0 ? matching : candidates;
   const chosen = pool[0];
 
+  // For regional queries, prefer related queries from the same region context.
+  const regional = isRegional(chosen.query);
   const related = pool
-    .slice(1, 8)
-    .map((r: any) => r.query)
-    .filter((q: string) => q !== chosen.query);
+    .filter((r: any) => r.query !== chosen.query && (!regional || isRegional(r.query)))
+    .slice(0, 7)
+    .map((r: any) => r.query);
+  if (regional) related.push("regionale Förderprogramme Bundesland (intern verlinken: /foerdermittel/regional)");
 
   return { focusKeyword: chosen.query as string, relatedQueries: related as string[] };
 }

@@ -93,45 +93,39 @@ serve(async (req) => {
     const start = new Date(end.getTime() - 27 * 86_400_000);
     const iso = (d: Date) => d.toISOString().slice(0, 10);
 
-    const [queries, pages] = await Promise.all([
-      query(siteUrl, {
-        startDate: iso(start),
-        endDate: iso(end),
-        dimensions: ["query"],
-        rowLimit: 500,
-      }),
-      query(siteUrl, {
-        startDate: iso(start),
-        endDate: iso(end),
-        dimensions: ["page"],
-        rowLimit: 500,
-      }),
+    const range = { startDate: iso(start), endDate: iso(end) };
+    const pageFilter = (expression: string) => ({
+      dimensionFilterGroups: [{ filters: [{ dimension: "page", operator: "contains", expression }] }],
+    });
+
+    const [queries, pages, blogQueryPages, regional] = await Promise.all([
+      query(siteUrl, { ...range, dimensions: ["query"], rowLimit: 500 }),
+      query(siteUrl, { ...range, dimensions: ["page"], rowLimit: 500 }),
+      // Which query ranks with which blog article — used to detect covered keywords.
+      query(siteUrl, { ...range, dimensions: ["query", "page"], rowLimit: 2000, ...pageFilter("/blog/") }),
+      // Queries landing on the regional funding map.
+      query(siteUrl, { ...range, dimensions: ["query"], rowLimit: 500, ...pageFilter("/foerdermittel") }),
     ]);
 
+    const now = new Date().toISOString();
+    const base = (r: any) => ({
+      clicks: r.clicks ?? 0,
+      impressions: r.impressions ?? 0,
+      ctr: r.ctr ?? 0,
+      position: r.position ?? 0,
+      period_start: iso(start),
+      period_end: iso(end),
+      synced_at: now,
+    });
+
     const rows = [
-      ...(queries.rows || []).map((r: any) => ({
-        dimension: "query",
-        query: r.keys?.[0] ?? null,
-        page: null,
-        clicks: r.clicks ?? 0,
-        impressions: r.impressions ?? 0,
-        ctr: r.ctr ?? 0,
-        position: r.position ?? 0,
-        period_start: iso(start),
-        period_end: iso(end),
-        synced_at: new Date().toISOString(),
+      ...(queries.rows || []).map((r: any) => ({ dimension: "query", query: r.keys?.[0] ?? null, page: null, ...base(r) })),
+      ...(pages.rows || []).map((r: any) => ({ dimension: "page", query: null, page: r.keys?.[0] ?? null, ...base(r) })),
+      ...(blogQueryPages.rows || []).map((r: any) => ({
+        dimension: "query_page", query: r.keys?.[0] ?? null, page: r.keys?.[1] ?? null, ...base(r),
       })),
-      ...(pages.rows || []).map((r: any) => ({
-        dimension: "page",
-        query: null,
-        page: r.keys?.[0] ?? null,
-        clicks: r.clicks ?? 0,
-        impressions: r.impressions ?? 0,
-        ctr: r.ctr ?? 0,
-        position: r.position ?? 0,
-        period_start: iso(start),
-        period_end: iso(end),
-        synced_at: new Date().toISOString(),
+      ...(regional.rows || []).map((r: any) => ({
+        dimension: "regional_query", query: r.keys?.[0] ?? null, page: null, ...base(r),
       })),
     ];
 
@@ -152,6 +146,8 @@ serve(async (req) => {
       period: { start: iso(start), end: iso(end) },
       queries: (queries.rows || []).length,
       pages: (pages.rows || []).length,
+      blog_query_pages: (blogQueryPages.rows || []).length,
+      regional_queries: (regional.rows || []).length,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
