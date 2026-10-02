@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { ExternalLink, MapPin, ArrowRight } from 'lucide-react';
-import BreadcrumbNavigation from '@/components/BreadcrumbNavigation';
+import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import EnergyAdvisorSearch from '@/components/shared/EnergyAdvisorSearch';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
