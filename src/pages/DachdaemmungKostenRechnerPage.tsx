@@ -163,6 +163,10 @@ const DachdaemmungKostenRechnerPage = () => {
             Weiterlesen:{' '}
             <Link to="/dachausbau" className="text-primary hover:underline font-medium">
               Dachausbau planen
+            </Link>
+            ,{' '}
+            <Link to="/wdvs-kosten-rechner" className="text-primary hover:underline font-medium">
+              Fassadendämmung (WDVS) Kosten berechnen
             </Link>{' '}
             oder{' '}
             <Link to="/kostenrechner" className="text-primary hover:underline font-medium inline-flex items-center gap-1">

@@ -143,8 +143,8 @@ const KostenrechnerPage = () => {
   return (
     <>
       <Helmet>
-        <title>Sanierungs-Kostenrechner 2026 – mit Förderung & PDF-Export</title>
-        <meta name="description" content="Sanierungskosten online berechnen: mehrere Gewerke kombinieren, BAFA-Förderung abziehen, Ergebnis als PDF exportieren. Kostenlos, ohne Anmeldung." />
+        <title>Sanierungskosten Rechner 2026 – Kosten aller Gewerke berechnen</title>
+        <meta name="description" content="Sanierungskosten online berechnen: Dach, Fassade, Fenster und Heizung kombinieren, Förderung abziehen und als PDF speichern – kostenlos." />
         <link rel="canonical" href="https://sanierenundsparen.de/kostenrechner" />
         <meta property="og:title" content="Sanierungskosten berechnen – Kostenrechner" />
         <meta property="og:description" content="Mehrere Gewerke kombinieren und Gesamtkosten inkl. Förderung ermitteln." />
@@ -155,8 +155,8 @@ const KostenrechnerPage = () => {
       <div id="rechner" tabIndex={-1} className="min-h-screen bg-gradient-to-b from-background to-muted/30 scroll-mt-24">
       <CalculatorHero
         icon={Calculator}
-        title="Kosten-Vergleichsrechner"
-        subtitle="Wählen Sie Ihre Sanierungsmaßnahmen, geben Sie Flächen ein und erhalten Sie eine Gesamtkostenschätzung mit automatischem Förderabzug."
+        title="Sanierungskosten Rechner"
+        subtitle="Kostenloser Sanierungsrechner: Maßnahmen wählen, Flächen eingeben und die Sanierungskosten inklusive Förderabzug sofort berechnen. Für eine komplette Kernsanierung gibt es einen eigenen Rechner."
         gradient="from-emerald-500 to-teal-500"
         breadcrumbs={[
           { label: 'Rechner', to: '/rechner' },

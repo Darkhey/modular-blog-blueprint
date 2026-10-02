@@ -135,6 +135,11 @@ const RegionalFoerderungPage = () => {
                         <Button asChild variant="outline" size="sm">
                           <Link to="/foerdermittel">← Alle Fördermittel</Link>
                         </Button>
+                        {bundesland && (
+                          <Button asChild variant="secondary" size="sm">
+                            <Link to={`/foerdermittel/regional/${bundesland.id}`}>Alle Infos: Förderung {bundesland.name}</Link>
+                          </Button>
+                        )}
                         <Button asChild size="sm">
                           <Link to="/foerderrechner">Förderrechner starten</Link>
                         </Button>

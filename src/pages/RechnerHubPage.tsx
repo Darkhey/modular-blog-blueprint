@@ -109,10 +109,10 @@ const RechnerHubPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Sanierungsrechner & Tools – Heizung, Dämmung, Solar, Förderung</title>
+        <title>Sanierungsrechner kostenlos 2026 – alle Rechner & Tools</title>
         <meta
           name="description"
-          content="Alle kostenlosen Sanierungsrechner an einem Ort: Heizkosten, Dämmung, Solar, Förderung, Amortisation, Vergleich und Planungstools. Sofort und ohne Anmeldung."
+          content="Kostenloser Sanierungsrechner ohne Anmeldung: Sanierungskosten, Heizung, Dämmung, Solar, Förderung und Amortisation sofort online berechnen."
         />
         <link rel="canonical" href={`${SITE}/rechner`} />
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
@@ -131,7 +131,7 @@ const RechnerHubPage = () => {
               <Calculator className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Alle Sanierungsrechner an einem Ort
+              Sanierungsrechner – kostenlos & ohne Anmeldung
             </h1>
           </div>
           <p className="text-emerald-50 text-lg max-w-2xl mb-6">
