@@ -216,6 +216,48 @@
     <priority>0.2</priority>
   </url>
   <url>
+    <loc>https://sanierenundsparen.de/blog/solar-speicher-kaskaden-mehrstufige-energiespeicherung</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/adaptive-thermo-reflexions-fassaden-foerderung-2026</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/aerosol-daemmung-hohlraumversiegelung-energetische-sanierung-2026</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/thermoelektrische-fassadenheizung-modernisierung-2026</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/graphen-fensterbeschichtungen-waermebarriere-2026</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/solar-hybrid-ziegel-photovoltaik-thermie-kombination-2026</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sanierenundsparen.de/blog/foerderung-bidirektionales-laden-heimbatterie-kopplung-2026</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanierenundsparen.de/blog/bambusfaser-daemmung-nachhaltige-alternative-2025-2026</loc>
     <lastmod>2026-07-30</lastmod>
     <changefreq>monthly</changefreq>
@@ -1332,13 +1374,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/infrarotheizung-altbau-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/grauwasser-recycling-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/grauwasser-recycling-2025</loc>
+    <loc>https://sanierenundsparen.de/blog/infrarotheizung-altbau-2025</loc>
     <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -1374,6 +1416,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sanierenundsparen.de/blog/kellerdecke-daemmen-anleitung-2025</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sanierenundsparen.de/blog/zellulosedaemmung-nachhaltig-daemmen</loc>
     <lastmod>2025-06-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -1382,12 +1430,6 @@
   <url>
     <loc>https://sanierenundsparen.de/blog/effektive-daemmung-ratgeber</loc>
     <lastmod>2025-06-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://sanierenundsparen.de/blog/kellerdecke-daemmen-anleitung-2025</loc>
-    <lastmod>2025-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1458,14 +1500,14 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/photovoltaik-anlagen-kompletter-ratgeber-2024</loc>
-    <lastmod>2025-06-15</lastmod>
+    <loc>https://sanierenundsparen.de/blog/beg-foerderung-2024</loc>
+    <lastmod>2025-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sanierenundsparen.de/blog/beg-foerderung-2024</loc>
-    <lastmod>2025-06-14</lastmod>
+    <loc>https://sanierenundsparen.de/blog/photovoltaik-anlagen-kompletter-ratgeber-2024</loc>
+    <lastmod>2025-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
