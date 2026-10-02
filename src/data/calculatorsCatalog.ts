@@ -12,6 +12,7 @@ import {
   Wallet,
   CheckSquare,
   Layers,
+  Hammer,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -82,6 +83,18 @@ export const calculatorsCatalog: CalculatorEntry[] = [
     topics: ['kosten', 'gewerk', 'pdf', 'gesamt'],
     gradient: 'from-emerald-500 to-teal-500',
     highlight: 'PDF-Export',
+  },
+  {
+    id: 'kernsanierung',
+    title: 'Kernsanierung Kosten Rechner',
+    shortTitle: 'Kernsanierung',
+    description: 'Kosten einer Kernsanierung pro m² nach Ausstattung – mit Aufteilung nach Gewerken.',
+    route: '/kernsanierung-kosten-rechner',
+    icon: Hammer,
+    category: 'kosten',
+    badge: 'Quick-Check',
+    topics: ['kosten', 'gesamt', 'kernsanierung', 'altbau'],
+    gradient: 'from-emerald-500 to-teal-500',
   },
   {
     id: 'kombi-rechner',

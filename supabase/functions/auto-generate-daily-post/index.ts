@@ -43,6 +43,21 @@ const isRegional = (q: string) => {
   const s = q.toLowerCase();
   return BUNDESLAENDER.some((b) => s.includes(b)) || /\b(regional|landesförder|kommunal)/.test(s);
 };
+// Strategy keywords (Semrush DE, Oct 2026): solid demand, low ranking difficulty.
+// Used after real Search Console candidates.
+const STRATEGY_KEYWORDS = [
+  "dachdämmung kosten",
+  "photovoltaik förderung nrw",
+  "wdvs kosten",
+  "förderung dämmung",
+  "förderung wärmepumpe bayern",
+  "energieberater kosten",
+  "fenster austauschen förderung",
+  "kernsanierung kosten",
+  "sanierungskosten einfamilienhaus",
+  "förderung heizung",
+  "sanierung förderung 2026",
+];
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9äöüß]+/g, " ").trim();
 
 async function pickFocusKeyword(supabase: any, topicName: string, existingPosts: any[]) {
@@ -65,8 +80,6 @@ async function pickFocusKeyword(supabase: any, topicName: string, existingPosts:
       .limit(1000),
   ]);
 
-  if (!data?.length) return { focusKeyword: null as string | null, relatedQueries: [] as string[] };
-
   const coveredTexts = [
     ...(existingPosts || []).map((p: any) => p.title || ""),
     ...(posts || []).flatMap((p: any) => [p.title || "", p.focus_keyword || "", ...(p.keywords || [])]),
@@ -79,14 +92,15 @@ async function pickFocusKeyword(supabase: any, topicName: string, existingPosts:
 
   // Deduplicate (a query can appear both as query and regional_query).
   const seen = new Set<string>();
-  const candidates = data.filter((row: any) => {
+  const strategyRows = STRATEGY_KEYWORDS.map((q) => ({ query: q, dimension: "strategy", impressions: 0 }));
+  const candidates = [...(data || []), ...strategyRows].filter((row: any) => {
     if (!row.query || covered(row.query)) return false;
     const n = norm(row.query);
     if (seen.has(n)) return false;
     seen.add(n);
     return true;
   });
-  if (candidates.length === 0) return { focusKeyword: null, relatedQueries: [] };
+  if (candidates.length === 0) return { focusKeyword: null as string | null, relatedQueries: [] as string[] };
 
   const topicTokens = topicName.toLowerCase().split(/[^a-zäöüß]+/).filter((t) => t.length > 4);
   const isFoerderTopic = /förder|zuschuss|finanz/i.test(topicName);
