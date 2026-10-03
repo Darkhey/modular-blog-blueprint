@@ -375,8 +375,8 @@ const KostenrechnerPage = () => {
 
 
               {/* Table */}
-              <Card className="border-border overflow-hidden">
-                <Table>
+               <Card className="border-border overflow-x-auto">
+                 <Table className="min-w-[680px]">
                   <TableHeader>
                     <TableRow>
                       <TableHead>Gewerk</TableHead>

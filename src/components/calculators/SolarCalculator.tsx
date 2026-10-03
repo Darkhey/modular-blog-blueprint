@@ -142,13 +142,13 @@ const SolarCalculator = () => {
             </CardContent>
 
 
-            <CardFooter className="flex gap-4 px-8 pb-8">
+             <CardFooter className="flex flex-wrap gap-4 px-4 md:px-8 pb-8">
               <Button
                 type="submit"
                 size="lg"
                 disabled={isCalculating}
                 aria-busy={isCalculating}
-                className="flex-1 md:flex-none bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                 className="w-full sm:w-auto sm:flex-1 font-bold"
               >
                 {isCalculating ? (
                   <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Berechnung läuft...</>

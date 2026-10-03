@@ -47,8 +47,8 @@ const ModernizationSavingsCalculator = () => {
     <>
       {/* JSON-LD is emitted by the page-level CalculatorFaqSection */}
       <TooltipProvider>
-      <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg">
+       <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
+         <CardHeader className="bg-primary text-primary-foreground rounded-t-lg">
           <CardTitle className="flex items-center text-2xl">
             <Calculator className="mr-3 w-8 h-8" />
             Modernisierungs-Einspar-Rechner

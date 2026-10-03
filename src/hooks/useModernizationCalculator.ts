@@ -262,17 +262,17 @@ export const useModernizationCalculator = () => {
     };
 
 
-    const smartFactor = selectedSmartSystems.reduce((acc, system) => {
+    const smartFactor = Math.max(0.6, selectedSmartSystems.reduce((acc, system) => {
       const s = dynamicSavings[system];
       return acc * (1 - s);
-    }, 1);
+    }, 1));
 
     const smartInvestment = estimateSmartInvestment();
 
     if (selectedSmartSystems.length > 0) {
       future = calculateCosts(
         futureHeatingKwh * smartFactor,
-        hotWaterKwh * smartFactor,
+         hotWaterKwh,
         inputs.futureHeating
       );
     }
