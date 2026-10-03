@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { z } from 'zod';
 import {
   PRICE_SCENARIOS,
   PriceScenarioKey,
@@ -69,6 +70,20 @@ const SMART_HOME_COSTS: Record<SmartHomeSystem, number> = {
   sprachsteuerung: 125,
 };
 
+const numericText = (min: number, max: number) => z.string().refine((value) => {
+  if (!/^\d+(?:[.,]\d+)?$/.test(value.trim())) return false;
+  const n = Number(value.replace(',', '.'));
+  return Number.isFinite(n) && n >= min && n <= max;
+});
+const inputSchema = z.object({
+  houseSize: numericText(20, 500), personCount: numericText(1, 10),
+  buildingType: z.enum(['einfamilienhaus', 'doppelhaushaelfte', 'reihenmittelhaus', 'mehrfamilienhaus']),
+  buildingYear: z.enum(['vor-1979', '1979-1994', '1995-2001', '2002-2015', 'nach-2016']),
+  currentHeating: z.enum(['gas', 'oil', 'waermepumpe', 'pellets', 'nachtspeicher', 'fernwaerme']),
+  futureHeating: z.enum(['gas', 'oil', 'waermepumpe', 'pellets', 'nachtspeicher', 'fernwaerme']),
+  futureInsulation: z.enum(['schlecht', 'mittel', 'gut', 'kfw55']),
+});
+
 export const useModernizationCalculator = () => {
   const [inputs, setInputs] = useState<CalculatorInputs>({
     houseSize: '150',
@@ -130,10 +145,8 @@ export const useModernizationCalculator = () => {
     const investment = parseFloat(investmentCosts);
     const consumption = parseFloat(currentConsumption);
 
-    if (!Number.isFinite(persons) || persons < 1 || persons > 10 ||
-      !Number.isFinite(size) || size < 20 || size > 500 ||
-      !Number.isFinite(investment) || investment < 0 || investment > 1000000 ||
-      (calculationMode === 'consumption' && (!Number.isFinite(consumption) || consumption <= 0 || consumption > 200000))) {
+    if (!inputSchema.safeParse(inputs).success || !numericText(0, 1000000).safeParse(investmentCosts).success ||
+      (calculationMode === 'consumption' && !numericText(1, 200000).safeParse(currentConsumption).success)) {
       setResults(null);
       return 'Bitte prüfen Sie Wohnfläche, Personenanzahl, Verbrauch und Investitionskosten.';
     }
@@ -173,7 +186,7 @@ export const useModernizationCalculator = () => {
     const HEATPUMP_SCOP = 3.5;
 
     const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
-    if (Object.values(ENERGY_PRICES).some((price) => !Number.isFinite(price) || price <= 0 || price > 2)) {
+    if (Object.values(customPrices).some((price) => !numericText(0.001, 2).safeParse(price).success)) {
       setResults(null);
       return 'Bitte geben Sie gültige Energiepreise zwischen 0 und 2 €/kWh ein.';
     }
