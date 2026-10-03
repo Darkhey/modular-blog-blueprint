@@ -55,6 +55,7 @@ const InsulationCalculator = () => {
     const parsed = formSchema.safeParse({ ...form.getValues(), ...restored });
     if (!parsed.success || insulationSystems[parsed.data.insulationSystem]?.part !== parsed.data.buildingPart) return;
     form.reset(parsed.data);
+    setResult(null);
     const restoredPostcode = String(restored.postcode ?? '');
     if (/^\d{5}$/.test(restoredPostcode) || restoredPostcode === '') setPostcode(restoredPostcode);
     if (typeof restored.scenario === 'string' && restored.scenario in PRICE_SCENARIOS) setScenario(restored.scenario as PriceScenarioKey);
@@ -125,7 +126,7 @@ const InsulationCalculator = () => {
           <div className="space-y-1 max-w-xs">
             <Label htmlFor="insulation-plz">Postleitzahl (optional)</Label>
             <Input id="insulation-plz" inputMode="numeric" maxLength={5} value={postcode} placeholder="z. B. 80331" onChange={(e) => { setPostcode(e.target.value.replace(/\D/g, '').slice(0, 5)); setResult(null); }} />
-            <p className="text-xs text-muted-foreground">Regionale Heizgradtage näherungsweise berücksichtigen; ohne PLZ: 3.600 K·d/Jahr.</p>
+            <p className="text-xs text-muted-foreground">Grobe Klimazonen-Näherung; ohne PLZ: 3.600 K·d/Jahr. Ihr Energiepreis bleibt im Formular anpassbar.</p>
           </div>
         </div>
         <InsulationCalculatorForm 

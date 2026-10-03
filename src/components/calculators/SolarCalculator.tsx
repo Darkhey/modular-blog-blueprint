@@ -60,7 +60,7 @@ const SolarCalculator = () => {
     if (!Number.isFinite(inputs.dachflaeche) || inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
     if (!Number.isFinite(inputs.stromverbrauch) || inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
     if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
-    if (inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
+    if (!Number.isFinite(inputs.dachneigung) || inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
     if (!Number.isFinite(inputs.tagverbrauchAnteil) || inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
     if (inputs.mitSpeicher && (!Number.isFinite(inputs.speicherkapazitaet) || inputs.speicherkapazitaet <= 0)) errs.push('Speicherkapazität muss > 0 kWh sein');
     return errs;

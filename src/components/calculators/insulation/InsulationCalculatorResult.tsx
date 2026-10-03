@@ -110,7 +110,7 @@ const InsulationCalculatorResult = ({ result }: InsulationCalculatorResultProps)
               <p className="text-muted-foreground mt-1 mb-4">
                 Für förderfähige Dämmmaßnahmen gibt es in der Regel 15 % Zuschuss, mit individuellem Sanierungsfahrplan bis zu 20 %. Die tatsächliche Förderung hängt von den Voraussetzungen ab.
               </p>
-              <a
+               <a
                 href="/foerderrechner"
                 className="inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 group"
               >
@@ -120,6 +120,7 @@ const InsulationCalculatorResult = ({ result }: InsulationCalculatorResultProps)
             </div>
           </div>
         </div>
+        <p className="mt-4 text-xs text-muted-foreground">Vereinfachte Schätzung der Transmissionswärmeverluste ohne Anlagennutzungsgrad und Lüftungsverluste. Förderung nicht vom Investitionsbetrag abgezogen.</p>
 
       </div>
     </TooltipProvider>
