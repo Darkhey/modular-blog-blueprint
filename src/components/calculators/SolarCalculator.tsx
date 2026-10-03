@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { z } from 'zod';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BarChart, Calculator, Loader2 } from 'lucide-react';
@@ -18,6 +19,21 @@ import { DEFAULT_SCENARIO, PRICE_SCENARIOS, PriceScenarioKey } from '@/data/ener
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
 
+const solarInputSchema = z.object({
+  dachflaeche: z.number().finite().min(5).max(1000),
+  stromverbrauch: z.number().finite().min(1).max(200000),
+  ausrichtung: z.enum(['sued', 'ost-west', 'nord']),
+  dachneigung: z.number().finite().min(0).max(90),
+  verschattung: z.enum(['keine', 'gering', 'mittel', 'stark']),
+  modultyp: z.enum(['mono', 'poly', 'duennschicht']),
+  plz: z.string().regex(/^\d{5}$/),
+  mitSpeicher: z.boolean(),
+  speicherkapazitaet: z.number().finite().min(0).max(200),
+  mitEAuto: z.boolean(),
+  eAutoFahrleistung: z.number().finite().min(0).max(100000),
+  mitWallbox: z.boolean(),
+  tagverbrauchAnteil: z.number().finite().min(0).max(100),
+});
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
@@ -50,13 +66,18 @@ const SolarCalculator = () => {
   };
 
   const restoreFromUrl = (restored: Record<string, unknown>) => {
+    const { priceScenario: _scenario, ...inputValues } = restored;
+    const parsed = solarInputSchema.safeParse({ ...inputs, ...inputValues, plz: String(inputValues.plz ?? inputs.plz).padStart(5, '0') });
+    if (!parsed.success) return;
     setResults(null);
-    setInputs(prev => ({ ...prev, ...(restored as Partial<SolarInputs>), plz: String((restored as any).plz ?? prev.plz).padStart(5, '0') }));
+    setSunshine(null);
+    setInputs(parsed.data);
   };
 
 
   const validateInputs = (): string[] => {
     const errs: string[] = [];
+    if (!solarInputSchema.safeParse(inputs).success) errs.push('Bitte gültige Werte für Fläche, Verbrauch, Standort und Ausstattung eingeben');
     if (!Number.isFinite(inputs.dachflaeche) || inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
     if (!Number.isFinite(inputs.stromverbrauch) || inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
     if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
@@ -165,7 +186,7 @@ const SolarCalculator = () => {
               {results && (
                 <div className="flex gap-2">
                   <ShareResults calculatorType="solar" results={results} inputs={inputs as unknown as Record<string, unknown>} />
-                  <ResultsPDFExport results={results} calculatorType="solar" />
+                   <ResultsPDFExport results={{ ...results, inputs: { ...inputs, priceScenario } }} calculatorType="solar" />
                 </div>
               )}
 

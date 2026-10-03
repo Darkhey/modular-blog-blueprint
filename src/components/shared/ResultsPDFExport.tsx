@@ -85,6 +85,18 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
       case 'solar':
         return [
           {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Dachfläche', `${num(results?.inputs?.dachflaeche)} m²`],
+              ['Stromverbrauch', `${num(results?.inputs?.stromverbrauch)} kWh/Jahr`],
+              ['Postleitzahl', `${results?.inputs?.plz ?? 'k. A.'}`],
+              ['Ausrichtung / Neigung', `${results?.inputs?.ausrichtung ?? 'k. A.'} / ${num(results?.inputs?.dachneigung)}°`],
+              ['Speicher', results?.inputs?.mitSpeicher ? `${num(results.inputs.speicherkapazitaet)} kWh` : 'nein'],
+              ['Tagesverbrauchsanteil', `${num(results?.inputs?.tagverbrauchAnteil)} %`],
+              ['Preis-Szenario', `${results?.inputs?.priceScenario ?? 'k. A.'}`],
+            ],
+          },
+          {
             heading: 'Ergebnisse',
             rows: [
               ['Anlagengröße', `${results.anlageGroesse ?? 'k. A.'} kWp`],
