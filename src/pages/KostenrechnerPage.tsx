@@ -137,7 +137,8 @@ const KostenrechnerPage = () => {
         })),
         totalBruttoAvg: results.totalBruttoAvg,
         totalFoerderung: results.totalFoerderung,
-        totalNettoAvg: results.totalNettoAvg,
+         totalNettoAvg: results.totalNettoAvg,
+         hasIsfp,
       }
     : null;
 
@@ -196,7 +197,7 @@ const KostenrechnerPage = () => {
                         </div>
                         <p className="text-sm text-muted-foreground">{g.description}</p>
                         <div className="flex gap-2 mt-2 flex-wrap items-center">
-                          <Badge variant="secondary" className="text-xs inline-flex items-center gap-1">
+                           <Badge variant="secondary" className="text-xs inline-flex items-center gap-1">
                             {g.costPerUnit.min}–{g.costPerUnit.max} €/{g.unit}
                              <InfoTip content="Geschätzte Preisspanne 2026 inkl. Material & Montage. Ohne Gerüst und Sonderbauten." />
                           </Badge>
@@ -283,7 +284,10 @@ const KostenrechnerPage = () => {
           </Button>
 
           <div className="flex justify-center">
-            <ShareInputs values={inputs as unknown as Record<string, unknown>} onRestore={restoreInputs} label="Eingaben als Link teilen" />
+            <ShareInputs values={{ ...inputs, hasIsfp }} onRestore={(restored) => {
+              restoreInputs(restored);
+              if (typeof restored.hasIsfp === 'boolean') setHasIsfp(restored.hasIsfp);
+            }} label="Eingaben als Link teilen" />
           </div>
 
           {/* Annahmen */}
