@@ -173,10 +173,10 @@ export const getConfiguration = (
     verschattungsFaktor: CONSTANTS.VERSCHATTUNG_FAKTOREN[inputs.verschattung],
     neigungsFaktor: calculateNeigungsFaktor(inputs.dachneigung),
     modulWirkungsgrad: CONSTANTS.MODUL_WIRKUNGSGRAD[inputs.modultyp],
-    eigenverbrauchOhneSpeicher: CONSTANTS.EIGENVERBRAUCH_OHNE_SPEICHER,
+    eigenverbrauchOhneSpeicher: Math.min(1, Math.max(0, inputs.tagverbrauchAnteil / 100)),
     eigenverbrauchMitSpeicher: inputs.mitSpeicher
-      ? CONSTANTS.EIGENVERBRAUCH_MIT_SPEICHER
-      : CONSTANTS.EIGENVERBRAUCH_OHNE_SPEICHER,
+      ? Math.max(Math.min(1, Math.max(0, inputs.tagverbrauchAnteil / 100)), CONSTANTS.EIGENVERBRAUCH_MIT_SPEICHER)
+      : Math.min(1, Math.max(0, inputs.tagverbrauchAnteil / 100)),
   };
 };
 
@@ -272,9 +272,11 @@ export const calculateSolarResults = (
 
   const kosten = calculateCosts(inputs, anlageGroesse);
 
-  const amortisationOhneSpeicher = kosten.gesamtkosten / gesamtersparnis;
+  const ersparnisOhneSpeicher = maxEigenverbrauchOhne * KWH_PRICE + (jahresertrag - maxEigenverbrauchOhne) * CONSTANTS.FEED_IN_TARIFF + co2BonusYear(1, jahresertrag);
+  const kostenOhneSpeicher = kosten.gesamtkosten - kosten.speicherkosten;
+  const amortisationOhneSpeicher = ersparnisOhneSpeicher > 0 ? kostenOhneSpeicher / ersparnisOhneSpeicher : 0;
   const amortisationMitSpeicher = inputs.mitSpeicher ?
-    (kosten.gesamtkosten / gesamtersparnis) : amortisationOhneSpeicher;
+    (gesamtersparnis > 0 ? kosten.gesamtkosten / gesamtersparnis : 0) : amortisationOhneSpeicher;
 
   const jahresprognose = [];
   let kumulativeErsparnis = 0;

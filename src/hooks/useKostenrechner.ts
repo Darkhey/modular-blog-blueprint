@@ -41,6 +41,7 @@ export const useKostenrechner = () => {
   const [results, setResults] = useState<KostenrechnerResults | null>(null);
 
   const toggleGewerk = useCallback((id: string) => {
+    setResults(null);
     setInputs((prev) => ({
       ...prev,
       [id]: { ...prev[id], selected: !prev[id].selected },
@@ -48,14 +49,18 @@ export const useKostenrechner = () => {
   }, []);
 
   const setMenge = useCallback((id: string, menge: number) => {
+    setResults(null);
+    const gewerk = gewerke.find((g) => g.id === id);
+    if (!gewerk || !Number.isFinite(menge)) return;
     setInputs((prev) => ({
       ...prev,
-      [id]: { ...prev[id], menge },
+      [id]: { ...prev[id], menge: Math.min(gewerk.maxValue, Math.max(gewerk.minValue, menge)) },
     }));
   }, []);
 
   /** Stellt Eingaben aus geteilten URL-Parametern wieder her. */
   const restoreInputs = useCallback((restored: Record<string, unknown>) => {
+    setResults(null);
     setInputs((prev) => {
       const next = { ...prev };
       Object.entries(restored).forEach(([id, value]) => {
@@ -63,7 +68,9 @@ export const useKostenrechner = () => {
         const v = value as { selected?: unknown; menge?: unknown };
         next[id] = {
           selected: typeof v.selected === 'boolean' ? v.selected : next[id].selected,
-          menge: typeof v.menge === 'number' ? v.menge : next[id].menge,
+          menge: typeof v.menge === 'number' && Number.isFinite(v.menge)
+            ? Math.min(gewerke.find((g) => g.id === id)?.maxValue ?? v.menge, Math.max(gewerke.find((g) => g.id === id)?.minValue ?? v.menge, v.menge))
+            : next[id].menge,
         };
       });
       return next;
