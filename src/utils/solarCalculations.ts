@@ -113,7 +113,7 @@ const CONSTANTS = {
   FEED_IN_TARIFF: 0.0786, // €/kWh Einspeisevergütung EEG 2026 (bis 10 kWp, Teileinspeisung)
   STROMPREIS_STEIGERUNG: 0.035, // 3,5 % jährliche Steigerung
   DEGRADATION: 0.005, // 0.5 % jährliche Leistungsminderung
-  CO2_PER_KWH: 0.363, // kg CO2 pro kWh Strommix 2026 (sinkend)
+  CO2_PER_KWH: CO2_FACTORS.strom_mix_2026, // kg CO2 pro kWh Strommix 2026
   BAEUME_PRO_TONNE_CO2: 16,
   PARAGRAPH_14A_RABATT: 190, // €/a Netzentgeltrabatt bei WP/Wallbox
 
@@ -144,7 +144,6 @@ const CONSTANTS = {
     duennschicht: 0.85,
   },
 
-  EIGENVERBRAUCH_OHNE_SPEICHER: 0.3,
   EIGENVERBRAUCH_MIT_SPEICHER: 0.75,
 };
 
@@ -252,7 +251,8 @@ export const calculateSolarResults = (
 
   const ersparnisSolarstrom = optimaleEigenverbrauch * KWH_PRICE;
   const einspeiseverguetung = netzeinspeisung * CONSTANTS.FEED_IN_TARIFF;
-  const speicherersparnis = speichernutzung * KWH_PRICE;
+  const speicherersparnis = speichernutzung * (KWH_PRICE - CONSTANTS.FEED_IN_TARIFF);
+  // Die Fahrzeugladung ist bereits im Eigenverbrauch enthalten; kein zweiter Ersparnisposten.
   const eAutoErsparnis = eAutoLadung * KWH_PRICE;
   const gesamtersparnis = ersparnisSolarstrom + einspeiseverguetung;
 
@@ -276,7 +276,7 @@ export const calculateSolarResults = (
 
     const jahresErtragAngepasst = jahresertrag * degradationsFaktor;
     const eigenverbrauchAngepasst = Math.min(
-      jahresErtragAngepasst * config.eigenverbrauchMitSpeicher,
+      jahresErtragAngepasst * (inputs.mitSpeicher ? config.eigenverbrauchMitSpeicher : config.eigenverbrauchOhneSpeicher),
       gesamtStromverbrauch
     );
     const einspeisungAngepasst = jahresErtragAngepasst - eigenverbrauchAngepasst;
