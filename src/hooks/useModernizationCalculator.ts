@@ -253,7 +253,6 @@ export const useModernizationCalculator = () => {
         current = calculateCosts(currentHeatingKwh, hotWaterKwh, inputs.currentHeating);
     }
 
-    const baseHeatDemand = size * SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear] * BUILDING_TYPE_FACTOR[inputs.buildingType];
     const measuredHeatDemand = Math.max(0, consumption - hotWaterKwh / (inputs.currentHeating === 'waermepumpe' ? HEATPUMP_SCOP : 1))
       * (inputs.currentHeating === 'waermepumpe' ? HEATPUMP_SCOP : 1);
     const futureHeatingKwh = calculationMode === 'consumption'

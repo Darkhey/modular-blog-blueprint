@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BarChart, Calculator, Loader2 } from 'lucide-react';
-import { SolarInputs } from '@/types/solarCalculator';
+import { SolarInputs, SolarResults as SolarResultData } from '@/types/solarCalculator';
 import { calculateSolarResults } from '@/utils/solarCalculations';
 import SolarInputForm from './solar/SolarInputForm';
 import SolarResults from './solar/SolarResults';
@@ -37,7 +37,7 @@ const SolarCalculator = () => {
     tagverbrauchAnteil: 40,
   });
 
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<SolarResultData | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [sunshine, setSunshine] = useState<SunshineData | null>(null);
   const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
@@ -46,10 +46,13 @@ const SolarCalculator = () => {
 
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
+    setResults(null);
+    setSunshine(null);
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
   const restoreFromUrl = (restored: Record<string, unknown>) => {
+    setResults(null);
     setInputs(prev => ({ ...prev, ...(restored as Partial<SolarInputs>), plz: String((restored as any).plz ?? prev.plz).padStart(5, '0') }));
   };
 
@@ -133,8 +136,8 @@ const SolarCalculator = () => {
             <CardContent className="p-8 space-y-6">
               <SolarInputForm inputs={inputs} onInputChange={handleInputChange} />
               <div className="grid gap-3 md:grid-cols-2">
-                <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
-                <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+                 <ScenarioToggle value={priceScenario} onChange={(value) => { setResults(null); setPriceScenario(value); }} />
+                 <CO2PathToggle enabled={co2Path} onChange={(value) => { setResults(null); setCo2Path(value); }} />
               </div>
             </CardContent>
 
@@ -158,7 +161,7 @@ const SolarCalculator = () => {
                 values={{ ...inputs, priceScenario, co2Path }}
                 onRestore={(r) => {
                   restoreFromUrl(r);
-                  if (typeof r.priceScenario === 'string') setPriceScenario(r.priceScenario as PriceScenarioKey);
+                   if (typeof r.priceScenario === 'string' && r.priceScenario in PRICE_SCENARIOS) setPriceScenario(r.priceScenario as PriceScenarioKey);
                   if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
                 }}
               />

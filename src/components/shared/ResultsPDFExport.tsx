@@ -39,17 +39,18 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
           {
             heading: 'Ihre Eingaben',
             rows: [
-              ['Wohnfläche', `${results.inputs?.livingSpace ?? 'k. A.'} m²`],
-              ['Gebäudealter', `${results.inputs?.buildingAge ?? 'k. A.'}`],
-              ['Heizungsart', `${results.inputs?.heatingType ?? 'k. A.'}`],
+               ['Wohnfläche', `${results.inputs?.houseSize ?? 'k. A.'} m²`],
+               ['Baujahr-Klasse', `${results.inputs?.buildingYear ?? 'k. A.'}`],
+               ['Aktuelle Heizung', `${results.inputs?.currentHeating ?? 'k. A.'}`],
+               ['Geplante Heizung', `${results.inputs?.futureHeating ?? 'k. A.'}`],
             ],
           },
           {
             heading: 'Ergebnisse',
             rows: [
               ['Jährliche Ersparnis', `${num(results.annualSavings ?? results.totalSavingsPerYear)} EUR`],
-              ['Ersparnis in %', results.savingsPercentage ? `${results.savingsPercentage.toFixed(0)} %` : 'k. A.'],
-              ['Amortisationszeit', `${num(results.amortizationPeriod ?? results.amortizationYears)} Jahre`],
+               ['Ersparnis in %', results.savingsPercentage != null ? `${results.savingsPercentage.toFixed(0)} %` : 'k. A.'],
+               ['Amortisationszeit', results.amortizationPeriod != null ? `${num(results.amortizationPeriod, 1)} Jahre` : 'nicht erreicht'],
               ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
               ['Kosten vorher', `${num(results.current?.total)} EUR/Jahr`],
               ['Kosten nachher', `${num(results.future?.total)} EUR/Jahr`],
