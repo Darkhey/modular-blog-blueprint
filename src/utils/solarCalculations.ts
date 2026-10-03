@@ -3,7 +3,6 @@ import {
   PRICE_SCENARIOS,
   PriceScenarioKey,
   DEFAULT_SCENARIO,
-  getCO2Price,
   CO2_FACTORS,
 } from '@/data/energyPrices2026';
 
@@ -215,12 +214,10 @@ export const calculateSolarResults = (
 ): SolarResults => {
   const scenarioKey = options.priceScenario ?? DEFAULT_SCENARIO;
   const scenario = PRICE_SCENARIOS[scenarioKey];
-  const includeCo2 = options.includeCo2Path ?? false;
 
   // Szenario-abhängige Strompreise & Steigerung; Einspeisevergütung bleibt EEG-fix.
   const KWH_PRICE = scenario.strom;
   const STROMPREIS_STEIGERUNG = scenario.jaehrlicheSteigerung;
-  const startjahr = new Date().getFullYear();
 
   const config = getConfiguration(inputs, regionalFaktorOverride);
   const anlageGroesse = parseFloat((inputs.dachflaeche / CONSTANTS.M2_PER_KWP).toFixed(2));
@@ -253,23 +250,18 @@ export const calculateSolarResults = (
 
   const netzeinspeisung = jahresertrag - optimaleEigenverbrauch;
 
-  // CO₂-Vermeidung wird separat ausgewiesen: kein auszahlbarer CO₂-Bonus für PV.
-  const co2BonusYear = (jahr: number, ertragKwh: number): number => {
-    return 0;
-  };
-
   const ersparnisSolarstrom = optimaleEigenverbrauch * KWH_PRICE;
   const einspeiseverguetung = netzeinspeisung * CONSTANTS.FEED_IN_TARIFF;
   const speicherersparnis = speichernutzung * KWH_PRICE;
   const eAutoErsparnis = eAutoLadung * KWH_PRICE;
-  const gesamtersparnis = ersparnisSolarstrom + einspeiseverguetung + co2BonusYear(1, jahresertrag);
+  const gesamtersparnis = ersparnisSolarstrom + einspeiseverguetung;
 
   const co2Vermeidung = (jahresertrag * CONSTANTS.CO2_PER_KWH) / 1000;
   const baumAequivalent = Math.round(co2Vermeidung * CONSTANTS.BAEUME_PRO_TONNE_CO2);
 
   const kosten = calculateCosts(inputs, anlageGroesse);
 
-  const ersparnisOhneSpeicher = maxEigenverbrauchOhne * KWH_PRICE + (jahresertrag - maxEigenverbrauchOhne) * CONSTANTS.FEED_IN_TARIFF + co2BonusYear(1, jahresertrag);
+  const ersparnisOhneSpeicher = maxEigenverbrauchOhne * KWH_PRICE + (jahresertrag - maxEigenverbrauchOhne) * CONSTANTS.FEED_IN_TARIFF;
   const kostenOhneSpeicher = kosten.gesamtkosten - kosten.speicherkosten;
   const amortisationOhneSpeicher = ersparnisOhneSpeicher > 0 ? kostenOhneSpeicher / ersparnisOhneSpeicher : 0;
   const amortisationMitSpeicher = inputs.mitSpeicher ?
@@ -291,8 +283,7 @@ export const calculateSolarResults = (
 
     const ersparnis =
       (eigenverbrauchAngepasst * KWH_PRICE * strompreisFaktor) +
-      (einspeisungAngepasst * CONSTANTS.FEED_IN_TARIFF) +
-      co2BonusYear(jahr, jahresErtragAngepasst);
+      (einspeisungAngepasst * CONSTANTS.FEED_IN_TARIFF);
 
     kumulativeErsparnis += ersparnis;
 

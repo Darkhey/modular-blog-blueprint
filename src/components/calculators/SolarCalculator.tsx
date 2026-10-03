@@ -13,7 +13,6 @@ import ResultsPDFExport from '../shared/ResultsPDFExport';
 import ShareInputs from '../shared/ShareInputs';
 
 import ScenarioToggle from './shared/ScenarioToggle';
-import CO2PathToggle from './shared/CO2PathToggle';
 import { DEFAULT_SCENARIO, PRICE_SCENARIOS, PriceScenarioKey } from '@/data/energyPrices2026';
 
 import { useToast } from '@/hooks/use-toast';
@@ -41,7 +40,6 @@ const SolarCalculator = () => {
   const [isCalculating, setIsCalculating] = useState(false);
   const [sunshine, setSunshine] = useState<SunshineData | null>(null);
   const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
-  const [co2Path, setCo2Path] = useState(false);
   const { toast } = useToast();
 
 
@@ -81,7 +79,7 @@ const SolarCalculator = () => {
       toast({ title: 'Wetterdaten nicht verfügbar', description: 'Berechnung mit Standardwerten ausgeführt.' });
     }
     setSunshine(data);
-    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario, includeCo2Path: co2Path });
+    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario });
     setResults(calculatedResults);
     setIsCalculating(false);
   };
@@ -135,9 +133,8 @@ const SolarCalculator = () => {
           <form onSubmit={handleCalculate}>
             <CardContent className="p-8 space-y-6">
               <SolarInputForm inputs={inputs} onInputChange={handleInputChange} />
-              <div className="grid gap-3 md:grid-cols-2">
+               <div className="max-w-sm">
                  <ScenarioToggle value={priceScenario} onChange={(value) => { setResults(null); setPriceScenario(value); }} />
-                 <CO2PathToggle enabled={co2Path} onChange={(value) => { setResults(null); setCo2Path(value); }} />
               </div>
             </CardContent>
 
@@ -158,11 +155,10 @@ const SolarCalculator = () => {
               </Button>
 
               <ShareInputs
-                values={{ ...inputs, priceScenario, co2Path }}
+                 values={{ ...inputs, priceScenario }}
                 onRestore={(r) => {
                   restoreFromUrl(r);
                    if (typeof r.priceScenario === 'string' && r.priceScenario in PRICE_SCENARIOS) setPriceScenario(r.priceScenario as PriceScenarioKey);
-                   if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
                 }}
               />
 
