@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   PRICE_SCENARIOS,
   PriceScenarioKey,
@@ -102,10 +102,6 @@ export const useModernizationCalculator = () => {
   const [customPrices, setCustomPrices] = useState<CustomPrices>(() =>
     scenarioToCustomPrices(DEFAULT_SCENARIO),
   );
-  // Beim Wechsel des Szenarios die Standardpreise nachziehen (User kann sie danach weiter anpassen).
-  useEffect(() => {
-    setCustomPrices(scenarioToCustomPrices(priceScenario));
-  }, [priceScenario]);
 
   const [selectedSmartSystems, setSelectedSmartSystems] = useState<SmartHomeSystem[]>([]);
 
@@ -322,7 +318,7 @@ export const useModernizationCalculator = () => {
     results,
     priceScenario,
     co2Path,
-    setPriceScenario: (value: PriceScenarioKey) => { setResults(null); setPriceScenario(value); },
+    setPriceScenario: (value: PriceScenarioKey) => { setResults(null); setPriceScenario(value); setCustomPrices(scenarioToCustomPrices(value)); },
     setCo2Path: (value: boolean) => { setResults(null); setCo2Path(value); },
     handleInputChange,
     setCalculationMode: (value: 'details' | 'consumption') => { setResults(null); setCalculationMode(value); },

@@ -109,8 +109,10 @@ const ModernizationSavingsCalculator = () => {
                   if (typeof value === 'number' || typeof value === 'string') handlePriceChange(field, String(value));
                 }
               }
-              if (Array.isArray(restored.selectedSmartSystems)) {
-                for (const system of restored.selectedSmartSystems) {
+              const systems = typeof restored.selectedSmartSystems === 'string'
+                ? restored.selectedSmartSystems.split(',') : restored.selectedSmartSystems;
+              if (Array.isArray(systems)) {
+                for (const system of systems) {
                   if (typeof system === 'string' && !selectedSmartSystems.includes(system as typeof selectedSmartSystems[number])) toggleSmartSystem(system as typeof selectedSmartSystems[number]);
                 }
               }

@@ -119,7 +119,7 @@ const InsulationCalculator = () => {
             <InsulationCalculatorResult result={result} />
             <div className="mt-4 flex gap-2 flex-wrap">
               <ShareResults calculatorType="insulation" results={result} inputs={watchedValues} />
-              <ResultsPDFExport calculatorType="insulation" results={result} />
+               <ResultsPDFExport calculatorType="insulation" results={{ ...result, inputs: watchedValues }} />
             </div>
           </>
         )}

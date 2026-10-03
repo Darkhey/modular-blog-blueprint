@@ -60,6 +60,16 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
       case 'insulation':
         return [
           {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Bauteil', `${results.inputs?.buildingPart ?? 'k. A.'}`],
+              ['Fläche', `${num(results.inputs?.area)} m²`],
+              ['U-Wert vorher', `${num(results.inputs?.uValueBefore, 2)} W/(m²K)`],
+              ['Dämmsystem', `${results.inputs?.insulationSystem ?? 'k. A.'}`],
+              ['Energiepreis', `${num(results.inputs?.heatingCost, 3)} EUR/kWh`],
+            ],
+          },
+          {
             heading: 'Ergebnisse',
             rows: [
               ['Investition', `${num(results.investment)} EUR`],
