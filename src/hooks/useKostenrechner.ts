@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { gewerke, type Gewerk } from '@/data/kostenrechnerData';
+import { BEG_2026 } from '@/data/energyPrices2026';
 
 export interface GewerkInput {
   selected: boolean;
@@ -82,14 +83,19 @@ export const useKostenrechner = () => {
 
   const calculate = useCallback(() => {
     const selectedGewerke = gewerke.filter((g) => inputs[g.id].selected);
+    // Die Hüllen-Maßnahmen teilen sich einen förderfähigen Kostenrahmen je Wohneinheit.
+    let verbleibenderHuelleDeckel: number = BEG_2026.huelleMaxKostenMitIsfp;
 
     const gewerkResults: GewerkResult[] = selectedGewerke.map((g) => {
       const menge = inputs[g.id].menge;
       const kostenMin = menge * g.costPerUnit.min;
       const kostenMax = menge * g.costPerUnit.max;
       const kostenAvg = (kostenMin + kostenMax) / 2;
-      const foerderungRaw = kostenAvg * (g.foerderungPercent / 100);
-      const foerderung = Math.min(foerderungRaw, g.foerderungMax);
+      const foerderfaehig = g.id === 'heizung'
+        ? Math.min(kostenAvg, BEG_2026.heizungMaxKosten)
+        : g.foerderungPercent > 0 ? Math.min(kostenAvg, verbleibenderHuelleDeckel) : 0;
+      if (g.id !== 'heizung') verbleibenderHuelleDeckel -= foerderfaehig;
+      const foerderung = foerderfaehig * (g.foerderungPercent / 100);
       return {
         gewerk: g,
         menge,

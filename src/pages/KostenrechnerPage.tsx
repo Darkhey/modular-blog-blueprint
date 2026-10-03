@@ -197,12 +197,12 @@ const KostenrechnerPage = () => {
                         <div className="flex gap-2 mt-2 flex-wrap items-center">
                           <Badge variant="secondary" className="text-xs inline-flex items-center gap-1">
                             {g.costPerUnit.min}–{g.costPerUnit.max} €/{g.unit}
-                            <InfoTip content={`Marktübliche Spanne 2025 inkl. Material & Montage. Untergrenze = einfache Ausführung, Obergrenze = Premium / aufwendige Bestandsanpassung. Ohne Gerüst und Sonderbauten.`} />
+                             <InfoTip content="Geschätzte Preisspanne 2026 inkl. Material & Montage. Ohne Gerüst und Sonderbauten." />
                           </Badge>
                           {g.foerderungPercent > 0 && (
                             <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
                               {g.foerderungPercent}% Förderung
-                              <InfoTip content={`Geschätzter BAFA/KfW-Zuschuss auf förderfähige Kosten, gedeckelt bei ${g.foerderungMax.toLocaleString('de-DE')} € pro Wohneinheit. Nur mit Energieberater (iSFP) und vor Auftragsvergabe beantragt.`} />
+                               <InfoTip content="Geschätzter Zuschuss auf förderfähige Kosten. Für Hüllenmaßnahmen werden ein gemeinsamer iSFP-Kostenrahmen von 60.000 € und 20 % angenommen; für Heizung 30 % auf maximal 30.000 €. Antrag vor Auftragsvergabe prüfen." />
                             </Badge>
                           )}
                         </div>
@@ -385,7 +385,7 @@ const KostenrechnerPage = () => {
                       <TableHead className="text-right">
                         <span className="inline-flex items-center gap-1 justify-end">
                           Förderung
-                          <InfoTip content="Geschätzter BAFA/KfW-Zuschuss für dieses Gewerk, gedeckelt am gesetzlichen Höchstbetrag pro Wohneinheit." />
+                           <InfoTip content="Geschätzter BAFA/KfW-Zuschuss auf förderfähige Kosten. Hüllenmaßnahmen teilen sich den Kostenrahmen; Heizung wird separat berechnet." />
                         </span>
                       </TableHead>
                       <TableHead className="text-right">
@@ -455,7 +455,7 @@ const KostenrechnerPage = () => {
               </div>
 
               <p className="text-xs text-muted-foreground text-center">
-                * Die Angaben sind Schätzungen auf Basis aktueller Durchschnittswerte (Stand 2025). 
+                 * Die Angaben sind Schätzungen auf Basis hinterlegter Richtwerte (Stand 2026). 
                 Tatsächliche Kosten können je nach Region, Anbieter und Gebäudezustand abweichen. 
                 Fördersätze basieren auf BAFA/KfW-Programmen und können sich ändern.
               </p>
@@ -481,14 +481,13 @@ Förderung    = min(Förderquote × Bruttokosten, Deckel)
 Eigenanteil  = Bruttokosten − Förderung
                 </pre>
                 <ul className="list-disc list-inside space-y-1">
-                  <li><strong>Ø-Preis:</strong> Mittelwert der marktüblichen Preisspanne 2025 (Material + Montage).</li>
-                  <li><strong>Förderquote:</strong> BAFA-Sätze (Einzelmaßnahmen Hülle 15 % + 5 % iSFP) bzw. KfW 458 Heizung (30 % Sockel, bis 70 % mit Boni).</li>
-                  <li><strong>Deckel:</strong> 60.000 €/Wohneinheit (Hülle, Fenster, Anlagentechnik), 70.000 € (Heizung), Solar ohne Direktzuschuss.</li>
-                  <li>Mehrere Gewerke werden additiv summiert; Deckelung erfolgt pro Gewerk.</li>
+                   <li><strong>Ø-Preis:</strong> Mittelwert der hinterlegten Preisspanne 2026 (Material + Montage).</li>
+                   <li><strong>Förderquote:</strong> Vereinfachte Annahme: Hülle 15 % + 5 % iSFP, Heizung 30 % Grundzuschuss ohne individuelle Boni.</li>
+                   <li><strong>Kostenrahmen:</strong> Hüllenmaßnahmen gemeinsam maximal 60.000 € förderfähige Kosten mit iSFP pro Wohneinheit; Heizung separat maximal 30.000 € für die erste Wohneinheit. Solar ohne Direktzuschuss.</li>
                   <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/foerdermittel/regional" className="text-primary underline">regionale Förderkarte</Link>.</li>
                 </ul>
                 <p className="text-xs">
-                  Stand: 2025. Verbindliche Kostenangebote nur durch zertifizierte Energieberater und Fachbetriebe.
+                   Stand: 2026. Förderfähigkeit und Kumulierungsregeln vor Antragstellung individuell prüfen. Verbindliche Kostenangebote nur durch Fachbetriebe.
                 </p>
               </AccordionContent>
             </AccordionItem>
