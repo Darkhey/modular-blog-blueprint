@@ -12,8 +12,6 @@ import QuickAccessButtons from './QuickAccessButtons';
 import ScenarioToggle from './shared/ScenarioToggle';
 import CO2PathToggle from './shared/CO2PathToggle';
 
-import ShareResults from '../shared/ShareResults';
-import ResultsPDFExport from '../shared/ResultsPDFExport';
 import ShareInputs from '../shared/ShareInputs';
 import { toast } from '@/hooks/use-toast';
 import { PRICE_SCENARIOS, type PriceScenarioKey } from '@/data/energyPrices2026';
@@ -120,12 +118,6 @@ const ModernizationSavingsCalculator = () => {
           </div>
 
           <CalculatorResults results={results} investmentCosts={investmentCosts} />
-          {results && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              <ShareResults calculatorType="heating" results={results} inputs={{ ...inputs, calculationMode, currentConsumption, investmentCosts, customPrices, selectedSmartSystems, priceScenario, co2Path }} />
-              <ResultsPDFExport calculatorType="heating" results={results} />
-            </div>
-          )}
           
           <QuickAccessButtons currentCalculator="heating" className="mt-8" />
         </CardContent>
