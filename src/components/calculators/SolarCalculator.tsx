@@ -64,7 +64,7 @@ const SolarCalculator = () => {
     if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
     if (inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
     if (!Number.isFinite(inputs.tagverbrauchAnteil) || inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
-    if (inputs.mitSpeicher && inputs.speicherkapazitaet <= 0) errs.push('Speicherkapazität muss > 0 kWh sein');
+    if (inputs.mitSpeicher && (!Number.isFinite(inputs.speicherkapazitaet) || inputs.speicherkapazitaet <= 0)) errs.push('Speicherkapazität muss > 0 kWh sein');
     return errs;
   };
 
@@ -94,7 +94,7 @@ const SolarCalculator = () => {
         type: 'speicher',
         title: 'Batteriespeicher empfohlen',
         description: `Mit einem ${Math.ceil(inputs.stromverbrauch / 1000)} kWh Speicher könnten Sie Ihren Eigenverbrauch auf bis zu 75% steigern.`,
-        impact: `+${Math.round((results.jahresertrag * 0.45) * 0.32)} € jährliche Ersparnis`
+        impact: `Potenzial abhängig von Speichergröße und Strompreis`
       });
     }
     if (!inputs.mitEAuto && results.netzeinspeisung > 3000) {
@@ -102,7 +102,7 @@ const SolarCalculator = () => {
         type: 'emobility',
         title: 'E-Mobilität Integration',
         description: 'Sie speisen viel Strom ein. Ein E-Auto könnte diesen Überschuss optimal nutzen.',
-        impact: `Bis zu ${Math.round(results.netzeinspeisung * 0.6 * 0.32)} € zusätzliche Ersparnis möglich`
+        impact: `Potenzial abhängig vom Ladeprofil`
       });
     }
     if (inputs.modultyp !== 'mono' && inputs.dachflaeche < 80) {

@@ -96,7 +96,7 @@ const ModernizationSavingsCalculator = () => {
           <div className="mt-4">
             <ShareInputs values={{ ...inputs, calculationMode, currentConsumption, investmentCosts, customPrices, selectedSmartSystems, priceScenario, co2Path }} onRestore={(restored) => {
               for (const field of Object.keys(inputs) as (keyof typeof inputs)[]) {
-                if (typeof restored[field] === 'string') handleInputChange(field, restored[field] as string);
+                if (typeof restored[field] === 'string' || typeof restored[field] === 'number') handleInputChange(field, String(restored[field]));
               }
               if (restored.calculationMode === 'details' || restored.calculationMode === 'consumption') setCalculationMode(restored.calculationMode);
               if (typeof restored.currentConsumption === 'string' || typeof restored.currentConsumption === 'number') setCurrentConsumption(String(restored.currentConsumption));

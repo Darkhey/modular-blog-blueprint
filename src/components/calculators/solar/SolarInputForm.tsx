@@ -36,7 +36,7 @@ const SolarInputForm = ({ inputs, onInputChange }: SolarInputFormProps) => {
                       <Info className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-xs">
-                      <p>Nutzbare Fläche ohne Schornsteine oder Gauben. Pro kWp werden ca. 7 m² Dachfläche benötigt.</p>
+                       <p>Nutzbare Fläche ohne Schornsteine oder Gauben. Der Rechner rechnet mit ca. 5,5 m² Dachfläche pro kWp.</p>
                       <p className="mt-2 text-xs">
                         Quelle: <a href="/blog/solaranlage-planen-kaufen-2025" className="text-primary underline">Dachcheck</a> ·
                         <a

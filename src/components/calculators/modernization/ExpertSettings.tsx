@@ -33,7 +33,11 @@ const ExpertSettings = ({ customPrices, handlePriceChange }: ExpertSettingsProps
                     </div>
                     <div>
                         <Label htmlFor="price-strom" className="text-xs">Strom (€/kWh)</Label>
-                        <Input id="price-strom" type="number" step="0.01" value={customPrices.waermepumpe} onChange={e => { handlePriceChange('waermepumpe', e.target.value); handlePriceChange('nachtspeicher', e.target.value); }} className="mt-1" />
+                         <Input id="price-strom" type="number" step="0.01" value={customPrices.waermepumpe} onChange={e => handlePriceChange('waermepumpe', e.target.value)} className="mt-1" />
+                     </div>
+                     <div>
+                         <Label htmlFor="price-nachtspeicher" className="text-xs">Nachtspeicher (€/kWh)</Label>
+                         <Input id="price-nachtspeicher" type="number" step="0.01" value={customPrices.nachtspeicher} onChange={e => handlePriceChange('nachtspeicher', e.target.value)} className="mt-1" />
                     </div>
                     <div>
                         <Label htmlFor="price-pellets" className="text-xs">Pellets (€/kWh)</Label>
