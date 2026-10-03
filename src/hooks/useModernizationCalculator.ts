@@ -4,6 +4,7 @@ import {
   PriceScenarioKey,
   DEFAULT_SCENARIO,
   co2SurchargePerKwh,
+  CO2_FACTORS,
 } from '@/data/energyPrices2026';
 
 
@@ -40,6 +41,7 @@ export interface CustomPrices {
 }
 
 export interface CalculationResults {
+  inputs: CalculatorInputs;
   current: { total: number; heating: number; hotWater: number; co2: number; };
   future: { total: number; heating: number; hotWater: number; co2: number; };
   annualSavings: number;
@@ -132,7 +134,13 @@ export const useModernizationCalculator = () => {
     const investment = parseFloat(investmentCosts);
     const consumption = parseFloat(currentConsumption);
 
-    if (!persons || (calculationMode === 'details' && !size) || (calculationMode === 'consumption' && !consumption)) return;
+    if (!Number.isFinite(persons) || persons < 1 || persons > 10 ||
+      !Number.isFinite(size) || size < 20 || size > 500 ||
+      !Number.isFinite(investment) || investment < 0 || investment > 1000000 ||
+      (calculationMode === 'consumption' && (!Number.isFinite(consumption) || consumption <= 0 || consumption > 200000))) {
+      setResults(null);
+      return 'Bitte prüfen Sie Wohnfläche, Personenanzahl, Verbrauch und Investitionskosten.';
+    }
 
     const ENERGY_PRICES = { 
         gas: parseFloat(customPrices.gas), 
@@ -143,13 +151,13 @@ export const useModernizationCalculator = () => {
         fernwaerme: parseFloat(customPrices.fernwaerme)
     };
     // Emissionsfaktoren in kg/kWh (Stand 2026, Strommix sinkend)
-    const CO2_FACTORS = {
-      gas: 0.201,
-      oil: 0.266,
-      waermepumpe: 0.363,
-      pellets: 0.024,
-      nachtspeicher: 0.363,
-      fernwaerme: 0.180
+    const emissionFactors = {
+      gas: CO2_FACTORS.gas,
+      oil: CO2_FACTORS.oel,
+      waermepumpe: CO2_FACTORS.strom_mix_2026,
+      pellets: CO2_FACTORS.pellets,
+      nachtspeicher: CO2_FACTORS.strom_mix_2026,
+      fernwaerme: CO2_FACTORS.fernwaerme
     };
     const SPECIFIC_CONSUMPTION_BY_YEAR = {
         'vor-1979': 220,
@@ -169,6 +177,10 @@ export const useModernizationCalculator = () => {
     const HEATPUMP_SCOP = 3.5;
 
     const hotWaterKwh = persons * HOT_WATER_PER_PERSON_KWH;
+    if (Object.values(ENERGY_PRICES).some((price) => !Number.isFinite(price) || price <= 0 || price > 2)) {
+      setResults(null);
+      return 'Bitte geben Sie gültige Energiepreise zwischen 0 und 2 €/kWh ein.';
+    }
 
     const currentYear = new Date().getFullYear();
     const HEATING_TO_FUEL: Record<HeatingType, 'gas' | 'oel' | 'pellets' | 'fernwaerme' | null> = {
@@ -190,7 +202,7 @@ export const useModernizationCalculator = () => {
         const pricePerKwh = ENERGY_PRICES[heatingType];
         let finalHeatingKwh = heatingKwh;
         let finalHotWaterKwh = hotWaterKwh;
-        const emissionFactor = CO2_FACTORS[heatingType];
+        const emissionFactor = emissionFactors[heatingType];
 
         if (heatingType === 'waermepumpe') {
           finalHeatingKwh /= HEATPUMP_SCOP;
@@ -216,19 +228,16 @@ export const useModernizationCalculator = () => {
     let current;
     if (calculationMode === 'consumption') {
         const pricePerKwh = ENERGY_PRICES[inputs.currentHeating];
-        const emissionFactor = CO2_FACTORS[inputs.currentHeating];
+        const emissionFactor = emissionFactors[inputs.currentHeating];
 
         let finalHotWaterKwh = hotWaterKwh;
-        let consumptionKwh = consumption;
-        if (inputs.currentHeating === 'waermepumpe') {
-            finalHotWaterKwh /= HEATPUMP_SCOP;
-            consumptionKwh /= HEATPUMP_SCOP;
-        }
+        if (inputs.currentHeating === 'waermepumpe') finalHotWaterKwh /= HEATPUMP_SCOP;
+        // Der angegebene Zählerverbrauch ist bereits Endenergie, auch bei Wärmepumpen.
         const hotWaterCost = finalHotWaterKwh * pricePerKwh;
         const totalCost = consumption * pricePerKwh; // Original Kosten
 
         const heatingCost = Math.max(0, totalCost - hotWaterCost);
-        const co2 = (consumption + (finalHotWaterKwh - hotWaterKwh)) * emissionFactor;
+        const co2 = consumption * emissionFactor;
         const co2Surcharge = co2Extra(inputs.currentHeating, consumption);
         current = {
             total: totalCost + co2Surcharge,
@@ -244,7 +253,12 @@ export const useModernizationCalculator = () => {
         current = calculateCosts(currentHeatingKwh, hotWaterKwh, inputs.currentHeating);
     }
 
-    const futureHeatingKwh = size * SPECIFIC_CONSUMPTION_FUTURE[inputs.futureInsulation];
+    const baseHeatDemand = size * SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear] * BUILDING_TYPE_FACTOR[inputs.buildingType];
+    const measuredHeatDemand = Math.max(0, consumption - hotWaterKwh / (inputs.currentHeating === 'waermepumpe' ? HEATPUMP_SCOP : 1))
+      * (inputs.currentHeating === 'waermepumpe' ? HEATPUMP_SCOP : 1);
+    const futureHeatingKwh = calculationMode === 'consumption'
+      ? measuredHeatDemand * SPECIFIC_CONSUMPTION_FUTURE[inputs.futureInsulation] / SPECIFIC_CONSUMPTION_BY_YEAR[inputs.buildingYear]
+      : size * SPECIFIC_CONSUMPTION_FUTURE[inputs.futureInsulation] * BUILDING_TYPE_FACTOR[inputs.buildingType];
     let future = calculateCosts(futureHeatingKwh, hotWaterKwh, inputs.futureHeating);
 
     const dynamicSavings: Record<SmartHomeSystem, number> = {
@@ -278,18 +292,22 @@ export const useModernizationCalculator = () => {
         amortizationPeriod = totalInvestment / annualSavings;
     }
 
-    setResults({ current, future, annualSavings, savingsPercentage, co2Savings, amortizationPeriod, smartHomeInvestment: smartInvestment });
+    setResults({ inputs: { ...inputs }, current, future, annualSavings, savingsPercentage, co2Savings, amortizationPeriod, smartHomeInvestment: smartInvestment });
+    return undefined;
   };
 
   const handleInputChange = (field: keyof CalculatorInputs, value: string) => {
+    setResults(null);
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
   const handlePriceChange = (field: keyof CustomPrices, value: string) => {
+    setResults(null);
     setCustomPrices(prev => ({ ...prev, [field]: value }));
   };
 
   const toggleSmartSystem = (system: SmartHomeSystem) => {
+    setResults(null);
     setSelectedSmartSystems(prev =>
       prev.includes(system) ? prev.filter(s => s !== system) : [...prev, system]
     );
@@ -305,12 +323,12 @@ export const useModernizationCalculator = () => {
     results,
     priceScenario,
     co2Path,
-    setPriceScenario,
-    setCo2Path,
+    setPriceScenario: (value: PriceScenarioKey) => { setResults(null); setPriceScenario(value); },
+    setCo2Path: (value: boolean) => { setResults(null); setCo2Path(value); },
     handleInputChange,
-    setCalculationMode,
-    setCurrentConsumption,
-    setInvestmentCosts,
+    setCalculationMode: (value: 'details' | 'consumption') => { setResults(null); setCalculationMode(value); },
+    setCurrentConsumption: (value: string) => { setResults(null); setCurrentConsumption(value); },
+    setInvestmentCosts: (value: string) => { setResults(null); setInvestmentCosts(value); },
     handlePriceChange,
     estimateSmartInvestment,
     toggleSmartSystem,
