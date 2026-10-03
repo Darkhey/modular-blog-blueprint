@@ -17,6 +17,7 @@ import QuickAccessButtons from './QuickAccessButtons';
 import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 import ShareInputs from '../shared/ShareInputs';
+import { CO2_FACTORS, PRICE_SCENARIOS, DEFAULT_SCENARIO } from '@/data/energyPrices2026';
 
 
 const InsulationCalculator = () => {
@@ -29,7 +30,7 @@ const InsulationCalculator = () => {
       area: 100,
       uValueBefore: 1.4,
       insulationSystem: 'wdvs_eps_160',
-      heatingCost: 0.15,
+      heatingCost: PRICE_SCENARIOS[DEFAULT_SCENARIO].gas,
     },
   });
 
@@ -38,8 +39,14 @@ const InsulationCalculator = () => {
   const selectedSystem = insulationSystems[selectedSystemKey];
   const watchedValues = form.watch();
 
+  useEffect(() => {
+    const subscription = form.watch(() => setResult(null));
+    return () => subscription.unsubscribe();
+  }, [form]);
+
   const restoreFromUrl = (restored: Record<string, unknown>) => {
-    form.reset({ ...form.getValues(), ...(restored as Partial<FormValues>) });
+    const parsed = formSchema.safeParse({ ...form.getValues(), ...restored });
+    if (parsed.success && insulationSystems[parsed.data.insulationSystem]?.part === parsed.data.buildingPart) form.reset(parsed.data);
   };
 
 
@@ -68,11 +75,11 @@ const InsulationCalculator = () => {
     const deltaU = values.uValueBefore - uValueAfter;
 
     // Vereinfachte Berechnung basierend auf Heizgradtagen (~3600 K*d/a)
-    const energySavingsKwh = deltaU * values.area * 3600 * 24 / 1000;
+    const energySavingsKwh = Math.max(0, deltaU * values.area * 3600 * 24 / 1000);
     const savingsPerYear = energySavingsKwh * values.heatingCost;
     const investment = system.cost * values.area;
     const amortization = savingsPerYear > 0 ? investment / savingsPerYear : Infinity;
-    const co2Savings = energySavingsKwh * 0.2; // Faktor für Gasheizung
+    const co2Savings = energySavingsKwh * CO2_FACTORS.gas; // Näherung: Gasheizung
 
     setResult({
       investment,

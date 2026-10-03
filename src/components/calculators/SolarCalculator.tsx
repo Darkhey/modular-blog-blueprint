@@ -14,7 +14,7 @@ import ShareInputs from '../shared/ShareInputs';
 
 import ScenarioToggle from './shared/ScenarioToggle';
 import CO2PathToggle from './shared/CO2PathToggle';
-import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
+import { DEFAULT_SCENARIO, PRICE_SCENARIOS, PriceScenarioKey } from '@/data/energyPrices2026';
 
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
@@ -59,11 +59,11 @@ const SolarCalculator = () => {
 
   const validateInputs = (): string[] => {
     const errs: string[] = [];
-    if (inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
-    if (inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
+    if (!Number.isFinite(inputs.dachflaeche) || inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
+    if (!Number.isFinite(inputs.stromverbrauch) || inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
     if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
     if (inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
-    if (inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
+    if (!Number.isFinite(inputs.tagverbrauchAnteil) || inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
     if (inputs.mitSpeicher && inputs.speicherkapazitaet <= 0) errs.push('Speicherkapazität muss > 0 kWh sein');
     return errs;
   };
@@ -162,7 +162,7 @@ const SolarCalculator = () => {
                 onRestore={(r) => {
                   restoreFromUrl(r);
                    if (typeof r.priceScenario === 'string' && r.priceScenario in PRICE_SCENARIOS) setPriceScenario(r.priceScenario as PriceScenarioKey);
-                  if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
+                   if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
                 }}
               />
 
