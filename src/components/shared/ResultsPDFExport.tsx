@@ -109,6 +109,7 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
           {
             heading: 'Gesamt',
             rows: [
+              ['iSFP vorhanden', results?.hasIsfp ? 'ja' : 'nein'],
               ['Bruttokosten (Ø)', `${num(results?.totalBruttoAvg)} EUR`],
               ['Förderabzug', `-${num(results?.totalFoerderung)} EUR`],
               ['Eigenanteil (Ø)', `${num(results?.totalNettoAvg)} EUR`],

@@ -137,8 +137,8 @@ const KostenrechnerPage = () => {
         })),
         totalBruttoAvg: results.totalBruttoAvg,
         totalFoerderung: results.totalFoerderung,
-         totalNettoAvg: results.totalNettoAvg,
-         hasIsfp,
+        totalNettoAvg: results.totalNettoAvg,
+        hasIsfp,
       }
     : null;
 
