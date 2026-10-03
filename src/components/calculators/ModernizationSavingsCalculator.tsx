@@ -12,8 +12,9 @@ import QuickAccessButtons from './QuickAccessButtons';
 import ScenarioToggle from './shared/ScenarioToggle';
 import CO2PathToggle from './shared/CO2PathToggle';
 
-import ShareResults from '../shared/ShareResults';
-import ResultsPDFExport from '../shared/ResultsPDFExport';
+import ShareInputs from '../shared/ShareInputs';
+import { toast } from '@/hooks/use-toast';
+import { PRICE_SCENARIOS, type PriceScenarioKey } from '@/data/energyPrices2026';
 
 
 const ModernizationSavingsCalculator = () => {
@@ -44,13 +45,13 @@ const ModernizationSavingsCalculator = () => {
     <>
       {/* JSON-LD is emitted by the page-level CalculatorFaqSection */}
       <TooltipProvider>
-      <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
-        <CardHeader className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-t-lg">
+       <Card className="w-full max-w-5xl mx-auto glass border-2 border-border shadow-xl">
+         <CardHeader className="bg-primary text-primary-foreground rounded-t-lg">
           <CardTitle className="flex items-center text-2xl">
             <Calculator className="mr-3 w-8 h-8" />
             Modernisierungs-Einspar-Rechner
           </CardTitle>
-          <CardDescription className="text-emerald-100">Berechnen Sie Ihr Sparpotenzial durch Sanierungsmaßnahmen.</CardDescription>
+            <CardDescription className="text-primary-foreground/80">Berechnen Sie Ihr Sparpotenzial durch Sanierungsmaßnahmen.</CardDescription>
         </CardHeader>
         
         <CardContent className="p-8">
@@ -85,18 +86,38 @@ const ModernizationSavingsCalculator = () => {
           </div>
 
 
-          <Button onClick={calculateSavings} className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg shadow-lg transform hover:scale-[1.02] transition-all duration-300">
+          <Button onClick={() => { const error = calculateSavings(); if (error) toast({ title: 'Eingaben prüfen', description: error, variant: 'destructive' }); }} className="w-full font-bold py-4 text-lg">
             <Zap className="mr-2 w-5 h-5" />
             Sparpotenzial berechnen!
           </Button>
 
+          <div className="mt-4">
+            <ShareInputs values={{ ...inputs, calculationMode, currentConsumption, investmentCosts, customPrices, selectedSmartSystems, priceScenario, co2Path }} onRestore={(restored) => {
+              for (const field of Object.keys(inputs) as (keyof typeof inputs)[]) {
+                if (typeof restored[field] === 'string' || typeof restored[field] === 'number') handleInputChange(field, String(restored[field]));
+              }
+              if (restored.calculationMode === 'details' || restored.calculationMode === 'consumption') setCalculationMode(restored.calculationMode);
+              if (typeof restored.currentConsumption === 'string' || typeof restored.currentConsumption === 'number') setCurrentConsumption(String(restored.currentConsumption));
+              if (typeof restored.investmentCosts === 'string' || typeof restored.investmentCosts === 'number') setInvestmentCosts(String(restored.investmentCosts));
+              if (typeof restored.priceScenario === 'string' && restored.priceScenario in PRICE_SCENARIOS) setPriceScenario(restored.priceScenario as PriceScenarioKey);
+              if (typeof restored.co2Path === 'boolean') setCo2Path(restored.co2Path);
+              if (restored.customPrices && typeof restored.customPrices === 'object') {
+                for (const field of Object.keys(customPrices) as (keyof typeof customPrices)[]) {
+                  const value = (restored.customPrices as Record<string, unknown>)[field];
+                  if (typeof value === 'number' || typeof value === 'string') handlePriceChange(field, String(value));
+                }
+              }
+              const systems = typeof restored.selectedSmartSystems === 'string'
+                ? restored.selectedSmartSystems.split(',') : restored.selectedSmartSystems;
+              if (Array.isArray(systems)) {
+                for (const system of systems) {
+                  if (typeof system === 'string' && !selectedSmartSystems.includes(system as typeof selectedSmartSystems[number])) toggleSmartSystem(system as typeof selectedSmartSystems[number]);
+                }
+              }
+            }} />
+          </div>
+
           <CalculatorResults results={results} investmentCosts={investmentCosts} />
-          {results && (
-            <div className="mt-4 flex gap-2 flex-wrap">
-              <ShareResults calculatorType="heating" results={results} />
-              <ResultsPDFExport calculatorType="heating" results={results} />
-            </div>
-          )}
           
           <QuickAccessButtons currentCalculator="heating" className="mt-8" />
         </CardContent>

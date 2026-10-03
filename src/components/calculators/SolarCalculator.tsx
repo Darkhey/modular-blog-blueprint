@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
+import { z } from 'zod';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BarChart, Calculator, Loader2 } from 'lucide-react';
-import { SolarInputs } from '@/types/solarCalculator';
+import { SolarInputs, SolarResults as SolarResultData } from '@/types/solarCalculator';
 import { calculateSolarResults } from '@/utils/solarCalculations';
 import SolarInputForm from './solar/SolarInputForm';
 import SolarResults from './solar/SolarResults';
@@ -13,12 +14,26 @@ import ResultsPDFExport from '../shared/ResultsPDFExport';
 import ShareInputs from '../shared/ShareInputs';
 
 import ScenarioToggle from './shared/ScenarioToggle';
-import CO2PathToggle from './shared/CO2PathToggle';
-import { DEFAULT_SCENARIO, PriceScenarioKey } from '@/data/energyPrices2026';
+import { DEFAULT_SCENARIO, PRICE_SCENARIOS, PriceScenarioKey } from '@/data/energyPrices2026';
 
 import { useToast } from '@/hooks/use-toast';
 import { fetchSunshineData, SunshineData } from '@/utils/fetchSunshineData';
 
+const solarInputSchema = z.object({
+  dachflaeche: z.number().finite().min(5).max(1000),
+  stromverbrauch: z.number().finite().min(1).max(200000),
+  ausrichtung: z.enum(['sued', 'ost-west', 'nord']),
+  dachneigung: z.number().finite().min(0).max(90),
+  verschattung: z.enum(['keine', 'gering', 'mittel', 'stark']),
+  modultyp: z.enum(['mono', 'poly', 'duennschicht']),
+  plz: z.string().regex(/^\d{5}$/),
+  mitSpeicher: z.boolean(),
+  speicherkapazitaet: z.number().finite().min(0).max(200),
+  mitEAuto: z.boolean(),
+  eAutoFahrleistung: z.number().finite().min(0).max(100000),
+  mitWallbox: z.boolean(),
+  tagverbrauchAnteil: z.number().finite().min(0).max(100),
+});
 
 const SolarCalculator = () => {
   const [inputs, setInputs] = useState<SolarInputs>({
@@ -37,31 +52,38 @@ const SolarCalculator = () => {
     tagverbrauchAnteil: 40,
   });
 
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<SolarResultData | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [sunshine, setSunshine] = useState<SunshineData | null>(null);
   const [priceScenario, setPriceScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
-  const [co2Path, setCo2Path] = useState(false);
   const { toast } = useToast();
 
 
   const handleInputChange = (field: keyof SolarInputs, value: any) => {
+    setResults(null);
+    setSunshine(null);
     setInputs(prev => ({ ...prev, [field]: value }));
   };
 
   const restoreFromUrl = (restored: Record<string, unknown>) => {
-    setInputs(prev => ({ ...prev, ...(restored as Partial<SolarInputs>), plz: String((restored as any).plz ?? prev.plz).padStart(5, '0') }));
+    const { priceScenario: _scenario, ...inputValues } = restored;
+    const parsed = solarInputSchema.safeParse({ ...inputs, ...inputValues, plz: String(inputValues.plz ?? inputs.plz).padStart(5, '0') });
+    if (!parsed.success) return;
+    setResults(null);
+    setSunshine(null);
+    setInputs(parsed.data as SolarInputs);
   };
 
 
   const validateInputs = (): string[] => {
     const errs: string[] = [];
-    if (inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
-    if (inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
+    if (!solarInputSchema.safeParse(inputs).success) errs.push('Bitte gültige Werte für Fläche, Verbrauch, Standort und Ausstattung eingeben');
+    if (!Number.isFinite(inputs.dachflaeche) || inputs.dachflaeche <= 0) errs.push('Dachfläche muss > 0 m² sein');
+    if (!Number.isFinite(inputs.stromverbrauch) || inputs.stromverbrauch <= 0) errs.push('Stromverbrauch muss > 0 kWh sein');
     if (!/^\d{5}$/.test(inputs.plz)) errs.push('PLZ muss 5-stellig sein');
-    if (inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
-    if (inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
-    if (inputs.mitSpeicher && inputs.speicherkapazitaet <= 0) errs.push('Speicherkapazität muss > 0 kWh sein');
+    if (!Number.isFinite(inputs.dachneigung) || inputs.dachneigung < 0 || inputs.dachneigung > 90) errs.push('Dachneigung zwischen 0° und 90°');
+    if (!Number.isFinite(inputs.tagverbrauchAnteil) || inputs.tagverbrauchAnteil < 0 || inputs.tagverbrauchAnteil > 100) errs.push('Tagverbrauch zwischen 0% und 100%');
+    if (inputs.mitSpeicher && (!Number.isFinite(inputs.speicherkapazitaet) || inputs.speicherkapazitaet <= 0)) errs.push('Speicherkapazität muss > 0 kWh sein');
     return errs;
   };
 
@@ -78,7 +100,7 @@ const SolarCalculator = () => {
       toast({ title: 'Wetterdaten nicht verfügbar', description: 'Berechnung mit Standardwerten ausgeführt.' });
     }
     setSunshine(data);
-    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario, includeCo2Path: co2Path });
+    const calculatedResults = calculateSolarResults(inputs, data?.regionalFactor, { priceScenario });
     setResults(calculatedResults);
     setIsCalculating(false);
   };
@@ -91,7 +113,7 @@ const SolarCalculator = () => {
         type: 'speicher',
         title: 'Batteriespeicher empfohlen',
         description: `Mit einem ${Math.ceil(inputs.stromverbrauch / 1000)} kWh Speicher könnten Sie Ihren Eigenverbrauch auf bis zu 75% steigern.`,
-        impact: `+${Math.round((results.jahresertrag * 0.45) * 0.32)} € jährliche Ersparnis`
+        impact: `Potenzial abhängig von Speichergröße und Strompreis`
       });
     }
     if (!inputs.mitEAuto && results.netzeinspeisung > 3000) {
@@ -99,7 +121,7 @@ const SolarCalculator = () => {
         type: 'emobility',
         title: 'E-Mobilität Integration',
         description: 'Sie speisen viel Strom ein. Ein E-Auto könnte diesen Überschuss optimal nutzen.',
-        impact: `Bis zu ${Math.round(results.netzeinspeisung * 0.6 * 0.32)} € zusätzliche Ersparnis möglich`
+        impact: `Potenzial abhängig vom Ladeprofil`
       });
     }
     if (inputs.modultyp !== 'mono' && inputs.dachflaeche < 80) {
@@ -132,20 +154,19 @@ const SolarCalculator = () => {
           <form onSubmit={handleCalculate}>
             <CardContent className="p-8 space-y-6">
               <SolarInputForm inputs={inputs} onInputChange={handleInputChange} />
-              <div className="grid gap-3 md:grid-cols-2">
-                <ScenarioToggle value={priceScenario} onChange={setPriceScenario} />
-                <CO2PathToggle enabled={co2Path} onChange={setCo2Path} />
+               <div className="max-w-sm">
+                 <ScenarioToggle value={priceScenario} onChange={(value) => { setResults(null); setPriceScenario(value); }} />
               </div>
             </CardContent>
 
 
-            <CardFooter className="flex gap-4 px-8 pb-8">
+             <CardFooter className="flex flex-wrap gap-4 px-4 md:px-8 pb-8">
               <Button
                 type="submit"
                 size="lg"
                 disabled={isCalculating}
                 aria-busy={isCalculating}
-                className="flex-1 md:flex-none bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold shadow-lg transform hover:scale-[1.02] transition-all duration-300"
+                 className="w-full sm:w-auto sm:flex-1 font-bold"
               >
                 {isCalculating ? (
                   <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> Berechnung läuft...</>
@@ -155,18 +176,17 @@ const SolarCalculator = () => {
               </Button>
 
               <ShareInputs
-                values={{ ...inputs, priceScenario, co2Path }}
+                 values={{ ...inputs, priceScenario }}
                 onRestore={(r) => {
                   restoreFromUrl(r);
-                  if (typeof r.priceScenario === 'string') setPriceScenario(r.priceScenario as PriceScenarioKey);
-                  if (typeof r.co2Path === 'boolean') setCo2Path(r.co2Path);
+                   if (typeof r.priceScenario === 'string' && r.priceScenario in PRICE_SCENARIOS) setPriceScenario(r.priceScenario as PriceScenarioKey);
                 }}
               />
 
               {results && (
                 <div className="flex gap-2">
                   <ShareResults calculatorType="solar" results={results} inputs={inputs as unknown as Record<string, unknown>} />
-                  <ResultsPDFExport results={results} calculatorType="solar" />
+                   <ResultsPDFExport results={{ ...results, inputs: { ...inputs, priceScenario } }} calculatorType="solar" />
                 </div>
               )}
 

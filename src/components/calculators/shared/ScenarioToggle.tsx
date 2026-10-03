@@ -26,7 +26,7 @@ const ScenarioToggle = ({ value, onChange, className = '' }: Props) => {
     <TooltipProvider>
       <div className={`space-y-2 ${className}`}>
         <div className="flex items-center gap-1.5 text-sm font-medium">
-          Preis-Szenario 2026\u201345
+          Energiepreis-Szenario 2026–45
           <Tooltip>
             <TooltipTrigger asChild>
               <button type="button" aria-label="Erkl\u00e4rung Preis-Szenarien" className="text-muted-foreground hover:text-foreground">

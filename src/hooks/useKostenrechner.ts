@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { gewerke, type Gewerk } from '@/data/kostenrechnerData';
+import { BEG_2026 } from '@/data/energyPrices2026';
 
 export interface GewerkInput {
   selected: boolean;
@@ -41,6 +42,7 @@ export const useKostenrechner = () => {
   const [results, setResults] = useState<KostenrechnerResults | null>(null);
 
   const toggleGewerk = useCallback((id: string) => {
+    setResults(null);
     setInputs((prev) => ({
       ...prev,
       [id]: { ...prev[id], selected: !prev[id].selected },
@@ -48,14 +50,18 @@ export const useKostenrechner = () => {
   }, []);
 
   const setMenge = useCallback((id: string, menge: number) => {
+    setResults(null);
+    const gewerk = gewerke.find((g) => g.id === id);
+    if (!gewerk || !Number.isFinite(menge)) return;
     setInputs((prev) => ({
       ...prev,
-      [id]: { ...prev[id], menge },
+      [id]: { ...prev[id], menge: Math.min(gewerk.maxValue, Math.max(gewerk.minValue, menge)) },
     }));
   }, []);
 
   /** Stellt Eingaben aus geteilten URL-Parametern wieder her. */
   const restoreInputs = useCallback((restored: Record<string, unknown>) => {
+    setResults(null);
     setInputs((prev) => {
       const next = { ...prev };
       Object.entries(restored).forEach(([id, value]) => {
@@ -63,7 +69,9 @@ export const useKostenrechner = () => {
         const v = value as { selected?: unknown; menge?: unknown };
         next[id] = {
           selected: typeof v.selected === 'boolean' ? v.selected : next[id].selected,
-          menge: typeof v.menge === 'number' ? v.menge : next[id].menge,
+          menge: typeof v.menge === 'number' && Number.isFinite(v.menge)
+            ? Math.min(gewerke.find((g) => g.id === id)?.maxValue ?? v.menge, Math.max(gewerke.find((g) => g.id === id)?.minValue ?? v.menge, v.menge))
+            : next[id].menge,
         };
       });
       return next;
@@ -73,16 +81,22 @@ export const useKostenrechner = () => {
   const selectedCount = Object.values(inputs).filter((i) => i.selected).length;
 
 
-  const calculate = useCallback(() => {
+  const calculate = useCallback((hasIsfp = false) => {
     const selectedGewerke = gewerke.filter((g) => inputs[g.id].selected);
+    // Die Hüllen-Maßnahmen teilen sich einen förderfähigen Kostenrahmen je Wohneinheit.
+    let verbleibenderHuelleDeckel: number = hasIsfp ? BEG_2026.huelleMaxKostenMitIsfp : BEG_2026.huelleMaxKostenOhneIsfp;
 
     const gewerkResults: GewerkResult[] = selectedGewerke.map((g) => {
       const menge = inputs[g.id].menge;
       const kostenMin = menge * g.costPerUnit.min;
       const kostenMax = menge * g.costPerUnit.max;
       const kostenAvg = (kostenMin + kostenMax) / 2;
-      const foerderungRaw = kostenAvg * (g.foerderungPercent / 100);
-      const foerderung = Math.min(foerderungRaw, g.foerderungMax);
+      const foerderfaehig = g.id === 'heizung'
+        ? Math.min(kostenAvg, BEG_2026.heizungMaxKosten)
+        : g.foerderungPercent > 0 ? Math.min(kostenAvg, verbleibenderHuelleDeckel) : 0;
+      if (g.id !== 'heizung') verbleibenderHuelleDeckel -= foerderfaehig;
+      const prozent = g.id === 'heizung' ? BEG_2026.heizungGrund : hasIsfp ? BEG_2026.huelleMaxProzent : BEG_2026.huelleGrund;
+      const foerderung = foerderfaehig * (g.foerderungPercent > 0 ? prozent / 100 : 0);
       return {
         gewerk: g,
         menge,
@@ -120,5 +134,5 @@ export const useKostenrechner = () => {
     setResults({ gewerke: gewerkResults, ...totals });
   }, [inputs]);
 
-  return { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke };
+  return { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, clearResults: () => setResults(null), gewerke };
 };

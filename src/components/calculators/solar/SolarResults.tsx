@@ -151,7 +151,7 @@ const SolarResults = ({ results, mitSpeicher, mitEAuto }: SolarResultsProps) => 
                     <span className="font-semibold text-foreground">{formatNumber(results.eAutoLadung)} kWh</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Ersparnis</span>
+                    <span className="text-sm text-muted-foreground">Davon E-Auto-Ladung</span>
                     <span className="font-semibold text-emerald-600">{formatCurrency(results.eAutoErsparnis)}</span>
                   </div>
                   <div className="flex justify-between">
@@ -228,15 +228,18 @@ const SolarResults = ({ results, mitSpeicher, mitEAuto }: SolarResultsProps) => 
                 </div>
                 {mitSpeicher && (
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">Speicher-Bonus</span>
+                    <span className="text-sm text-muted-foreground">Davon Speicher-Mehrwert</span>
                     <span className="font-semibold text-blue-600">{formatCurrency(results.speicherersparnis)}</span>
                   </div>
                 )}
                 {mitEAuto && (
                   <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">E-Auto Ersparnis</span>
+                    <span className="text-sm text-muted-foreground">Davon E-Auto-Ladung</span>
                     <span className="font-semibold text-indigo-600">{formatCurrency(results.eAutoErsparnis)}</span>
                   </div>
+                )}
+                {(mitSpeicher || mitEAuto) && (
+                  <p className="text-xs text-muted-foreground">Die „Davon“-Beträge sind bereits in Solarstrom-Nutzung und Einspeisevergütung enthalten und werden nicht zusätzlich addiert.</p>
                 )}
                 <Separator />
                 <div className="flex justify-between text-lg font-bold">

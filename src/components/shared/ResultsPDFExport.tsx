@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 import { siteConfig } from '@/config/site.config';
+import { buildingParts, insulationSystems } from '@/components/calculators/insulation/insulationCalculatorData';
 
 interface ResultsPDFExportProps {
   calculatorType: string;
@@ -39,17 +40,18 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
           {
             heading: 'Ihre Eingaben',
             rows: [
-              ['Wohnfläche', `${results.inputs?.livingSpace ?? 'k. A.'} m²`],
-              ['Gebäudealter', `${results.inputs?.buildingAge ?? 'k. A.'}`],
-              ['Heizungsart', `${results.inputs?.heatingType ?? 'k. A.'}`],
+               ['Wohnfläche', `${results.inputs?.houseSize ?? 'k. A.'} m²`],
+               ['Baujahr-Klasse', `${results.inputs?.buildingYear ?? 'k. A.'}`],
+               ['Aktuelle Heizung', `${results.inputs?.currentHeating ?? 'k. A.'}`],
+               ['Geplante Heizung', `${results.inputs?.futureHeating ?? 'k. A.'}`],
             ],
           },
           {
             heading: 'Ergebnisse',
             rows: [
               ['Jährliche Ersparnis', `${num(results.annualSavings ?? results.totalSavingsPerYear)} EUR`],
-              ['Ersparnis in %', results.savingsPercentage ? `${results.savingsPercentage.toFixed(0)} %` : 'k. A.'],
-              ['Amortisationszeit', `${num(results.amortizationPeriod ?? results.amortizationYears)} Jahre`],
+               ['Ersparnis in %', results.savingsPercentage != null ? `${results.savingsPercentage.toFixed(0)} %` : 'k. A.'],
+               ['Amortisationszeit', results.amortizationPeriod != null ? `${num(results.amortizationPeriod, 1)} Jahre` : 'nicht erreicht'],
               ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
               ['Kosten vorher', `${num(results.current?.total)} EUR/Jahr`],
               ['Kosten nachher', `${num(results.future?.total)} EUR/Jahr`],
@@ -59,17 +61,41 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
       case 'insulation':
         return [
           {
+            heading: 'Ihre Eingaben',
+            rows: [
+               ['Bauteil', buildingParts[results.inputs?.buildingPart as keyof typeof buildingParts]?.name ?? 'k. A.'],
+              ['Fläche', `${num(results.inputs?.area)} m²`],
+              ['U-Wert vorher', `${num(results.inputs?.uValueBefore, 2)} W/(m²K)`],
+               ['Dämmsystem', insulationSystems[results.inputs?.insulationSystem]?.name ?? 'k. A.'],
+              ['Energiepreis', `${num(results.inputs?.heatingCost, 3)} EUR/kWh`],
+              ['Postleitzahl', `${results.inputs?.postcode || 'nicht angegeben'}`],
+              ['Preis-Szenario', `${results.inputs?.scenario ?? 'k. A.'}`],
+            ],
+          },
+          {
             heading: 'Ergebnisse',
             rows: [
               ['Investition', `${num(results.investment)} EUR`],
               ['Jährliche Ersparnis', `${num(results.savingsPerYear)} EUR`],
-              ['Amortisationszeit', `${num(results.amortization)} Jahre`],
+               ['Amortisationszeit', Number.isFinite(results.amortization) ? `${num(results.amortization, 1)} Jahre` : 'nicht erreicht'],
               ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
             ],
           },
         ];
       case 'solar':
         return [
+          {
+            heading: 'Ihre Eingaben',
+            rows: [
+              ['Dachfläche', `${num(results?.inputs?.dachflaeche)} m²`],
+              ['Stromverbrauch', `${num(results?.inputs?.stromverbrauch)} kWh/Jahr`],
+              ['Postleitzahl', `${results?.inputs?.plz ?? 'k. A.'}`],
+              ['Ausrichtung / Neigung', `${results?.inputs?.ausrichtung ?? 'k. A.'} / ${num(results?.inputs?.dachneigung)}°`],
+              ['Speicher', results?.inputs?.mitSpeicher ? `${num(results.inputs.speicherkapazitaet)} kWh` : 'nein'],
+              ['Tagesverbrauchsanteil', `${num(results?.inputs?.tagverbrauchAnteil)} %`],
+              ['Preis-Szenario', `${results?.inputs?.priceScenario ?? 'k. A.'}`],
+            ],
+          },
           {
             heading: 'Ergebnisse',
             rows: [
@@ -95,6 +121,7 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
           {
             heading: 'Gesamt',
             rows: [
+              ['iSFP vorhanden', results?.hasIsfp ? 'ja' : 'nein'],
               ['Bruttokosten (Ø)', `${num(results?.totalBruttoAvg)} EUR`],
               ['Förderabzug', `-${num(results?.totalFoerderung)} EUR`],
               ['Eigenanteil (Ø)', `${num(results?.totalNettoAvg)} EUR`],

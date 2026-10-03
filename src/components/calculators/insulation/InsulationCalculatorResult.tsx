@@ -2,7 +2,6 @@
 import { ArrowRight, BadgePercent, Info, TrendingUp, Leaf, Zap } from 'lucide-react';
 import { CalculationResult } from './insulationCalculatorData';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import ShareResults from '@/components/shared/ShareResults';
 import AnimatedGauge from '../AnimatedGauge';
 
 interface InsulationCalculatorResultProps {
@@ -109,20 +108,20 @@ const InsulationCalculatorResult = ({ result }: InsulationCalculatorResultProps)
             <div>
               <h4 className="text-lg font-bold text-foreground">Staatliche Förderung nutzen!</h4>
               <p className="text-muted-foreground mt-1 mb-4">
-                Für energetische Sanierungen können Sie hohe staatliche Zuschüsse (BEG-Förderung) von bis zu 70% erhalten. Das verkürzt die Amortisationszeit erheblich!
+                Für förderfähige Dämmmaßnahmen gibt es in der Regel 15 % Zuschuss, mit individuellem Sanierungsfahrplan bis zu 20 %. Die tatsächliche Förderung hängt von den Voraussetzungen ab.
               </p>
-              <a
-                href="/blog/beg-foerderung-2024"
+               <a
+                href="/foerderrechner"
                 className="inline-flex items-center gap-2 font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 group"
               >
-                Mehr zur BEG-Förderung 2024
+                Förderung berechnen
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
         </div>
+        <p className="mt-4 text-xs text-muted-foreground">Vereinfachte Schätzung der Transmissionswärmeverluste ohne Anlagennutzungsgrad und Lüftungsverluste. Förderung nicht vom Investitionsbetrag abgezogen.</p>
 
-        <ShareResults calculatorType="insulation" results={result} className="mt-8" />
       </div>
     </TooltipProvider>
   );

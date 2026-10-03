@@ -104,10 +104,10 @@ describe('Solar-Rechner – Szenario & CO₂-Pfad', () => {
     expect(real.zwanzigJahresBilanz).toBeGreaterThan(opt.zwanzigJahresBilanz);
   });
 
-  it('CO2-Pfad an erhöht die 20-Jahres-Bilanz', () => {
+  it('CO2-Pfad erzeugt keinen fiktiven PV-Bonus', () => {
     const off = calculateSolarResults(inputs, undefined, { priceScenario: 'realistisch', includeCo2Path: false });
     const on = calculateSolarResults(inputs, undefined, { priceScenario: 'realistisch', includeCo2Path: true });
-    expect(on.zwanzigJahresBilanz).toBeGreaterThan(off.zwanzigJahresBilanz);
+    expect(on.zwanzigJahresBilanz).toBe(off.zwanzigJahresBilanz);
   });
 
   it('Ertrag/Anlagengröße unabhängig vom Szenario (rein physikalisch)', () => {

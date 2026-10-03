@@ -20,7 +20,7 @@ const CO2PathToggle = ({ enabled, onChange, className = '' }: Props) => {
           <Leaf className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
           <div className="min-w-0">
             <Label htmlFor="co2-path" className="text-sm font-medium cursor-pointer flex items-center gap-1.5">
-              CO\u2082-Preis-Pfad ber\u00fccksichtigen
+              CO₂-Preis-Pfad berücksichtigen
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button type="button" aria-label="Was ist der CO\u2082-Preis-Pfad?" className="text-muted-foreground hover:text-foreground">
@@ -29,7 +29,7 @@ const CO2PathToggle = ({ enabled, onChange, className = '' }: Props) => {
                 </TooltipTrigger>
                 <TooltipContent className="max-w-xs text-xs">
                   Ab 2027 startet ETS-2: fossile Brennstoffe werden marktbasiert bepreist.
-                  Prognose: {y2027} \u20ac/t (2027) \u2192 {y2030} \u20ac/t (2030).
+                  Prognose: {y2027} €/t (2027) → {y2030} €/t (2030).
                   Erh\u00f6ht die j\u00e4hrliche Ersparnis fossiler Ersatzma\u00dfnahmen sp\u00fcrbar.
                 </TooltipContent>
               </Tooltip>

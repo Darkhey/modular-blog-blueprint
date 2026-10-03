@@ -76,12 +76,12 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
                   {results.amortizationPeriod.toFixed(1)} <span className="text-2xl">Jahre</span>
                 </p>
               </>
-            ) : parseFloat(investmentCosts) > 0 ? (
+             ) : parseFloat(investmentCosts) > 0 ? (
               <>
                 <p className="text-sm font-medium text-muted-foreground mb-1 flex items-center justify-center gap-1">
                   <TrendingDown className="w-4 h-4 text-blue-500" /> Amortisationszeit
                 </p>
-                <p className="text-2xl font-bold text-blue-600 pt-2">Lohnt sich nicht</p>
+                 <p className="text-2xl font-bold text-blue-600 pt-2">Keine Amortisation bei konstanter Ersparnis</p>
               </>
             ) : null}
           </div>
@@ -131,7 +131,7 @@ const CalculatorResults = ({ results, investmentCosts }: CalculatorResultsProps)
         <div className="mt-6 text-center glass rounded-lg border border-blue-200 text-blue-700 dark:text-blue-300 p-4">
           <p className="text-sm flex items-center justify-center gap-2">
             <Info className="w-4 h-4" />
-            Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten (Stand 2024/25).
+             Diese Berechnung ist eine Schätzung basierend auf typischen Durchschnittswerten (Stand 2026).
           </p>
         </div>
 
