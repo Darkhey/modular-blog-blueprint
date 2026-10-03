@@ -23,7 +23,7 @@ describe('Solarrechner: Eingaben wirken sich auf Ergebnisse aus', () => {
   });
 
   it('zeigt unterschiedliche Amortisation mit und ohne Speicher', () => {
-    const result = calculateSolarResults({ ...solar, mitSpeicher: true });
+    const result = calculateSolarResults({ ...solar, mitSpeicher: true, tagverbrauchAnteil: 20 });
     expect(result.amortisationMitSpeicher).not.toBe(result.amortisationOhneSpeicher);
     expect(result.speichernutzung).toBeGreaterThan(0);
   });
