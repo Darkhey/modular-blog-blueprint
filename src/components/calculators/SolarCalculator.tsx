@@ -71,7 +71,7 @@ const SolarCalculator = () => {
     if (!parsed.success) return;
     setResults(null);
     setSunshine(null);
-    setInputs(parsed.data);
+    setInputs(parsed.data as SolarInputs);
   };
 
 
