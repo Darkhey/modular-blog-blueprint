@@ -18,10 +18,17 @@ import ShareResults from '../shared/ShareResults';
 import ResultsPDFExport from '../shared/ResultsPDFExport';
 import ShareInputs from '../shared/ShareInputs';
 import { CO2_FACTORS, PRICE_SCENARIOS, DEFAULT_SCENARIO } from '@/data/energyPrices2026';
+import ScenarioToggle from './shared/ScenarioToggle';
+import type { PriceScenarioKey } from '@/data/energyPrices2026';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { heatingDegreeDaysForPostcode } from '@/lib/heatingDegreeDays';
 
 
 const InsulationCalculator = () => {
   const [result, setResult] = useState<CalculationResult | null>(null);
+  const [scenario, setScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [postcode, setPostcode] = useState('');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -47,6 +54,8 @@ const InsulationCalculator = () => {
   const restoreFromUrl = (restored: Record<string, unknown>) => {
     const parsed = formSchema.safeParse({ ...form.getValues(), ...restored });
     if (parsed.success && insulationSystems[parsed.data.insulationSystem]?.part === parsed.data.buildingPart) form.reset(parsed.data);
+    if (typeof restored.postcode === 'string' && (/^\d{5}$/.test(restored.postcode) || restored.postcode === '')) setPostcode(restored.postcode);
+    if (typeof restored.scenario === 'string' && restored.scenario in PRICE_SCENARIOS) setScenario(restored.scenario as PriceScenarioKey);
   };
 
 
@@ -74,8 +83,8 @@ const InsulationCalculator = () => {
     const uValueAfter = system.uValue;
     const deltaU = values.uValueBefore - uValueAfter;
 
-    // Vereinfachte Berechnung basierend auf Heizgradtagen (~3600 K*d/a)
-    const energySavingsKwh = Math.max(0, deltaU * values.area * 3600 * 24 / 1000);
+    // Vereinfachte Heizgradtage; ohne PLZ gilt ein bundesweiter Richtwert.
+    const energySavingsKwh = Math.max(0, deltaU * values.area * heatingDegreeDaysForPostcode(postcode) * 24 / 1000);
     const savingsPerYear = energySavingsKwh * values.heatingCost;
     const investment = system.cost * values.area;
     const amortization = savingsPerYear > 0 ? investment / savingsPerYear : Infinity;
@@ -105,6 +114,18 @@ const InsulationCalculator = () => {
         </div>
       </CardHeader>
       <CardContent>
+        <div className="space-y-4 mb-6">
+          <ScenarioToggle value={scenario} onChange={(value) => {
+            setScenario(value);
+            form.setValue('heatingCost', PRICE_SCENARIOS[value].gas);
+            setResult(null);
+          }} />
+          <div className="space-y-1 max-w-xs">
+            <Label htmlFor="insulation-plz">Postleitzahl (optional)</Label>
+            <Input id="insulation-plz" inputMode="numeric" maxLength={5} value={postcode} placeholder="z. B. 80331" onChange={(e) => { setPostcode(e.target.value.replace(/\D/g, '').slice(0, 5)); setResult(null); }} />
+            <p className="text-xs text-muted-foreground">Regionale Heizgradtage näherungsweise berücksichtigen; ohne PLZ: 3.600 K·d/Jahr.</p>
+          </div>
+        </div>
         <InsulationCalculatorForm 
           form={form}
           onSubmit={onSubmit}
@@ -112,14 +133,14 @@ const InsulationCalculator = () => {
           selectedBuildingPart={selectedBuildingPart}
         />
         <div className="mt-4">
-          <ShareInputs values={watchedValues as Record<string, unknown>} onRestore={restoreFromUrl} />
+          <ShareInputs values={{ ...watchedValues, postcode, scenario }} onRestore={restoreFromUrl} />
         </div>
         {result && (
           <>
             <InsulationCalculatorResult result={result} />
             <div className="mt-4 flex gap-2 flex-wrap">
-              <ShareResults calculatorType="insulation" results={result} inputs={watchedValues} />
-               <ResultsPDFExport calculatorType="insulation" results={{ ...result, inputs: watchedValues }} />
+              <ShareResults calculatorType="insulation" results={result} inputs={{ ...watchedValues, postcode, scenario }} />
+              <ResultsPDFExport calculatorType="insulation" results={{ ...result, inputs: { ...watchedValues, postcode, scenario } }} />
             </div>
           </>
         )}
