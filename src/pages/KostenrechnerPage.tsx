@@ -82,7 +82,7 @@ const iconMap: Record<string, React.ReactNode> = {
 const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 
 const KostenrechnerPage = () => {
-  const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
+  const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, clearResults, gewerke } = useKostenrechner();
   const [scenario, setScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
   const [hasIsfp, setHasIsfp] = useState(false);
   const { assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario } =
@@ -201,7 +201,7 @@ const KostenrechnerPage = () => {
                              <InfoTip content="Geschätzte Preisspanne 2026 inkl. Material & Montage. Ohne Gerüst und Sonderbauten." />
                           </Badge>
                           {g.foerderungPercent > 0 && (
-                            <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
+                             <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
                                {g.id === 'heizung' ? 30 : hasIsfp ? 20 : 15}% Förderung
                                 <InfoTip content="Geschätzter Zuschuss auf förderfähige Kosten. Hülle: 15 % auf gemeinsam 30.000 € ohne iSFP, 20 % auf gemeinsam 60.000 € mit iSFP. Heizung: 30 % auf maximal 30.000 €. Antrag vor Auftragsvergabe prüfen." />
                             </Badge>
@@ -268,7 +268,7 @@ const KostenrechnerPage = () => {
           )}
 
           <label className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 cursor-pointer">
-            <Checkbox checked={hasIsfp} onCheckedChange={(checked) => setHasIsfp(checked === true)} />
+            <Checkbox checked={hasIsfp} onCheckedChange={(checked) => { setHasIsfp(checked === true); clearResults(); }} />
             <span className="text-sm"><strong>Individueller Sanierungsfahrplan (iSFP) liegt vor</strong><br /><span className="text-muted-foreground">Für Hüllenmaßnahmen: 20 % statt 15 % Zuschuss und 60.000 € statt 30.000 € gemeinsamer Kostenrahmen.</span></span>
           </label>
 
