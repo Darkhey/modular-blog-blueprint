@@ -67,6 +67,8 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
               ['U-Wert vorher', `${num(results.inputs?.uValueBefore, 2)} W/(m²K)`],
               ['Dämmsystem', `${results.inputs?.insulationSystem ?? 'k. A.'}`],
               ['Energiepreis', `${num(results.inputs?.heatingCost, 3)} EUR/kWh`],
+              ['Postleitzahl', `${results.inputs?.postcode || 'nicht angegeben'}`],
+              ['Preis-Szenario', `${results.inputs?.scenario ?? 'k. A.'}`],
             ],
           },
           {

@@ -120,6 +120,12 @@ const ModernizationSavingsCalculator = () => {
           </div>
 
           <CalculatorResults results={results} investmentCosts={investmentCosts} />
+          {results && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              <ShareResults calculatorType="heating" results={results} inputs={{ ...inputs, calculationMode, currentConsumption, investmentCosts, customPrices, selectedSmartSystems, priceScenario, co2Path }} />
+              <ResultsPDFExport calculatorType="heating" results={results} />
+            </div>
+          )}
           
           <QuickAccessButtons currentCalculator="heating" className="mt-8" />
         </CardContent>

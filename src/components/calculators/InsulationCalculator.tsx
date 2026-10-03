@@ -53,7 +53,8 @@ const InsulationCalculator = () => {
 
   const restoreFromUrl = (restored: Record<string, unknown>) => {
     const parsed = formSchema.safeParse({ ...form.getValues(), ...restored });
-    if (parsed.success && insulationSystems[parsed.data.insulationSystem]?.part === parsed.data.buildingPart) form.reset(parsed.data);
+    if (!parsed.success || insulationSystems[parsed.data.insulationSystem]?.part !== parsed.data.buildingPart) return;
+    form.reset(parsed.data);
     if (typeof restored.postcode === 'string' && (/^\d{5}$/.test(restored.postcode) || restored.postcode === '')) setPostcode(restored.postcode);
     if (typeof restored.scenario === 'string' && restored.scenario in PRICE_SCENARIOS) setScenario(restored.scenario as PriceScenarioKey);
   };
