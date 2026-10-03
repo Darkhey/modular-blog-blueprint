@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/hooks/use-toast';
 import { siteConfig } from '@/config/site.config';
+import { buildingParts, insulationSystems } from '@/components/calculators/insulation/insulationCalculatorData';
 
 interface ResultsPDFExportProps {
   calculatorType: string;
@@ -62,10 +63,10 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
           {
             heading: 'Ihre Eingaben',
             rows: [
-              ['Bauteil', `${results.inputs?.buildingPart ?? 'k. A.'}`],
+               ['Bauteil', buildingParts[results.inputs?.buildingPart as keyof typeof buildingParts]?.name ?? 'k. A.'],
               ['Fläche', `${num(results.inputs?.area)} m²`],
               ['U-Wert vorher', `${num(results.inputs?.uValueBefore, 2)} W/(m²K)`],
-              ['Dämmsystem', `${results.inputs?.insulationSystem ?? 'k. A.'}`],
+               ['Dämmsystem', insulationSystems[results.inputs?.insulationSystem]?.name ?? 'k. A.'],
               ['Energiepreis', `${num(results.inputs?.heatingCost, 3)} EUR/kWh`],
               ['Postleitzahl', `${results.inputs?.postcode || 'nicht angegeben'}`],
               ['Preis-Szenario', `${results.inputs?.scenario ?? 'k. A.'}`],
@@ -76,7 +77,7 @@ const ResultsPDFExport = ({ calculatorType, results, className = '' }: ResultsPD
             rows: [
               ['Investition', `${num(results.investment)} EUR`],
               ['Jährliche Ersparnis', `${num(results.savingsPerYear)} EUR`],
-              ['Amortisationszeit', `${num(results.amortization)} Jahre`],
+               ['Amortisationszeit', Number.isFinite(results.amortization) ? `${num(results.amortization, 1)} Jahre` : 'nicht erreicht'],
               ['CO2-Einsparung', `${num(results.co2Savings)} kg/Jahr`],
             ],
           },
