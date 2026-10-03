@@ -253,12 +253,9 @@ export const calculateSolarResults = (
 
   const netzeinspeisung = jahresertrag - optimaleEigenverbrauch;
 
-  // Jahres-1 Ersparnis (für Kennzahlen); Monetärer CO₂-Bonus optional
+  // CO₂-Vermeidung wird separat ausgewiesen: kein auszahlbarer CO₂-Bonus für PV.
   const co2BonusYear = (jahr: number, ertragKwh: number): number => {
-    if (!includeCo2) return 0;
-    // Strommix-Emissionen, die durch PV vermieden werden, monetär bewertet
-    const pricePerTon = getCO2Price(startjahr + jahr - 1);
-    return (ertragKwh * CO2_FACTORS.strom_mix_2026 * pricePerTon) / 1000;
+    return 0;
   };
 
   const ersparnisSolarstrom = optimaleEigenverbrauch * KWH_PRICE;
