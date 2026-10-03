@@ -81,10 +81,10 @@ export const useKostenrechner = () => {
   const selectedCount = Object.values(inputs).filter((i) => i.selected).length;
 
 
-  const calculate = useCallback(() => {
+  const calculate = useCallback((hasIsfp = false) => {
     const selectedGewerke = gewerke.filter((g) => inputs[g.id].selected);
     // Die Hüllen-Maßnahmen teilen sich einen förderfähigen Kostenrahmen je Wohneinheit.
-    let verbleibenderHuelleDeckel: number = BEG_2026.huelleMaxKostenMitIsfp;
+    let verbleibenderHuelleDeckel: number = hasIsfp ? BEG_2026.huelleMaxKostenMitIsfp : BEG_2026.huelleMaxKostenOhneIsfp;
 
     const gewerkResults: GewerkResult[] = selectedGewerke.map((g) => {
       const menge = inputs[g.id].menge;
@@ -95,7 +95,8 @@ export const useKostenrechner = () => {
         ? Math.min(kostenAvg, BEG_2026.heizungMaxKosten)
         : g.foerderungPercent > 0 ? Math.min(kostenAvg, verbleibenderHuelleDeckel) : 0;
       if (g.id !== 'heizung') verbleibenderHuelleDeckel -= foerderfaehig;
-      const foerderung = foerderfaehig * (g.foerderungPercent / 100);
+      const prozent = g.id === 'heizung' ? BEG_2026.heizungGrund : hasIsfp ? BEG_2026.huelleMaxProzent : BEG_2026.huelleGrund;
+      const foerderung = foerderfaehig * (g.foerderungPercent > 0 ? prozent / 100 : 0);
       return {
         gewerk: g,
         menge,

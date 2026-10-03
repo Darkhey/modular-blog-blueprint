@@ -84,6 +84,7 @@ const fmt = (n: number) => Math.round(n).toLocaleString('de-DE');
 const KostenrechnerPage = () => {
   const { inputs, toggleGewerk, setMenge, restoreInputs, selectedCount, results, calculate, gewerke } = useKostenrechner();
   const [scenario, setScenario] = useState<PriceScenarioKey>(DEFAULT_SCENARIO);
+  const [hasIsfp, setHasIsfp] = useState(false);
   const { assumptions, defaults: assumptionDefaults, isCustom, setAssumption, resetScenario } =
     useScenarioAssumptions(scenario, 'gas', 15);
 
@@ -201,8 +202,8 @@ const KostenrechnerPage = () => {
                           </Badge>
                           {g.foerderungPercent > 0 && (
                             <Badge variant="outline" className="text-xs text-emerald-700 border-emerald-300 inline-flex items-center gap-1">
-                              {g.foerderungPercent}% Förderung
-                               <InfoTip content="Geschätzter Zuschuss auf förderfähige Kosten. Für Hüllenmaßnahmen werden ein gemeinsamer iSFP-Kostenrahmen von 60.000 € und 20 % angenommen; für Heizung 30 % auf maximal 30.000 €. Antrag vor Auftragsvergabe prüfen." />
+                               {g.id === 'heizung' ? 30 : hasIsfp ? 20 : 15}% Förderung
+                                <InfoTip content="Geschätzter Zuschuss auf förderfähige Kosten. Hülle: 15 % auf gemeinsam 30.000 € ohne iSFP, 20 % auf gemeinsam 60.000 € mit iSFP. Heizung: 30 % auf maximal 30.000 €. Antrag vor Auftragsvergabe prüfen." />
                             </Badge>
                           )}
                         </div>
@@ -266,9 +267,14 @@ const KostenrechnerPage = () => {
             </section>
           )}
 
+          <label className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 cursor-pointer">
+            <Checkbox checked={hasIsfp} onCheckedChange={(checked) => setHasIsfp(checked === true)} />
+            <span className="text-sm"><strong>Individueller Sanierungsfahrplan (iSFP) liegt vor</strong><br /><span className="text-muted-foreground">Für Hüllenmaßnahmen: 20 % statt 15 % Zuschuss und 60.000 € statt 30.000 € gemeinsamer Kostenrahmen.</span></span>
+          </label>
+
           {/* Berechnen */}
           <Button
-            onClick={calculate}
+            onClick={() => calculate(hasIsfp)}
             disabled={selectedCount === 0}
             className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-4 text-lg shadow-lg"
           >
@@ -344,7 +350,7 @@ const KostenrechnerPage = () => {
                   <CardHeader className="pb-2">
                     <CardTitle className="text-base flex items-center gap-2">
                       Wirtschaftlichkeit nach Ihren Annahmen
-                      <InfoTip content="Basiert auf dem gewählten Szenario und dem Annahmen-Editor: Energiepreis, Preissteigerung, Laufzeit und Zinssatz." />
+              <InfoTip content="Basiert auf dem gewählten Szenario und dem Annahmen-Editor: Energiepreis, Preissteigerung, Laufzeit und Zinssatz." />
                     </CardTitle>
                     <CardDescription>
                       {fmt(finanz.kwh)} kWh/Jahr geschätzte Einsparung · {assumptions.energiepreis} €/kWh · +{assumptions.steigerung} %/a · {finanz.jahre} Jahre · {assumptions.zinssatz} % Zins
@@ -477,13 +483,13 @@ const KostenrechnerPage = () => {
                 </p>
                 <pre className="bg-muted/50 rounded p-3 text-xs text-foreground whitespace-pre-wrap font-mono">
 Bruttokosten = Menge × Ø-Preis (Mittel aus Min/Max)
-Förderung    = min(Förderquote × Bruttokosten, Deckel)
+ Förderung    = Förderquote × min(Bruttokosten, verfügbarer Kostenrahmen)
 Eigenanteil  = Bruttokosten − Förderung
                 </pre>
                 <ul className="list-disc list-inside space-y-1">
                    <li><strong>Ø-Preis:</strong> Mittelwert der hinterlegten Preisspanne 2026 (Material + Montage).</li>
-                   <li><strong>Förderquote:</strong> Vereinfachte Annahme: Hülle 15 % + 5 % iSFP, Heizung 30 % Grundzuschuss ohne individuelle Boni.</li>
-                   <li><strong>Kostenrahmen:</strong> Hüllenmaßnahmen gemeinsam maximal 60.000 € förderfähige Kosten mit iSFP pro Wohneinheit; Heizung separat maximal 30.000 € für die erste Wohneinheit. Solar ohne Direktzuschuss.</li>
+                    <li><strong>Förderquote:</strong> Hülle 15 % ohne iSFP oder 20 % mit iSFP; Heizung 30 % Grundzuschuss ohne individuelle Boni.</li>
+                    <li><strong>Kostenrahmen:</strong> Hüllenmaßnahmen gemeinsam maximal 30.000 € ohne bzw. 60.000 € mit iSFP förderfähige Kosten pro Wohneinheit; Heizung separat maximal 30.000 € für die erste Wohneinheit. Solar ohne Direktzuschuss.</li>
                   <li>Regionale Zuschüsse (Bundesländer/Kommunen) sind <em>nicht</em> enthalten — siehe <Link to="/foerdermittel/regional" className="text-primary underline">regionale Förderkarte</Link>.</li>
                 </ul>
                 <p className="text-xs">
