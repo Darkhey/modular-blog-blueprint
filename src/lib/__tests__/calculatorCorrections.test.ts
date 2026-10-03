@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { calculateSolarResults, getConfiguration } from '@/utils/solarCalculations';
 import { BEG_2026, HANDWERKERPREISE_2026 } from '@/data/energyPrices2026';
 import { gewerke } from '@/data/kostenrechnerData';
+import { heatingDegreeDaysForPostcode } from '@/lib/heatingDegreeDays';
 import type { SolarInputs } from '@/types/solarCalculator';
 
 const solar: SolarInputs = {
@@ -26,6 +27,22 @@ describe('Solarrechner: Eingaben wirken sich auf Ergebnisse aus', () => {
     const result = calculateSolarResults({ ...solar, mitSpeicher: true, tagverbrauchAnteil: 20 });
     expect(result.amortisationMitSpeicher).not.toBe(result.amortisationOhneSpeicher);
     expect(result.speichernutzung).toBeGreaterThan(0);
+  });
+  it('rechnet Speicherersparnis nur als Mehrwert gegenüber Einspeisung', () => {
+    const result = calculateSolarResults({ ...solar, mitSpeicher: true, tagverbrauchAnteil: 20 });
+    expect(result.speicherersparnis).toBeGreaterThan(0);
+    expect(result.gesamtersparnis).toBe(result.ersparnisSolarstrom + result.einspeiseverguetung);
+  });
+  it('hat im ersten Prognosejahr auch mit hohem Tagesverbrauch ohne Speicher dieselbe Ersparnis', () => {
+    const result = calculateSolarResults({ ...solar, mitSpeicher: false, tagverbrauchAnteil: 70 });
+    expect(result.jahresprognose[0].ersparnis).toBe(result.gesamtersparnis);
+  });
+});
+
+describe('Dämmungsrechner: Klimazonen', () => {
+  it('nutzt Standardwert ohne PLZ und differenziert grob nach Region', () => {
+    expect(heatingDegreeDaysForPostcode('')).toBe(3600);
+    expect(heatingDegreeDaysForPostcode('80331')).toBeGreaterThan(heatingDegreeDaysForPostcode('50667'));
   });
 });
 
