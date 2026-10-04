@@ -1,4 +1,5 @@
 
+import { Helmet } from 'react-helmet-async';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
@@ -23,6 +24,15 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Sanieren & Sparen – Ratgeber für energieeffiziente Sanierung</title>
+        <meta name="description" content="Praktische Tipps, Rechner & Förderinfos für Heizung, Dämmung, Solar und Smart Home – clever sanieren und sparen." />
+        <link rel="canonical" href="https://sanierenundsparen.de/" />
+        <meta property="og:title" content="Sanieren & Sparen – Ratgeber für energieeffiziente Sanierung" />
+        <meta property="og:description" content="Praktische Tipps, Rechner und Fördermittel-Infos für Ihre Haussanierung. Heizung, Dämmung, Solar & Smart Home – alles auf einen Blick." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sanierenundsparen.de/" />
+      </Helmet>
       <main>
         <HeroSection />
         <HeroBentoSection />

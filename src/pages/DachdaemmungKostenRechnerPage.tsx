@@ -87,6 +87,8 @@ const DachdaemmungKostenRechnerPage = () => {
         <link rel="canonical" href={URL} />
         <meta property="og:url" content={URL} />
         <meta property="og:title" content="Dachdämmung Kosten Rechner 2026 – Preis pro m² & Förderung" />
+        <meta property="og:description" content="Kosten der Dachdämmung berechnen: Zwischensparren, Aufsparren und oberste Geschossdecke inkl. BAFA-Förderung und Einsparung." />
+        <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(appSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>

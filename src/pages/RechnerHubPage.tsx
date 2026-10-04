@@ -115,6 +115,10 @@ const RechnerHubPage = () => {
           content="Kostenloser Sanierungsrechner ohne Anmeldung: Sanierungskosten, Heizung, Dämmung, Solar, Förderung und Amortisation sofort online berechnen."
         />
         <link rel="canonical" href={`${SITE}/rechner`} />
+        <meta property="og:url" content={`${SITE}/rechner`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Sanierungsrechner kostenlos 2026 – alle Rechner & Tools" />
+        <meta property="og:description" content="Kostenloser Sanierungsrechner ohne Anmeldung: Sanierungskosten, Heizung, Dämmung, Solar, Förderung und Amortisation sofort online berechnen." />
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
