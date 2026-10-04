@@ -148,8 +148,10 @@ const KostenrechnerPage = () => {
         <title>Sanierungskosten Rechner 2026 – Kosten aller Gewerke berechnen</title>
         <meta name="description" content="Sanierungskosten online berechnen: Dach, Fassade, Fenster und Heizung kombinieren, Förderung abziehen und als PDF speichern – kostenlos." />
         <link rel="canonical" href="https://sanierenundsparen.de/kostenrechner" />
-        <meta property="og:title" content="Sanierungskosten berechnen – Kostenrechner" />
-        <meta property="og:description" content="Mehrere Gewerke kombinieren und Gesamtkosten inkl. Förderung ermitteln." />
+        <meta property="og:title" content="Sanierungskosten Rechner 2026 – Kosten aller Gewerke berechnen" />
+        <meta property="og:description" content="Sanierungskosten online berechnen: Dach, Fassade, Fenster und Heizung kombinieren, Förderung abziehen und als PDF speichern – kostenlos." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sanierenundsparen.de/kostenrechner" />
         <meta property="og:url" content="https://sanierenundsparen.de/kostenrechner" />
         <meta property="og:type" content="website" />
       </Helmet>

@@ -91,14 +91,16 @@ const KernsanierungKostenRechnerPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Kernsanierung Kosten Rechner 2026 – Preis pro m² berechnen</title>
+        <title>Kernsanierung Rechner 2026 – Kosten pro m² kostenlos berechnen</title>
         <meta
           name="description"
-          content="Kernsanierung Kosten pro m² berechnen: Einfach, Standard oder gehoben – mit Kostenaufteilung nach Gewerken und möglicher Förderung. Kostenlos online."
+          content="Kernsanierung Rechner: Kosten pro m² für einfach, Standard oder gehoben berechnen – mit Kostenaufteilung nach Gewerken und möglicher Förderung. Kostenlos online."
         />
         <link rel="canonical" href={URL} />
         <meta property="og:url" content={URL} />
-        <meta property="og:title" content="Kernsanierung Kosten Rechner 2026 – Preis pro m² berechnen" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Kernsanierung Rechner 2026 – Kosten pro m² kostenlos berechnen" />
+        <meta property="og:description" content="Kernsanierung Kosten pro m² berechnen: Ausstattung wählen, Kostenspanne pro Gewerk sehen, Förderung prüfen – kostenlos online." />
         {schemas.map((s, i) => (
           <script key={i} type="application/ld+json">{JSON.stringify(s)}</script>
         ))}
