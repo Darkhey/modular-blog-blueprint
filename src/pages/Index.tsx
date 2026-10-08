@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import HeroSection from '@/components/home/HeroSection';
-import MuuttoBanner from '@/components/home/MuuttoBanner';
+import ThermoflocBanner from '@/components/home/ThermoflocBanner';
 import HeroBentoSection from '@/components/home/HeroBentoSection';
 import CalculatorsBentoSection from '@/components/home/CalculatorsBentoSection';
 import FeaturedExpertSection from '@/components/home/FeaturedExpertSection';
@@ -36,7 +36,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <HeroBentoSection />
-        <MuuttoBanner />
+        <ThermoflocBanner />
         <CalculatorsBentoSection />
         <FeaturedExpertSection />
         <FeaturesSection />
