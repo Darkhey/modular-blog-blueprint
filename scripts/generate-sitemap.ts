@@ -2,6 +2,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { bundeslaender } from "../src/data/regionalFoerderung";
+import { thermoflocBlogPosts } from "../src/data/thermoflocBlogPosts";
 
 const BASE_URL = "https://sanierenundsparen.de";
 const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
@@ -61,6 +62,12 @@ const staticRoutes: Entry[] = [
   { path: "/kontakt", changefreq: "yearly", priority: "0.4" },
   { path: "/impressum", changefreq: "yearly", priority: "0.2" },
   { path: "/datenschutz", changefreq: "yearly", priority: "0.2" },
+  ...thermoflocBlogPosts.map((post) => ({
+    path: `/blog/${post.slug}`,
+    lastmod: post.publishedAt,
+    changefreq: "monthly" as const,
+    priority: "0.7",
+  })),
 ];
 
 async function fetchDynamic(): Promise<Entry[]> {
@@ -122,7 +129,7 @@ function render(entries: Entry[]) {
 
 (async () => {
   const dyn = await fetchDynamic();
-  const all = [...staticRoutes, ...dyn];
+  const all = [...new Map([...staticRoutes, ...dyn].map((entry) => [entry.path, entry])).values()];
   writeFileSync(resolve("public/sitemap.xml"), render(all));
   console.log(`sitemap.xml written (${all.length} entries)`);
 })();
