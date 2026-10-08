@@ -6,6 +6,6 @@
 
 # Thermofloc-Ratgeber
 
-- [ ] Hochgeladene Thermofloc-Unterlagen als belegte Hauptquelle auswerten.
-- [ ] Drei ausführliche, eigenständige Ratgeber mit internen Verweisen veröffentlichen.
-- [ ] Originalfotos einbinden und Artikel, Metadaten sowie Sitemap prüfen.
+- [x] Hochgeladene Thermofloc-Unterlagen als belegte Hauptquelle auswerten.
+- [x] Drei ausführliche, eigenständige Ratgeber mit internen Verweisen veröffentlichen.
+- [x] Originalfotos einbinden und Artikel, Metadaten sowie Sitemap prüfen.

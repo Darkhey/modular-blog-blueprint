@@ -1,7 +1,7 @@
 import { siteConfig } from '@/config/site.config';
-import thermobagPhoto from '@/assets/thermofloc/thermobag-verarbeitung.jpg.asset.json';
-import dachbodenPhoto from '@/assets/thermofloc/zellulose-dachboden.jpg.asset.json';
-import einblasenPhoto from '@/assets/thermofloc/einblasen-dach.jpg.asset.json';
+import thermobagPhoto from '@/assets/thermofloc-thermobag-verarbeitung.jpg';
+import dachbodenPhoto from '@/assets/thermofloc-zellulose-dachboden.jpg';
+import einblasenPhoto from '@/assets/thermofloc-einblasen-dach.webp';
 
 export interface ThermoflocBlogPost {
   id: string;
@@ -41,7 +41,7 @@ export const thermoflocBlogPosts: ThermoflocBlogPost[] = [
     excerpt: 'Was hinter Zellulosedämmung aus Zeitungspapier steckt, welche technischen Werte Thermofloc nennt und worauf es bei Dach, Wand und oberster Geschossdecke ankommt.',
     content: `<p>Zellulosedämmung wird aus aufbereitetem Papier hergestellt und als lose Faser in Hohlräume eingeblasen oder auf waagerechte Flächen aufgeblasen. Das klingt einfach, ist in der Praxis aber ein abgestimmtes System aus Material, Einbaudichte, Luftdichtheit und Verarbeitung. Dieser Ratgeber ordnet die Herstellerangaben von THERMOFLOC ein und zeigt, welche Fragen Hausbesitzer vor einer Entscheidung stellen sollten.</p>
 
-<figure><img src="${dachbodenPhoto.url}" alt="Fachverarbeiter bringt Thermofloc Zellulose auf einem Dachboden ein" loading="eager" /><figcaption>Die lose Zellulose erreicht auch verwinkelte Bereiche. Entscheidend ist eine zur Konstruktion passende, kontrollierte Einbaudichte. Foto: THERMOFLOC</figcaption></figure>
+<figure><img src="${dachbodenPhoto}" alt="Fachverarbeiter bringt Thermofloc Zellulose auf einem Dachboden ein" loading="eager" /><figcaption>Die lose Zellulose erreicht auch verwinkelte Bereiche. Entscheidend ist eine zur Konstruktion passende, kontrollierte Einbaudichte. Foto: THERMOFLOC</figcaption></figure>
 
 ${sourceNote}
 
@@ -74,7 +74,7 @@ ${sourceNote}
 <h2 id="fazit">Fazit</h2>
 <p>THERMOFLOC verbindet einen recycelten Rohstoff mit dokumentierten technischen Kennwerten und einem System für unterschiedliche Bauteile. Gute Dämmung entsteht aber nicht durch den Markennamen allein. Ausschlaggebend sind ein trockener, geeigneter Aufbau, die berechnete Materialmenge, die kontrollierte Einbaudichte und sauber ausgeführte Anschlüsse. Genau diese Punkte sollten im Angebot nachvollziehbar stehen.</p>`,
     topic: 'Dämmung & Isolierung', topicColor, publishedAt: '2026-10-08', readTime: 14,
-    slug: 'thermofloc-zellulosedaemmung-technik-einsatzbereiche', heroImageUrl: dachbodenPhoto.url,
+    slug: 'thermofloc-zellulosedaemmung-technik-einsatzbereiche', heroImageUrl: dachbodenPhoto,
     imageAlt: 'Thermofloc Zellulosedämmung wird auf einem Dachboden eingebracht', imageCredit: 'THERMOFLOC',
     seoTitle: 'Thermofloc Zellulosedämmung: Werte & Einsatz 2026',
     seoDescription: 'Thermofloc Zellulosedämmung erklärt: Wärmeleitfähigkeit, Brandschutz, Einbaudichte, Dach, Wand und Geschossdecke im Faktencheck.',
@@ -91,7 +91,7 @@ ${sourceNote}
     excerpt: 'Die Dämmung der obersten Geschossdecke zählt oft zu den zugänglichsten Maßnahmen. So unterscheiden sich offenes Aufblasen, begehbarer Aufbau und Thermobag-Verfahren.',
     content: `<p>Liegt über dem beheizten Obergeschoss ein kalter, ungenutzter Dachraum, entweicht Wärme über die oberste Geschossdecke. Eine Zellulosedämmung kann die Fläche gleichmäßig bedecken und auch zwischen Balken oder in Randzonen eingebracht werden. Die passende Ausführung hängt vor allem davon ab, ob der Dachboden später begangen oder als Lagerfläche genutzt werden soll.</p>
 
-<figure><img src="${thermobagPhoto.url}" alt="Thermofloc Fachverarbeiter schließt einen Thermobag im Dachraum" loading="eager" /><figcaption>Bei schwer zugänglichen Bereichen kann ein vorbereiteter Hohlraum mit Zellulose gefüllt werden. Foto: THERMOFLOC</figcaption></figure>
+<figure><img src="${thermobagPhoto}" alt="Thermofloc Fachverarbeiter schließt einen Thermobag im Dachraum" loading="eager" /><figcaption>Bei schwer zugänglichen Bereichen kann ein vorbereiteter Hohlraum mit Zellulose gefüllt werden. Foto: THERMOFLOC</figcaption></figure>
 
 ${sourceNote}
 
@@ -106,7 +106,7 @@ ${sourceNote}
 
 <h2 id="thermobag">Was ist ein Thermobag?</h2>
 <p>Die bereitgestellten Fotos zeigen ein sack- beziehungsweise vliesartiges Bauteil, das in einem schwer zugänglichen Dachbereich positioniert und anschließend mit Zellulose gefüllt wird. Solche Lösungen können einen definierten Dämmraum schaffen, wenn eine offene Schüttung nicht an ihrem Platz bleiben würde. Ob und wie das Thermobag-Verfahren eingesetzt werden darf, muss der zertifizierte Verarbeiter anhand der Einbausituation und Systemvorgaben entscheiden.</p>
-<figure><img src="${einblasenPhoto.url}" alt="Zellulose wird über einen Schlauch in einen Thermobag unter dem Dach eingeblasen" loading="lazy" /><figcaption>Der Einblasschlauch bringt die aufgelockerte Faser in den vorbereiteten Dämmraum. Foto: THERMOFLOC</figcaption></figure>
+<figure><img src="${einblasenPhoto}" alt="Zellulose wird über einen Schlauch in einen Thermobag unter dem Dach eingeblasen" loading="lazy" /><figcaption>Der Einblasschlauch bringt die aufgelockerte Faser in den vorbereiteten Dämmraum. Foto: THERMOFLOC</figcaption></figure>
 
 <h2 id="luftdichtheit">Luftdichtheit und Feuchteschutz</h2>
 <p>Warme Raumluft darf nicht unkontrolliert in kalte Bauteilbereiche strömen. Deshalb werden Durchdringungen, Bodentreppen, Installationsschächte und Anschlüsse an Wände sorgfältig abgedichtet. Eine luftdichte Ebene ist etwas anderes als eine vollständig dampfdichte Schicht: Welche Bahn und welcher sd-Wert passen, ergibt sich aus dem gesamten Aufbau.</p>
@@ -127,7 +127,7 @@ ${sourceNote}
 <h2 id="fazit">Fazit</h2>
 <p>Die oberste Geschossdecke ist häufig ein sinnvoller Startpunkt, weil die Dämmfläche gut erreichbar und kleiner als die Dachschrägen sein kann. Zellulose passt sich unregelmäßigen Bereichen an. Dauerhaft überzeugend wird das Ergebnis erst mit geklärter Nutzung, sauberer Luftdichtheit, vollständigen Randanschlüssen und einer dokumentierten Ausführung.</p>`,
     topic: 'Dämmung & Isolierung', topicColor, publishedAt: '2026-10-07', readTime: 13,
-    slug: 'oberste-geschossdecke-zellulose-thermofloc-daemmen', heroImageUrl: thermobagPhoto.url,
+    slug: 'oberste-geschossdecke-zellulose-thermofloc-daemmen', heroImageUrl: thermobagPhoto,
     imageAlt: 'Fachgerechte Thermofloc Zellulosedämmung an der obersten Geschossdecke', imageCredit: 'THERMOFLOC',
     seoTitle: 'Oberste Geschossdecke mit Zellulose dämmen | Ratgeber',
     seoDescription: 'Oberste Geschossdecke mit Zellulose dämmen: Aufbau, Thermobag, Luftdichtheit, begehbare Varianten, Ablauf und Fehler verständlich erklärt.',
@@ -144,7 +144,7 @@ ${sourceNote}
     excerpt: 'Ein gutes Angebot nennt mehr als Fläche und Preis. Diese Checkliste zeigt, wie Eigentümer Materialmenge, Verdichtung, Anschlüsse und Dokumentation vergleichen.',
     content: `<p>Bei einer Einblasdämmung bleibt ein großer Teil der Arbeit später unsichtbar. Umso wichtiger ist es, vor der Beauftragung festzulegen, was geprüft, eingebaut und dokumentiert wird. Die Materialwahl ist nur ein Baustein. Maschinenbedienung, Erfahrung und ein geeigneter Bauteilaufbau entscheiden darüber, ob die Fasern vollständig und dauerhaft an ihrem Platz bleiben.</p>
 
-<figure><img src="${einblasenPhoto.url}" alt="Zertifizierter Thermofloc Verarbeiter führt einen Einblasschlauch im Dachraum" loading="eager" /><figcaption>Einblasdämmung ist eine Facharbeit: Materialfluss und Dichte werden an Bauteil und Dämmstärke angepasst. Foto: THERMOFLOC</figcaption></figure>
+<figure><img src="${einblasenPhoto}" alt="Zertifizierter Thermofloc Verarbeiter führt einen Einblasschlauch im Dachraum" loading="eager" /><figcaption>Einblasdämmung ist eine Facharbeit: Materialfluss und Dichte werden an Bauteil und Dämmstärke angepasst. Foto: THERMOFLOC</figcaption></figure>
 
 ${sourceNote}
 
@@ -184,7 +184,7 @@ ${sourceNote}
 <h2 id="fazit">Fazit</h2>
 <p>Eine hochwertige Einblasdämmung lässt sich prüfen, obwohl sie später verdeckt ist. Die wichtigsten Größen sind Fläche, Volumen, Einbaudichte und Materialmasse. Zusammen mit Fotos, Anschlussdetails und einer Abschlussdokumentation entsteht eine nachvollziehbare Leistung. Ein seriöser Fachbetrieb macht diese Punkte transparent, statt nur einen pauschalen Quadratmeterpreis zu nennen.</p>`,
     topic: 'Dämmung & Isolierung', topicColor, publishedAt: '2026-10-06', readTime: 13,
-    slug: 'einblasdaemmung-fachbetrieb-einbaudichte-qualitaet', heroImageUrl: einblasenPhoto.url,
+    slug: 'einblasdaemmung-fachbetrieb-einbaudichte-qualitaet', heroImageUrl: einblasenPhoto,
     imageAlt: 'Thermofloc Fachbetrieb beim Einblasen von Zellulosedämmung', imageCredit: 'THERMOFLOC',
     seoTitle: 'Einblasdämmung Fachbetrieb: Checkliste & Einbaudichte',
     seoDescription: 'Einblasdämmung richtig beauftragen: Fachbetrieb prüfen, Einbaudichte berechnen, Angebote vergleichen und Ausführung dokumentieren.',
