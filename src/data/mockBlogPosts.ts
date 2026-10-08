@@ -1,4 +1,5 @@
 import { siteConfig } from '@/config/site.config';
+import { thermoflocBlogPosts } from '@/data/thermoflocBlogPosts';
 
 export interface BlogPost {
   id: string;
@@ -22,6 +23,10 @@ export interface BlogPost {
   importantNotice?: string;
   tableOfContents?: { id: string; title: string }[];
   costs?: { item: string; costPerSqm: string; totalCost: string; funding: string }[];
+  heroImageUrl?: string;
+  imageAlt?: string;
+  imageCredit?: string;
+  faq?: { question: string; answer: string }[];
 }
 
 // Erweiterte Mock-Daten für Demo-Zwecke
@@ -3157,7 +3162,7 @@ const wasseraufbereitungPost: BlogPost = {
   ],
 };
 
-const allAdditionalPosts = [sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost, dachausbauPost, stromspeicherPost, lueftungsanlagePost, geg2025Post, kellersanierungPost, fassadensanierungPost, wasseraufbereitungPost];
+const allAdditionalPosts = [...thermoflocBlogPosts, sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost, dachausbauPost, stromspeicherPost, lueftungsanlagePost, geg2025Post, kellersanierungPost, fassadensanierungPost, wasseraufbereitungPost];
 
 export const mockBlogPosts: BlogPost[] = [
   ...baseMockBlogPosts,

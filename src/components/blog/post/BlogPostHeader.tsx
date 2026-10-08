@@ -4,7 +4,7 @@ import { BlogPost } from '@/hooks/useBlogPosts';
 import { getReadingStats, formatWordCount } from '@/lib/readingStats';
 
 interface BlogPostHeaderProps {
-  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content'> & {
+  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content' | 'hero_image_url' | 'image_alt' | 'image_credit'> & {
     last_refreshed_at?: string | null;
   };
 }
@@ -30,6 +30,22 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
     <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed max-w-3xl">
       {post.excerpt}
     </p>
+
+    {post.hero_image_url && (
+      <figure className="mb-8 overflow-hidden rounded-lg border border-border bg-muted">
+        <img
+          src={post.hero_image_url}
+          alt={post.image_alt || post.title}
+          className="aspect-[16/9] w-full object-cover"
+          loading="eager"
+        />
+        {post.image_credit && (
+          <figcaption className="px-4 py-2 text-xs text-muted-foreground">
+            Foto: {post.image_credit}
+          </figcaption>
+        )}
+      </figure>
+    )}
 
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-8 border-b border-border gap-4">
       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">

@@ -61,6 +61,9 @@ const staticRoutes: Entry[] = [
   { path: "/kontakt", changefreq: "yearly", priority: "0.4" },
   { path: "/impressum", changefreq: "yearly", priority: "0.2" },
   { path: "/datenschutz", changefreq: "yearly", priority: "0.2" },
+  { path: "/blog/thermofloc-zellulosedaemmung-technik-einsatzbereiche", lastmod: "2026-10-08", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/oberste-geschossdecke-zellulose-thermofloc-daemmen", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/einblasdaemmung-fachbetrieb-einbaudichte-qualitaet", lastmod: "2026-10-06", changefreq: "monthly", priority: "0.7" },
 ];
 
 async function fetchDynamic(): Promise<Entry[]> {
@@ -122,7 +125,7 @@ function render(entries: Entry[]) {
 
 (async () => {
   const dyn = await fetchDynamic();
-  const all = [...staticRoutes, ...dyn];
+  const all = [...new Map([...staticRoutes, ...dyn].map((entry) => [entry.path, entry])).values()];
   writeFileSync(resolve("public/sitemap.xml"), render(all));
   console.log(`sitemap.xml written (${all.length} entries)`);
 })();
