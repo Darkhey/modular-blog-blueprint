@@ -2,7 +2,6 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { bundeslaender } from "../src/data/regionalFoerderung";
-import { thermoflocBlogPosts } from "../src/data/thermoflocBlogPosts";
 
 const BASE_URL = "https://sanierenundsparen.de";
 const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
@@ -62,12 +61,9 @@ const staticRoutes: Entry[] = [
   { path: "/kontakt", changefreq: "yearly", priority: "0.4" },
   { path: "/impressum", changefreq: "yearly", priority: "0.2" },
   { path: "/datenschutz", changefreq: "yearly", priority: "0.2" },
-  ...thermoflocBlogPosts.map((post) => ({
-    path: `/blog/${post.slug}`,
-    lastmod: post.publishedAt,
-    changefreq: "monthly" as const,
-    priority: "0.7",
-  })),
+  { path: "/blog/thermofloc-zellulosedaemmung-technik-einsatzbereiche", lastmod: "2026-10-08", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/oberste-geschossdecke-zellulose-thermofloc-daemmen", lastmod: "2026-10-07", changefreq: "monthly", priority: "0.7" },
+  { path: "/blog/einblasdaemmung-fachbetrieb-einbaudichte-qualitaet", lastmod: "2026-10-06", changefreq: "monthly", priority: "0.7" },
 ];
 
 async function fetchDynamic(): Promise<Entry[]> {
