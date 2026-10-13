@@ -161,6 +161,29 @@ const DachdaemmungKostenRechnerPage = () => {
             </Accordion>
           </section>
 
+          <section className="mt-8" aria-labelledby="dach-ratgeber">
+            <h2 id="dach-ratgeber" className="text-xl font-bold mb-4">
+              Passende Ratgeber zur Dämmung
+            </h2>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/blog/thermofloc-zellulosedaemmung-technik-einsatzbereiche" className="text-primary hover:underline font-medium">
+                  Thermofloc Dämmung: Dämmstoff, Werte &amp; Einsatzbereiche im Dämmstoffvergleich
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/oberste-geschossdecke-zellulose-thermofloc-daemmen" className="text-primary hover:underline font-medium">
+                  Oberste Geschossdecke mit Thermofloc dämmen – Aufbau &amp; Ablauf
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/einblasdaemmung-fachbetrieb-einbaudichte-qualitaet" className="text-primary hover:underline font-medium">
+                  Einblasdämmung beauftragen: Fachbetrieb finden &amp; Einbaudichte prüfen
+                </Link>
+              </li>
+            </ul>
+          </section>
+
           <p className="mt-8 text-sm text-muted-foreground">
             Weiterlesen:{' '}
             <Link to="/dachausbau" className="text-primary hover:underline font-medium">
