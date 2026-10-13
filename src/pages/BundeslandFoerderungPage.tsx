@@ -111,30 +111,23 @@ const BundeslandFoerderungPage = () => {
         <section aria-labelledby="programme" className="space-y-4">
           <h2 id="programme" className="text-xl font-bold">Landesprogramme für Sanierung & Heizung</h2>
           {land.programme.map((p) => (
-            <Card key={p.name} className="glass">
-              <CardHeader className="pb-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <CardTitle className="text-lg">{p.name}</CardTitle>
-                  <Badge variant="secondary">{TYP_LABEL[p.typ]}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="text-sm space-y-2">
-                <p className="text-muted-foreground">{p.beschreibung}</p>
-                <p className="font-semibold">{p.foerdersumme}</p>
-                <a
-                  href={p.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
-                >
-                  Zur Antragsstelle <ExternalLink className="h-3 w-3" />
-                </a>
-              </CardContent>
-            </Card>
+            <ProgrammCard key={p.name} p={p} />
           ))}
           <p className="text-xs text-muted-foreground">
             Angaben ohne Gewähr – Landesprogramme ändern sich häufig. Bitte vor Antragstellung die aktuellen
             Bedingungen bei der Antragsstelle prüfen.
+          </p>
+        </section>
+
+        <section aria-labelledby="hersteller" className="space-y-4">
+          <h2 id="hersteller" className="text-xl font-bold">Hersteller & Fachbetriebe</h2>
+          {getHerstellerBySlug(land.id).map((h) => (
+            <ProgrammCard key={h.name} p={h} />
+          ))}
+          <p className="text-xs text-muted-foreground">
+            Hersteller stellen keine Fördermittel bereit – Zuschüsse für die Dämmung laufen weiter über KfW, BAFA
+            und die Landesprogramme oben. Anfragen und Angebote laufen direkt über den Hersteller bzw. dessen
+            zertifizierte Fachbetriebe.
           </p>
         </section>
 
