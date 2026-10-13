@@ -3,7 +3,7 @@ export interface FoerderProgramm {
   beschreibung: string;
   foerdersumme: string;
   link: string;
-  typ: 'zuschuss' | 'kredit' | 'beratung';
+  typ: 'zuschuss' | 'kredit' | 'beratung' | 'hersteller';
 }
 
 export interface BundeslandData {
@@ -191,4 +191,19 @@ export const bundeslaender = Object.values(regionalFoerderung);
 
 export function getBundeslandBySlug(slug: string): BundeslandData | undefined {
   return regionalFoerderung[slug];
+}
+
+// Hersteller-Partner (stellen selbst keine Fördermittel bereit) – werden neben den
+// Landesförderbanken in der regionalen Förderkarte angezeigt. Stand: Oktober 2026.
+const THERMOFLOC: FoerderProgramm = {
+  name: 'Thermofloc – Zellulose-Einblasdämmung',
+  beschreibung:
+    'Hersteller von Zellulosedämmung aus recyceltem Zeitungspapier (λ 0,037–0,038 W/(m·K)) für Dach, Wand und schwer erreichbare Hohlräume. Über die Anfrageseite werden Interessenten an zertifizierte Einblasfachbetriebe vermittelt.',
+  foerdersumme: 'Angebot über Fachbetriebe – Beratung kostenlos',
+  link: 'https://www.thermofloc.com/de/',
+  typ: 'hersteller',
+};
+
+export function getHerstellerBySlug(slug: string): FoerderProgramm[] {
+  return [THERMOFLOC];
 }
