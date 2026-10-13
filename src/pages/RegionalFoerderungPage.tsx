@@ -1,31 +1,59 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Euro, BookOpen, CreditCard, MapPin } from 'lucide-react';
+import { ExternalLink, Euro, BookOpen, CreditCard, MapPin, Factory } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import BreadcrumbNavigation from '@/components/ui/breadcrumb-navigation';
 import GermanyMap from '@/components/foerdermittel/GermanyMap';
-import { getBundeslandBySlug, bundeslaender, type FoerderProgramm } from '@/data/regionalFoerderung';
+import { getBundeslandBySlug, bundeslaender, getHerstellerBySlug, type FoerderProgramm } from '@/data/regionalFoerderung';
 
 const typIcons: Record<FoerderProgramm['typ'], React.ReactNode> = {
   zuschuss: <Euro className="h-4 w-4" />,
   kredit: <CreditCard className="h-4 w-4" />,
   beratung: <BookOpen className="h-4 w-4" />,
+  hersteller: <Factory className="h-4 w-4" />,
 };
 
 const typLabels: Record<FoerderProgramm['typ'], string> = {
   zuschuss: 'Zuschuss',
   kredit: 'Kredit',
   beratung: 'Beratung',
+  hersteller: 'Hersteller',
 };
 
 const typColors: Record<FoerderProgramm['typ'], string> = {
   zuschuss: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
   kredit: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
   beratung: 'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300',
+  hersteller: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
 };
+
+const FoerderCard = ({ prog }: { prog: FoerderProgramm }) => (
+  <Card className="transition-all hover:shadow-md">
+    <CardContent className="pt-6">
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <h3 className="font-bold text-lg leading-tight">{prog.name}</h3>
+        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${typColors[prog.typ]}`}>
+          {typIcons[prog.typ]} {typLabels[prog.typ]}
+        </span>
+      </div>
+      <p className="text-muted-foreground mb-3">{prog.beschreibung}</p>
+      <div className="flex items-center justify-between flex-wrap gap-3">
+        <span className="font-bold text-primary text-lg">{prog.foerdersumme}</span>
+        <a
+          href={prog.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+        >
+          {prog.typ === 'hersteller' ? 'Zum Hersteller' : 'Zur Antragsstelle'} <ExternalLink className="h-3 w-3" />
+        </a>
+      </div>
+    </CardContent>
+  </Card>
+);
 
 const RegionalFoerderungPage = () => {
   const [selectedState, setSelectedState] = useState<string | null>(null);
@@ -102,28 +130,11 @@ const RegionalFoerderungPage = () => {
                   </Card>
 
                   {bundesland.programme.map((prog, i) => (
-                    <Card key={i} className="transition-all hover:shadow-md">
-                      <CardContent className="pt-6">
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <h3 className="font-bold text-lg leading-tight">{prog.name}</h3>
-                          <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${typColors[prog.typ]}`}>
-                            {typIcons[prog.typ]} {typLabels[prog.typ]}
-                          </span>
-                        </div>
-                        <p className="text-muted-foreground mb-3">{prog.beschreibung}</p>
-                        <div className="flex items-center justify-between flex-wrap gap-3">
-                          <span className="font-bold text-primary text-lg">{prog.foerdersumme}</span>
-                          <a
-                            href={prog.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-                          >
-                            Zur Antragsstelle <ExternalLink className="h-3 w-3" />
-                          </a>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <FoerderCard key={`p-${i}`} prog={prog} />
+                  ))}
+
+                  {getHerstellerBySlug(bundesland.id).map((prog, i) => (
+                    <FoerderCard key={`h-${i}`} prog={prog} />
                   ))}
 
                   <Card className="bg-primary/5 border-primary/20">
