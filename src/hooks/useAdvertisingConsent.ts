@@ -23,8 +23,17 @@ export function useAdvertisingConsent() {
         }
       }
     };
+    // Einwilligung im selben Tab (CookieConsent sendet dieses Event beim Speichern)
+    const handleConsentChanged = (event: Event) => {
+      const detail = (event as CustomEvent<{ advertising?: boolean }>).detail;
+      setAdvertisingConsent(!!detail?.advertising);
+    };
     window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
+    window.addEventListener('cookie-consent-changed', handleConsentChanged);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('cookie-consent-changed', handleConsentChanged);
+    };
   }, []);
 
   return advertisingConsent;

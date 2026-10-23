@@ -78,6 +78,10 @@ const CookieConsent = () => {
       updateGoogleConsent(analytics, advertising);
       setShowConsent(false);
 
+      // Informiert die App im selben Tab über die neue Einwilligung
+      // (das storage-Event feuert nur in anderen Tabs)
+      window.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: consentData }));
+
       // Tracking-Events für Consent
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'consent_update', {
