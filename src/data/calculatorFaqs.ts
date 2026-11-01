@@ -151,10 +151,28 @@ export const calculatorFaqs: Record<string, CalculatorFaq[]> = {
 
   foerderrechner: [
     {
+      question: 'Was berechnet der Förderrechner Sanierung?',
+      answer:
+        'Der Rechner schätzt den Zuschuss und den verbleibenden Eigenanteil für eine ausgewählte Sanierungsmaßnahme. Dafür berücksichtigt er Investitionskosten, förderfähige Kosten, ausgewählte Boni und pauschale regionale Richtwerte; das Ergebnis ist keine Förderzusage.',
+      anchors: [{ label: 'Eigene Sanierung berechnen', href: '#rechner' }],
+    },
+    {
+      question: 'Welche Angaben brauche ich für den Sanierungs-Zuschüsse Rechner?',
+      answer:
+        'Wähle die Maßnahme und dein Bundesland und trage die geschätzten Investitionskosten ein. Je nach Vorhaben kannst du Selbstnutzung, einen vorhandenen iSFP und passende Heizungsboni auswählen; persönliche Kontaktdaten sind dafür nicht erforderlich.',
+      anchors: [{ label: 'Angaben im Förderrechner ändern', href: '#rechner' }],
+    },
+    {
       question: 'Welche Förderprogramme deckt der Rechner ab?',
       answer:
-        'BAFA-Einzelmaßnahmen (BEG-EM), KfW-Kredite 261/270, iSFP-Bonus sowie geschätzte Top-ups einzelner Bundesländer und Kommunen.',
+        'Die Schätzung umfasst Zuschüsse für Heizungs- und Gebäudehüllenmaßnahmen, passende Boni sowie pauschale regionale Zuschläge. Für Photovoltaik weist der Rechner auf den KfW-Kredit 270 hin, berechnet aber keinen Direktzuschuss und keine Kreditkonditionen; eine Effizienzhaus-Finanzierung über KfW 261 wird nicht berechnet.',
       anchors: [{ label: 'Maßnahme im Rechner auswählen', href: '#rechner' }],
+    },
+    {
+      question: 'Kann ich Förderkosten berechnen und meinen Eigenanteil erkennen?',
+      answer:
+        'Ja. Der Rechner unterscheidet die gesamte Investition von den förderfähigen Kosten und zieht den geschätzten Zuschuss von der Investition ab. So siehst du deinen voraussichtlichen Eigenanteil; tatsächliche Angebote und der Förderbescheid können davon abweichen.',
+      anchors: [{ label: 'Sanierungskosten zuerst schätzen', href: '/kostenrechner' }],
     },
     {
       question: 'Was ist der iSFP-Bonus?',
@@ -165,7 +183,8 @@ export const calculatorFaqs: Record<string, CalculatorFaq[]> = {
     {
       question: 'Bis wann muss ich den Antrag stellen?',
       answer:
-        'BAFA-Anträge müssen vor Auftragsvergabe gestellt werden. Die Bewilligung kommt in 2–6 Wochen. Wer vorher beauftragt, verliert den Anspruch.',
+        'Prüfe die Antragsregeln des konkreten Programms vor Vertragsabschluss und Maßnahmenbeginn. Die Anforderungen an Verträge, Förderbedingungen und den Zeitpunkt des Antrags unterscheiden sich; der Rechner stellt keinen Antrag und ersetzt die Prüfung bei der zuständigen Förderstelle nicht.',
+      anchors: [{ label: 'Förderstellen und Programme prüfen', href: '/foerdermittel' }],
     },
     {
       question: 'Wie hoch ist der maximale Zuschuss?',
