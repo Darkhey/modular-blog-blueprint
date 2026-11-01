@@ -149,7 +149,7 @@ const FoerderrechnerPage = () => {
       </Helmet>
       <CalculatorHero
         icon={Euro}
-        title="Förderrechner: BAFA, KfW & Boni kombinieren"
+        title="Förderrechner Sanierung"
         subtitle="Schätze deinen Zuschuss aus Bundes- und Landesprogrammen in unter einer Minute. Werte sind Richtwerte gemäß BEG-EM und können je nach Antrag abweichen."
         gradient="from-emerald-600 to-green-500"
         breadcrumbs={[
@@ -329,6 +329,39 @@ const FoerderrechnerPage = () => {
             <ResultsPDFExport calculatorType="foerder" results={result} />
           </div>
 
+          <section aria-labelledby="sanierungs-zuschuesse" className="mt-10 border-t pt-8">
+            <h2 id="sanierungs-zuschuesse" className="text-2xl font-bold text-foreground">Sanierungs-Zuschüsse und Eigenanteil berechnen</h2>
+            <p className="mt-3 text-muted-foreground leading-relaxed">
+              Was bleibt von den Sanierungskosten nach der Förderung? Der Förderrechner Sanierung
+              schätzt Zuschüsse für Heizung, Fenster, Dämmung und Lüftung anhand deiner
+              Investitionskosten, ausgewählten Boni und des Bundeslands. Das Ergebnis trennt
+              förderfähige Kosten, Zuschuss und verbleibenden Eigenanteil.
+            </p>
+            <p className="mt-3 text-muted-foreground leading-relaxed">
+              Die regionalen Beträge sind pauschale Schätzwerte, keine bestätigte Förderzusage.
+              Ob ein Programm zu deinem Vorhaben passt und mit anderen Zuschüssen kombinierbar ist,
+              musst du vor dem Antrag prüfen.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Button asChild variant="outline"><Link to="/foerdermittel/regional">Regionale Förderprogramme <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+              <Button asChild variant="outline"><Link to="/kostenrechner">Sanierungskosten schätzen <ArrowRight className="ml-2 h-4 w-4" /></Link></Button>
+            </div>
+          </section>
+
+          <CalculatorFaqSection
+            faqKey="foerderrechner"
+            calculatorType="foerder"
+            title="Förderrechner Sanierung"
+            description="Zuschüsse und Eigenanteil für Heizung, Fenster und Dämmung schätzen – mit BAFA, KfW, iSFP-Bonus und regionalen Richtwerten."
+            heading="FAQ zum Förderrechner Sanierung"
+            className="border-y border-border py-6"
+            breadcrumbs={[
+              { name: 'Start', url: 'https://sanierenundsparen.de/' },
+              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
+              { name: 'Förderrechner Sanierung', url: 'https://sanierenundsparen.de/foerderrechner' },
+            ]}
+          />
+
           <Accordion type="single" collapsible className="mt-8">
             <AccordionItem value="methodik">
               <AccordionTrigger className="text-base font-semibold">Wie wird gerechnet?</AccordionTrigger>
@@ -394,18 +427,6 @@ Eigenanteil = Investition − Zuschuss
           />
 
           <CalculatorHowToSection howToKey="foerderrechner" url="https://sanierenundsparen.de/foerderrechner" />
-
-          <CalculatorFaqSection
-            faqKey="foerderrechner"
-            calculatorType="foerder"
-            title="Förderrechner 2026"
-            description="BAFA, KfW, iSFP-Bonus und regionale Top-ups für Ihre Sanierung online berechnen."
-            breadcrumbs={[
-              { name: 'Start', url: 'https://sanierenundsparen.de/' },
-              { name: 'Rechner & Tools', url: 'https://sanierenundsparen.de/rechner' },
-              { name: 'Förderrechner', url: 'https://sanierenundsparen.de/foerderrechner' },
-            ]}
-          />
 
         </div>
       </main>
