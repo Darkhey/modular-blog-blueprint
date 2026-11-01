@@ -37,9 +37,9 @@ export const routeMeta: RouteMeta[] = [
   },
   {
     path: '/foerderrechner',
-    title: 'Förderrechner 2026 – BAFA & KfW Zuschuss berechnen',
+    title: 'Förderrechner Sanierung 2026 – BAFA & KfW-Zuschüsse',
     description:
-      'Berechnen Sie Ihren BEG-Zuschuss inkl. Klimageschwindigkeits-, Einkommens- und iSFP-Bonus – mit Förderdeckeln 2026.',
+      'Sanierungs-Zuschüsse Rechner: Förderung und Eigenanteil für Heizung, Fenster und Dämmung schätzen. Förderkosten berechnen mit BAFA, KfW und iSFP-Bonus.',
   },
   {
     path: '/roi-rechner',

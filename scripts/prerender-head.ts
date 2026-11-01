@@ -83,6 +83,19 @@ function buildHtml(template: string, meta: PageMeta) {
       `<meta name="twitter:description" content="${d}" />`,
     );
 
+  // Fehlende Route-Tags ergänzen: Das HTML-Template enthält nicht alle Fallbacks.
+  const requiredTags = [
+    { selector: 'name="description"', tag: `<meta name="description" content="${d}" />` },
+    { selector: 'property="og:title"', tag: `<meta property="og:title" content="${t}" />` },
+    { selector: 'property="og:description"', tag: `<meta property="og:description" content="${d}" />` },
+    { selector: 'property="og:url"', tag: `<meta property="og:url" content="${url}" />` },
+  ];
+  for (const { selector, tag } of requiredTags) {
+    if (!html.includes(`<meta ${selector}`)) {
+      html = html.replace('</head>', `  ${tag}\n  </head>`);
+    }
+  }
+
   if (meta.image) {
     const img = escapeHtml(meta.image);
     html = html

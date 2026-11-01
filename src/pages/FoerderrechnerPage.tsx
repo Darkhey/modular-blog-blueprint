@@ -137,9 +137,15 @@ const FoerderrechnerPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Förderrechner 2026 – BAFA, KfW & Boni kostenlos berechnen</title>
-        <meta name="description" content="BAFA-Zuschuss, KfW-Förderung, iSFP-Bonus und regionale Programme für Ihre Sanierung in Sekunden online berechnen – aktuell 2026." />
+        <title>Förderrechner Sanierung 2026 – BAFA & KfW-Zuschüsse</title>
+        <meta name="description" content="Sanierungs-Zuschüsse Rechner: Förderung und Eigenanteil für Heizung, Fenster und Dämmung schätzen. Förderkosten berechnen mit BAFA, KfW und iSFP-Bonus." />
         <link rel="canonical" href="https://sanierenundsparen.de/foerderrechner" />
+        <meta property="og:title" content="Förderrechner Sanierung 2026 – BAFA & KfW-Zuschüsse" />
+        <meta property="og:description" content="Sanierungs-Zuschüsse Rechner: Förderung und Eigenanteil für Heizung, Fenster und Dämmung schätzen. Förderkosten berechnen mit BAFA, KfW und iSFP-Bonus." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sanierenundsparen.de/foerderrechner" />
+        <meta name="twitter:title" content="Förderrechner Sanierung 2026 – BAFA & KfW-Zuschüsse" />
+        <meta name="twitter:description" content="Sanierungs-Zuschüsse Rechner: Förderung und Eigenanteil für Heizung, Fenster und Dämmung schätzen. Förderkosten berechnen mit BAFA, KfW und iSFP-Bonus." />
       </Helmet>
       <CalculatorHero
         icon={Euro}
