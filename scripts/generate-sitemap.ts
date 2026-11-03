@@ -2,6 +2,7 @@
 import { writeFileSync } from "fs";
 import { resolve } from "path";
 import { bundeslaender } from "../src/data/regionalFoerderung";
+import { loadLocalPosts } from './localPosts';
 
 const BASE_URL = "https://sanierenundsparen.de";
 const SUPABASE_URL = "https://bmemdtbflrmdymxqpqhs.supabase.co";
@@ -125,7 +126,8 @@ function render(entries: Entry[]) {
 
 (async () => {
   const dyn = await fetchDynamic();
-  const all = [...new Map([...staticRoutes, ...dyn].map((entry) => [entry.path, entry])).values()];
+  const local = (await loadLocalPosts()).map(p => ({ path: `/blog/${p.slug}`, changefreq: 'monthly' as const, priority: '0.7', ...(p.slug === 'in-eigener-sache-handwerker-online-erkennen' ? { lastmod: p.publishedAt } : {}) }));
+  const all = [...new Map([...staticRoutes, ...local, ...dyn].map((entry) => [entry.path, entry])).values()];
   writeFileSync(resolve("public/sitemap.xml"), render(all));
   console.log(`sitemap.xml written (${all.length} entries)`);
 })();

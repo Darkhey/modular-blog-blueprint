@@ -6,9 +6,11 @@
 // So sehen Crawler (auch ohne JS-Ausführung) pro Route korrekte Metadaten und
 // vor allem eine selbstreferenzierende Canonical-URL.
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from 'fs';
 import { resolve, join } from 'path';
 import { routeMeta } from './routeMeta';
+import { loadLocalPosts } from './localPosts';
+import { staticArticleBody, staticHomepageBody, type StaticPost } from '../src/lib/staticContent';
 
 const BASE_URL = 'https://sanierenundsparen.de';
 const DIST = resolve('dist');
@@ -28,6 +30,7 @@ interface PageMeta {
   description: string;
   image?: string;
   jsonLd?: Record<string, unknown>;
+  body?: string;
 }
 
 function escapeHtml(value: string) {
@@ -107,7 +110,12 @@ function buildHtml(template: string, meta: PageMeta) {
         /<meta name="twitter:image" content="[\s\S]*?" \/>/,
         `<meta name="twitter:image" content="${img}" />`,
       );
+    if (!html.includes('property="og:image"')) html = html.replace('</head>', `<meta property="og:image" content="${img}" /></head>`);
+    if (!html.includes('name="twitter:image"')) html = html.replace('</head>', `<meta name="twitter:image" content="${img}" /></head>`);
   }
+
+  if (meta.body) html = html.replace(/<div id="root">[\s\S]*?<\/div>/, `<div id="root">${meta.body}</div>`);
+  if (meta.jsonLd) html = html.replace(/property="og:type" content="website"/, 'property="og:type" content="article"');
 
   const extra = meta.jsonLd
     ? `  <script type="application/ld+json">${JSON.stringify(meta.jsonLd).replace(/</g, '\\u003c')}</script>\n`
@@ -156,6 +164,8 @@ interface PostRow {
   published_at: string | null;
   updated_at: string | null;
   topic: string | null;
+  content: string | null;
+  blog_authors?: { name: string } | null;
 }
 
 interface CategoryRow {
@@ -188,7 +198,7 @@ async function main() {
 
   // 2. Blogartikel
   const posts = await fetchJson<PostRow>(
-    'blog_posts?select=slug,title,excerpt,seo_title,seo_description,hero_image_url,cover_url,published_at,updated_at,topic&status=eq.published&order=published_at.desc&limit=2000',
+    'blog_posts?select=slug,title,excerpt,content,seo_title,seo_description,hero_image_url,cover_url,published_at,updated_at,topic,blog_authors(name)&status=eq.published&order=published_at.desc&limit=2000',
   );
   for (const p of posts) {
     if (!p.slug) continue;
@@ -202,6 +212,7 @@ async function main() {
       title,
       description,
       image: p.hero_image_url || p.cover_url || undefined,
+      body: p.content ? staticArticleBody({ slug: p.slug, title: p.title, excerpt: p.excerpt || '', content: p.content, publishedAt: p.published_at || '', heroImageUrl: p.hero_image_url || p.cover_url || undefined, authorName: p.blog_authors?.name }) : undefined,
       jsonLd: {
         '@context': 'https://schema.org',
         '@type': 'Article',
@@ -222,6 +233,42 @@ async function main() {
       },
     });
   }
+
+  // Local editorial posts must be available even if the remote catalogue is unavailable.
+  const copyAsset = (url: string): string => {
+    if (!url.startsWith('/src/assets/')) return url;
+    const source = resolve(url.slice(1));
+    if (!existsSync(source)) throw new Error(`Missing article asset: ${url}`);
+    const file = `prerender-${url.split('/').pop()}`;
+    mkdirSync(join(DIST, 'assets'), { recursive: true });
+    copyFileSync(source, join(DIST, 'assets', file));
+    return `/assets/${file}`;
+  };
+  const localPosts = (await loadLocalPosts()).map(p => ({
+    ...p,
+    heroImageUrl: p.heroImageUrl ? copyAsset(p.heroImageUrl) : undefined,
+    content: p.content.replace(/\/src\/assets\/[^\s"'<>]+/g, copyAsset),
+  }));
+  for (const post of localPosts) {
+    const path = `/blog/${post.slug}`;
+    if (pages.has(path)) continue;
+    pages.set(path, {
+      path, title: post.seoTitle || post.title, description: post.seoDescription || post.excerpt,
+      image: post.heroImageUrl ? new URL(post.heroImageUrl, BASE_URL).href : undefined,
+      body: staticArticleBody(post),
+      jsonLd: {
+        '@context': 'https://schema.org', '@type': post.schemaType || 'Article',
+        headline: post.title, datePublished: post.publishedAt,
+        ...(post.heroImageUrl ? { image: new URL(post.heroImageUrl, BASE_URL).href } : {}),
+        author: { '@type': post.authorName ? 'Person' : 'Organization', name: post.authorName || 'Sanieren & Sparen' },
+        mainEntityOfPage: `${BASE_URL}${path}`, inLanguage: 'de-DE',
+      },
+    });
+  }
+  const featured = localPosts.find(p => p.slug === 'in-eigener-sache-handwerker-online-erkennen');
+  const homepage = pages.get('/');
+  if (!featured || !homepage) throw new Error('Required featured article or homepage missing');
+  homepage.body = staticHomepageBody(featured, localPosts);
 
   // 3. Kategorien
   const cats = await fetchJson<CategoryRow>('blog_categories?select=slug,name,description');
@@ -256,7 +303,10 @@ async function main() {
   }
 
   for (const meta of all) writePage(template, meta);
-  console.log(`prerender-head: ${all.length} Routen mit statischen Metadaten erzeugt.`);
+  console.log(`prerender-head: ${all.length} Routen mit Metadaten, ${all.filter(p => p.body).length} mit sichtbaren statischen Inhalten erzeugt.`);
+
+  const emptyArticles = all.filter(p => p.path.startsWith('/blog/') && !p.body);
+  if (emptyArticles.length) throw new Error(`Article content missing: ${emptyArticles.map(p => p.path).join(', ')}`);
 
   // 5. Verifikation: jede Sitemap-URL muss eine eigene HTML-Datei haben
   const missing = sitemapPaths().filter((p) => {
