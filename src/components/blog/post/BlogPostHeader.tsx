@@ -4,7 +4,7 @@ import { BlogPost } from '@/hooks/useBlogPosts';
 import { getReadingStats, formatWordCount } from '@/lib/readingStats';
 
 interface BlogPostHeaderProps {
-  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content' | 'hero_image_url' | 'image_alt' | 'image_credit'> & {
+  post: Pick<BlogPost, 'topic_color' | 'topic' | 'title' | 'excerpt' | 'published_at' | 'read_time' | 'difficulty' | 'content' | 'hero_image_url' | 'image_alt' | 'image_credit' | 'blog_authors'> & {
     last_refreshed_at?: string | null;
   };
 }
@@ -49,6 +49,7 @@ const BlogPostHeader = ({ post }: BlogPostHeaderProps) => {
 
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-8 border-b border-border gap-4">
       <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+        {post.blog_authors?.name && <span>Von {post.blog_authors.name}</span>}
         <div className="flex items-center space-x-2">
           <Calendar size={16} />
           <span>{new Date(post.published_at).toLocaleDateString('de-DE', {

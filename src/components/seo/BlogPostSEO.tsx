@@ -12,7 +12,8 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
   const seoTitle = post.seo_title || `${post.title} | ${siteConfig.projectName}`;
   const seoDescription = post.seo_description || post.excerpt;
   const keywords = post.keywords?.join(', ') || `${post.topic}, Sanierung, Energieeffizienz`;
-  const image = post.hero_image_url || post.cover_url || `${siteConfig.siteUrl}/logo.png`;
+  const rawImage = post.hero_image_url || post.cover_url || `${siteConfig.siteUrl}/favicon.svg`;
+  const image = new URL(rawImage, siteConfig.siteUrl).href;
   const publisherLogo = `${siteConfig.siteUrl}/logo.png`;
   
   // Calculate word count for reading time estimate
@@ -20,7 +21,7 @@ const BlogPostSEO = ({ post, canonicalUrl }: BlogPostSEOProps) => {
   
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": post.schema_type || "Article",
     "headline": post.title,
     "description": post.excerpt,
     "image": image,

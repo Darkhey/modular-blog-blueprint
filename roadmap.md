@@ -9,3 +9,10 @@
 - [x] Hochgeladene Thermofloc-Unterlagen als belegte Hauptquelle auswerten.
 - [x] Drei ausführliche, eigenständige Ratgeber mit internen Verweisen veröffentlichen.
 - [x] Originalfotos einbinden und Artikel, Metadaten sowie Sitemap prüfen.
+
+# In eigener Sache: Handwerksbetriebe online erkennen
+
+- [x] Persönlichen Beitrag mit Checkliste, Transparenz und vier normalen Unternehmenslinks erstellen.
+- [x] Startseitenkarte, Impressum-Hinweis und globalen nofollow-Footerlink ergänzen.
+- [x] Zwei bestehende Ratgeber intern verlinken und Sitemap aktualisieren.
+- [x] Statische Artikel- und Startseitenausgabe eingerichtet; Metadaten, Crawlerzugang und Browserdarstellung geprüft. Live-Auslieferung folgt erst nach Veröffentlichung.

@@ -22,6 +22,15 @@ User-agent: Pinterest
 Allow: /
 
 # Default Rule
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
 User-agent: *
 Allow: /
 
@@ -33,6 +42,3 @@ Disallow: /dashboard
 # Sitemap
 Sitemap: https://sanierenundsparen.de/sitemap.xml
 
-# Crawl-delay for other bots
-User-agent: *
-Crawl-delay: 1

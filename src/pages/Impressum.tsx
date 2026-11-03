@@ -34,6 +34,11 @@ const Impressum = () => {
                 {/* Auto Ads are handled via AdSense dashboard */}
 
                 <div>
+                  <h2 className="text-xl font-semibold mb-3">Gestaltung und Umsetzung</h2>
+                  <p>Gestaltung und technische Umsetzung: <a href="https://ahansdampf.de" className="text-primary underline underline-offset-4">A Hansdampf – https://ahansdampf.de</a></p>
+                </div>
+
+                <div>
                   <h2 className="text-xl font-semibold text-gray-900 mb-3">EU-Streitschlichtung</h2>
                   <p>
                     Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">https://ec.europa.eu/consumers/odr</a>.<br />

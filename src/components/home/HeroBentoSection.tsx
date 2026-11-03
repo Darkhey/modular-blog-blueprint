@@ -3,12 +3,19 @@ import { ArrowRight, Calculator, Clock, PiggyBank, Star } from 'lucide-react';
 import { useRankedPosts } from '@/hooks/useRankedPosts';
 import { Skeleton } from '@/components/ui/skeleton';
 import sanierungsfahrplanImg from '@/assets/sanierungsfahrplan-hero.jpg';
+import { ahansdampfBlogPost } from '@/data/ahansdampfBlogPost';
 
 const HeroBentoSection = () => {
   const { data: posts, isLoading } = useRankedPosts(4);
 
-  const lead = posts?.[0];
-  const secondary = posts?.slice(1, 3) ?? [];
+  const lead = {
+    slug: ahansdampfBlogPost.slug, title: ahansdampfBlogPost.title,
+    excerpt: ahansdampfBlogPost.excerpt, topic: 'In eigener Sache',
+    hero_image_url: ahansdampfBlogPost.heroImageUrl,
+    image_alt: ahansdampfBlogPost.imageAlt, read_time: ahansdampfBlogPost.readTime,
+    cover_url: undefined,
+  };
+  const secondary = posts?.slice(0, 2) ?? [];
 
   return (
     <section aria-labelledby="hero-bento-heading" className="bg-background py-10 md:py-14">
@@ -23,7 +30,7 @@ const HeroBentoSection = () => {
           </h2>
         </div>
 
-        {isLoading ? (
+        {isLoading && !lead ? (
           <div className="grid gap-4 md:grid-cols-3">
             <Skeleton className="h-72 rounded-2xl md:col-span-2" />
             <div className="grid content-start gap-4">
@@ -44,7 +51,7 @@ const HeroBentoSection = () => {
                   width={1200}
                   height={675}
                   loading="lazy"
-                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[19rem]"
+                  className="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[19rem]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/45 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
@@ -56,7 +63,7 @@ const HeroBentoSection = () => {
                   <h3 className="text-xl font-bold leading-snug text-white md:text-2xl">
                     {lead.title}
                   </h3>
-                  <p className="mt-2 hidden text-sm text-white/85 md:line-clamp-2">
+                  <p className="mt-2 text-sm text-white/85 md:line-clamp-2">
                     {lead.excerpt}
                   </p>
                   {lead.read_time ? (
