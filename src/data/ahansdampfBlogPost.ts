@@ -5,7 +5,7 @@ export const ahansdampfBlogPost = {
   slug: 'in-eigener-sache-handwerker-online-erkennen',
   title: 'In eigener Sache: Wie dieser Blog entstanden ist – und woran Sie online einen guten Handwerksbetrieb erkennen',
   excerpt: 'Ein persönlicher Blick hinter Sanieren und Sparen – und eine praktische Checkliste, mit der Sie Handwerksbetriebe online besser einschätzen können.',
-  topic: 'Sanierungsplanung', topicColor: 'var(--primary)',
+  topic: 'Sanierungsplanung', topicColor: 'hsl(var(--primary))',
   publishedAt: '2026-11-03', readTime: 7,
   authorName: 'Max Leistner', schemaType: 'BlogPosting' as const, isFeatured: true,
   heroImageUrl: illustration,
