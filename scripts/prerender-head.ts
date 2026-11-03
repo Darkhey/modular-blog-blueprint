@@ -10,10 +10,10 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from
 import { resolve, join } from 'path';
 import { routeMeta } from './routeMeta';
 import { loadLocalPosts } from './localPosts';
-import { staticArticleBody, staticHomepageBody, type StaticPost } from '../src/lib/staticContent';
+import { staticArticleBody, staticHomepageBody } from '../src/lib/staticContent';
 
 const BASE_URL = 'https://sanierenundsparen.de';
-const DIST = resolve('dist');
+const DIST = resolve(process.env.PRERENDER_OUTPUT_DIR || 'dist');
 const INDEX = join(DIST, 'index.html');
 const SITEMAP = resolve('public/sitemap.xml');
 
