@@ -2,6 +2,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { mockBlogPosts } from '@/data/mockBlogPosts';
+import { withEditorialRelatedLink } from '@/data/editorialLinks';
 
 export interface BlogPost {
   id: string;
@@ -52,6 +53,7 @@ export interface BlogPost {
   like_count?: number;
   comment_count?: number;
   is_featured?: boolean;
+  schema_type?: 'Article' | 'BlogPosting';
 }
 
 // Convert mock camelCase data to snake_case BlogPost format
@@ -59,7 +61,7 @@ const convertMockPost = (mock: any): BlogPost => ({
   id: mock.id,
   title: mock.title,
   excerpt: mock.excerpt,
-  content: mock.content,
+  content: withEditorialRelatedLink(mock.slug, mock.content),
   topic: mock.topic,
   topic_color: mock.topicColor,
   published_at: mock.publishedAt,
@@ -83,6 +85,9 @@ const convertMockPost = (mock: any): BlogPost => ({
   table_of_contents: mock.tableOfContents,
   costs: mock.costs,
   status: 'published',
+  blog_authors: mock.authorName ? { name: mock.authorName } : null,
+  schema_type: mock.schemaType,
+  is_featured: mock.isFeatured,
 });
 
 export const getMockFallbackPosts = (): BlogPost[] =>
@@ -163,7 +168,7 @@ export const useBlogPost = (slug: string) => {
         throw error || new Error('Post not found');
       }
 
-      return data as BlogPost;
+      return { ...data, content: withEditorialRelatedLink(data.slug, data.content) } as BlogPost;
     },
     enabled: !!slug
   });

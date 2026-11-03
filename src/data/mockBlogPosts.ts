@@ -1,5 +1,6 @@
 import { siteConfig } from '@/config/site.config';
 import { thermoflocBlogPosts } from '@/data/thermoflocBlogPosts';
+import { ahansdampfBlogPost } from '@/data/ahansdampfBlogPost';
 
 export interface BlogPost {
   id: string;
@@ -27,6 +28,9 @@ export interface BlogPost {
   imageAlt?: string;
   imageCredit?: string;
   faq?: { question: string; answer: string }[];
+  authorName?: string;
+  schemaType?: 'Article' | 'BlogPosting';
+  isFeatured?: boolean;
 }
 
 // Erweiterte Mock-Daten für Demo-Zwecke
@@ -3165,6 +3169,7 @@ const wasseraufbereitungPost: BlogPost = {
 const allAdditionalPosts = [...thermoflocBlogPosts, sanierungsFehlerPost, sanierungsfahrplanPost, altbauKaufenPost, einblasdaemmungPost, renovierungsTrends2026Post, badezimmerRenovierungPost, waermepumpeAltbauPost, kernsanierungVsTeilsanierungPost, dachausbauPost, stromspeicherPost, lueftungsanlagePost, geg2025Post, kellersanierungPost, fassadensanierungPost, wasseraufbereitungPost];
 
 export const mockBlogPosts: BlogPost[] = [
+  ahansdampfBlogPost,
   ...baseMockBlogPosts,
   ...allAdditionalPosts.filter(
     post => !baseMockBlogPosts.some(bp => bp.slug === post.slug)

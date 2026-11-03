@@ -180,6 +180,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} {siteConfig.projectName}. Alle Rechte vorbehalten.</p>
+          <p className="mt-2 text-xs"><a href="https://ahansdampf.de" rel="nofollow" className="underline underline-offset-4">Website: A Hansdampf</a></p>
         </div>
       </div>
     </footer>
