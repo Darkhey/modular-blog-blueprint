@@ -51,7 +51,7 @@ const HeroBentoSection = () => {
                   width={1200}
                   height={675}
                   loading="lazy"
-                  className="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[19rem]"
+                  className="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[19rem]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-emerald-950/45 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
@@ -63,7 +63,7 @@ const HeroBentoSection = () => {
                   <h3 className="text-xl font-bold leading-snug text-white md:text-2xl">
                     {lead.title}
                   </h3>
-                  <p className="mt-2 text-sm text-white/85 line-clamp-2">
+                  <p className="mt-2 text-sm text-white/85 md:line-clamp-2">
                     {lead.excerpt}
                   </p>
                   {lead.read_time ? (

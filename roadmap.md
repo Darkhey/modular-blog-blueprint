@@ -12,7 +12,7 @@
 
 # In eigener Sache: Handwerksbetriebe online erkennen
 
-- [ ] Persönlichen Beitrag mit Checkliste, Transparenz und vier normalen Herstellerlinks erstellen.
-- [ ] Startseitenkarte, Impressum-Hinweis und globalen nofollow-Footerlink ergänzen.
-- [ ] Zwei bestehende Ratgeber intern verlinken und Sitemap aktualisieren.
-- [ ] Artikel und Startseite ohne JavaScript ausliefern; Metadaten, Crawlerzugang und Browserdarstellung prüfen.
+- [x] Persönlichen Beitrag mit Checkliste, Transparenz und vier normalen Unternehmenslinks erstellen.
+- [x] Startseitenkarte, Impressum-Hinweis und globalen nofollow-Footerlink ergänzen.
+- [x] Zwei bestehende Ratgeber intern verlinken und Sitemap aktualisieren.
+- [x] Statische Artikel- und Startseitenausgabe eingerichtet; Metadaten, Crawlerzugang und Browserdarstellung geprüft. Live-Auslieferung folgt erst nach Veröffentlichung.

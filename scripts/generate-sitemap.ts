@@ -127,7 +127,7 @@ function render(entries: Entry[]) {
 (async () => {
   const dyn = await fetchDynamic();
   const local = (await loadLocalPosts()).map(p => ({ path: `/blog/${p.slug}`, changefreq: 'monthly' as const, priority: '0.7', ...(p.slug === 'in-eigener-sache-handwerker-online-erkennen' ? { lastmod: p.publishedAt } : {}) }));
-  const all = [...new Map([...staticRoutes, ...local, ...dyn].map((entry) => [entry.path, entry])).values()];
+  const all = [...new Map([...local, ...staticRoutes, ...dyn].map((entry) => [entry.path, entry])).values()];
   writeFileSync(resolve("public/sitemap.xml"), render(all));
   console.log(`sitemap.xml written (${all.length} entries)`);
 })();
